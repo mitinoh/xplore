@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "121214829624",
+    "project_id": "xplore-342821",
+    "storage_bucket": "xplore-342821.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121214829624:android:21dd89c81a2b43199ed2cd",
+        "android_client_info": {
+          "package_name": "com.beyondx.xplore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121214829624-k26h085ctdur768q87ue6pc2ci9nlg3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK6sIyjrX_2vNKTSw0G5QBFH-4XzUQcyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121214829624-k26h085ctdur768q87ue6pc2ci9nlg3b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "121214829624-8naqvlgp6jgtfrlvr931p6bl99tv0v18.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beyondx.xplore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
