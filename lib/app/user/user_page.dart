@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:xplore/app/user/bloc/user_bloc.dart';
 import 'package:xplore/app/user/user_model.dart';
+import 'package:latlong2/latlong.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -17,15 +19,46 @@ class _UserPageState extends State<UserPage> {
   void initState() {
     _newsBloc.add(GetUserList());
 
-     _newsBloc.add(Test(amount: 5));
+    _newsBloc.add(Test(amount: 5));
     super.initState();
   }
 
+/*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('User-19 List')),
       body: _buildListUser(),
+    );
+  }
+*/
+  Widget build(BuildContext context) {
+    return FlutterMap(
+      options: MapOptions(
+        center: LatLng(51.5, -0.09),
+        zoom: 18.0,
+      ),
+      layers: [
+        TileLayerOptions(
+          urlTemplate:
+              "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWhtZWQxMjNiYWhtdWQiLCJhIjoiY2wwcHFheHh0MHR1czNqcGttZXcxcG9lbSJ9.nzJlDO8J8qND7iNB6YdKaw",
+          additionalOptions: {
+            'accessToken':
+                'pk.eyJ1IjoiYWhtZWQxMjNiYWhtdWQiLCJhIjoiY2wwcHFheHh0MHR1czNqcGttZXcxcG9lbSJ9.nzJlDO8J8qND7iNB6YdKaw',
+            'id': 'mapbox/streets-v11',
+          },
+        ),
+        MarkerLayerOptions(
+          markers: [
+            Marker(
+              width: 80.0,
+              height: 80.0,
+              point: LatLng(51.5, -0.09),
+              builder: (ctx) => new FlutterLogo(),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -79,12 +112,11 @@ class _UserPageState extends State<UserPage> {
               child: Text(model[index].a ?? ""),
             )
           ],
-        ) ;
+        );
       },
     );
-    
-    
-     /*ListView.builder(
+
+    /*ListView.builder(
       itemCount: model.,
       itemBuilder: (context, index) {
         return Container(

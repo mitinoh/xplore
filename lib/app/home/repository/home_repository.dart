@@ -1,11 +1,7 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/core/repository.dart';
 import 'package:xplore/model/location_model.dart';
-import 'dart:convert' as convert;
 
 class HomeRepository extends Repository {
   static List<int> categoryFilter = [];
@@ -21,19 +17,16 @@ class HomeRepository extends Repository {
 
   String getPipeline({String? searchName}) {
     List<String> mtc = [];
-    if (searchName != null) {
-      //{pipeline:[{"\$match": {  "name": {"\$eq": " + mtc "
-      mtc.add('{ "name": { "\$eq" : "$searchName" } }');
+    if (searchName != null && searchName.trim() != "") {
+      mtc.add('{ "name": {  "\$regex": "$searchName",  "\$options": "gi" } }');
     }
     if (categoryFilter.isNotEmpty) {
       mtc.add(' { "category": { "\$in" : [${categoryFilter.join(",")}]}} ');
     }
-    String pipe = "";
-    if (mtc.isNotEmpty)
+    String pipe = "{}";
+    if (mtc.isNotEmpty) {
       pipe = '{pipeline: [ {"\$match": ${mtc.join(",")} } ]}';
-    else
-      pipe = '{}';
-    log(pipe);
+    }
     return pipe;
   }
 }
