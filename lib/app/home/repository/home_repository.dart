@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:xplore/core/repository.dart';
 import 'package:xplore/model/location_model.dart';
@@ -9,8 +8,6 @@ class HomeRepository extends Repository {
   Future<List<Location>> fetchLocationList({required String body}) async {
     String url = conf.ip + conf.locationColl;
     await setDio(_dio);
-    log("----");
-    log(body);
     Response response = await _dio.post(url, data: body);
     return Location().toList(response);
   }
@@ -23,7 +20,7 @@ class HomeRepository extends Repository {
     if (categoryFilter.isNotEmpty) {
       mtc.add(' { "category": { "\$in" : [${categoryFilter.join(",")}]}} ');
     }
-    String pipe = "{}";
+    String pipe = "{}"; //  {'\$limit': 1 }
     if (mtc.isNotEmpty) {
       pipe = '{pipeline: [ {"\$match": ${mtc.join(",")} } ]}';
     }

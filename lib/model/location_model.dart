@@ -71,9 +71,9 @@ class Id {
 }
 
 class Coordinate {
-  int? x;
-  int? y;
-  int? z;
+  double? x;
+  double? y;
+  double? z;
 
   Coordinate({this.x, this.y, this.z});
 

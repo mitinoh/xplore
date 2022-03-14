@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/home/widget/widget_home.dart';
 import 'package:xplore/app/locationCategory/bloc/locationcategory_bloc.dart';
-import 'package:xplore/core/widget/widget_core.dart';
-import 'package:xplore/model/locationCategory_model.dart';
-import 'package:xplore/model/location_model.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 

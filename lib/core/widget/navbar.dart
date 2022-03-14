@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
+import 'package:xplore/app/map/screen/map_screen.dart';
 import 'package:xplore/app/user/user_page.dart';
 
 class Navbar extends StatelessWidget {
@@ -48,7 +49,7 @@ class Navbar extends StatelessWidget {
   }
 
   List<Widget> _buildScreens() {
-    return [HomePage(), UserPage()];
+    return [HomePage(), MapScreen()];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -60,7 +61,7 @@ class Navbar extends StatelessWidget {
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.settings),
+        icon: Icon(CupertinoIcons.map),
         title: ("Settings"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,

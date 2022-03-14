@@ -175,7 +175,8 @@ class BuildMainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> _card = [];
-    for (var el in model) {
+ 
+    for (Location el in model) {
       String id = el.iId?.oid ?? '';
       String url = "http://localhost:8080/xplore/image/" + id;
       _card.add(Container(

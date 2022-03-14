@@ -9,7 +9,6 @@ abstract class HomeEvent extends Equatable {
 
 class GetLocationList extends HomeEvent {
   String? searchName;
-
   GetLocationList({this.searchName});
 }
 
