@@ -23,5 +23,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         emit(const MapError("Failed to fetch data. is your device online?"));
       }
     });
+
+    on<OpeningExternalMap>((event, emit) async {
+      try {
+        _mapRepository.openMap(event.lat, event.lng);
+      } on NetworkError {
+        emit(const MapError("Failed to fetch data. is your device online?"));
+      }
+    });
   }
 }

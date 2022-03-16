@@ -18,3 +18,5 @@ class MapError extends MapState {
   final String? message;
   const MapError(this.message);
 }
+
+

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/auth/bloc/auth_bloc.dart';
-import 'package:xplore/auth/screen/dashboard.dart';
+import 'package:xplore/app/auth/bloc/auth_bloc.dart';
+import 'package:xplore/app/first_login/screen/category_preference.dart';
+import 'package:xplore/app/map/screen/map_screen.dart';
+import 'package:xplore/core/widget/navbar.dart';
+import 'package:xplore/main.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -21,8 +24,13 @@ class _SignInState extends State<SignIn> {
         listener: (context, state) {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const Dashboard()));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => MyApp()));
+          }
+          if (state is NewUserAuthenticated) {
+
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => CategoryPreference()));
           }
           if (state is AuthError) {
             // Showing the error message if the user has entered invalid credentials
@@ -73,7 +81,7 @@ class _SignInState extends State<SignIn> {
 
   void _authenticateWithGoogle(context) {
     BlocProvider.of<AuthBloc>(context).add(
-      GoogleSignInRequested(),
+      GoogleSignInRequested(context),
     );
   }
 }

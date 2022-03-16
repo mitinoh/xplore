@@ -2,12 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xplore/app/auth/bloc/auth_bloc.dart';
+import 'package:xplore/app/auth/repository/auth_repository.dart';
+import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
-import 'package:xplore/app/user/user_page.dart';
-import 'package:xplore/auth/bloc/auth_bloc.dart';
-import 'package:xplore/auth/repository/auth_repository.dart';
-import 'package:xplore/auth/screen/dashboard.dart';
-import 'package:xplore/auth/screen/sign_in.dart';
 import 'package:xplore/core/widget/navbar.dart';
 
 void main() async {
@@ -34,6 +32,7 @@ class MyApp extends StatelessWidget {
           routes: {
             // When navigating to the "/" route, build the FirstScreen widget.
             '/home': (context) => HomePage(),
+            '/app': (context) => Navbar()
           },
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),

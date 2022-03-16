@@ -3,23 +3,16 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/auth/bloc/auth_bloc.dart';
-import 'package:xplore/auth/screen/sign_in.dart';
+import 'package:xplore/app/auth/bloc/auth_bloc.dart';
+import 'package:xplore/app/auth/screen/sign_in.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
-
-  tkn() async {
-    final user = FirebaseAuth.instance.currentUser!;
-    //debugPrint(await user.getIdToken());
-    // log(await user.getIdToken());
-  }
+class UserScreen extends StatelessWidget {
+  const UserScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Getting the user from the FirebaseAuth Instance
     final user = FirebaseAuth.instance.currentUser!;
-    tkn();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
@@ -62,6 +55,13 @@ class Dashboard extends StatelessWidget {
                 onPressed: () {
                   // Signing out the user
                   context.read<AuthBloc>().add(NewUser());
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Delete account'),
+                onPressed: () {
+                  // Signing out the user
+                  context.read<AuthBloc>().add(DeleteAccount());
                 },
               ),
             ],

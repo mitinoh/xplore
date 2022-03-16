@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:xplore/app/user/user_model.dart';
 import 'package:xplore/core/repository.dart';
 import 'package:xplore/model/locationCategory_model.dart';
 import 'package:xplore/model/location_model.dart';

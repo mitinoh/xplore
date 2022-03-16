@@ -9,6 +9,11 @@ class Loading extends AuthState {
   List<Object?> get props => [];
 }
 
+class NewUserAuthenticated extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
 // When the user is authenticated the state is changed to Authenticated.
 class Authenticated extends AuthState {
   @override

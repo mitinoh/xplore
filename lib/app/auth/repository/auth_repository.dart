@@ -1,13 +1,18 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:xplore/app/map/screen/map_screen.dart';
 import 'package:xplore/core/repository.dart';
 
 class AuthRepository extends Repository {
   final _firebaseAuth = FirebaseAuth.instance;
-  
-  @override
-  String endpoint = "user";
 
+  final Dio _dio = Dio();
+  @override
   Future<void> signUp({required String email, required String password}) async {
     try {
       await FirebaseAuth.instance
@@ -39,7 +44,8 @@ class AuthRepository extends Repository {
     }
   }
 
-  Future<void> signInWithGoogle() async {
+  static String atkn = "";
+  Future<bool> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -51,7 +57,14 @@ class AuthRepository extends Repository {
         idToken: googleAuth?.idToken,
       );
 
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential authResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      if (authResult.additionalUserInfo!.isNewUser) {
+        newUserPut();
+        return true;
+      }
+      return false;
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -65,9 +78,29 @@ class AuthRepository extends Repository {
     }
   }
 
-  Future<void> newUserPost() async {
+  Future<void> deleteAccount() async {
     try {
-      await doPut();
+      User? user = FirebaseAuth.instance.currentUser;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: await user!.getIdToken(),
+        idToken: await user.getIdToken(),
+      );
+
+      user.reauthenticateWithCredential(credential);
+      user.delete();
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> newUserPut() async {
+    try {
+      String url = conf.ip + conf.userColl;
+      await setDio(_dio);
+      await Future.delayed(const Duration(seconds: 1));
+      Response response = await _dio.put(url);
     } catch (e) {
       throw Exception(e);
     }

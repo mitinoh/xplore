@@ -7,14 +7,18 @@ import 'package:xplore/model/coordinate_model.dart';
 import 'package:xplore/model/location_model.dart';
 
 class Repository {
-  final user = FirebaseAuth.instance.currentUser!;
-
   Config conf = Config();
 
   Future setDio(Dio dio) async {
-    dio.options.headers['content-Type'] = 'application/json';
-    // user.getIdToken().then((value) => dio.options.headers["tkn"] = value);
-    dio.options.headers["tkn"] = await user.getIdToken();
+
+   User? user = FirebaseAuth.instance.currentUser;
+  
+    if (FirebaseAuth.instance.currentUser != null) {
+      dio.options.headers['content-Type'] = 'application/json';
+      // user.getIdToken().then((value) => dio.options.headers["tkn"] = value);
+     
+      dio.options.headers["tkn"] = await user?.getIdToken();
+    }
   }
 
   Dio _dio = Dio();

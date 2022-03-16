@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/home/repository/home_repository.dart';
-import 'package:xplore/app/locationCategory/bloc/locationcategory_bloc.dart';
+import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/locationCategory_model.dart';
 import 'package:xplore/model/location_model.dart';
@@ -175,7 +175,7 @@ class BuildMainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> _card = [];
- 
+
     for (Location el in model) {
       String id = el.iId?.oid ?? '';
       String url = "http://localhost:8080/xplore/image/" + id;

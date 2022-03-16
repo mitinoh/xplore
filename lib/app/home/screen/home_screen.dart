@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/home/widget/widget_home.dart';
-import 'package:xplore/app/locationCategory/bloc/locationcategory_bloc.dart';
+import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 

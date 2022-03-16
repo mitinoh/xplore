@@ -12,3 +12,9 @@ class GetLocationList extends MapEvent {
   double? y;
   GetLocationList({this.x, this.y});
 }
+
+class OpeningExternalMap extends MapEvent {
+  final double lat;
+  final double lng;
+   const OpeningExternalMap(this.lat, this.lng);
+}

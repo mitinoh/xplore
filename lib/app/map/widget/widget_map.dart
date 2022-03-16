@@ -26,7 +26,7 @@ class MapContainer extends StatelessWidget {
           builder: (context, state) {
             if (state is MapLoaded) {
               return MapLayout(
-                markers: getMapMarker(state.mapModel),
+                markers: getMapMarker(state.mapModel, context),
               );
             } else if (state is MapError) {
               return Container();
@@ -39,7 +39,7 @@ class MapContainer extends StatelessWidget {
     );
   }
 
-  List<Marker> getMapMarker(List<Location> mapModel) {
+  List<Marker> getMapMarker(List<Location> mapModel, BuildContext context) {
     List<Marker> _markers = [];
     for (Location loc in mapModel) {
       _markers.add(Marker(
@@ -47,25 +47,62 @@ class MapContainer extends StatelessWidget {
         height: 80.0,
         point: LatLng(loc.coordinate?.x ?? 0.0, loc.coordinate?.y ?? 0.0),
         builder: (ctx) => GestureDetector(
-        onTap: (){
-          print("Container clicked");
-        },
-        child: new Container(
-          width: 500.0,
-          padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-          color: Colors.green,
-          child: new Column(
-              children: [
-                new Text("Ableitungen"),
-              ]
-          ),
-        )
-    )
-    
-    ,
+            onTap: () {
+              showModalBottomSheet<void>(
+                  useRootNavigator: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      height: 500,
+                      child: Column(
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                mapBloc.add(OpeningExternalMap(loc.coordinate?.x ?? 0.0, loc.coordinate?.y ?? 0.0));
+                              },
+                              child: Text("open google maps")),
+                          Text(loc.name ?? ''),
+                        ],
+                      ),
+                    );
+                  });
+            },
+            child: Container(
+              width: 500.0,
+              padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+              color: Colors.green,
+              child: Column(children: const [
+                Text("Ableitungen"),
+              ]),
+            )),
       ));
     }
     return _markers;
+  }
+}
+
+class LocationBottomsheet extends StatelessWidget {
+  LocationBottomsheet({Key? key, required this.location});
+  final Location location;
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: IconButton(
+        onPressed: () {
+          showModalBottomSheet<void>(
+              useRootNavigator: true,
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  child: Text(location.name ?? ''),
+                );
+              });
+          // _homeBloc.add(SetFilterLocationList(amount: "string"));
+        },
+        icon: const Icon(Icons.menu),
+      ),
+    );
   }
 }
 
@@ -98,6 +135,5 @@ class MapLayout extends StatelessWidget {
         ),
       ],
     );
-    ;
   }
 }
