@@ -30,8 +30,10 @@ class GoogleSignInRequested extends AuthEvent {
 // When the user signing out this event is called and the [AuthRepository] is called to sign out the user
 class SignOutRequested extends AuthEvent {}
 
-class NewUser extends AuthEvent {}
-
+class NewUser extends AuthEvent {
+  final List<int> categoryPref;
+  NewUser(this.categoryPref);
+}
 
 class NewUserRegistered extends AuthEvent {}
 

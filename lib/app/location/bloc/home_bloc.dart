@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:xplore/app/home/repository/home_repository.dart';
+import 'package:xplore/app/location/repository/home_repository.dart';
 import 'package:xplore/model/location_model.dart';
 
 part 'home_event.dart';

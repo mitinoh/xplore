@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:xplore/app/user/screen/dashboard.dart';
-import 'package:xplore/app/home/screen/home_screen.dart';
+import 'package:xplore/app/location/screen/home_screen.dart';
 import 'package:xplore/app/map/screen/map_screen.dart';
 
 class Navbar extends StatelessWidget {

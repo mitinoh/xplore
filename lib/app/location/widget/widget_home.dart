@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/home/bloc/home_bloc.dart';
-import 'package:xplore/app/home/repository/home_repository.dart';
+import 'package:xplore/app/location/bloc/home_bloc.dart';
+import 'package:xplore/app/location/repository/home_repository.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/locationCategory_model.dart';

@@ -61,7 +61,7 @@ class AuthRepository extends Repository {
           await FirebaseAuth.instance.signInWithCredential(credential);
 
       if (authResult.additionalUserInfo!.isNewUser) {
-        newUserPut();
+        //newUserPut();
         return true;
       }
       return false;
@@ -80,27 +80,19 @@ class AuthRepository extends Repository {
 
   Future<void> deleteAccount() async {
     try {
-      User? user = FirebaseAuth.instance.currentUser;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: await user!.getIdToken(),
-        idToken: await user.getIdToken(),
-      );
-
-      user.reauthenticateWithCredential(credential);
-      user.delete();
+      FirebaseAuth.instance.currentUser!.delete();
       await _firebaseAuth.signOut();
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> newUserPut() async {
+  Future<void> newUserPut(List<int> categoryPref) async {
     try {
       String url = conf.ip + conf.userColl;
       await setDio(_dio);
       await Future.delayed(const Duration(seconds: 1));
-      Response response = await _dio.put(url);
+      Response response = await _dio.put(url, data: "{'categoryPref': $categoryPref}");
     } catch (e) {
       throw Exception(e);
     }

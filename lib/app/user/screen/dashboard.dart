@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
+import 'package:xplore/app/location/screen/new_location_screen.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -50,18 +51,31 @@ class UserScreen extends StatelessWidget {
                   context.read<AuthBloc>().add(SignOutRequested());
                 },
               ),
-              ElevatedButton(
+              /* ElevatedButton(
                 child: const Text('Post'),
                 onPressed: () {
                   // Signing out the user
                   context.read<AuthBloc>().add(NewUser());
                 },
-              ),
+              ),*/
               ElevatedButton(
                 child: const Text('Delete account'),
                 onPressed: () {
                   // Signing out the user
                   context.read<AuthBloc>().add(DeleteAccount());
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Aggiungi posto nuovo'),
+                onPressed: () {
+                  // Signing out the user
+                  //context.read<AuthBloc>().add(DeleteAccount());
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NewLocation()),
+                  );
                 },
               ),
             ],

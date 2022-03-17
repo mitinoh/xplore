@@ -1,6 +1,6 @@
 
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xplore/app/home/repository/home_repository.dart';
+import 'package:xplore/app/location/repository/home_repository.dart';
 
 class MapRepository extends HomeRepository {
 

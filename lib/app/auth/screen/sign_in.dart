@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
-import 'package:xplore/app/first_login/screen/category_preference.dart';
+import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/app/map/screen/map_screen.dart';
 import 'package:xplore/core/widget/navbar.dart';
 import 'package:xplore/main.dart';
