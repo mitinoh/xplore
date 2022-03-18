@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/location/bloc/home_bloc.dart';
+import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location/repository/home_repository.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/widget/widget_core.dart';
@@ -16,7 +16,7 @@ class TopMenuHome extends StatelessWidget {
       : super(key: key);
   final BuildContext context;
   final LocationcategoryBloc locCatBloc;
-  final HomeBloc homeBloc;
+  final LocationBloc homeBloc;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -37,7 +37,7 @@ class FilterMenuHome extends StatelessWidget {
       required this.homeBloc});
   final BuildContext context;
   final LocationcategoryBloc locCatBloc;
-  final HomeBloc homeBloc;
+  final LocationBloc homeBloc;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -101,7 +101,7 @@ class BuildListCardCategory extends StatelessWidget {
       : super(key: key);
   final BuildContext context;
   final List<LocationCategory> model;
-  final HomeBloc homeBloc;
+  final LocationBloc homeBloc;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -127,13 +127,13 @@ class BuildListCardHome extends StatelessWidget {
       {Key? key, required this.homeBloc, required this.pageController})
       : super(key: key);
 
-  final HomeBloc homeBloc;
+  final LocationBloc homeBloc;
   final PageController pageController;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => homeBloc,
-      child: BlocListener<HomeBloc, HomeState>(
+      child: BlocListener<LocationBloc, LocationState>(
         listener: (context, state) {
           if (state is HomeError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -143,13 +143,13 @@ class BuildListCardHome extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<HomeBloc, HomeState>(
+        child: BlocBuilder<LocationBloc, LocationState>(
           builder: (context, state) {
-            if (state is HomeInitial) {
+            if (state is LocationHomeInitial) {
               return LoadingIndicator();
-            } else if (state is HomeLoading) {
+            } else if (state is LocationHomeLoading) {
               return LoadingIndicator();
-            } else if (state is HomeLoaded) {
+            } else if (state is LocationHomeLoaded) {
               return BuildMainCard(
                 model: state.homeModel,
                 pageController: pageController,
@@ -178,7 +178,7 @@ class BuildMainCard extends StatelessWidget {
 
     for (Location el in model) {
       String id = el.iId?.oid ?? '';
-      String url = "http://localhost:8080/xplore/image/" + id;
+      String url = "http://localhost:8080/xplore/image/location/" + id;
       _card.add(Container(
           decoration: BoxDecoration(
               image:
@@ -204,7 +204,7 @@ class BuildMainCard extends StatelessWidget {
 
 class SearchMenuHome extends StatefulWidget {
   const SearchMenuHome({Key? key, required this.homeBloc}) : super(key: key);
-  final HomeBloc homeBloc;
+  final LocationBloc homeBloc;
 
   @override
   State<SearchMenuHome> createState() =>
@@ -214,7 +214,7 @@ class SearchMenuHome extends StatefulWidget {
 class _SearchMenuHomeState extends State<SearchMenuHome>
     with SingleTickerProviderStateMixin {
   _SearchMenuHomeState({required this.homeBloc});
-  final HomeBloc homeBloc;
+  final LocationBloc homeBloc;
   late Animation<double> animation;
   late AnimationController animController;
   bool isForward = false;

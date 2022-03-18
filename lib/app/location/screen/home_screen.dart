@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/app/location/bloc/home_bloc.dart';
+import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location/widget/widget_home.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 class HomePage extends StatefulWidget {
@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeBloc _homeBloc = HomeBloc();
+  final LocationBloc _homeBloc = LocationBloc();
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   final PageController _pageController = PageController();
 

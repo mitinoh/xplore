@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class Location {
   Id? iId;
-  String? name; 
+  String? name;
   Coordinate? coordinate;
   List<int>? category;
   String? desc;
@@ -22,7 +22,7 @@ class Location {
     coordinate = json['coordinate'] != null
         ? new Coordinate.fromJson(json['coordinate'])
         : null;
-    category = json['category'].cast<int>();
+    category = json['category'] != null ? json['category'].cast<int>() : [];
     desc = json['desc'];
     cdate = json['cdate'] != null ? new Cdate.fromJson(json['cdate']) : null;
   }
@@ -43,7 +43,6 @@ class Location {
     }
     return data;
   }
-
 
   List<Location> toList(Response response) {
     List<Location> _location = [];

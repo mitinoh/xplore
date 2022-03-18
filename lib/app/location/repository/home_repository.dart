@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:xplore/core/repository.dart';
 import 'package:xplore/model/location_model.dart';
@@ -25,6 +27,19 @@ class HomeRepository extends Repository {
       pipe = '{pipeline: [ {"\$match": ${mtc.join(",")} } ]}';
     }
     return pipe;
+  }
+
+  Future<void> newLocationPut({required String body}) async {
+    try {
+      String url = conf.ip + conf.newLocationColl;
+      log(url);
+      log(body);
+      await setDio(_dio);
+      Response response = await _dio.put(url, data: {"name": "name"});
+      log(response.statusCode.toString());
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }
 

@@ -16,6 +16,10 @@ class Config {
     return "location";
   }
 
+    String get newLocationColl {
+    return "newLocation";
+  }
+
   String get locationCategoryColl {
     return "locationCategory";
   }

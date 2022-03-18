@@ -1,9 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:xplore/app/location/bloc/home_bloc.dart';
+import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'dart:io';
@@ -21,8 +22,13 @@ class _NewLocationState extends State<NewLocation> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
+
+  final LocationBloc _locationBloc = LocationBloc();
   List<int> _catSelected = [];
+
   late File imageFile;
+
+  final ImagePicker _picker = ImagePicker();
   @override
   void initState() {
     _locCatBloc.add(GetLocationCategoryList());
@@ -31,12 +37,11 @@ class _NewLocationState extends State<NewLocation> {
 
   /// Get from gallery
   _getFromGallery() async {
-     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         imageFile = File(image.path);
-        
+        log(image.path);
       });
     }
   }
@@ -130,6 +135,17 @@ class _NewLocationState extends State<NewLocation> {
                 ),
               ),
             ),
+            TextButton(
+                onPressed: () {
+                  Map<String, dynamic> a = {
+                    "name": _nameController.value,
+                    "desc": _descController.value,
+                    "categories": _catSelected
+                  };
+
+                  _locationBloc.add(CreateNewLocation(body: a.toString()));
+                },
+                child: Text("add"))
           ],
         ),
       ),
