@@ -178,7 +178,7 @@ class BuildMainCard extends StatelessWidget {
 
     for (Location el in model) {
       String id = el.iId?.oid ?? '';
-      String url = "http://localhost:8080/xplore/image/location/" + id;
+      String url = "http://localhost:8080/xplore/images/location/" + id;
       _card.add(Container(
           decoration: BoxDecoration(
               image:

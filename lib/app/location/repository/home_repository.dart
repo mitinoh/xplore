@@ -35,7 +35,7 @@ class HomeRepository extends Repository {
       log(url);
       log(body);
       await setDio(_dio);
-      Response response = await _dio.put(url, data: {"name": "name"});
+      Response response = await _dio.put(url, data: body);
       log(response.statusCode.toString());
     } catch (e) {
       throw Exception(e);

@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:xplore/app/map/bloc/map_bloc.dart';
 import 'package:xplore/model/location_model.dart';
+import 'package:location/location.dart' as lc;
 
 class MapContainer extends StatelessWidget {
   const MapContainer({Key? key, required this.mapBloc}) : super(key: key);
@@ -25,13 +28,21 @@ class MapContainer extends StatelessWidget {
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
             if (state is MapLoaded) {
+              log("a");
+
               return MapLayout(
                 markers: getMapMarker(state.mapModel, context),
+                mapBloc: mapBloc,
+                userLoc: state.loc,
               );
             } else if (state is MapError) {
-              return Container();
+              log("b");
+              return Container(child: Text("bbbbbbbbbbbbbbbbbbb"));
             } else {
-              return Container();
+              log("c");
+              return Container(
+                child: Text("ccccccccccccccccccc"),
+              );
             }
           },
         ),
@@ -58,7 +69,9 @@ class MapContainer extends StatelessWidget {
                         children: [
                           TextButton(
                               onPressed: () {
-                                mapBloc.add(OpeningExternalMap(loc.coordinate?.x ?? 0.0, loc.coordinate?.y ?? 0.0));
+                                mapBloc.add(OpeningExternalMap(
+                                    loc.coordinate?.x ?? 0.0,
+                                    loc.coordinate?.y ?? 0.0));
                               },
                               child: Text("open google maps")),
                           Text(loc.name ?? ''),
@@ -107,13 +120,23 @@ class LocationBottomsheet extends StatelessWidget {
 }
 
 class MapLayout extends StatelessWidget {
-  const MapLayout({Key? key, required this.markers}) : super(key: key);
+  const MapLayout(
+      {Key? key,
+      required this.markers,
+      required this.mapBloc,
+      required this.userLoc})
+      : super(key: key);
+  final MapBloc mapBloc;
   final List<Marker> markers;
+  final lc.LocationData? userLoc;
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(51.5, -0.09),
+        center: LatLng(
+            userLoc!.latitude ?? 0,
+            userLoc!.longitude ??
+                0), //LatLng(userLoc!.latitude ?? 51, userLoc!.longitude ?? -0.09),
         zoom: 10.0,
       ),
       layers: [

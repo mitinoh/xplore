@@ -16,5 +16,8 @@ class GetLocationList extends MapEvent {
 class OpeningExternalMap extends MapEvent {
   final double lat;
   final double lng;
-   const OpeningExternalMap(this.lat, this.lng);
+  const OpeningExternalMap(this.lat, this.lng);
+}
+
+class GetUserLocation extends MapEvent {
 }

@@ -138,8 +138,8 @@ class _NewLocationState extends State<NewLocation> {
             TextButton(
                 onPressed: () {
                   Map<String, dynamic> a = {
-                    "name": _nameController.value,
-                    "desc": _descController.value,
+                    "name": _nameController.text,
+                    "desc": _descController.text,
                     "categories": _catSelected
                   };
 
