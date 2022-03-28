@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:xplore/app/map/bloc/map_bloc.dart';
+import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:location/location.dart' as lc;
 
@@ -28,21 +29,15 @@ class MapContainer extends StatelessWidget {
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
             if (state is MapLoaded) {
-              log("a");
-
               return MapLayout(
                 markers: getMapMarker(state.mapModel, context),
                 mapBloc: mapBloc,
                 userLoc: state.loc,
               );
             } else if (state is MapError) {
-              log("b");
-              return Container(child: Text("bbbbbbbbbbbbbbbbbbb"));
+              return Container(child: Text("error"));
             } else {
-              log("c");
-              return Container(
-                child: Text("ccccccccccccccccccc"),
-              );
+              return Text("asd");
             }
           },
         ),
@@ -56,7 +51,7 @@ class MapContainer extends StatelessWidget {
       _markers.add(Marker(
         width: 80.0,
         height: 80.0,
-        point: LatLng(loc.coordinate?.x ?? 0.0, loc.coordinate?.y ?? 0.0),
+        point: LatLng(loc.coordinate?.lat ?? 0.0, loc.coordinate?.lng ?? 0.0),
         builder: (ctx) => GestureDetector(
             onTap: () {
               showModalBottomSheet<void>(
@@ -70,8 +65,8 @@ class MapContainer extends StatelessWidget {
                           TextButton(
                               onPressed: () {
                                 mapBloc.add(OpeningExternalMap(
-                                    loc.coordinate?.x ?? 0.0,
-                                    loc.coordinate?.y ?? 0.0));
+                                    loc.coordinate?.lat ?? 0.0,
+                                    loc.coordinate?.lng ?? 0.0));
                               },
                               child: Text("open google maps")),
                           Text(loc.name ?? ''),
@@ -92,6 +87,7 @@ class MapContainer extends StatelessWidget {
     }
     return _markers;
   }
+
 }
 
 class LocationBottomsheet extends StatelessWidget {

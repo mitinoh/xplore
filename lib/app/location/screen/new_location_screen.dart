@@ -41,7 +41,7 @@ class _NewLocationState extends State<NewLocation> {
     if (image != null) {
       setState(() {
         imageFile = File(image.path);
-        log(image.path);
+        
       });
     }
   }
@@ -137,13 +137,13 @@ class _NewLocationState extends State<NewLocation> {
             ),
             TextButton(
                 onPressed: () {
-                  Map<String, dynamic> a = {
+                  Map<String, dynamic> newLocationMap = {
                     "name": _nameController.text,
                     "desc": _descController.text,
                     "categories": _catSelected
                   };
 
-                  _locationBloc.add(CreateNewLocation(body: a.toString()));
+                  _locationBloc.add(CreateNewLocation(body: newLocationMap.toString()));
                 },
                 child: Text("add"))
           ],

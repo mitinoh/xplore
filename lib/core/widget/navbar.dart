@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:xplore/app/plantrip/screen/plan_trip_screen.dart';
 import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/app/location/screen/home_screen.dart';
 import 'package:xplore/app/map/screen/map_screen.dart';
@@ -49,7 +50,7 @@ class Navbar extends StatelessWidget {
   }
 
   List<Widget> _buildScreens() {
-    return [HomePage(), MapScreen(), UserScreen()];
+    return [HomePage(), MapScreen(), PlanTripScreen(), UserScreen()];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -63,6 +64,12 @@ class Navbar extends StatelessWidget {
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.map),
         title: ("Settings"),
+        activeColorPrimary: CupertinoColors.activeBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(CupertinoIcons.placemark_fill),
+        title: ("trip"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

@@ -151,9 +151,9 @@ class BuildListCardHome extends StatelessWidget {
               return LoadingIndicator();
             } else if (state is LocationHomeLoaded) {
               return BuildMainCard(
-                model: state.homeModel,
-                pageController: pageController,
-              );
+                  model: state.homeModel,
+                  pageController: pageController,
+                  locationBloc: homeBloc);
             } else if (state is HomeError) {
               return Container();
             } else {
@@ -168,10 +168,14 @@ class BuildListCardHome extends StatelessWidget {
 
 class BuildMainCard extends StatelessWidget {
   const BuildMainCard(
-      {Key? key, required this.pageController, required this.model})
+      {Key? key,
+      required this.pageController,
+      required this.model,
+      required this.locationBloc})
       : super(key: key);
   final PageController pageController;
   final List<Location> model;
+  final LocationBloc locationBloc;
   @override
   Widget build(BuildContext context) {
     List<Widget> _card = [];
@@ -179,20 +183,40 @@ class BuildMainCard extends StatelessWidget {
     for (Location el in model) {
       String id = el.iId?.oid ?? '';
       String url = "http://localhost:8080/xplore/images/location/" + id;
-      _card.add(Container(
-          decoration: BoxDecoration(
-              image:
-                  DecorationImage(image: NetworkImage(url), fit: BoxFit.cover)),
-          child: Center(
-            child: Text(
-              el.name ?? '',
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: Colors.brown,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
-            ),
-          )));
+      _card.add(
+        Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(url), fit: BoxFit.cover)),
+            child: SafeArea(
+              child: Stack(children: [
+                Positioned(
+                    top: 50.0,
+                    child: IconButton(
+                        onPressed: () {
+                          print("a");
+
+                          Map<String, dynamic> saveLocationMap = {
+                            "locationId": id,
+                          };
+
+                          locationBloc.add(SaveNewLocation(
+                              body: saveLocationMap.toString()));
+                        },
+                        icon: Icon(Icons.heart_broken))),
+                Center(
+                  child: Text(
+                    el.name ?? '',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: Colors.brown,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]),
+            )),
+      );
     }
     return PageView(
       scrollDirection: Axis.vertical,

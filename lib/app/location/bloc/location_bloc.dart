@@ -37,5 +37,16 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         emit(const HomeError("Failed to fetch data. is your device online?"));
       }
     });
+
+        on<SaveNewLocation>((event, emit) async {
+      try {
+        //emit(SavingNewLocation());
+        await _locationRepository.saveUserLocationPut(body: event.body);
+
+        //emit(SavedNewLocation());
+      } on NetworkError {
+        emit(const HomeError("Failed to fetch data. is your device online?"));
+      }
+    });
   }
 }

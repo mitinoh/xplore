@@ -30,26 +30,31 @@ class MapRepository extends HomeRepository {
     lc.Location location = lc.Location();
 
     // Check if location service is enable
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
+    try {
+      _serviceEnabled = await location.serviceEnabled();
       if (!_serviceEnabled) {
-        return _userLocation;
+        _serviceEnabled = await location.requestService();
+        if (!_serviceEnabled) {
+          return _userLocation;
+        }
       }
+
+      // Check if permission is granted
+      _permissionGranted = await location.hasPermission();
+      if (_permissionGranted == lc.PermissionStatus.denied) {
+        _permissionGranted = await location.requestPermission();
+        if (_permissionGranted != lc.PermissionStatus.granted) {
+          return _userLocation;
+        }
+      }
+
+      final _locationData = await location.getLocation();
+      _userLocation = _locationData;
+      return _userLocation;
+    } catch (e) {
+      return _userLocation;
     }
 
-    // Check if permission is granted
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == lc.PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != lc.PermissionStatus.granted) {
-        return _userLocation;
-      }
-    }
-
-    final _locationData = await location.getLocation();
-    _userLocation = _locationData;
-    return _userLocation;
     /*setState(() {
       _userLocation = _locationData;
     });

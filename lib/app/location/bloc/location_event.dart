@@ -18,3 +18,8 @@ class CreateNewLocation extends LocationEvent {
   String body;
   CreateNewLocation({required this.body});
 }
+
+class SaveNewLocation extends LocationEvent {
+  String body;
+  SaveNewLocation({required this.body});
+}

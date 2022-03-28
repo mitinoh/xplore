@@ -32,8 +32,16 @@ class HomeRepository extends Repository {
   Future<void> newLocationPut({required String body}) async {
     try {
       String url = conf.ip + conf.newLocationColl;
-      log(url);
-      log(body);
+      await setDio(_dio);
+      Response response = await _dio.put(url, data: body);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> saveUserLocationPut({required String body}) async {
+    try {
+      String url = conf.ip + conf.savedLocationColl;
       await setDio(_dio);
       Response response = await _dio.put(url, data: body);
       log(response.statusCode.toString());

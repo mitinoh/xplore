@@ -44,6 +44,5 @@ class Repository {
     String url = conf.ip + endp;
     response = await _dio.put(url, data: obj);
 
-    log(response.statusCode.toString());
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 class Location {
@@ -70,23 +72,23 @@ class Id {
 }
 
 class Coordinate {
-  double? x;
-  double? y;
-  double? z;
+  double? lat;
+  double? lng;
+  double? alt;
 
-  Coordinate({this.x, this.y, this.z});
+  Coordinate({this.lat, this.lng, this.alt});
 
   Coordinate.fromJson(Map<String, dynamic> json) {
-    x = json['x'];
-    y = json['y'];
-    z = json['z'];
+    lat = json['lat'].toDouble();
+    lng = json['lng'].toDouble();
+    lng = json['lng'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['x'] = this.x;
-    data['y'] = this.y;
-    data['z'] = this.z;
+    data['lat'] = this.lat;
+    data['lng'] = this.lng;
+    data['lng'] = this.lng;
     return data;
   }
 }

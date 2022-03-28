@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:location/location.dart' as lc;
@@ -16,12 +18,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     on<GetLocationList>((event, emit) async {
       try {
+        emit(MapLoading());
+        log("1");
         String pipe = _mapRepository.getPipelineMap(x: event.x, y: event.y);
         final mList = await _mapRepository.fetchLocationList(body: pipe);
-
         final userLoc = await _mapRepository.getUserLocation();
 
-        emit(MapLoaded(mList , userLoc));
+        log(userLoc.toString());
+        emit(MapLoaded(mList, userLoc));
       } on NetworkError {
         emit(const MapError("Failed to fetch data. is your device online?"));
       }
@@ -37,9 +41,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     on<GetUserLocation>((event, emit) async {
       try {
-        emit(UserLocLoading());
+        // emit(UserLocLoading());
         final userLoc = await _mapRepository.getUserLocation();
-        emit(UserLocLoaded(userLoc));
+        //emit(UserLocLoaded(userLoc));
       } on NetworkError {
         emit(const MapError("Failed to fetch data. is your device online?"));
       }

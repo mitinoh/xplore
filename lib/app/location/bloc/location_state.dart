@@ -18,6 +18,10 @@ class LocationHomeLoaded extends LocationState {
 
 class CreatingNewLocation extends LocationState {}
 class CreatedNewLocation extends LocationState {}
+
+
+class SavingNewLocation extends LocationState {}
+class SavedNewLocation extends LocationState {}
 class HomeError extends LocationState {
   final String? message;
   const HomeError(this.message);

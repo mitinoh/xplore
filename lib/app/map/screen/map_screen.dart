@@ -16,8 +16,9 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
+    print("init");
+    //super.initState();
     _mapBloc.add(GetLocationList());
-    super.initState();
   }
 
   @override
