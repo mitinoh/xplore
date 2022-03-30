@@ -1,18 +1,22 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
+import 'package:drag_and_drop_lists/drag_and_drop_list.dart';
+import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
-import 'package:xplore/app/plantrip/repository/plan_trip_repository.dart';
+import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 
 class NetTripQuestion extends StatefulWidget {
   const NetTripQuestion({Key? key}) : super(key: key);
+  // https://pub.dev/packages/drag_and_drop_lists
 
   @override
   State<NetTripQuestion> createState() => _NetTripQuestionState();
@@ -20,6 +24,7 @@ class NetTripQuestion extends StatefulWidget {
 
 class _NetTripQuestionState extends State<NetTripQuestion> {
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
+  final PlantripBloc _planTripBloc = PlantripBloc();
   int questNum = 0;
   double _currentSliderValue = 20;
   Map<String, dynamic> planQuery = {
@@ -32,6 +37,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     "returnDate": DateTime.now(),*/
     "distance": 0
   };
+
   @override
   void initState() {
     _locCatBloc.add(GetLocationCategoryList());
@@ -58,8 +64,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       case 4:
         return showTrip();
       case 5:
-        PlanTripRepository().fetchLocationList(body: planQuery.toString());
-
+        _planTripBloc.add(GetLocation(body: planQuery.toString()));
+        return SelectTripLocation(
+          planQuery: planQuery,
+        );
         return selectLocation();
       default:
         return Scaffold(
@@ -164,10 +172,11 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             child: Text('Next'),
             onPressed: () {
               List<int> dayAvaiable = [];
+              // FIXME: ovvio che cosi non funziona porca troia
               for (int i = goneDay.weekday; i < returnDay.weekday; i++) {
                 dayAvaiable.add(i);
               }
-
+              log(goneDay.compareTo(returnDay).toString());
               planQuery["periodAvaiable"] = getSeason(goneDay.month);
               planQuery["dayAvaiable"] = dayAvaiable;
               incrementQuest();
@@ -249,7 +258,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   Widget showTrip() {
     return TextButton(
         onPressed: () {
-          
           incrementQuest();
         },
         child: Text("asd"));
@@ -262,12 +270,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     return 3;
   }
 
+// restituisce tutte le location possibili
   Widget selectLocation() {
     return BlocProvider(
-      create: (_) => _locCatBloc,
-      child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
+      create: (_) => _planTripBloc,
+      child: BlocListener<PlantripBloc, PlantripState>(
         listener: (context, state) {
-          if (state is HomeError) {
+          if (state is PlanTripError) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text("error"),
@@ -275,16 +284,25 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             );
           }
         },
-        child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
+        child: BlocBuilder<PlantripBloc, PlantripState>(
           builder: (context, state) {
-            if (state is LocationcategoryInitial) {
+            if (state is PlantripInitial) {
               return LoadingIndicator();
-            } else if (state is LocationCategoryLoading) {
+            } else if (state is PlantripLoadingLocation) {
               return LoadingIndicator();
-            } else if (state is LocationcategoryLoaded) {
-              return Text(state.locationCategoryModel.toString());
-            } else if (state is LocationcategoryError) {
-              return Container();
+            } else if (state is PlantripLoadedLocation) {
+              log(state.planTripModel.toString());
+              return ListView.builder(
+                  itemCount: state.planTripModel.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                        leading: Icon(Icons.list),
+                        trailing: Text(
+                          state.planTripModel[index].name.toString(),
+                          style: TextStyle(color: Colors.green, fontSize: 15),
+                        ),
+                        title: Text("List item $index"));
+                  });
             } else {
               return Container();
             }
@@ -299,5 +317,65 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
     planQuery["lat"] = locations[0].latitude;
     planQuery["lng"] = locations[0].longitude;
+  }
+}
+
+class SelectTripLocation extends StatefulWidget {
+  SelectTripLocation({Key? key, required this.planQuery}) : super(key: key);
+  Map<String, dynamic> planQuery = {};
+
+  @override
+  State<SelectTripLocation> createState() => _SelectTripLocationState();
+}
+
+class _SelectTripLocationState extends State<SelectTripLocation> {
+  List<DragAndDropList> _contents = [];
+
+  _onItemReorder(
+      int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
+    setState(() {
+      var movedItem = _contents[oldListIndex].children.removeAt(oldItemIndex);
+      _contents[newListIndex].children.insert(newItemIndex, movedItem);
+      log(_contents.toString());
+    });
+  }
+
+  _onListReorder(int oldListIndex, int newListIndex) {
+    setState(() {
+      var movedList = _contents.removeAt(oldListIndex);
+      _contents.insert(newListIndex, movedList);
+      log(_contents.toString());
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    log(widget.planQuery.toString());
+    _contents = List.generate(widget.planQuery["dayAvaiable"].length, (index) {
+      return DragAndDropList(
+        header: Text('Header $index'),
+        children: <DragAndDropItem>[
+          DragAndDropItem(
+            child: Text('$index.1'),
+          ),
+          DragAndDropItem(
+            child: Text('$index.2'),
+          ),
+          DragAndDropItem(
+            child: Text('$index.3'),
+          ),
+        ],
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DragAndDropLists(
+      children: _contents,
+      onItemReorder: _onItemReorder,
+      onListReorder: _onListReorder,
+    );
   }
 }

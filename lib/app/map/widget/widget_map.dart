@@ -37,7 +37,8 @@ class MapContainer extends StatelessWidget {
             } else if (state is MapError) {
               return Container(child: Text("error"));
             } else {
-              return Text("asd");
+              log(state.toString());
+              return Text("asdddddd");
             }
           },
         ),
@@ -87,7 +88,6 @@ class MapContainer extends StatelessWidget {
     }
     return _markers;
   }
-
 }
 
 class LocationBottomsheet extends StatelessWidget {
@@ -129,10 +129,8 @@ class MapLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(
-            userLoc!.latitude ?? 0,
-            userLoc!.longitude ??
-                0), //LatLng(userLoc!.latitude ?? 51, userLoc!.longitude ?? -0.09),
+        center: LatLng(0,
+            0), //LatLng(userLoc!.latitude ?? 51, userLoc!.longitude ?? -0.09),
         zoom: 10.0,
       ),
       layers: [

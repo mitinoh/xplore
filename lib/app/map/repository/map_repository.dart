@@ -55,6 +55,7 @@ class MapRepository extends HomeRepository {
       return _userLocation;
     }
 
+
     /*setState(() {
       _userLocation = _locationData;
     });

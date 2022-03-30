@@ -7,7 +7,7 @@ abstract class PlantripEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CreateNewLocation extends PlantripEvent {
+class GetLocation extends PlantripEvent {
   String body;
-  CreateNewLocation({required this.body});
+  GetLocation({required this.body});
 }

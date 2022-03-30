@@ -9,5 +9,20 @@ abstract class PlantripState extends Equatable {
 
 class PlantripInitial extends PlantripState {}
 
+class PlantripLoadingLocation extends PlantripState {}
+
+class PlantripLoadedLocation extends PlantripState {
+
+  final List<Location> planTripModel;
+  const PlantripLoadedLocation(this.planTripModel);
+}
+
 
 class LocationHomeLoading extends PlantripState {}
+
+
+class PlanTripError extends PlantripState {
+  final String? message;
+  const PlanTripError(this.message);
+}
+
