@@ -16,7 +16,7 @@ class Config {
     return "location";
   }
 
-    String get newLocationColl {
+  String get newLocationColl {
     return "newLocation";
   }
 
@@ -38,5 +38,9 @@ class Config {
 
   String get badgeColl {
     return "badge";
+  }
+
+  String get planTripColl {
+    return "planTrip";
   }
 }

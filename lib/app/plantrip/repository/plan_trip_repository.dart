@@ -9,11 +9,20 @@ class PlanTripRepository extends Repository {
   final Dio _dio = Dio();
 
   Future<List<Location>> fetchLocationList({required String body}) async {
-    String url = conf.ip + "planTrip";
+    String url = conf.ip + conf.planTripColl;
     await setDio(_dio);
     Response response = await _dio.post(url, data: "{pipeline: [$body]}");
-    log(response.toString());
     return Location().toList(response);
+  }
+
+  Future<void> newPlanTripPut({required String body}) async {
+    try {
+      String url = conf.ip + conf.planTripColl;
+      await setDio(_dio);
+      Response response = await _dio.put(url, data: body);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }
 

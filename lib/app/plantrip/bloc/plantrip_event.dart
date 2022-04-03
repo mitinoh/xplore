@@ -11,3 +11,8 @@ class GetLocation extends PlantripEvent {
   String body;
   GetLocation({required this.body});
 }
+
+class SaveTrip extends PlantripEvent {
+  String body;
+  SaveTrip({required this.body});
+}

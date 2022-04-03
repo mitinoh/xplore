@@ -1,8 +1,7 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_list.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:geocoding/geocoding.dart' as geo;
+import 'package:xplore/model/location_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
   const NetTripQuestion({Key? key}) : super(key: key);
@@ -25,6 +25,10 @@ class NetTripQuestion extends StatefulWidget {
 class _NetTripQuestionState extends State<NetTripQuestion> {
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   final PlantripBloc _planTripBloc = PlantripBloc();
+
+  DateTime goneDate = DateTime.now();
+  DateTime returnDate = DateTime.now();
+
   int questNum = 0;
   double _currentSliderValue = 20;
   Map<String, dynamic> planQuery = {
@@ -33,9 +37,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     "avoidCategory": [],
     "periodAvaiable": [1, 2, 3, 4],
     "dayAvaiable": [1, 2, 3, 4, 5, 6, 7],
-    /* "goneDate": DateTime.now(),
-    "returnDate": DateTime.now(),*/
-    "distance": 0
+    //"goneDate": DateTime.now().toIso8601String(),
+    //"returnDate": DateTime.now().toIso8601String(),
+    "distance": 0,
+    "totDay": 1
   };
 
   @override
@@ -65,9 +70,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         return showTrip();
       case 5:
         _planTripBloc.add(GetLocation(body: planQuery.toString()));
-        return SelectTripLocation(
-          planQuery: planQuery,
-        );
         return selectLocation();
       default:
         return Scaffold(
@@ -101,8 +103,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
   Widget periodToGoQuest() {
     //Method for showing the date picker
-    DateTime goneDay = DateTime.now();
-    DateTime returnDay = DateTime.now();
     void _pickDateDialog(bool gone) {
       // quardare https://pub.dev/packages/flutter_cupertino_date_picker#-readme-tab-
       if (Platform.isAndroid) {
@@ -121,9 +121,11 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           setState(() {
             //for rebuilding the ui
             if (gone) {
-              goneDay = pickedDate;
+              goneDate = pickedDate;
+              planQuery["goneDate"] = goneDate.toIso8601String();
             } else {
-              returnDay = pickedDate;
+              returnDate = pickedDate;
+              planQuery["returnDate"] = returnDate.toIso8601String();
             }
           });
         });
@@ -143,9 +145,18 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                             onDateTimeChanged: (pickedDate) {
                               setState(() {
                                 if (gone) {
-                                  goneDay = pickedDate;
+                                  goneDate = pickedDate;
+                                  // FIXME
+                                  /* planQuery["goneDate"] = "new Date('" +
+                                      goneDate.toIso8601String() +
+                                      "')";*/
                                 } else {
-                                  returnDay = pickedDate;
+                                  returnDate = pickedDate;
+                                  // FIXME
+                                  /*  planQuery["returnDate"] = "new Date('" +
+                                      returnDate.toIso8601String() +
+                                      "')";
+                                      */
                                 }
                               });
                             }),
@@ -173,11 +184,12 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             onPressed: () {
               List<int> dayAvaiable = [];
               // FIXME: ovvio che cosi non funziona porca troia
-              for (int i = goneDay.weekday; i < returnDay.weekday; i++) {
+
+              for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
                 dayAvaiable.add(i);
               }
-              log(goneDay.compareTo(returnDay).toString());
-              planQuery["periodAvaiable"] = getSeason(goneDay.month);
+              planQuery["totDay"] = returnDate.difference(goneDate).inDays;
+              planQuery["periodAvaiable"] = getSeason(goneDate.month);
               planQuery["dayAvaiable"] = dayAvaiable;
               incrementQuest();
             }),
@@ -291,18 +303,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             } else if (state is PlantripLoadingLocation) {
               return LoadingIndicator();
             } else if (state is PlantripLoadedLocation) {
-              log(state.planTripModel.toString());
-              return ListView.builder(
-                  itemCount: state.planTripModel.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                        leading: Icon(Icons.list),
-                        trailing: Text(
-                          state.planTripModel[index].name.toString(),
-                          style: TextStyle(color: Colors.green, fontSize: 15),
-                        ),
-                        title: Text("List item $index"));
-                  });
+              return SelectTripLocation(
+                planQuery: planQuery,
+                planTripModel: state.planTripModel,
+                goneDate: goneDate,
+                returnDate: returnDate,
+                planTripBloc: _planTripBloc,
+              );
             } else {
               return Container();
             }
@@ -321,8 +328,19 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 }
 
 class SelectTripLocation extends StatefulWidget {
-  SelectTripLocation({Key? key, required this.planQuery}) : super(key: key);
+  SelectTripLocation(
+      {Key? key,
+      required this.planQuery,
+      required this.planTripModel,
+      required this.goneDate,
+      required this.returnDate,
+      required this.planTripBloc})
+      : super(key: key);
   Map<String, dynamic> planQuery = {};
+  List<Location> planTripModel = [];
+  DateTime goneDate = DateTime.now();
+  DateTime returnDate = DateTime.now();
+  PlantripBloc planTripBloc = PlantripBloc();
 
   @override
   State<SelectTripLocation> createState() => _SelectTripLocationState();
@@ -330,13 +348,16 @@ class SelectTripLocation extends StatefulWidget {
 
 class _SelectTripLocationState extends State<SelectTripLocation> {
   List<DragAndDropList> _contents = [];
+  List<List<String>> _plan = [];
 
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     setState(() {
+      String movedPlan = _plan[oldListIndex][oldItemIndex];
+      _plan[oldListIndex].removeAt(oldItemIndex);
+      _plan[newListIndex].insert(newItemIndex, movedPlan);
       var movedItem = _contents[oldListIndex].children.removeAt(oldItemIndex);
       _contents[newListIndex].children.insert(newItemIndex, movedItem);
-      log(_contents.toString());
     });
   }
 
@@ -344,38 +365,62 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     setState(() {
       var movedList = _contents.removeAt(oldListIndex);
       _contents.insert(newListIndex, movedList);
-      log(_contents.toString());
     });
   }
 
   @override
   void initState() {
     super.initState();
-    log(widget.planQuery.toString());
-    _contents = List.generate(widget.planQuery["dayAvaiable"].length, (index) {
+    int tripDay = int.tryParse(widget.planQuery["totDay"].toString()) ?? 1;
+    tripDay = tripDay > 0 ? tripDay : 1;
+
+    List<DragAndDropItem> _dragLocation = [];
+    List<String> _locations = [];
+
+    for (Location loc in widget.planTripModel) {
+      _locations.add(loc.iId?.oid ?? '');
+      _dragLocation.add(DragAndDropItem(
+        child: Text(loc.iId?.oid ?? ''),
+      ));
+    }
+
+    _contents = List.generate(tripDay, (index) {
       return DragAndDropList(
-        header: Text('Header $index'),
-        children: <DragAndDropItem>[
-          DragAndDropItem(
-            child: Text('$index.1'),
-          ),
-          DragAndDropItem(
-            child: Text('$index.2'),
-          ),
-          DragAndDropItem(
-            child: Text('$index.3'),
-          ),
-        ],
+        header: Text(widget.goneDate.add(Duration(days: index)).toString()),
+        children: index == 0 ? _dragLocation : <DragAndDropItem>[],
       );
+    });
+
+    _plan = List.generate(tripDay, (index) {
+      return index == 0 ? _locations : [];
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return DragAndDropLists(
-      children: _contents,
-      onItemReorder: _onItemReorder,
-      onListReorder: _onListReorder,
+    return Column(
+      children: [
+        TextButton(
+            onPressed: () {
+              saveTripPlan();
+            },
+            child: Text("done")),
+        Container(
+          height: 500,
+          child: DragAndDropLists(
+            children: _contents,
+            onItemReorder: _onItemReorder,
+            onListReorder: _onListReorder,
+          ),
+        )
+      ],
     );
+  }
+
+  saveTripPlan() {
+    // TODO: aggiungere anche le date di inizio e fine
+    log(json.encode(_plan));
+    String planStr = json.encode(_plan);
+    widget.planTripBloc.add(SaveTrip(body: "{trip: $planStr}"));
   }
 }
