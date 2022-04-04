@@ -41,7 +41,6 @@ class _NewLocationState extends State<NewLocation> {
     if (image != null) {
       setState(() {
         imageFile = File(image.path);
-        
       });
     }
   }
@@ -143,7 +142,8 @@ class _NewLocationState extends State<NewLocation> {
                     "categories": _catSelected
                   };
 
-                  _locationBloc.add(CreateNewLocation(body: newLocationMap.toString()));
+                  _locationBloc.add(
+                      CreateNewLocation(body: json.encode(newLocationMap)));
                 },
                 child: Text("add"))
           ],

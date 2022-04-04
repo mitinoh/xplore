@@ -13,6 +13,7 @@ import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:xplore/model/location_model.dart';
+import 'package:xplore/model/move_plan_trip_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
   const NetTripQuestion({Key? key}) : super(key: key);
@@ -348,12 +349,13 @@ class SelectTripLocation extends StatefulWidget {
 
 class _SelectTripLocationState extends State<SelectTripLocation> {
   List<DragAndDropList> _contents = [];
-  List<List<String>> _plan = [];
+  List<List<MovePlanTrip>> _plan = [];
 
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     setState(() {
-      String movedPlan = _plan[oldListIndex][oldItemIndex];
+      MovePlanTrip movedPlan = _plan[oldListIndex][oldItemIndex];
+      movedPlan.date = movedPlan.date?.add(Duration(days: newListIndex));
       _plan[oldListIndex].removeAt(oldItemIndex);
       _plan[newListIndex].insert(newItemIndex, movedPlan);
       var movedItem = _contents[oldListIndex].children.removeAt(oldItemIndex);
@@ -375,10 +377,11 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     tripDay = tripDay > 0 ? tripDay : 1;
 
     List<DragAndDropItem> _dragLocation = [];
-    List<String> _locations = [];
+    List<MovePlanTrip> _locations = [];
 
     for (Location loc in widget.planTripModel) {
-      _locations.add(loc.iId?.oid ?? '');
+      _locations
+          .add(MovePlanTrip(locationId: loc.iId?.oid, date: widget.goneDate));
       _dragLocation.add(DragAndDropItem(
         child: Text(loc.iId?.oid ?? ''),
       ));
@@ -391,9 +394,11 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       );
     });
 
-    _plan = List.generate(tripDay, (index) {
-      return index == 0 ? _locations : [];
-    });
+    _plan.add(_locations);
+
+    for (var i = 0; i < tripDay; i++) {
+      _plan.add([]);
+    }
   }
 
   @override
@@ -419,8 +424,19 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
 
   saveTripPlan() {
     // TODO: aggiungere anche le date di inizio e fine
-    log(json.encode(_plan));
-    String planStr = json.encode(_plan);
-    widget.planTripBloc.add(SaveTrip(body: "{trip: $planStr}"));
+
+    List obj = [];
+    log(_plan.toString());
+    for (List fl in _plan) {
+      if (fl.isEmpty)
+        obj.add(MovePlanTrip().encode());
+      else
+        for (MovePlanTrip el in fl) {
+          obj.add(el.encode());
+        }
+    }
+
+    String objStr = obj.join(",");
+    widget.planTripBloc.add(SaveTrip(body: "{trip: [ $objStr ] }"));
   }
 }
