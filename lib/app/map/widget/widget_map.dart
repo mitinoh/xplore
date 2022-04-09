@@ -38,7 +38,7 @@ class MapContainer extends StatelessWidget {
               return Container(child: Text("error"));
             } else {
               log(state.toString());
-              return Text("asdddddd");
+              return LoadingIndicator();
             }
           },
         ),
@@ -129,9 +129,10 @@ class MapLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(0,
-            0), //LatLng(userLoc!.latitude ?? 51, userLoc!.longitude ?? -0.09),
-        zoom: 10.0,
+        //LatLng(41.902782, 12.496366),
+        center: LatLng(
+            userLoc?.latitude ?? 41.902782, userLoc?.longitude ?? 12.496366),
+        zoom: 5.0,
       ),
       layers: [
         TileLayerOptions(

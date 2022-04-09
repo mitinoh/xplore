@@ -38,8 +38,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     "avoidCategory": [],
     "periodAvaiable": [1, 2, 3, 4],
     "dayAvaiable": [1, 2, 3, 4, 5, 6, 7],
-    //"goneDate": DateTime.now().toIso8601String(),
-    //"returnDate": DateTime.now().toIso8601String(),
+    "goneDate": DateTime.now().millisecondsSinceEpoch,
+    "returnDate": DateTime.now().millisecondsSinceEpoch,
     "distance": 0,
     "totDay": 1
   };
@@ -123,10 +123,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             //for rebuilding the ui
             if (gone) {
               goneDate = pickedDate;
-              planQuery["goneDate"] = goneDate.toIso8601String();
+              planQuery["goneDate"] = goneDate.millisecondsSinceEpoch;
             } else {
               returnDate = pickedDate;
-              planQuery["returnDate"] = returnDate.toIso8601String();
+              planQuery["returnDate"] = returnDate.millisecondsSinceEpoch;
             }
           });
         });
@@ -147,17 +147,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                               setState(() {
                                 if (gone) {
                                   goneDate = pickedDate;
-                                  // FIXME
-                                  /* planQuery["goneDate"] = "new Date('" +
-                                      goneDate.toIso8601String() +
-                                      "')";*/
+
+                                  planQuery["goneDate"] =
+                                      goneDate.millisecondsSinceEpoch;
                                 } else {
                                   returnDate = pickedDate;
-                                  // FIXME
-                                  /*  planQuery["returnDate"] = "new Date('" +
-                                      returnDate.toIso8601String() +
-                                      "')";
-                                      */
+                                  planQuery["returnDate"] =
+                                      returnDate.millisecondsSinceEpoch;
                                 }
                               });
                             }),
@@ -355,7 +351,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     setState(() {
       MovePlanTrip movedPlan = _plan[oldListIndex][oldItemIndex];
-      movedPlan.date = movedPlan.date?.add(Duration(days: newListIndex));
+      movedPlan.date =
+          DateTime.fromMillisecondsSinceEpoch(movedPlan.date ?? 0 * 1000)
+              .add(Duration(days: newListIndex))
+              .millisecondsSinceEpoch;
       _plan[oldListIndex].removeAt(oldItemIndex);
       _plan[newListIndex].insert(newItemIndex, movedPlan);
       var movedItem = _contents[oldListIndex].children.removeAt(oldItemIndex);
@@ -380,8 +379,9 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     List<MovePlanTrip> _locations = [];
 
     for (Location loc in widget.planTripModel) {
-      _locations
-          .add(MovePlanTrip(locationId: loc.iId?.oid, date: widget.goneDate));
+      _locations.add(MovePlanTrip(
+          locationId: loc.iId?.oid,
+          date: widget.goneDate.microsecondsSinceEpoch));
       _dragLocation.add(DragAndDropItem(
         child: Text(loc.iId?.oid ?? ''),
       ));
@@ -423,14 +423,13 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   }
 
   saveTripPlan() {
-    // TODO: aggiungere anche le date di inizio e fine
 
     List obj = [];
-    log(_plan.toString());
     for (List fl in _plan) {
-      if (fl.isEmpty)
+      if (fl.isEmpty) {
         obj.add(MovePlanTrip().encode());
-      else
+      } else
+        // ignore: curly_braces_in_flow_control_structures
         for (MovePlanTrip el in fl) {
           obj.add(el.encode());
         }

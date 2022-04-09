@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class MovePlanTrip {
   String? locationId;
-  DateTime? date;
+  int? date;
 
   MovePlanTrip({this.locationId, this.date});
 
@@ -21,7 +23,7 @@ class MovePlanTrip {
   String encode() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['locationId'] = this.locationId;
-    data['date'] = this.date?.toIso8601String();
+    data['date'] = this.date;
     return json.encode(data);
   }
 }

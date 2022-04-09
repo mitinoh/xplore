@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -18,15 +19,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     on<GetLocationList>((event, emit) async {
       try {
-       // emit(MapLoading());
+        emit(MapLoading());
         log("1");
+
         String pipe = _mapRepository.getPipelineMap(x: event.x, y: event.y);
         final mList = await _mapRepository.fetchLocationList(body: pipe);
-        //final userLoc = await _mapRepository.getUserLocation();
+        Timer(Duration(seconds: 1), () {
+          lc.LocationData? _userLocation;
+          emit(MapLoaded(mList, _userLocation));
+        });
+        // FIXME: non risponde quasi mai stammerda
+        final userLoc = await _mapRepository.getUserLocation();
         //final userLoc =  lc.LocationData;
-        lc.LocationData? _userLocation;
+
         // log(userLoc.toString());
-        emit(MapLoaded(mList, _userLocation));
+        emit(MapLoaded(mList, userLoc));
       } on NetworkError {
         emit(const MapError("Failed to fetch data. is your device online?"));
       }
