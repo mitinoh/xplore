@@ -24,7 +24,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
         String pipe = _mapRepository.getPipelineMap(x: event.x, y: event.y);
         final mList = await _mapRepository.fetchLocationList(body: pipe);
-        Timer(Duration(seconds: 1), () {
+        Timer(Duration(milliseconds: 50), () {
           lc.LocationData? _userLocation;
           emit(MapLoaded(mList, _userLocation));
         });
@@ -47,7 +47,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       }
     });
 
-    on<GetUserLocation>((event, emit) async {
+    /*on<GetUserLocation>((event, emit) async {
       try {
         // emit(UserLocLoading());
         final userLoc = await _mapRepository.getUserLocation();
@@ -55,6 +55,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       } on NetworkError {
         emit(const MapError("Failed to fetch data. is your device online?"));
       }
-    });
+    });*/
   }
 }

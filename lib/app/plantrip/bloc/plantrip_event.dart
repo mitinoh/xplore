@@ -16,3 +16,8 @@ class SaveTrip extends PlantripEvent {
   String body;
   SaveTrip({required this.body});
 }
+
+class GetPlannedTrip extends PlantripEvent {
+  String body;
+  GetPlannedTrip({required this.body});
+}

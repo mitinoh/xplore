@@ -24,6 +24,14 @@ class PlanTripRepository extends Repository {
       throw Exception(e);
     }
   }
+
+
+    Future<List<Location>> fetchPlannedTripList({required String body}) async {
+    String url = conf.ip + conf.planTripColl;
+    await setDio(_dio);
+    Response response = await _dio.post(url, data: "{pipeline: [$body]}");
+    return Location().toList(response);
+  }
 }
 
 class NetworkError extends Error {}

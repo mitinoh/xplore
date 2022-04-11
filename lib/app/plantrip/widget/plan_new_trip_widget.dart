@@ -33,8 +33,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   int questNum = 0;
   double _currentSliderValue = 20;
   Map<String, dynamic> planQuery = {
-    "lat": 0.0,
-    "lng": 0.0,
+    "coordinate": {"lat": 0.0, "lng": 0.0, "alt": 0.0},
     "avoidCategory": [],
     "periodAvaiable": [1, 2, 3, 4],
     "dayAvaiable": [1, 2, 3, 4, 5, 6, 7],
@@ -319,8 +318,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   void getCoordinate(String location) async {
     List<geo.Location> locations = await geo.locationFromAddress(location);
 
-    planQuery["lat"] = locations[0].latitude;
-    planQuery["lng"] = locations[0].longitude;
+    planQuery["coordinate"]["lat"] = locations[0].latitude;
+    planQuery["coordinate"]["lng"] = locations[0].longitude;
   }
 }
 
@@ -423,19 +422,15 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   }
 
   saveTripPlan() {
-
-    List obj = [];
+    List planList = [];
     for (List fl in _plan) {
-      if (fl.isEmpty) {
-        obj.add(MovePlanTrip().encode());
-      } else
-        // ignore: curly_braces_in_flow_control_structures
-        for (MovePlanTrip el in fl) {
-          obj.add(el.encode());
-        }
+      for (MovePlanTrip el in fl) {
+        // salvo solamente i gg in cui c'è un attivita
+        planList.add(el.encode());
+      }
     }
 
-    String objStr = obj.join(",");
-    widget.planTripBloc.add(SaveTrip(body: "{trip: [ $objStr ] }"));
+    widget.planQuery["trip"] = [planList.join(",")];
+    widget.planTripBloc.add(SaveTrip(body: widget.planQuery.toString()));
   }
 }
