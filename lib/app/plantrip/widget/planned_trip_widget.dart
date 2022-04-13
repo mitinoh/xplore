@@ -29,7 +29,10 @@ class PlannedTripList extends StatelessWidget {
             } else if (state is PlantripLoadingPlannedTrip) {
               return LoadingIndicator();
             } else if (state is PlantripLoadedPlannedTrip) {
-              return Container(child: Text("list"),);
+              state.planTripModel;
+              return Container(
+                child: Text("list"),
+              );
             } else if (state is PlanTripError) {
               return Container();
             } else {

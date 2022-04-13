@@ -9,7 +9,7 @@ class PlanTripRepository extends Repository {
   final Dio _dio = Dio();
 
   Future<List<Location>> fetchLocationList({required String body}) async {
-    String url = conf.ip + conf.planTripColl;
+    String url = conf.ip + conf.planTripColl + '?plan=true';
     await setDio(_dio);
     Response response = await _dio.post(url, data: "{pipeline: [$body]}");
     return Location().toList(response);
@@ -25,8 +25,21 @@ class PlanTripRepository extends Repository {
     }
   }
 
-
-    Future<List<Location>> fetchPlannedTripList({required String body}) async {
+  Future<List<Location>> fetchPlannedTripList({required String body}) async {
+    String fid = getUserID();
+    int now = DateTime.now().millisecondsSinceEpoch;
+    body = """
+  {
+    '\$match': {
+      'fid': {
+        '\$eq': '$fid'
+      }, 
+      'returnDate': {
+        '\$gte': $now
+      }
+    }
+  }
+""";
     String url = conf.ip + conf.planTripColl;
     await setDio(_dio);
     Response response = await _dio.post(url, data: "{pipeline: [$body]}");

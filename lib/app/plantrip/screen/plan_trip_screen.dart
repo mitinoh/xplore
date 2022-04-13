@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
+import 'package:xplore/app/plantrip/repository/plan_trip_repository.dart';
 import 'package:xplore/app/plantrip/screen/plan_new_trip_screen.dart';
 import 'package:xplore/app/plantrip/widget/planned_trip_widget.dart';
 
@@ -12,10 +14,11 @@ class PlanTripScreen extends StatefulWidget {
 
 class _PlanTripScreenState extends State<PlanTripScreen> {
   final PlantripBloc _planTripBloc = PlantripBloc();
+  final PlanTripRepository _planTripRepository = PlanTripRepository();
   @override
   void initState() {
     super.initState();
-    _planTripBloc.add(GetPlannedTrip(body: ''));
+    _planTripBloc.add(GetPlannedTrip(body:""));
   }
 
   @override

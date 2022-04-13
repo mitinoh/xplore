@@ -10,15 +10,18 @@ class Repository {
   Config conf = Config();
 
   Future setDio(Dio dio) async {
+    User? user = FirebaseAuth.instance.currentUser;
 
-   User? user = FirebaseAuth.instance.currentUser;
-  
     if (FirebaseAuth.instance.currentUser != null) {
       dio.options.headers['content-Type'] = 'application/json';
       // user.getIdToken().then((value) => dio.options.headers["tkn"] = value);
-     
+
       dio.options.headers["tkn"] = await user?.getIdToken();
     }
+  }
+
+  String getUserID()  {
+    return  FirebaseAuth.instance.currentUser?.uid ?? '';
   }
 
   Dio _dio = Dio();
@@ -43,6 +46,5 @@ class Repository {
     obj = obj ?? {};
     String url = conf.ip + endp;
     response = await _dio.put(url, data: obj);
-
   }
 }

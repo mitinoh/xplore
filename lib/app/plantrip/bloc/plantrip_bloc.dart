@@ -23,8 +23,8 @@ class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
       //emit(PlantripLoadedLocation(loc));
     });
     on<GetPlannedTrip>((event, emit) async {
-     List<Object> plannedTrip =     await _planTripRepository.fetchPlannedTripList(body: event.body);
-    emit(PlantripLoadedPlannedTrip(plannedTrip));
+      List<Object> plannedTrip = await _planTripRepository.fetchPlannedTripList(body: event.body);
+      emit(PlantripLoadedPlannedTrip(plannedTrip));
     });
   }
 }
