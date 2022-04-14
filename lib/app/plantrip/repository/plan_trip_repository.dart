@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:xplore/core/repository.dart';
 import 'package:xplore/model/location_model.dart';
+import 'package:xplore/model/plan_trip_model.dart';
 
 class PlanTripRepository extends Repository {
   static List<int> categoryFilter = [];
@@ -25,7 +26,7 @@ class PlanTripRepository extends Repository {
     }
   }
 
-  Future<List<Location>> fetchPlannedTripList({required String body}) async {
+  Future<List<PlanTrip>> fetchPlannedTripList({required String body}) async {
     String fid = getUserID();
     int now = DateTime.now().millisecondsSinceEpoch;
     body = """
@@ -43,7 +44,7 @@ class PlanTripRepository extends Repository {
     String url = conf.ip + conf.planTripColl;
     await setDio(_dio);
     Response response = await _dio.post(url, data: "{pipeline: [$body]}");
-    return Location().toList(response);
+    return PlanTrip().toList(response);
   }
 }
 

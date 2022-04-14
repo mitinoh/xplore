@@ -1,9 +1,12 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:xplore/model/objectId_model.dart';
+
+import 'coordinate_model.dart';
 
 class Location {
-  Id? iId;
+  ObjectId? iId;
   String? name;
   Coordinate? coordinate;
   List<int>? category;
@@ -18,8 +21,8 @@ class Location {
       this.desc,
       this.cdate});
 
-  Location.fromJson(Map<String, dynamic> json) {
-    iId = json['_id'] != null ? new Id.fromJson(json['_id']) : null;
+  Location.fromJson(Map<String, dynamic>  json) {
+    iId = json['_id'] != null ? new ObjectId.fromJson(json['_id']) : null;
     name = json['name'] ?? '';
     coordinate = json['coordinate'] != null
         ? new Coordinate.fromJson(json['coordinate'])
@@ -55,43 +58,6 @@ class Location {
   }
 }
 
-class Id {
-  String? oid;
-
-  Id({this.oid});
-
-  Id.fromJson(Map<String, dynamic> json) {
-    oid = json['\$oid'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['$oid'] = this.oid;
-    return data;
-  }
-}
-
-class Coordinate {
-  double? lat;
-  double? lng;
-  double? alt;
-
-  Coordinate({this.lat, this.lng, this.alt});
-
-  Coordinate.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'].toDouble();
-    lng = json['lng'].toDouble();
-    lng = json['lng'].toDouble();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = this.lat;
-    data['lng'] = this.lng;
-    data['lng'] = this.lng;
-    return data;
-  }
-}
 
 class Cdate {
   String? date;

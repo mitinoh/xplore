@@ -30,8 +30,37 @@ class PlannedTripList extends StatelessWidget {
               return LoadingIndicator();
             } else if (state is PlantripLoadedPlannedTrip) {
               state.planTripModel;
-              return Container(
-                child: Text("list"),
+              return BlocProvider(
+                create: (_) => planTripBloc,
+                child: BlocListener<PlantripBloc, PlantripState>(
+                  listener: (context, state) {
+                    if (state is PlanTripError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("error"),
+                        ),
+                      );
+                    }
+                  },
+                  child: BlocBuilder<PlantripBloc, PlantripState>(
+                    builder: (context, state) {
+                      if (state is PlantripInitial) {
+                        return LoadingIndicator();
+                      } else if (state is PlantripLoadingPlannedTrip) {
+                        return LoadingIndicator();
+                      } else if (state is PlantripLoadedPlannedTrip) {
+                        state.planTripModel;
+                        return Container(
+                          child: Text(""),
+                        );
+                      } else if (state is PlanTripError) {
+                        return Container();
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
+                ),
               );
             } else if (state is PlanTripError) {
               return Container();
