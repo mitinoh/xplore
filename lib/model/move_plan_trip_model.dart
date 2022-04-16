@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:objectid/objectid.dart';
 
 class MovePlanTrip {
   String? locationId;
@@ -22,8 +24,9 @@ class MovePlanTrip {
 
   String encode() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['locationId'] = this.locationId;
+    String id = this.locationId ?? '';
+    data['locationId'] = 'ObjectId("$id")';
     data['date'] = this.date;
-    return json.encode(data);
+    return data.toString();
   }
 }

@@ -14,6 +14,7 @@ import 'package:xplore/core/widget/widget_core.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/move_plan_trip_model.dart';
+import 'package:xplore/model/objectId_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
   const NetTripQuestion({Key? key}) : super(key: key);

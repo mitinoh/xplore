@@ -46,7 +46,7 @@ class PlanTrip {
     coordinate = json['coordinate'] != null
         ? new Coordinate.fromJson(json['coordinate'])
         : null;
-    distance = json['distance'];
+    distance = json['distance'].toInt();
     periodAvaiable = json['periodAvaiable'];
     totDay = json['totDay'];
     if (json['avoidCategory'] != null) {
@@ -139,9 +139,6 @@ class Cdate {
     return data;
   }
 }
-
-
-
 
 class Trip {
   Date? date;

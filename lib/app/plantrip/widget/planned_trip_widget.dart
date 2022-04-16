@@ -50,9 +50,16 @@ class PlannedTripList extends StatelessWidget {
                         return LoadingIndicator();
                       } else if (state is PlantripLoadedPlannedTrip) {
                         state.planTripModel;
-                        return Container(
-                          child: Text(""),
+
+                        return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: state.planTripModel.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Text(state.planTripModel[index].toString()); // TODO: tirare fuori nome del posto e poi card che ti fa vedere le robe dentro 
+                          },
                         );
+
                       } else if (state is PlanTripError) {
                         return Container();
                       } else {
