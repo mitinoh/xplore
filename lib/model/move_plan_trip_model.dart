@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:objectid/objectid.dart';
 
 class MovePlanTrip {
   String? locationId;

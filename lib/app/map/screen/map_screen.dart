@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:xplore/app/map/bloc/map_bloc.dart';
 import 'package:xplore/app/map/widget/widget_map.dart';
 
@@ -16,7 +14,6 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
-    print("init");
     super.initState();
     _mapBloc.add(GetLocationList());
   }

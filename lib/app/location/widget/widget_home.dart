@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
@@ -122,17 +124,24 @@ class BuildListCardCategory extends StatelessWidget {
   }
 }
 
-class BuildListCardHome extends StatelessWidget {
-  const BuildListCardHome(
+class BuildListCardHome extends StatefulWidget {
+  BuildListCardHome(
       {Key? key, required this.homeBloc, required this.pageController})
       : super(key: key);
 
   final LocationBloc homeBloc;
   final PageController pageController;
+
+  List<Location> modelLoc = [];
+  @override
+  State<BuildListCardHome> createState() => _BuildListCardHomeState();
+}
+
+class _BuildListCardHomeState extends State<BuildListCardHome> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => homeBloc,
+      create: (_) => widget.homeBloc,
       child: BlocListener<LocationBloc, LocationState>(
         listener: (context, state) {
           if (state is HomeError) {
@@ -150,10 +159,11 @@ class BuildListCardHome extends StatelessWidget {
             } else if (state is LocationHomeLoading) {
               return LoadingIndicator();
             } else if (state is LocationHomeLoaded) {
+              widget.modelLoc = [...state.homeModel];
               return BuildMainCard(
-                  model: state.homeModel,
-                  pageController: pageController,
-                  locationBloc: homeBloc);
+                  model: widget.modelLoc,
+                  pageController: widget.pageController,
+                  locationBloc: widget.homeBloc);
             } else if (state is HomeError) {
               return Container();
             } else {
@@ -179,7 +189,7 @@ class BuildMainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> _card = [];
-
+    log(model.toString());
     for (Location el in model) {
       String id = el.iId?.oid ?? '';
       String url = "http://localhost:8080/xplore/images/location/" + id;
@@ -194,10 +204,8 @@ class BuildMainCard extends StatelessWidget {
                     top: 50.0,
                     child: IconButton(
                         onPressed: () {
-                          print("a");
-
                           Map<String, dynamic> saveLocationMap = {
-                            "locationId": id,
+                            "locationId": 'ObjectId("$id")',
                           };
 
                           locationBloc.add(SaveNewLocation(
@@ -222,6 +230,10 @@ class BuildMainCard extends StatelessWidget {
       scrollDirection: Axis.vertical,
       controller: pageController,
       children: _card,
+      onPageChanged: (i) => {
+        if (true)
+          {HomeRepository.skip += 1, locationBloc.add(GetLocationList())}
+      },
     );
   }
 }
@@ -301,8 +313,10 @@ class _SearchMenuHomeState extends State<SearchMenuHome>
                   animController.forward();
                   isForward = true;
                 } else {
+                  HomeRepository.skip = 1;
                   homeBloc.add(GetLocationList(
-                      searchName: _searchController.text.toString()));
+                    searchName: _searchController.text.toString(),
+                  ));
                   animController.reverse();
                   isForward = false;
                 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
+import 'package:xplore/app/location/repository/home_repository.dart';
 import 'package:xplore/app/location/widget/widget_home.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -16,7 +18,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _homeBloc.add(GetLocationList());
+    _homeBloc.add(GetLocationList(
+      ));
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
   }
