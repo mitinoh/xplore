@@ -4,43 +4,53 @@ class Config {
   String address = "localhost";
   String port = "8080";
   String appName = "xplore";
+  String imageFolder = "images";
+
   String get ip {
     return 'http://${address}:${port}/${appName}/';
   }
 
+  String get urlImages {
+    return '${ip}${imageFolder}/';
+  }
+
   String get userColl {
-    return "user";
+    return ip + "user";
   }
 
   String get locationColl {
-    return "location";
+    return ip + "location";
   }
 
   String get newLocationColl {
-    return "newLocation";
+    return ip + "newLocation";
   }
 
   String get locationCategoryColl {
-    return "locationCategory";
+    return ip + "locationCategory";
   }
 
   String get rateLocationColl {
-    return "rateLocation";
+    return ip + "rateLocation";
   }
 
   String get savedLocationColl {
-    return "savedLocation";
+    return ip + "savedLocation";
   }
 
   String get visitedLocationColl {
-    return "visitedLocation";
+    return ip + "visitedLocation";
   }
 
   String get badgeColl {
-    return "badge";
+    return ip + "badge";
   }
 
   String get planTripColl {
-    return "planTrip";
+    return ip + "planTrip";
+  }
+
+  String get locationImage {
+    return urlImages + "location/";
   }
 }

@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'dart:developer';
+
 import 'dart:io';
 
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
@@ -14,7 +13,6 @@ import 'package:xplore/core/widget/widget_core.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/move_plan_trip_model.dart';
-import 'package:xplore/model/objectId_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
   const NetTripQuestion({Key? key}) : super(key: key);
@@ -199,7 +197,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       create: (_) => _locCatBloc,
       child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
         listener: (context, state) {
-          if (state is HomeError) {
+          if (state is LocationError) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text("error"),

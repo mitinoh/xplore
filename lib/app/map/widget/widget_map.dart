@@ -138,13 +138,6 @@ class MapLayout extends StatelessWidget {
         TileLayerOptions(
           minZoom: 1,
           maxZoom: 20,
-          /*urlTemplate:
-              "https://api.mapbox.com/styles/v1/ahmed123bahmud/cl0prc9ct002715s8ar7211zo/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWhtZWQxMjNiYWhtdWQiLCJhIjoiY2wwcHFheHh0MHR1czNqcGttZXcxcG9lbSJ9.nzJlDO8J8qND7iNB6YdKaw",
-          additionalOptions: {
-            'accessToken':
-                'pk.eyJ1IjoiYWhtZWQxMjNiYWhtdWQiLCJhIjoiY2wwcHFheHh0MHR1czNqcGttZXcxcG9lbSJ9.nzJlDO8J8qND7iNB6YdKaw',
-            'id': 'mapbox/streets-v11',
-          },*/
           urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
           subdomains: ['a', 'b', 'c'],
         ),

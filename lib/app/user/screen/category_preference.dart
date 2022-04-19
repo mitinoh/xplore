@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
-import 'package:xplore/core/widget/navbar.dart';
 import 'package:xplore/core/widget/widget_core.dart';
-import 'package:xplore/main.dart';
 
 class CategoryPreference extends StatefulWidget {
   CategoryPreference({Key? key, required this.pipeline}) : super(key: key);
@@ -31,7 +28,7 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
         create: (_) => _locCatBloc,
         child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
           listener: (context, state) {
-            if (state is HomeError) {
+            if (state is LocationError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text("error"),

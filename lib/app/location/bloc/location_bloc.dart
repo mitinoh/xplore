@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:xplore/app/location/repository/home_repository.dart';
+import 'package:xplore/app/location/repository/location_repository.dart';
 import 'package:xplore/model/location_model.dart';
 
 part 'location_event.dart';
@@ -10,8 +8,7 @@ part 'location_state.dart';
 
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
   LocationBloc() : super(LocationHomeInitial()) {
-    final HomeRepository _locationRepository = HomeRepository();
-    on<LocationEvent>((event, emit) {});
+    final LocationRepository _locationRepository = LocationRepository();
 
     on<GetLocationList>((event, emit) async {
       try {
@@ -22,30 +19,27 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         final mList = await _locationRepository.fetchLocationList(body: pipe);
 
         emit(LocationHomeLoaded(mList));
-      } on NetworkError {
-        emit(const HomeError("Failed to fetch data. is your device online?"));
+      } catch (e) {
+        emit(const LocationError(
+            "Failed to fetch data. is your device online?"));
       }
     });
 
     on<CreateNewLocation>((event, emit) async {
       try {
-        emit(CreatingNewLocation());
-        await _locationRepository.newLocationPut(body: event.body);
-
-        emit(CreatedNewLocation());
-      } on NetworkError {
-        emit(const HomeError("Failed to fetch data. is your device online?"));
+        await _locationRepository.newLocationPut(map: event.map);
+      } catch (e) {
+        emit(const LocationError(
+            "Failed to fetch data. is your device online?"));
       }
     });
 
-        on<SaveNewLocation>((event, emit) async {
+    on<SaveUserLocation>((event, emit) async {
       try {
-        //emit(SavingNewLocation());
-        await _locationRepository.saveUserLocationPut(body: event.body);
-
-        //emit(SavedNewLocation());
-      } on NetworkError {
-        emit(const HomeError("Failed to fetch data. is your device online?"));
+        await _locationRepository.saveUserLocationPut(map: event.map);
+      } catch (e) {
+        emit(const LocationError(
+            "Failed to fetch data. is your device online?"));
       }
     });
   }

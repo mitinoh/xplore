@@ -8,18 +8,16 @@ abstract class LocationEvent extends Equatable {
 }
 
 class GetLocationList extends LocationEvent {
-  String? searchName;
-  GetLocationList({this.searchName});
+  final String? searchName;
+  const GetLocationList({this.searchName});
 }
-
-class GetHomeLocationList extends LocationEvent {}
 
 class CreateNewLocation extends LocationEvent {
-  String body;
-  CreateNewLocation({required this.body});
+  final Map<String, dynamic> map;
+  const CreateNewLocation({required this.map});
 }
 
-class SaveNewLocation extends LocationEvent {
-  String body;
-  SaveNewLocation({required this.body});
+class SaveUserLocation extends LocationEvent {
+  final Map<String, dynamic> map;
+  const SaveUserLocation({required this.map});
 }

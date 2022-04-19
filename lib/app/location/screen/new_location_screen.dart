@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,12 +5,11 @@ import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+
+import 'package:xplore/model/locationCategory_model.dart';
 
 class NewLocation extends StatefulWidget {
   const NewLocation({Key? key}) : super(key: key);
-
   @override
   State<NewLocation> createState() => _NewLocationState();
 }
@@ -24,7 +20,7 @@ class _NewLocationState extends State<NewLocation> {
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
 
   final LocationBloc _locationBloc = LocationBloc();
-  List<int> _catSelected = [];
+  final List<int> _catSelected = [];
 
   late File imageFile;
 
@@ -33,16 +29,6 @@ class _NewLocationState extends State<NewLocation> {
   void initState() {
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
-  }
-
-  /// Get from gallery
-  _getFromGallery() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        imageFile = File(image.path);
-      });
-    }
   }
 
   @override
@@ -74,7 +60,7 @@ class _NewLocationState extends State<NewLocation> {
               create: (_) => _locCatBloc,
               child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
                 listener: (context, state) {
-                  if (state is HomeError) {
+                  if (state is LocationError) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text("error"),
@@ -84,10 +70,9 @@ class _NewLocationState extends State<NewLocation> {
                 },
                 child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
                   builder: (context, state) {
-                    if (state is LocationcategoryInitial) {
-                      return LoadingIndicator();
-                    } else if (state is LocationCategoryLoading) {
-                      return LoadingIndicator();
+                    if (state is LocationcategoryInitial ||
+                        state is LocationCategoryLoading) {
+                      return const LoadingIndicator();
                     } else if (state is LocationcategoryLoaded) {
                       return SingleChildScrollView(
                         physics: ScrollPhysics(),
@@ -98,25 +83,16 @@ class _NewLocationState extends State<NewLocation> {
                               shrinkWrap: true,
                               itemCount: state.locationCategoryModel.length,
                               itemBuilder: (BuildContext context, int index) {
+                                // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta
                                 return CheckboxListTile(
-                                  value: _catSelected.contains(
-                                      state.locationCategoryModel[index].value),
+                                  value: _categoryIsSelected(
+                                      state.locationCategoryModel, index),
                                   onChanged: (bln) {
-                                    setState(() {
-                                      int value = state
-                                              .locationCategoryModel[index]
-                                              .value ??
-                                          0;
-                                      if (_catSelected.contains(value)) {
-                                        _catSelected.remove(value);
-                                      } else {
-                                        _catSelected.add(value);
-                                      }
-                                    });
+                                    _toggleSelectedCat(
+                                        state.locationCategoryModel, index);
                                   },
-                                  title: Text(
-                                      state.locationCategoryModel[index].name ??
-                                          ''),
+                                  title: Text(_getLocationName(
+                                      state.locationCategoryModel, index)),
                                   contentPadding: EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 10),
                                 );
@@ -136,19 +112,53 @@ class _NewLocationState extends State<NewLocation> {
             ),
             TextButton(
                 onPressed: () {
-                  Map<String, dynamic> newLocationMap = {
-                    "name": _nameController.text,
-                    "desc": _descController.text,
-                    "categories": _catSelected
-                  };
-
-                  _locationBloc.add(
-                      CreateNewLocation(body: json.encode(newLocationMap)));
+                  _createNewLocation();
                 },
                 child: Text("add"))
           ],
         ),
       ),
     );
+  }
+
+  bool _categoryIsSelected(
+      List<LocationCategory> locationCategoryModel, int index) {
+    return _catSelected.contains(locationCategoryModel[index].value);
+  }
+
+  String _getLocationName(
+      List<LocationCategory> locationCategoryModel, int index) {
+    return locationCategoryModel[index].name ?? '';
+  }
+
+  void _createNewLocation() {
+    Map<String, dynamic> newLocationMap = {
+      "name": _nameController.text,
+      "desc": _descController.text,
+      "categories": _catSelected
+    };
+
+    _locationBloc.add(CreateNewLocation(map: newLocationMap));
+  }
+
+  void _toggleSelectedCat(
+      List<LocationCategory> locationCategoryModel, int index) {
+    setState(() {
+      int value = locationCategoryModel[index].value ?? 0;
+      if (_catSelected.contains(value)) {
+        _catSelected.remove(value);
+      } else {
+        _catSelected.add(value);
+      }
+    });
+  }
+
+  _getFromGallery() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        imageFile = File(image.path);
+      });
+    }
   }
 }

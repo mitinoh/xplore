@@ -3,8 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
-import 'package:xplore/app/location/repository/home_repository.dart';
+import 'package:xplore/app/location/repository/location_repository.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
+import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/locationCategory_model.dart';
 import 'package:xplore/model/location_model.dart';
@@ -32,11 +33,12 @@ class TopMenuHome extends StatelessWidget {
 }
 
 class FilterMenuHome extends StatelessWidget {
-  FilterMenuHome(
+  const FilterMenuHome(
       {Key? key,
       required this.context,
       required this.locCatBloc,
-      required this.homeBloc});
+      required this.homeBloc})
+      : super(key: key);
   final BuildContext context;
   final LocationcategoryBloc locCatBloc;
   final LocationBloc homeBloc;
@@ -55,7 +57,7 @@ class FilterMenuHome extends StatelessWidget {
                   child:
                       BlocListener<LocationcategoryBloc, LocationcategoryState>(
                     listener: (context, state) {
-                      if (state is HomeError) {
+                      if (state is LocationError) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text("error"),
@@ -66,10 +68,9 @@ class FilterMenuHome extends StatelessWidget {
                     child: BlocBuilder<LocationcategoryBloc,
                         LocationcategoryState>(
                       builder: (context, state) {
-                        if (state is LocationcategoryInitial) {
-                          return LoadingIndicator();
-                        } else if (state is LocationCategoryLoading) {
-                          return LoadingIndicator();
+                        if (state is LocationcategoryInitial ||
+                            state is LocationCategoryLoading) {
+                          return const LoadingIndicator();
                         } else if (state is LocationcategoryLoaded) {
                           return BuildListCardCategory(
                             context: context,
@@ -111,16 +112,20 @@ class BuildListCardCategory extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return TextButton(
             onPressed: () {
-              if (HomeRepository.categoryFilter.contains(model[index].value))
-                HomeRepository.categoryFilter.remove(model[index].value);
-              else
-                HomeRepository.categoryFilter.add(model[index].value ?? 0);
-
-              homeBloc.add(GetLocationList());
+              toggleCategoryFilter(index);
+              homeBloc.add(const GetLocationList());
             },
             child: Text(model[index].name ?? ''));
       },
     );
+  }
+
+  toggleCategoryFilter(int index) {
+    if (LocationRepository.categoryFilter.contains(model[index].value)) {
+      LocationRepository.categoryFilter.remove(model[index].value);
+    } else {
+      LocationRepository.categoryFilter.add(model[index].value ?? 0);
+    }
   }
 }
 
@@ -144,7 +149,7 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
       create: (_) => widget.homeBloc,
       child: BlocListener<LocationBloc, LocationState>(
         listener: (context, state) {
-          if (state is HomeError) {
+          if (state is LocationError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message!),
@@ -154,17 +159,15 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
         },
         child: BlocBuilder<LocationBloc, LocationState>(
           builder: (context, state) {
-            if (state is LocationHomeInitial) {
-              return LoadingIndicator();
-            } else if (state is LocationHomeLoading) {
-              return LoadingIndicator();
+            if (state is LocationHomeInitial || state is LocationHomeLoading) {
+              return const LoadingIndicator();
             } else if (state is LocationHomeLoaded) {
-              widget.modelLoc = [...state.homeModel];
+              widget.modelLoc.addAll(state.homeModel);
               return BuildMainCard(
                   model: widget.modelLoc,
                   pageController: widget.pageController,
                   locationBloc: widget.homeBloc);
-            } else if (state is HomeError) {
+            } else if (state is LocationError) {
               return Container();
             } else {
               return Container();
@@ -176,8 +179,9 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
   }
 }
 
+// ignore: must_be_immutable
 class BuildMainCard extends StatelessWidget {
-  const BuildMainCard(
+  BuildMainCard(
       {Key? key,
       required this.pageController,
       required this.model,
@@ -186,14 +190,33 @@ class BuildMainCard extends StatelessWidget {
   final PageController pageController;
   final List<Location> model;
   final LocationBloc locationBloc;
+
+  Config conf = Config();
+
+  List<Widget> card = [];
+
   @override
   Widget build(BuildContext context) {
-    List<Widget> _card = [];
-    log(model.toString());
+    getCards();
+    return PageView(
+      scrollDirection: Axis.vertical,
+      controller: pageController,
+      children: card,
+      onPageChanged: (i) => {
+        if (i % 10 == 0) // TODO: mettere 15
+          {
+            LocationRepository.skip += 1,
+            locationBloc.add(const GetLocationList())
+          }
+      },
+    );
+  }
+
+  getCards() {
     for (Location el in model) {
       String id = el.iId?.oid ?? '';
-      String url = "http://localhost:8080/xplore/images/location/" + id;
-      _card.add(
+      String url = conf.locationImage + id;
+      card.add(
         Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -204,12 +227,7 @@ class BuildMainCard extends StatelessWidget {
                     top: 50.0,
                     child: IconButton(
                         onPressed: () {
-                          Map<String, dynamic> saveLocationMap = {
-                            "locationId": 'ObjectId("$id")',
-                          };
-
-                          locationBloc.add(SaveNewLocation(
-                              body: saveLocationMap.toString()));
+                          saveLocation(id);
                         },
                         icon: Icon(Icons.heart_broken))),
                 Center(
@@ -226,15 +244,14 @@ class BuildMainCard extends StatelessWidget {
             )),
       );
     }
-    return PageView(
-      scrollDirection: Axis.vertical,
-      controller: pageController,
-      children: _card,
-      onPageChanged: (i) => {
-        if (true)
-          {HomeRepository.skip += 1, locationBloc.add(GetLocationList())}
-      },
-    );
+  }
+
+  saveLocation(String id) {
+    Map<String, dynamic> saveLocationMap = {
+      "locationId": 'ObjectId("$id")',
+    };
+
+    locationBloc.add(SaveUserLocation(map: saveLocationMap));
   }
 }
 
@@ -243,14 +260,12 @@ class SearchMenuHome extends StatefulWidget {
   final LocationBloc homeBloc;
 
   @override
-  State<SearchMenuHome> createState() =>
-      _SearchMenuHomeState(homeBloc: homeBloc);
+  State<SearchMenuHome> createState() => _SearchMenuHomeState();
 }
 
 class _SearchMenuHomeState extends State<SearchMenuHome>
     with SingleTickerProviderStateMixin {
-  _SearchMenuHomeState({required this.homeBloc});
-  final LocationBloc homeBloc;
+  _SearchMenuHomeState();
   late Animation<double> animation;
   late AnimationController animController;
   bool isForward = false;
@@ -259,8 +274,8 @@ class _SearchMenuHomeState extends State<SearchMenuHome>
 
   @override
   void initState() {
-    animController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    animController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
 
     final curvedAnimation =
         CurvedAnimation(parent: animController, curve: Curves.linear);
@@ -313,8 +328,8 @@ class _SearchMenuHomeState extends State<SearchMenuHome>
                   animController.forward();
                   isForward = true;
                 } else {
-                  HomeRepository.skip = 1;
-                  homeBloc.add(GetLocationList(
+                  LocationRepository.skip = 1;
+                  widget.homeBloc.add(GetLocationList(
                     searchName: _searchController.text.toString(),
                   ));
                   animController.reverse();

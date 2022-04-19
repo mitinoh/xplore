@@ -16,13 +16,7 @@ class LocationHomeLoaded extends LocationState {
   const LocationHomeLoaded(this.homeModel);
 }
 
-class CreatingNewLocation extends LocationState {}
-class CreatedNewLocation extends LocationState {}
-
-
-class SavingNewLocation extends LocationState {}
-class SavedNewLocation extends LocationState {}
-class HomeError extends LocationState {
+class LocationError extends LocationState {
   final String? message;
-  const HomeError(this.message);
+  const LocationError(this.message);
 }

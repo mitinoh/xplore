@@ -6,7 +6,6 @@ import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/plan_trip_model.dart';
 
 class PlanTripRepository extends Repository {
-  static List<int> categoryFilter = [];
   final Dio _dio = Dio();
 
   Future<List<Location>> fetchLocationList({required String body}) async {

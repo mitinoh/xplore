@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
-import 'package:xplore/app/location/repository/home_repository.dart';
 import 'package:xplore/app/location/widget/widget_home.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 
@@ -18,8 +17,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _homeBloc.add(GetLocationList(
-      ));
+    _homeBloc.add(const GetLocationList());
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
   }

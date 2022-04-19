@@ -1,20 +1,30 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:xplore/core/repository.dart';
 import 'package:xplore/model/location_model.dart';
 
-class HomeRepository extends Repository {
+class LocationRepository extends Repository {
   static var skip = 0;
   static var limit = 15;
   static List<int> categoryFilter = [];
   final Dio _dio = Dio();
+
   Future<List<Location>> fetchLocationList({required String body}) async {
-    String url = conf.ip + conf.locationColl;
+    String url = conf.locationColl;
     await setDio(_dio);
     log(body);
     Response response = await _dio.post(url, data: body);
     return Location().toList(response);
+  }
+
+  Future<void> newLocationPut({required Map<String, dynamic> map}) async {
+    doPut(url: conf.newLocationColl, data: json.encode(map));
+  }
+
+  Future<void> saveUserLocationPut({required Map<String, dynamic> map}) async {
+    doPut(url: conf.savedLocationColl, data: json.encode(map));
   }
 
   String getPipeline({String? searchName}) {
@@ -34,26 +44,4 @@ class HomeRepository extends Repository {
         '{pipeline: [' + pipe + ', {"\$skip": $skip}, {"\$limit": $limit }]}';
     return pipe;
   }
-
-  Future<void> newLocationPut({required String body}) async {
-    try {
-      String url = conf.ip + conf.newLocationColl;
-      await setDio(_dio);
-      await _dio.put(url, data: body);
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<void> saveUserLocationPut({required String body}) async {
-    try {
-      String url = conf.ip + conf.savedLocationColl;
-      await setDio(_dio);
-      await _dio.put(url, data: body);
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
 }
-
-class NetworkError extends Error {}
