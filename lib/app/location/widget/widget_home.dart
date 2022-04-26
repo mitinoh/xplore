@@ -112,8 +112,9 @@ class BuildListCardCategory extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return TextButton(
             onPressed: () {
+              log("2");
               toggleCategoryFilter(index);
-              homeBloc.add(const GetLocationList());
+              homeBloc.add(const GetLocationList(add: false));
             },
             child: Text(model[index].name ?? ''));
       },
@@ -121,10 +122,10 @@ class BuildListCardCategory extends StatelessWidget {
   }
 
   toggleCategoryFilter(int index) {
-    if (LocationRepository.categoryFilter.contains(model[index].value)) {
-      LocationRepository.categoryFilter.remove(model[index].value);
+    if (LocationRepository.categoryFilter.contains(model[index].iId)) {
+      LocationRepository.categoryFilter.remove(model[index].iId);
     } else {
-      LocationRepository.categoryFilter.add(model[index].value ?? 0);
+      LocationRepository.categoryFilter.add(model[index].iId ?? '');
     }
   }
 }
@@ -162,7 +163,11 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
             if (state is LocationHomeInitial || state is LocationHomeLoading) {
               return const LoadingIndicator();
             } else if (state is LocationHomeLoaded) {
-              widget.modelLoc.addAll(state.homeModel);
+              if (state.add)
+                widget.modelLoc.addAll(state.homeModel);
+              else
+                widget.modelLoc = state.homeModel;
+
               return BuildMainCard(
                   model: widget.modelLoc,
                   pageController: widget.pageController,
@@ -203,10 +208,11 @@ class BuildMainCard extends StatelessWidget {
       controller: pageController,
       children: card,
       onPageChanged: (i) => {
-        if (i % 10 == 0) // TODO: mettere 15
+        if (i % 15 == 0) // TODO: mettere 15 //FIXME
           {
-            LocationRepository.skip += 1,
-            locationBloc.add(const GetLocationList())
+            log("****"),
+            //  LocationRepository.skip += 1,
+            // locationBloc.add(const GetLocationList(add: true))
           }
       },
     );
@@ -214,34 +220,35 @@ class BuildMainCard extends StatelessWidget {
 
   getCards() {
     for (Location el in model) {
-      String id = el.iId?.oid ?? '';
+      String id = el.iId ?? '';
       String url = conf.locationImage + id;
       card.add(
         Container(
-            decoration: BoxDecoration(
+            /* decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(url), fit: BoxFit.cover)),
+                    */
             child: SafeArea(
-              child: Stack(children: [
-                Positioned(
-                    top: 50.0,
-                    child: IconButton(
-                        onPressed: () {
-                          saveLocation(id);
-                        },
-                        icon: Icon(Icons.heart_broken))),
-                Center(
-                  child: Text(
-                    el.name ?? '',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: Colors.brown,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ]),
-            )),
+          child: Stack(children: [
+            Positioned(
+                top: 50.0,
+                child: IconButton(
+                    onPressed: () {
+                      saveLocation(id);
+                    },
+                    icon: Icon(Icons.heart_broken))),
+            Center(
+              child: Text(
+                el.name ?? '',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    color: Colors.brown,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ]),
+        )),
       );
     }
   }
@@ -328,10 +335,10 @@ class _SearchMenuHomeState extends State<SearchMenuHome>
                   animController.forward();
                   isForward = true;
                 } else {
-                  LocationRepository.skip = 1;
+                  //LocationRepository.skip = 1;
                   widget.homeBloc.add(GetLocationList(
-                    searchName: _searchController.text.toString(),
-                  ));
+                      searchName: _searchController.text.toString(),
+                      add: false));
                   animController.reverse();
                   isForward = false;
                 }

@@ -1,7 +1,11 @@
+import 'dart:developer';
+import 'dart:ffi';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/app/location/repository/location_repository.dart';
 import 'package:xplore/model/location_model.dart';
+import 'package:xplore/model/mongoose_model.dart';
 
 part 'location_event.dart';
 part 'location_state.dart';
@@ -14,12 +18,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       try {
         emit(LocationHomeLoading());
 
-        String pipe =
-            _locationRepository.getPipeline(searchName: event.searchName);
-        final mList = await _locationRepository.fetchLocationList(body: pipe);
+        Mongoose mng =
+            _locationRepository.getMongoose(searchName: event.searchName);
 
-        emit(LocationHomeLoaded(mList));
+        final mList = await _locationRepository.fetchLocationList(mng: mng);
+
+        emit(LocationHomeLoaded(mList, event.add));
       } catch (e) {
+        //throw Exception('FooException');
         emit(const LocationError(
             "Failed to fetch data. is your device online?"));
       }

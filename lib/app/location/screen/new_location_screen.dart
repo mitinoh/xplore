@@ -20,7 +20,7 @@ class _NewLocationState extends State<NewLocation> {
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
 
   final LocationBloc _locationBloc = LocationBloc();
-  final List<int> _catSelected = [];
+  final List<String> _catSelected = [];
 
   late File imageFile;
 
@@ -123,7 +123,7 @@ class _NewLocationState extends State<NewLocation> {
 
   bool _categoryIsSelected(
       List<LocationCategory> locationCategoryModel, int index) {
-    return _catSelected.contains(locationCategoryModel[index].value);
+    return _catSelected.contains(locationCategoryModel[index].iId);
   }
 
   String _getLocationName(
@@ -144,7 +144,7 @@ class _NewLocationState extends State<NewLocation> {
   void _toggleSelectedCat(
       List<LocationCategory> locationCategoryModel, int index) {
     setState(() {
-      int value = locationCategoryModel[index].value ?? 0;
+      String value = locationCategoryModel[index].iId ?? '';
       if (_catSelected.contains(value)) {
         _catSelected.remove(value);
       } else {

@@ -17,6 +17,8 @@ class Repository {
       dio.options.headers['content-Type'] = 'application/json';
       dio.options.headers["tkn"] = await user?.getIdToken();
     }
+
+   // log(await user?.getIdToken() ?? '');
   }
 
   String getUserID() {
@@ -24,12 +26,9 @@ class Repository {
   }
 
   final Dio _dio = Dio();
-  Future doPost({String? endp, Object? obj}) async {
+  Future doGet({String? endp, Object? obj}) async {}
 
-  }
-
-  Future<Response> doPut(
-      {required String url, required data}) async {
+  Future<Response> doPut({required String url, required data}) async {
     try {
       await setDio(_dio);
       return await _dio.put(url, data: data);

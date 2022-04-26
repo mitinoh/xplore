@@ -1,21 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:xplore/model/coordinate_model.dart';
 import 'package:xplore/model/location_model.dart';
-import 'package:xplore/model/objectId_model.dart';
 
 class PlanTrip {
-  ObjectId? iId;
+  String? iId;
   String? fid;
   List<Trip>? trip;
-  Date? returnDate;
+  DateTime? returnDate;
   Coordinate? coordinate;
   int? distance;
   int? periodAvaiable;
   int? totDay;
-  List<int>? avoidCategory;
+  List<Object>? avoidCategory;
   List<int>? dayAvaiable;
-  Date? goneDate;
-  Cdate? cdate;
+  DateTime? goneDate;
+  DateTime? cdate;
 
   PlanTrip(
       {this.iId,
@@ -32,7 +31,7 @@ class PlanTrip {
       this.cdate});
 
   PlanTrip.fromJson(Map<String, dynamic> json) {
-    iId = json['_id'] != null ? new ObjectId.fromJson(json['_id']) : null;
+    iId = json['_id'];
     fid = json['fid'];
     if (json['trip'] != null) {
       trip = <Trip>[];
@@ -40,36 +39,39 @@ class PlanTrip {
         trip!.add(new Trip.fromJson(v));
       });
     }
+
     returnDate = json['returnDate'] != null
-        ? new Date.fromJson(json['returnDate'])
-        : null;
+        ? DateTime.parse(json['returnDate'])
+        : DateTime.now();
+    goneDate = json['goneDate'] != null
+        ? DateTime.parse(json['goneDate'])
+        : DateTime.now();
     coordinate = json['coordinate'] != null
         ? new Coordinate.fromJson(json['coordinate'])
         : null;
     distance = json['distance'].toInt();
     periodAvaiable = json['periodAvaiable'];
     totDay = json['totDay'];
+    
     if (json['avoidCategory'] != null) {
-      avoidCategory = <int>[];
+      avoidCategory = <Object>[]; // FIXME: Creare model apposito
       json['avoidCategory'].forEach((v) {
         avoidCategory!.add(v);
       });
     }
-    if (json['dayAvaiable'] != null) {
+    /*if (json['dayAvaiable'] != null) {
       dayAvaiable = <int>[];
       json['dayAvaiable'].forEach((v) {
         dayAvaiable!.add(v);
       });
-    }
-    goneDate =
-        json['goneDate'] != null ? new Date.fromJson(json['goneDate']) : null;
-    cdate = json['cdate'] != null ? new Cdate.fromJson(json['cdate']) : null;
+    }*/
+    json['cdate'] != null ? DateTime.parse(json['cdate']) : DateTime.now();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.iId != null) {
-      data['_id'] = this.iId!.toJson();
+      data['_id'] = this.iId;
     }
     data['fid'] = this.fid;
     if (this.trip != null) {
@@ -94,7 +96,7 @@ class PlanTrip {
       data['goneDate'] = this.goneDate!;
     }
     if (this.cdate != null) {
-      data['cdate'] = this.cdate!.toJson();
+      data['cdate'] = this.cdate;
     }
     return data;
   }
@@ -124,34 +126,16 @@ class Date {
   }
 }
 
-class Cdate {
-  int? date;
-
-  Cdate({this.date});
-
-  Cdate.fromJson(Map<String, dynamic> json) {
-    date = json['$date'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['$date'] = this.date;
-    return data;
-  }
-}
-
 class Trip {
   Date? date;
-  ObjectId? locationId;
+  String? locationId;
   Location? location;
 
   Trip({this.date, this.locationId, this.location});
 
   Trip.fromJson(Map<String, dynamic> json) {
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
-    locationId = json['locationId'] != null
-        ? new ObjectId.fromJson(json['locationId'])
-        : null;
+    locationId = json['locationId'];
     location = json['location'] != null
         ? new Location.fromJson(json['location'])
         : null;
@@ -163,7 +147,7 @@ class Trip {
       data['date'] = this.date!.toJson();
     }
     if (this.locationId != null) {
-      data['locationId'] = this.locationId!.toJson();
+      data['locationId'] = this.locationId!;
     }
     if (this.location != null) {
       data['location'] = this.location!.toJson();

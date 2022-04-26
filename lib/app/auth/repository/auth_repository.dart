@@ -87,12 +87,13 @@ class AuthRepository extends Repository {
     }
   }
 
-  Future<void> newUserPut(List<int> categoryPref) async {
+  Future<void> newUserPut(List<String> categoryPref) async {
     try {
       String url = conf.ip + conf.userColl;
       await setDio(_dio);
       await Future.delayed(const Duration(seconds: 1));
-      Response response = await _dio.put(url, data: "{'categoryPref': $categoryPref}");
+      Response response =
+          await _dio.put(url, data: "{'categoryPref': $categoryPref}");
     } catch (e) {
       throw Exception(e);
     }

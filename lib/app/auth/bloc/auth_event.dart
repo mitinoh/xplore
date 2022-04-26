@@ -31,7 +31,7 @@ class GoogleSignInRequested extends AuthEvent {
 class SignOutRequested extends AuthEvent {}
 
 class NewUser extends AuthEvent {
-  final List<int> categoryPref;
+  final List<String> categoryPref;
   NewUser(this.categoryPref);
 }
 

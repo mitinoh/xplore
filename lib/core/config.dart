@@ -2,8 +2,8 @@ class Config {
   /// localhost for ios emulator
   /// 10.0.0.2 for android emulator
   String address = "localhost";
-  String port = "8080";
-  String appName = "xplore";
+  String port = "3000";
+  String appName = "api";
   String imageFolder = "images";
 
   String get ip {
@@ -23,23 +23,23 @@ class Config {
   }
 
   String get newLocationColl {
-    return ip + "newLocation";
+    return ip + "new-location";
   }
 
   String get locationCategoryColl {
-    return ip + "locationCategory";
+    return ip + "location-category";
   }
 
   String get rateLocationColl {
-    return ip + "rateLocation";
+    return ip + "rate-location";
   }
 
   String get savedLocationColl {
-    return ip + "savedLocation";
+    return ip + "save-location";
   }
 
   String get visitedLocationColl {
-    return ip + "visitedLocation";
+    return ip + "visit-location";
   }
 
   String get badgeColl {
@@ -47,7 +47,7 @@ class Config {
   }
 
   String get planTripColl {
-    return ip + "planTrip";
+    return ip + "plan-trip";
   }
 
   String get locationImage {

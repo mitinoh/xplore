@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _homeBloc.add(const GetLocationList());
+    _homeBloc.add(const GetLocationList(add: true));
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
   }

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/app/plantrip/repository/plan_trip_repository.dart';
 import 'package:xplore/model/location_model.dart';
+import 'package:xplore/model/mongoose_model.dart';
 import 'package:xplore/model/plan_trip_model.dart';
 
 part 'plantrip_event.dart';
@@ -16,11 +17,11 @@ class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
     on<GetLocation>((event, emit) async {
       emit(PlantripLoadingLocation());
       List<Location> loc =
-          await _planTripRepository.fetchLocationList(body: event.body);
+          await _planTripRepository.fetchLocationList(body: event.body, mng: event.mng);
       emit(PlantripLoadedLocation(loc));
     });
     on<SaveTrip>((event, emit) async {
-      await _planTripRepository.newPlanTripPut(body: event.body);
+      await _planTripRepository.newPlanTripPut(body: event.body, mng: event.mng);
       //emit(PlantripLoadedLocation(loc));
     });
     on<GetPlannedTrip>((event, emit) async {

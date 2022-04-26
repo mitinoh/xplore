@@ -1,5 +1,5 @@
-
 import 'dart:io';
+import 'dart:math';
 
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +12,7 @@ import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:xplore/model/location_model.dart';
+import 'package:xplore/model/mongoose_model.dart';
 import 'package:xplore/model/move_plan_trip_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
@@ -41,7 +42,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     "distance": 0,
     "totDay": 1
   };
+  Mongoose mng = Mongoose(filter: {}, select: {}, sort: {});
 
+  double locLatitude = 0;
+  double locLongitude = 0;
   @override
   void initState() {
     _locCatBloc.add(GetLocationCategoryList());
@@ -68,7 +72,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       case 4:
         return showTrip();
       case 5:
-        _planTripBloc.add(GetLocation(body: planQuery.toString()));
+        _planTripBloc.add(GetLocation(body: planQuery.toString(), mng: mng));
         return selectLocation();
       default:
         return Scaffold(
@@ -121,9 +125,11 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             //for rebuilding the ui
             if (gone) {
               goneDate = pickedDate;
+              mng.filter?.putIfAbsent("goneDate", () => goneDate);
               planQuery["goneDate"] = goneDate.millisecondsSinceEpoch;
             } else {
               returnDate = pickedDate;
+              //mng.filter?.putIfAbsent("returnDate", () => returnDate);
               planQuery["returnDate"] = returnDate.millisecondsSinceEpoch;
             }
           });
@@ -146,10 +152,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                                 if (gone) {
                                   goneDate = pickedDate;
 
+                                  mng.filter
+                                      ?.putIfAbsent("goneDate", () => goneDate);
                                   planQuery["goneDate"] =
                                       goneDate.millisecondsSinceEpoch;
                                 } else {
                                   returnDate = pickedDate;
+                                  //  mng.filter?.putIfAbsent("returnDate", () => returnDate);
                                   planQuery["returnDate"] =
                                       returnDate.millisecondsSinceEpoch;
                                 }
@@ -183,9 +192,11 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
                 dayAvaiable.add(i);
               }
+              /*
               planQuery["totDay"] = returnDate.difference(goneDate).inDays;
               planQuery["periodAvaiable"] = getSeason(goneDate.month);
               planQuery["dayAvaiable"] = dayAvaiable;
+              */
               incrementQuest();
             }),
       ],
@@ -219,6 +230,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   ),
                   TextButton(
                       onPressed: () {
+                        if (CategoryPreference.catSelected.isNotEmpty) {
+                          mng.filter?.putIfAbsent(
+                              "locationcategory",
+                              () =>
+                                  'nin:' +
+                                  CategoryPreference.catSelected.join(','));
+                        }
                         planQuery["avoidCategory"] =
                             CategoryPreference.catSelected;
                         incrementQuest();
@@ -254,12 +272,38 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         ),
         TextButton(
             onPressed: () {
+              //mng.filter?.putIfAbsent("distance", () => _currentSliderValue);
+              double latDis = getLatDis(_currentSliderValue);
+              double lngDis = getLngDis(_currentSliderValue, latDis);
+              mng.filter?["coordinate.lat=lte:" +
+                  (locLatitude + latDis).toString()] = null;
+              mng.filter?["coordinate.lat=gte:" +
+                  (locLatitude - latDis).toString()] = null;
+
+              mng.filter?["coordinate.lng=lte:" +
+                  (locLongitude + lngDis).toString()] = null;
+
+              mng.filter?["coordinate.lng=gte:" +
+                  (locLongitude - lngDis).toString()] = null;
+
               planQuery["distance"] = _currentSliderValue;
               incrementQuest();
             },
             child: Text("done"))
       ],
     );
+  }
+
+  setMngCoordinate(double distance) {
+    mng.filter?["coordinate.lat"] = '';
+  }
+
+  double getLatDis(double dis) {
+    return dis / 110.574;
+  }
+
+  double getLngDis(double dis, double lat) {
+    return dis / (111.320 * cos(lat));
   }
 
   Widget showTrip() {
@@ -299,11 +343,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               return LoadingIndicator();
             } else if (state is PlantripLoadedLocation) {
               return SelectTripLocation(
+                mng: mng,
                 planQuery: planQuery,
                 planTripModel: state.planTripModel,
                 goneDate: goneDate,
                 returnDate: returnDate,
                 planTripBloc: _planTripBloc,
+                locLatitude: locLatitude,
+                locLongitude: locLongitude,
               );
             } else {
               return Container();
@@ -316,7 +363,15 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
   void getCoordinate(String location) async {
     List<geo.Location> locations = await geo.locationFromAddress(location);
+    locLatitude = locations[0].latitude;
+    locLongitude = locations[0].longitude;
 
+/*
+    mng.filter?.putIfAbsent(
+        "coordinate.lat", () => 'lte:' + locations[0].latitude.toString());
+    mng.filter?.putIfAbsent(
+        "coordinate.lng", () => 'lte:' + locations[0].longitude.toString());
+        */
     planQuery["coordinate"]["lat"] = locations[0].latitude;
     planQuery["coordinate"]["lng"] = locations[0].longitude;
   }
@@ -325,17 +380,23 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 class SelectTripLocation extends StatefulWidget {
   SelectTripLocation(
       {Key? key,
+      required this.mng,
       required this.planQuery,
       required this.planTripModel,
       required this.goneDate,
       required this.returnDate,
-      required this.planTripBloc})
+      required this.planTripBloc,
+      required this.locLatitude,
+      required this.locLongitude})
       : super(key: key);
+  Mongoose mng = Mongoose();
   Map<String, dynamic> planQuery = {};
   List<Location> planTripModel = [];
   DateTime goneDate = DateTime.now();
   DateTime returnDate = DateTime.now();
   PlantripBloc planTripBloc = PlantripBloc();
+  double locLatitude = 0;
+  double locLongitude = 0;
 
   @override
   State<SelectTripLocation> createState() => _SelectTripLocationState();
@@ -378,10 +439,9 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
 
     for (Location loc in widget.planTripModel) {
       _locations.add(MovePlanTrip(
-          locationId: loc.iId?.oid,
-          date: widget.goneDate.microsecondsSinceEpoch));
+          locationId: loc.iId, date: widget.goneDate.microsecondsSinceEpoch));
       _dragLocation.add(DragAndDropItem(
-        child: Text(loc.iId?.oid ?? ''),
+        child: Text(loc.iId ?? ''),
       ));
     }
 
@@ -430,6 +490,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     }
 
     widget.planQuery["trip"] = [planList.join(",")];
-    widget.planTripBloc.add(SaveTrip(body: widget.planQuery.toString()));
+    widget.planTripBloc
+        .add(SaveTrip(body: widget.planQuery.toString(), mng: widget.mng));
   }
 }

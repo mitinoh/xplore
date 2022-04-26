@@ -9,12 +9,14 @@ abstract class PlantripEvent extends Equatable {
 
 class GetLocation extends PlantripEvent {
   String body;
-  GetLocation({required this.body});
+  Mongoose mng;
+  GetLocation({required this.body, required this.mng});
 }
 
 class SaveTrip extends PlantripEvent {
   String body;
-  SaveTrip({required this.body});
+  Mongoose mng;
+  SaveTrip({required this.body, required this.mng});
 }
 
 class GetPlannedTrip extends PlantripEvent {

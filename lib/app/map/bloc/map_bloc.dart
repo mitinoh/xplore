@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:location/location.dart' as lc;
 import 'package:xplore/app/map/repository/map_repository.dart';
 import 'package:xplore/model/location_model.dart';
+import 'package:xplore/model/mongoose_model.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
@@ -20,10 +21,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<GetLocationList>((event, emit) async {
       try {
         emit(MapLoading());
-        log("1");
 
         String pipe = _mapRepository.getPipelineMap(x: event.x, y: event.y);
-        final mList = await _mapRepository.fetchLocationList(body: pipe);
+        final mList = await _mapRepository.fetchLocationList(mng: Mongoose());
         Timer(Duration(milliseconds: 50), () {
           lc.LocationData? _userLocation;
           emit(MapLoaded(mList, _userLocation));
@@ -34,7 +34,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
         // log(userLoc.toString());
         emit(MapLoaded(mList, userLoc));
-      } catch(e) {
+      } catch (e) {
         emit(const MapError("Failed to fetch data. is your device online?"));
       }
     });
@@ -42,7 +42,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<OpeningExternalMap>((event, emit) async {
       try {
         _mapRepository.openMap(event.lat, event.lng);
-      } catch(e) {
+      } catch (e) {
         emit(const MapError("Failed to fetch data. is your device online?"));
       }
     });

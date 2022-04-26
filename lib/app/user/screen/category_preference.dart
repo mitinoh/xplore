@@ -7,7 +7,7 @@ import 'package:xplore/core/widget/widget_core.dart';
 class CategoryPreference extends StatefulWidget {
   CategoryPreference({Key? key, required this.pipeline}) : super(key: key);
   String pipeline = '{}';
-  static List<int> catSelected = [];
+  static List<String> catSelected = [];
   @override
   State<CategoryPreference> createState() => _CategoryPreferenceState();
 }
@@ -54,12 +54,12 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
                         itemBuilder: (BuildContext context, int index) {
                           return CheckboxListTile(
                             value: CategoryPreference.catSelected.contains(
-                                state.locationCategoryModel[index].value),
+                                state.locationCategoryModel[index].iId),
                             onChanged: (bln) {
                               setState(() {
-                                int value =
-                                    state.locationCategoryModel[index].value ??
-                                        0;
+                                String value =
+                                    state.locationCategoryModel[index].iId ??
+                                        '';
                                 if (CategoryPreference.catSelected
                                     .contains(value)) {
                                   CategoryPreference.catSelected.remove(value);

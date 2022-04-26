@@ -9,7 +9,8 @@ abstract class LocationEvent extends Equatable {
 
 class GetLocationList extends LocationEvent {
   final String? searchName;
-  const GetLocationList({this.searchName});
+  final bool add;
+  const GetLocationList({this.searchName, required this.add});
 }
 
 class CreateNewLocation extends LocationEvent {

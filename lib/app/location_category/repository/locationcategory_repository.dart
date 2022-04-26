@@ -9,7 +9,7 @@ class LocationCategoryRepository extends Repository {
       {String body = "{}"}) async {
     String url = conf.locationCategoryColl;
     await setDio(_dio);
-    Response response = await _dio.post(url, data: body);
+    Response response = await _dio.get(url);
     return LocationCategory().toList(response);
   }
 }
