@@ -17,11 +17,11 @@ class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
     on<GetLocation>((event, emit) async {
       emit(PlantripLoadingLocation());
       List<Location> loc =
-          await _planTripRepository.fetchLocationList(body: event.body, mng: event.mng);
+          await _planTripRepository.fetchLocationList(/*body: event.body,*/ mng: event.mng);
       emit(PlantripLoadedLocation(loc));
     });
     on<SaveTrip>((event, emit) async {
-      await _planTripRepository.newPlanTripPut(body: event.body, mng: event.mng);
+      await _planTripRepository.newPlanTripPut(body: event.body);
       //emit(PlantripLoadedLocation(loc));
     });
     on<GetPlannedTrip>((event, emit) async {

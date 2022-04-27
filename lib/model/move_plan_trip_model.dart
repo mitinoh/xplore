@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MovePlanTrip {
   String? locationId;
-  int? date;
+  DateTime? date;
 
   MovePlanTrip({this.locationId, this.date});
 
@@ -21,11 +21,11 @@ class MovePlanTrip {
     return data;
   }
 
-  String encode() {
+  Map<String, dynamic> encode() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     String id = this.locationId ?? '';
-    data['locationId'] = 'ObjectId("$id")';
+    data['location'] = id; // 'ObjectId("$id")'
     data['date'] = this.date;
-    return data.toString();
+    return data;
   }
 }

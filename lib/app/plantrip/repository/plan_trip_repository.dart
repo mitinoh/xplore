@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -10,20 +11,21 @@ class PlanTripRepository extends Repository {
   final Dio _dio = Dio();
 
   Future<List<Location>> fetchLocationList(
-      {required String body, required Mongoose mng}) async {
-    log(mng.getUrl());
+      {/*required String body, */ required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
     await setDio(_dio);
     Response response = await _dio.get(url);
     return Location().toList(response);
   }
 
-  Future<void> newPlanTripPut(
-      {required String body, required Mongoose mng}) async {
+  Future<void> newPlanTripPut({required Map<String, dynamic> body}) async {
     try {
-      String url = conf.ip + conf.planTripColl;
+      String url = conf.planTripColl;
+      log(url);
+      log(json.encode(body));
+      print(json.encode(body));
       await setDio(_dio);
-      Response response = await _dio.put(url, data: body);
+      Response response = await _dio.post(url, data: json.encode(body));
     } catch (e) {
       throw Exception(e);
     }
