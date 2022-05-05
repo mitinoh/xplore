@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:xplore/model/coordinate_model.dart';
 import 'package:xplore/model/location_model.dart';
@@ -52,7 +55,7 @@ class PlanTrip {
     distance = json['distance'].toInt();
     periodAvaiable = json['periodAvaiable'];
     totDay = json['totDay'];
-    
+
     if (json['avoidCategory'] != null) {
       avoidCategory = <Object>[]; // FIXME: Creare model apposito
       json['avoidCategory'].forEach((v) {
@@ -97,6 +100,35 @@ class PlanTrip {
     }
     if (this.cdate != null) {
       data['cdate'] = this.cdate;
+    }
+    return data;
+  }
+
+  Map<String, dynamic> toJsonPost(Map<String, dynamic> obj) {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    if (obj['plannedLocation'] != null) {
+      data['plannedLocation'] = obj['plannedLocation']!.map((v) => v).toList();
+    }
+    if (obj['returnDate'] != null) {
+      data['returnDate'] = obj['returnDate'];
+    }
+    if (obj['goneDate'] != null) {
+      data['goneDate'] = obj['goneDate'];
+    }
+
+    if (obj['coordinate'] != null) {
+      data['coordinate'] = obj['coordinate'];
+    }
+    data['tripName'] = obj['tripName'];
+    data['distance'] = obj['distance'];
+
+    if (obj['avoidCategory'] != null) {
+      List<String> cat = [];
+
+      obj['avoidCategory']!
+          .map((v) => {if (v != null && v.toString().trim() != "") cat.add(v)});
+      data['avoidCategory'] = cat;
     }
     return data;
   }

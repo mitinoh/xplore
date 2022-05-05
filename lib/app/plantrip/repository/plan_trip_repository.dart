@@ -22,31 +22,23 @@ class PlanTripRepository extends Repository {
     try {
       String url = conf.planTripColl;
       log(url);
-      log(json.encode(body));
-      print(json.encode(body));
+      //log(PlanTrip().toJsonPost(body).toString());
+      // FIXME: encode sbaglaito
+      log("*****");
+      log(json.encode(PlanTrip().toJsonPost(body)));
       await setDio(_dio);
-      Response response = await _dio.post(url, data: json.encode(body));
+      Response response =
+          await _dio.post(url, data: PlanTrip().toJsonPost(body));
+      log(response.toString());
     } catch (e) {
       throw Exception(e);
     }
   }
 
   Future<List<PlanTrip>> fetchPlannedTripList({required String body}) async {
-    String fid = getUserID();
-    int now = DateTime.now().millisecondsSinceEpoch;
-    body = """
-  {
-    '\$match': {
-      'fid': {
-        '\$eq': '$fid'
-      }, 
-      'returnDate': {
-        '\$gte': $now
-      }
-    }
-  }
-""";
-    String url = conf.planTripColl;
+
+    String url = conf.planTripColl + '?progress=true';
+
     log(url);
     await setDio(_dio);
     Response response = await _dio.get(url);

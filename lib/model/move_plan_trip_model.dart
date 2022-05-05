@@ -16,16 +16,9 @@ class MovePlanTrip {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['locationId'] = this.locationId;
-    data['date'] = this.date;
-    return data;
-  }
-
-  Map<String, dynamic> encode() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
     String id = this.locationId ?? '';
     data['location'] = id; // 'ObjectId("$id")'
-    data['date'] = this.date;
+    data['date'] = this.date?.toIso8601String();
     return data;
   }
 }

@@ -67,8 +67,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       case 3:
         return distanceQuest();
       case 4:
-        return showTrip();
+        return tripNameQuest();
       case 5:
+        return showTrip();
+      case 6:
         _planTripBloc
             .add(GetLocation(/*body: planQuery.toString(),*/ mng: mng));
         return selectLocation();
@@ -79,6 +81,28 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           ),
         );
     }
+  }
+
+  Widget tripNameQuest() {
+    final TextEditingController _nameController = TextEditingController();
+    return Column(
+      children: [
+        TextFormField(
+          controller: _nameController,
+          cursorColor: Colors.black,
+          style: TextStyle(color: Colors.black),
+          //  decoration: InputDecoration(border: InputBorder.none),
+        ),
+        TextButton(
+          onPressed: () {
+            planQuery.putIfAbsent("tripName", () => _nameController.text);
+            print(_nameController.text);
+            incrementQuest();
+          },
+          child: Text(questNum.toString()),
+        ),
+      ],
+    );
   }
 
   Widget whereToGoQuest() {
@@ -843,16 +867,16 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     for (List fl in _plan) {
       for (MovePlanTrip el in fl) {
         // salvo solamente i gg in cui c'è un attivita
-        planList.add(el.encode());
+
+        planList.add(el.toJson());
       }
     }
 
-    widget.planQuery.putIfAbsent("tripName", () => "test trip name");
     widget.planQuery
         .putIfAbsent("goneDate", () => widget.goneDate.toIso8601String());
     widget.planQuery
         .putIfAbsent("returnDate", () => widget.returnDate.toIso8601String());
-    widget.planQuery.putIfAbsent("plannedTrip", () => [planList.join(",")]);
+    widget.planQuery.putIfAbsent("plannedLocation", () => planList);
     widget.planQuery.putIfAbsent(
         "coordinate",
         () =>
@@ -864,6 +888,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             .toString()
             .substring(4)
             .split(','));
+    print(widget.planQuery["avoidCategory"]);
 
     //widget.planQuery["trip"] = [planList.join(",")];
     widget.planTripBloc.add(SaveTrip(body: widget.planQuery));

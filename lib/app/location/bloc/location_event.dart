@@ -19,6 +19,6 @@ class CreateNewLocation extends LocationEvent {
 }
 
 class SaveUserLocation extends LocationEvent {
-  final Map<String, dynamic> map;
-  const SaveUserLocation({required this.map});
+  final String locationId;
+  const SaveUserLocation({required this.locationId});
 }

@@ -1,14 +1,25 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:like_button/like_button.dart';
+import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location/screen/search_screen.dart';
 import 'package:xplore/app/location/widget/filter_location.dart';
 import 'package:xplore/app/location/widget/go_navigation.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/model/location_model.dart';
 
 class Docker extends StatelessWidget {
-  const Docker({Key? key}) : super(key: key);
-
+  const Docker(
+      {Key? key,
+      required this.locationList,
+      required this.indexLocation,
+      required this.locationBloc})
+      : super(key: key);
+  final List<Location> locationList;
+  final int indexLocation;
+  final LocationBloc locationBloc;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -29,7 +40,7 @@ class Docker extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SearchScreen()),
+                              builder: (context) => SearchScreen()),
                         )
                       },
                   child: Icon(Iconsax.search_normal, color: UIColors.black)),
@@ -38,8 +49,15 @@ class Docker extends StatelessWidget {
                 padding: const EdgeInsets.all(0),
                 likeCountPadding: const EdgeInsets.all(0),
                 likeBuilder: (bool like) {
-                  return Icon(Iconsax.heart,
-                      color: like ? UIColors.pink : UIColors.black);
+                  return IconButton(
+                    icon: Icon(Iconsax.heart,
+                        color: like ? UIColors.pink : UIColors.black),
+                    onPressed: () {
+                      log(locationList[indexLocation].iId.toString());
+                      locationBloc.add(SaveUserLocation(
+                          locationId: locationList[indexLocation].iId ?? ''));
+                    },
+                  );
                 },
               ),
               const SizedBox(height: 20),

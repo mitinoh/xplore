@@ -252,7 +252,11 @@ class _BuildMainCardState extends State<BuildMainCard> {
         ),
         Visibility(
           visible: _valore,
-          child: const Docker(),
+          child: Docker(
+            locationList: widget.model,
+            indexLocation: indexLocation,
+            locationBloc: widget.locationBloc,
+          ),
         ),
         Positioned(
           child: Column(
@@ -326,26 +330,48 @@ class _BuildMainCardState extends State<BuildMainCard> {
   getCards() {
     for (Location el in widget.model) {
       String id = el.iId ?? '';
-      String url = conf.locationImage + id;
-
+      String url = conf.locationImage + id + '.jpg';
+      print(url);
       card.add(
         Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                      "http://localhost:3000/asset/location/${id}.jpg"),
-                  fit: BoxFit.cover)),
-        ),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(url),
+                    fit: BoxFit.cover,
+                    onError: (obj, stackTrace) => {})),
+            child: SafeArea(
+              child: Stack(children: [
+                Positioned(
+                    top: 50.0,
+                    child: IconButton(
+                        onPressed: () {
+                          saveLocation(id);
+                        },
+                        icon: Icon(Icons.heart_broken))),
+                Center(
+                  child: Text(
+                    el.name ?? '',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: Colors.brown,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]),
+            )),
       );
     }
   }
 
   saveLocation(String id) {
+    /*
     Map<String, dynamic> saveLocationMap = {
-      "locationId": 'ObjectId("$id")',
+      "location": '$id',
     };
 
     widget.locationBloc.add(SaveUserLocation(map: saveLocationMap));
+    */
   }
 }
 
@@ -415,7 +441,10 @@ class _SearchMenuHomeState extends State<SearchMenuHome>
                   bottomRight: Radius.circular(50)),
             ),
             child: IconButton(
-              icon: Icon(Icons.search),
+              icon: Icon(
+                Iconsax.search_normal,
+                color: UIColors.violet,
+              ),
               color: Colors.white,
               onPressed: () {
                 if (!isForward) {

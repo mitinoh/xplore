@@ -7,6 +7,7 @@ import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
 
 class LocationRepository extends Repository {
+  static int lastSkipIndex = 0;
   static var skip = 0;
   static var limit = 15;
   static List<String> categoryFilter = [];
@@ -14,7 +15,6 @@ class LocationRepository extends Repository {
 
   Future<List<Location>> fetchLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
-
     await setDio(_dio);
     log(url);
     Response response = await _dio.get(url);
@@ -23,11 +23,14 @@ class LocationRepository extends Repository {
   }
 
   Future<void> newLocationPut({required Map<String, dynamic> map}) async {
-    doPut(url: conf.newLocationColl, data: json.encode(map));
+    doPost(url: conf.newLocationColl, data: json.encode(map));
   }
 
-  Future<void> saveUserLocationPut({required Map<String, dynamic> map}) async {
-    doPut(url: conf.savedLocationColl, data: json.encode(map));
+  Future<void> saveUserLocationPost({required String id}) async {
+       Map<String, dynamic> map = {
+      "location": '$id',
+    };
+    doPost(url: conf.savedLocationColl, data: json.encode(map));
   }
 
   String getPipeline({String? searchName}) {
@@ -55,7 +58,8 @@ class LocationRepository extends Repository {
     mng.filter = {};
 
     if (searchName != null && searchName.trim() != "") {
-      mng.filter?.putIfAbsent("name", () => searchName);
+      mng.filter?.putIfAbsent("name",
+          () => '*${searchName}*'); // TODO aggiungere "se parola è cpntenuta"
     }
     if (categoryFilter.isNotEmpty) {
       mng.filter

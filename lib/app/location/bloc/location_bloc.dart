@@ -42,7 +42,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
     on<SaveUserLocation>((event, emit) async {
       try {
-        await _locationRepository.saveUserLocationPut(map: event.map);
+        await _locationRepository.saveUserLocationPost(id: event.locationId);
       } catch (e) {
         emit(const LocationError(
             "Failed to fetch data. is your device online?"));

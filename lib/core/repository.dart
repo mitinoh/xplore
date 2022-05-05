@@ -15,10 +15,10 @@ class Repository {
 
     if (FirebaseAuth.instance.currentUser != null) {
       dio.options.headers['content-Type'] = 'application/json';
-      dio.options.headers["tkn"] = await user?.getIdToken();
+      dio.options.headers["authorization"] = await user?.getIdToken();
     }
 
-   // log(await user?.getIdToken() ?? '');
+    // log(await user?.getIdToken() ?? '');
   }
 
   String getUserID() {
@@ -28,10 +28,10 @@ class Repository {
   final Dio _dio = Dio();
   Future doGet({String? endp, Object? obj}) async {}
 
-  Future<Response> doPut({required String url, required data}) async {
+  Future<Response> doPost({required String url, required data}) async {
     try {
       await setDio(_dio);
-      return await _dio.put(url, data: data);
+      return await _dio.post(url, data: data);
     } catch (e) {
       throw Exception(e);
     }

@@ -3,8 +3,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  SearchScreen({Key? key}) : super(key: key);
 
+  final TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +33,8 @@ class SearchScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: UIColors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(20)),
-                    child: TextField(
+                    child: TextFormField(
+                      controller: _searchController,
                       textAlign: TextAlign.start,
                       style: const TextStyle(color: Colors.black, fontSize: 14),
                       decoration: InputDecoration(
@@ -44,9 +46,20 @@ class SearchScreen extends StatelessWidget {
                             TextStyle(color: UIColors.grey, fontSize: 14),
                         border: const OutlineInputBorder(),
                         suffixIconColor: UIColors.violet,
-                        prefixIcon: Icon(
-                          Iconsax.search_normal,
-                          color: UIColors.violet,
+                        prefixIcon: IconButton(
+                          icon: Icon(
+                            Iconsax.search_normal,
+                            color: UIColors.violet,
+                          ),
+                          color: Colors.white,
+                          onPressed: () {
+                            /*
+                  //LocationRepository.skip = 1;
+                  widget.homeBloc.add(GetLocationList(
+                      searchName: _searchController.text.toString(),
+                      add: false));
+                      */
+                          },
                         ),
                       ),
                       autofocus: false,

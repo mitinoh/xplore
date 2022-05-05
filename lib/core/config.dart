@@ -4,14 +4,14 @@ class Config {
   String address = "localhost";
   String port = "3000";
   String appName = "api";
-  String imageFolder = "images";
+  String imageFolder = "asset";
 
   String get ip {
     return 'http://${address}:${port}/${appName}/';
   }
 
   String get urlImages {
-    return '${ip}${imageFolder}/';
+    return 'http://${address}:${port}/${imageFolder}/';
   }
 
   String get userColl {
