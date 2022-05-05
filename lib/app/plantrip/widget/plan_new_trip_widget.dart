@@ -6,10 +6,12 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
+import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:xplore/model/coordinate_model.dart';
@@ -33,6 +35,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   DateTime returnDate = DateUtils.dateOnly(DateTime.now());
 
   int questNum = 0;
+  double valueProgressIndicator = 0.25;
   double _currentSliderValue = 20;
   Map<String, dynamic> planQuery = {};
   Mongoose mng = Mongoose(filter: {}, select: {}, sort: {});
@@ -48,6 +51,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   void incrementQuest() {
     setState(() {
       questNum++;
+      valueProgressIndicator += 0.25;
     });
   }
 
@@ -80,20 +84,125 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   Widget whereToGoQuest() {
     final TextEditingController _nameController = TextEditingController();
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFormField(
-          controller: _nameController,
-          cursorColor: Colors.black,
-          style: TextStyle(color: Colors.black),
-          //  decoration: InputDecoration(border: InputBorder.none),
+        Flexible(
+          flex: 1,
+          child: Row(
+            children: const [Icon(Iconsax.close_square)],
+          ),
         ),
-        TextButton(
-          onPressed: () {
-            getCoordinate(_nameController.text.toString());
-            incrementQuest();
-          },
-          child: Text(questNum.toString()),
+        Flexible(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Dove vorresti andare ',
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Mite',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: UIColors.violet)),
+                      const TextSpan(text: '?'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            children: [
+              Expanded(
+                  child: Container(
+                padding: const EdgeInsets.only(
+                    left: 15, right: 15, bottom: 5, top: 5),
+                decoration: BoxDecoration(
+                    color: UIColors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(20)),
+                child: TextField(
+                  controller: _nameController,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(color: Colors.black, fontSize: 14),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(15.0),
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: "Inserisci destinazione",
+                    hintStyle: TextStyle(color: UIColors.grey, fontSize: 14),
+                    border: const OutlineInputBorder(),
+                    suffixIconColor: UIColors.violet,
+                    prefixIcon: Icon(
+                      Iconsax.driving,
+                      color: UIColors.violet,
+                    ),
+                  ),
+                  autofocus: false,
+                ),
+              ))
+            ],
+          ),
+        ),
+        Flexible(
+          flex: 2,
+          child: InkWell(
+            onTap: () => {
+              getCoordinate(_nameController.text.toString()),
+              incrementQuest()
+            },
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: UIColors.lightGreen,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Continua".toUpperCase(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const Icon(
+                    Iconsax.arrow_right_1,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: LinearProgressIndicator(
+                  value: valueProgressIndicator,
+                  valueColor:
+                      new AlwaysStoppedAnimation<Color>(UIColors.violet),
+                  backgroundColor: UIColors.violet.withOpacity(0.2),
+                  semanticsLabel: 'Linear progress indicator',
+                ),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
@@ -164,20 +273,82 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     }
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RaisedButton(
-            child: Text('Gone Date'),
-            onPressed: () {
-              _pickDateDialog(true);
-            }),
-        RaisedButton(
-            child: Text('Return Date'),
-            onPressed: () {
-              _pickDateDialog(false);
-            }),
-        RaisedButton(
-            child: Text('Next'),
-            onPressed: () {
+        Flexible(
+          flex: 1,
+          child: Row(
+            children: const [Icon(Iconsax.close_square)],
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Quando vorresti partire ',
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Mite',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: UIColors.violet)),
+                      const TextSpan(text: '?'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: InkWell(
+            onTap: () => {_pickDateDialog(true)},
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: UIColors.grey.withOpacity(0.3),
+              ),
+              child: Text(
+                "Data di partenza".toUpperCase(),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: InkWell(
+            onTap: () => {_pickDateDialog(false)},
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: UIColors.grey.withOpacity(0.3),
+              ),
+              child: Text(
+                "Data di ritorno".toUpperCase(),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 2,
+          child: InkWell(
+            onTap: () {
               List<int> dayAvaiable = [];
               // FIXME: ovvio che cosi non funziona porca troia
 
@@ -190,7 +361,47 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               planQuery["dayAvaiable"] = dayAvaiable;
               */
               incrementQuest();
-            }),
+            },
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: UIColors.lightGreen,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Continua".toUpperCase(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const Icon(
+                    Iconsax.arrow_right_1,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: LinearProgressIndicator(
+                  value: valueProgressIndicator,
+                  valueColor:
+                      new AlwaysStoppedAnimation<Color>(UIColors.violet),
+                  backgroundColor: UIColors.violet.withOpacity(0.2),
+                  semanticsLabel: 'Linear progress indicator',
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -216,12 +427,51 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               return LoadingIndicator();
             } else if (state is LocationcategoryLoaded) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Flexible(
+                    flex: 1,
+                    child: Row(
+                      children: const [Icon(Iconsax.close_square)],
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Categorie da evitare ',
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Mite',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                        color: UIColors.violet)),
+                                const TextSpan(text: '?'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   CategoryPreference(
                     pipeline: '',
                   ),
-                  TextButton(
-                      onPressed: () {
+                  Flexible(
+                    flex: 2,
+                    child: InkWell(
+                      onTap: () {
                         if (CategoryPreference.catSelected.isNotEmpty) {
                           mng.filter?.putIfAbsent(
                               "locationcategory",
@@ -232,7 +482,47 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                         //planQuery["avoidCategory"] = CategoryPreference.catSelected;
                         incrementQuest();
                       },
-                      child: Text("done"))
+                      child: Container(
+                        margin: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: UIColors.lightGreen,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Continua".toUpperCase(),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const Icon(
+                              Iconsax.arrow_right_1,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: LinearProgressIndicator(
+                            value: valueProgressIndicator,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(UIColors.violet),
+                            backgroundColor: UIColors.violet.withOpacity(0.2),
+                            semanticsLabel: 'Linear progress indicator',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               );
             } else if (state is LocationcategoryError) {
@@ -248,7 +538,44 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
   Widget distanceQuest() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Flexible(
+          flex: 1,
+          child: Row(
+            children: const [Icon(Iconsax.close_square)],
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Quanto lontano ',
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Mite',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: UIColors.violet)),
+                      const TextSpan(text: '?'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         Slider(
           value: _currentSliderValue,
           min: 0,
@@ -261,9 +588,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             });
           },
         ),
-        TextButton(
-            onPressed: () {
-              //mng.filter?.putIfAbsent("distance", () => _currentSliderValue);
+        Flexible(
+          flex: 2,
+          child: InkWell(
+            onTap: () {
               double latDis = getLatDis(_currentSliderValue);
               double lngDis = getLngDis(_currentSliderValue, latDis);
               mng.filter?["coordinate.lat=lte:" +
@@ -280,7 +608,45 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               planQuery["distance"] = _currentSliderValue;
               incrementQuest();
             },
-            child: Text("done"))
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: UIColors.lightGreen,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Continua".toUpperCase(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const Icon(
+                    Iconsax.arrow_right_1,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: LinearProgressIndicator(
+                  value: valueProgressIndicator,
+                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.violet),
+                  backgroundColor: UIColors.violet.withOpacity(0.2),
+                  semanticsLabel: 'Linear progress indicator',
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

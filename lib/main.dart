@@ -1,16 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/repository/auth_repository.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/location/screen/home_screen.dart';
+import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/navbar.dart';
 
 void main() async {
   // keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -dname "CN=Android Debug,O=Android,C=US"
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // transparent status bar
+  ));
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -31,18 +36,24 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: {
             // When navigating to the "/" route, build the FirstScreen widget.
-            '/home': (context) => HomePage(),
+            '/home': (context) => const HomePage(),
             '/app': (context) => Navbar()
           },
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            backgroundColor: UIColors.black,
+          ),
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
                 if (snapshot.hasData) {
-                  return Navbar();
+                  return const HomePage();
                 }
                 // Otherwise, they're not signed in. Show the sign in page.
-                return SignIn();
+                return const SignIn();
               }),
         ),
       ),

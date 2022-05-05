@@ -12,8 +12,12 @@ class _PlanNewTripState extends State<PlanNewTrip> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: const Color(0xffF3F7FA),
       body: SafeArea(
-        child:  NetTripQuestion(),
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: NetTripQuestion(),
+        ),
       ),
     );
   }

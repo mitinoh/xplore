@@ -2,13 +2,26 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:like_button/like_button.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location/repository/location_repository.dart';
+import 'package:xplore/app/location/screen/add_location.dart';
+import 'package:xplore/app/location/widget/docker.dart';
+import 'package:xplore/app/location/widget/filter_location.dart';
+import 'package:xplore/app/location/widget/go_navigation.dart';
+import 'package:xplore/app/location/widget/navbar.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
+import 'package:xplore/app/map/screen/map_screen.dart';
+import 'package:xplore/app/plantrip/screen/plan_trip_screen.dart';
+import 'package:xplore/app/user/screen/dashboard.dart';
+import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/locationCategory_model.dart';
 import 'package:xplore/model/location_model.dart';
+
+import '../screen/search_screen.dart';
 
 class TopMenuHome extends StatelessWidget {
   const TopMenuHome(
@@ -185,8 +198,8 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
 }
 
 // ignore: must_be_immutable
-class BuildMainCard extends StatelessWidget {
-  BuildMainCard(
+class BuildMainCard extends StatefulWidget {
+  const BuildMainCard(
       {Key? key,
       required this.pageController,
       required this.model,
@@ -196,59 +209,133 @@ class BuildMainCard extends StatelessWidget {
   final List<Location> model;
   final LocationBloc locationBloc;
 
+  @override
+  State<BuildMainCard> createState() => _BuildMainCardState();
+}
+
+class _BuildMainCardState extends State<BuildMainCard> {
   Config conf = Config();
 
   List<Widget> card = [];
 
+  double _height = 85;
+
+  late bool _valore = true;
+
+  int indexLocation = 0;
+  // ignore: non_constant_identifier_names
+  ChangeIndexLocation(int i) {
+    setState(() {
+      indexLocation = i;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     getCards();
-    return PageView(
-      scrollDirection: Axis.vertical,
-      controller: pageController,
-      children: card,
-      onPageChanged: (i) => {
-        if (i % 15 == 0) // TODO: mettere 15 //FIXME
-          {
-            log("****"),
-            //  LocationRepository.skip += 1,
-            // locationBloc.add(const GetLocationList(add: true))
-          }
-      },
+
+    return Stack(
+      children: [
+        PageView(
+          scrollDirection: Axis.vertical,
+          controller: widget.pageController,
+          children: card,
+          onPageChanged: (i) => {
+            ChangeIndexLocation(i),
+            if (i % 15 == 0) // TODO: mettere 15 //FIXME
+              {
+                log("****"),
+                //  LocationRepository.skip += 1,
+                // locationBloc.add(const GetLocationList(add: true))
+              }
+          },
+        ),
+        Visibility(
+          visible: _valore,
+          child: const Docker(),
+        ),
+        Positioned(
+          child: Column(
+            children: [
+              AnimatedContainer(
+                height: _height,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: UIColors.orange.withOpacity(0.8)),
+                padding: const EdgeInsets.all(25),
+                margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
+                duration: const Duration(seconds: 1),
+                curve: Curves.bounceOut,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: RichText(
+                        textScaleFactor: 1,
+                        text: TextSpan(
+                            text: widget.model[indexLocation].name.toString(),
+                            style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                            children: const [
+                              TextSpan(
+                                  text:
+                                      " lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.black)),
+                            ]),
+                      ),
+                    ),
+                    _valore
+                        ? InkWell(
+                            onTap: () => {
+                                  setState(() {
+                                    _height = 340;
+                                    _valore = false;
+                                  })
+                                },
+                            child: const Icon(Iconsax.maximize_4))
+                        : InkWell(
+                            onTap: () => {
+                              setState(() {
+                                _height = 85;
+                                _valore = true;
+                              })
+                            },
+                            child: Icon(Iconsax.close_circle,
+                                color: UIColors.black),
+                          ),
+                  ],
+                ),
+              ),
+              const NavbarHome(),
+            ],
+          ),
+          bottom: 0,
+          right: 0,
+          left: 0,
+        ),
+      ],
     );
   }
 
   getCards() {
-    for (Location el in model) {
+    for (Location el in widget.model) {
       String id = el.iId ?? '';
       String url = conf.locationImage + id;
+
       card.add(
         Container(
-            /* decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(url), fit: BoxFit.cover)),
-                    */
-            child: SafeArea(
-          child: Stack(children: [
-            Positioned(
-                top: 50.0,
-                child: IconButton(
-                    onPressed: () {
-                      saveLocation(id);
-                    },
-                    icon: Icon(Icons.heart_broken))),
-            Center(
-              child: Text(
-                el.name ?? '',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: Colors.brown,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ]),
-        )),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "http://localhost:3000/asset/location/${id}.jpg"),
+                  fit: BoxFit.cover)),
+        ),
       );
     }
   }
@@ -258,7 +345,7 @@ class BuildMainCard extends StatelessWidget {
       "locationId": 'ObjectId("$id")',
     };
 
-    locationBloc.add(SaveUserLocation(map: saveLocationMap));
+    widget.locationBloc.add(SaveUserLocation(map: saveLocationMap));
   }
 }
 
