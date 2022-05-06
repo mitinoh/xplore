@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location/widget/widget_home.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
-import 'package:xplore/core/UIColors.dart';
-import 'package:iconsax/iconsax.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,9 +21,6 @@ class _HomePageState extends State<HomePage> {
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
   }
-
-  double _height = 85;
-  late bool _valore = true;
 
   @override
   Widget build(BuildContext context) {

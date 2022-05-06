@@ -1,27 +1,17 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:like_button/like_button.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location/repository/location_repository.dart';
-import 'package:xplore/app/location/screen/add_location.dart';
 import 'package:xplore/app/location/widget/docker.dart';
-import 'package:xplore/app/location/widget/filter_location.dart';
-import 'package:xplore/app/location/widget/go_navigation.dart';
 import 'package:xplore/app/location/widget/navbar.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
-import 'package:xplore/app/map/screen/map_screen.dart';
-import 'package:xplore/app/plantrip/screen/plan_trip_screen.dart';
-import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/locationCategory_model.dart';
 import 'package:xplore/model/location_model.dart';
-
-import '../screen/search_screen.dart';
 
 class TopMenuHome extends StatelessWidget {
   const TopMenuHome(
@@ -332,35 +322,13 @@ class _BuildMainCardState extends State<BuildMainCard> {
       String id = el.iId ?? '';
       String url = conf.locationImage + id + '.jpg';
       print(url);
-      card.add(
-        Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(url),
-                    fit: BoxFit.cover,
-                    onError: (obj, stackTrace) => {})),
-            child: SafeArea(
-              child: Stack(children: [
-                Positioned(
-                    top: 50.0,
-                    child: IconButton(
-                        onPressed: () {
-                          saveLocation(id);
-                        },
-                        icon: Icon(Icons.heart_broken))),
-                Center(
-                  child: Text(
-                    el.name ?? '',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: Colors.brown,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ]),
-            )),
-      );
+      card.add(Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: NetworkImage(url),
+                fit: BoxFit.cover,
+                onError: (obj, stackTrace) => {})),
+      ));
     }
   }
 

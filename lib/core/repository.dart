@@ -31,6 +31,8 @@ class Repository {
   Future<Response> doPost({required String url, required data}) async {
     try {
       await setDio(_dio);
+      print(url);
+      print(data);
       return await _dio.post(url, data: data);
     } catch (e) {
       throw Exception(e);
