@@ -226,7 +226,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
   @override
   Widget build(BuildContext context) {
     getCards();
-
+    var mediaQuery = MediaQuery.of(context);
     return Stack(
       children: [
         PageView(
@@ -284,6 +284,14 @@ class _BuildMainCardState extends State<BuildMainCard> {
                                       fontSize: 14,
                                       fontWeight: FontWeight.w300,
                                       color: Colors.black)),
+                              TextSpan(
+                                  text:
+                                      " Consigliato dalla redazione di Xplore.",
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black)),
                             ]),
                       ),
                     ),
@@ -312,7 +320,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
               const NavbarHome(),
             ],
           ),
-          bottom: 0,
+          bottom: mediaQuery.size.height * 0.03,
           right: 0,
           left: 0,
         ),

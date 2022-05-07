@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class MovePlanTrip {
   String? locationId;
   DateTime? date;
