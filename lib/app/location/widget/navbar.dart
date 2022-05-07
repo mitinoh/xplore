@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/app/location/screen/add_location.dart';
+import 'package:xplore/app/location/screen/new_location_screen.dart';
 import 'package:xplore/app/map/screen/map_screen.dart';
 import 'package:xplore/app/plantrip/screen/plan_trip_screen.dart';
 import 'package:xplore/app/user/screen/dashboard.dart';
@@ -14,7 +14,7 @@ class NavbarHome extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: const Color(0xffF3F7FA)),
+          color: const Color(0xffF3F7FA).withOpacity(0.8)),
       padding: const EdgeInsets.all(25),
       margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
       child: Column(
@@ -27,7 +27,7 @@ class NavbarHome extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const AddLocationScreen()),
+                        builder: (context) => const NewLocation()),
                   )
                 },
                 child: Icon(Iconsax.location_add, color: UIColors.black),

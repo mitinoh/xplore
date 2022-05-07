@@ -27,8 +27,10 @@ class Docker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+
     return Positioned(
-        bottom: 250,
+        bottom: mediaQuery.size.height * 0.30,
         right: 20,
         child: Container(
           padding: const EdgeInsets.all(15),
