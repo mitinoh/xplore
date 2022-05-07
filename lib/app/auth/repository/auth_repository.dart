@@ -1,11 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:xplore/app/map/screen/map_screen.dart';
 import 'package:xplore/core/repository.dart';
 
 class AuthRepository extends Repository {
@@ -92,8 +91,10 @@ class AuthRepository extends Repository {
       String url = conf.userColl;
       await setDio(_dio);
       await Future.delayed(const Duration(seconds: 1));
-      Response response =
-          await _dio.post(url, data: "{'categoryPref': $categoryPref}");
+      log(url);
+      Map<String, dynamic> body = {'categoryPref': categoryPref, 'name': "---"};
+      log(json.encode(body));
+      Response response = await _dio.post(url, data: json.encode(body));
     } catch (e) {
       throw Exception(e);
     }

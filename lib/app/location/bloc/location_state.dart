@@ -21,3 +21,4 @@ class LocationError extends LocationState {
   final String? message;
   const LocationError(this.message);
 }
+

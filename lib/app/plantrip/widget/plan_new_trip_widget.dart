@@ -490,7 +490,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                     ),
                   ),
                   CategoryPreference(
-                    pipeline: '',
                   ),
                   Flexible(
                     flex: 2,

@@ -19,6 +19,5 @@ class SaveTrip extends PlantripEvent {
 }
 
 class GetPlannedTrip extends PlantripEvent {
-  String body;
-  GetPlannedTrip({required this.body});
+  GetPlannedTrip();
 }

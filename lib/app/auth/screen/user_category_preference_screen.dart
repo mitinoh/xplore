@@ -13,7 +13,6 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
       body: Column(
         children: [
           CategoryPreference(
-            pipeline: '{}',
           ),
           TextButton(
               onPressed: () {

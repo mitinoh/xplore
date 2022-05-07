@@ -5,8 +5,7 @@ import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 
 class CategoryPreference extends StatefulWidget {
-  CategoryPreference({Key? key, required this.pipeline}) : super(key: key);
-  String pipeline = '{}';
+  CategoryPreference({Key? key}) : super(key: key);
   static List<String> catSelected = [];
   @override
   State<CategoryPreference> createState() => _CategoryPreferenceState();

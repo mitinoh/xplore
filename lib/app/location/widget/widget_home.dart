@@ -13,6 +13,7 @@ import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/locationCategory_model.dart';
 import 'package:xplore/model/location_model.dart';
 
+/*
 class TopMenuHome extends StatelessWidget {
   const TopMenuHome(
       {Key? key,
@@ -34,7 +35,6 @@ class TopMenuHome extends StatelessWidget {
     );
   }
 }
-
 class FilterMenuHome extends StatelessWidget {
   const FilterMenuHome(
       {Key? key,
@@ -98,6 +98,8 @@ class FilterMenuHome extends StatelessWidget {
   }
 }
 
+*/
+/*
 class BuildListCardCategory extends StatelessWidget {
   const BuildListCardCategory(
       {Key? key,
@@ -132,7 +134,7 @@ class BuildListCardCategory extends StatelessWidget {
     }
   }
 }
-
+*/
 class BuildListCardHome extends StatefulWidget {
   BuildListCardHome(
       {Key? key, required this.homeBloc, required this.pageController})
@@ -175,6 +177,7 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
                   model: widget.modelLoc,
                   pageController: widget.pageController,
                   locationBloc: widget.homeBloc);
+                  
             } else if (state is LocationError) {
               return Container();
             } else {
@@ -214,7 +217,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
 
   int indexLocation = 0;
   // ignore: non_constant_identifier_names
-  ChangeIndexLocation(int i) {
+  changeIndexLocation(int i) {
     setState(() {
       indexLocation = i;
     });
@@ -231,7 +234,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
           controller: widget.pageController,
           children: card,
           onPageChanged: (i) => {
-            ChangeIndexLocation(i),
+            changeIndexLocation(i),
             if (i % 15 == 0) // TODO: mettere 15 //FIXME
               {
                 log("****"),
@@ -321,7 +324,6 @@ class _BuildMainCardState extends State<BuildMainCard> {
     for (Location el in widget.model) {
       String id = el.iId ?? '';
       String url = conf.locationImage + id + '.jpg';
-      print(url);
       card.add(Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -342,7 +344,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
     */
   }
 }
-
+/*
 class SearchMenuHome extends StatefulWidget {
   const SearchMenuHome({Key? key, required this.homeBloc}) : super(key: key);
   final LocationBloc homeBloc;
@@ -434,3 +436,4 @@ class _SearchMenuHomeState extends State<SearchMenuHome>
     );
   }
 }
+*/

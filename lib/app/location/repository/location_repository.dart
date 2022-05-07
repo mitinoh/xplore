@@ -27,12 +27,10 @@ class LocationRepository extends Repository {
   }
 
   Future<void> saveUserLocationPost({required String id}) async {
-       Map<String, dynamic> map = {
-      "location": '$id',
-    };
+       Map<String, dynamic> map = { "location": id };
     doPost(url: conf.savedLocationColl, data: json.encode(map));
   }
-
+/*
   String getPipeline({String? searchName}) {
     List<String> mtc = [];
     if (searchName != null && searchName.trim() != "") {
@@ -50,7 +48,7 @@ class LocationRepository extends Repository {
         '{pipeline: [' + pipe + ', {"\$skip": $skip}, {"\$limit": $limit }]}';
     return pipe;
   }
-
+*/
   Mongoose getMongoose({String? searchName}) {
     Mongoose mng = Mongoose();
     mng.limit = limit;

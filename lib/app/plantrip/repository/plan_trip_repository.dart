@@ -35,7 +35,7 @@ class PlanTripRepository extends Repository {
     }
   }
 
-  Future<List<PlanTrip>> fetchPlannedTripList({required String body}) async {
+  Future<List<PlanTrip>> fetchPlannedTripList() async {
 
     String url = conf.planTripColl + '?progress=true';
 

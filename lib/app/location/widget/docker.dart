@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
-import 'package:xplore/app/location/screen/search_screen.dart';
+import 'package:xplore/app/search_location/screen/search_screen.dart';
 import 'package:xplore/app/location/widget/go_navigation.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/model/location_model.dart';
@@ -45,14 +45,14 @@ class Docker extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SearchScreen()),
+                              builder: (context) => SearchScreen(
+                                  )),
                         )
                       },
                   child: Icon(Iconsax.search_normal, color: UIColors.black)),
               const SizedBox(height: 25),
               InkWell(
                 onTap: () {
-                  log(locationList[indexLocation].iId.toString());
                   locationBloc.add(SaveUserLocation(
                       locationId: locationList[indexLocation].iId ?? ''));
                 },

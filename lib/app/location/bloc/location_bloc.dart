@@ -16,13 +16,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
     on<GetLocationList>((event, emit) async {
       try {
+        
         emit(LocationHomeLoading());
 
         Mongoose mng =
             _locationRepository.getMongoose(searchName: event.searchName);
 
         final mList = await _locationRepository.fetchLocationList(mng: mng);
-
+        log(mList.toString());
         emit(LocationHomeLoaded(mList, event.add));
       } catch (e) {
         //throw Exception('FooException');
