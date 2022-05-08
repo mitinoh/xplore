@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/app/location_category/repository/locationcategory_repository.dart';
-import 'package:xplore/model/locationCategory_model.dart';
+import 'package:xplore/model/location_category_model.dart';
 
 part 'locationcategory_event.dart';
 part 'locationcategory_state.dart';

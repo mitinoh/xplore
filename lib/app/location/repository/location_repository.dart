@@ -27,9 +27,10 @@ class LocationRepository extends Repository {
   }
 
   Future<void> saveUserLocationPost({required String id}) async {
-       Map<String, dynamic> map = { "location": id };
+    Map<String, dynamic> map = {"location": id};
     doPost(url: conf.savedLocationColl, data: json.encode(map));
   }
+
 /*
   String getPipeline({String? searchName}) {
     List<String> mtc = [];
@@ -56,12 +57,14 @@ class LocationRepository extends Repository {
     mng.filter = {};
 
     if (searchName != null && searchName.trim() != "") {
-      mng.filter?.putIfAbsent("name",
-          () => '*${searchName}*'); // TODO aggiungere "se parola è cpntenuta"
+      mng.filter?.putIfAbsent("name", () => '*$searchName*');
+    }
+    if (searchName != null && searchName.trim() != "") {
+      mng.filter?.putIfAbsent("name", () => '*$searchName*');
     }
     if (categoryFilter.isNotEmpty) {
       mng.filter
-          ?.putIfAbsent("locationcategory", () => categoryFilter.join(','));
+          ?.putIfAbsent("locationCategory", () => categoryFilter.join(','));
     }
 
     return mng;

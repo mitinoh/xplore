@@ -8,7 +8,7 @@ import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'dart:io';
 
-import 'package:xplore/model/locationCategory_model.dart';
+import 'package:xplore/model/location_category_model.dart';
 
 class NewLocation extends StatefulWidget {
   const NewLocation({Key? key}) : super(key: key);
