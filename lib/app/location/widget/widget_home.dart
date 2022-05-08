@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
-import 'package:xplore/app/location/repository/location_repository.dart';
 import 'package:xplore/app/location/widget/docker.dart';
-import 'package:xplore/app/location/widget/navbar.dart';
-import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widget/widget_core.dart';
-import 'package:xplore/model/locationCategory_model.dart';
 import 'package:xplore/model/location_model.dart';
 
 /*
@@ -177,7 +173,6 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
                   model: widget.modelLoc,
                   pageController: widget.pageController,
                   locationBloc: widget.homeBloc);
-                  
             } else if (state is LocationError) {
               return Container();
             } else {
@@ -252,13 +247,33 @@ class _BuildMainCardState extends State<BuildMainCard> {
           ),
         ),
         Positioned(
+            top: mediaQuery.size.height * 0.1,
+            left: 20,
+            right: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Color(0xffF3F7FA).withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: const Text("@xplore",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black)),
+                ),
+              ],
+            )),
+        Positioned(
           child: Column(
             children: [
               AnimatedContainer(
                 height: _height,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: UIColors.orange.withOpacity(0.8)),
+                    color: Color(0xffF3F7FA).withOpacity(0.8)),
                 padding: const EdgeInsets.all(25),
                 margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
                 duration: const Duration(seconds: 1),
@@ -285,12 +300,18 @@ class _BuildMainCardState extends State<BuildMainCard> {
                                       fontWeight: FontWeight.w300,
                                       color: Colors.black)),
                               TextSpan(
-                                  text:
-                                      " Consigliato dalla redazione di Xplore.",
+                                  text: " @xplore.",
                                   style: TextStyle(
                                       overflow: TextOverflow.ellipsis,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: "\n\n#roma #inverno #congliamici",
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
                                       color: Colors.black)),
                             ]),
                       ),
@@ -317,10 +338,9 @@ class _BuildMainCardState extends State<BuildMainCard> {
                   ],
                 ),
               ),
-              const NavbarHome(),
             ],
           ),
-          bottom: mediaQuery.size.height * 0.03,
+          bottom: 0,
           right: 0,
           left: 0,
         ),

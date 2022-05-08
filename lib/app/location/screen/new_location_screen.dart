@@ -43,13 +43,6 @@ class _NewLocationState extends State<NewLocation> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    InkWell(
-                        onTap: () => {Navigator.pop(context)},
-                        child: const Icon(Iconsax.arrow_left))
-                  ],
-                ),
                 const SizedBox(height: 20),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,7 +62,7 @@ class _NewLocationState extends State<NewLocation> {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
-                                    color: UIColors.violet)),
+                                    color: UIColors.blue)),
                             const TextSpan(text: '?'),
                           ],
                         ),
@@ -116,10 +109,9 @@ class _NewLocationState extends State<NewLocation> {
                           hintStyle:
                               TextStyle(color: UIColors.grey, fontSize: 14),
                           border: const OutlineInputBorder(),
-                          suffixIconColor: UIColors.violet,
                           prefixIcon: Icon(
                             Iconsax.note_add,
-                            color: UIColors.violet,
+                            color: UIColors.blue,
                           ),
                         ),
                         autofocus: false,
@@ -148,7 +140,7 @@ class _NewLocationState extends State<NewLocation> {
                           padding: const EdgeInsets.only(right: 15.0, left: 15),
                           child: Icon(
                             Iconsax.box_2,
-                            color: UIColors.violet,
+                            color: UIColors.blue,
                           ),
                         ),
                         const Text(
@@ -187,10 +179,9 @@ class _NewLocationState extends State<NewLocation> {
                           hintStyle:
                               TextStyle(color: UIColors.grey, fontSize: 14),
                           border: const OutlineInputBorder(),
-                          suffixIconColor: UIColors.violet,
                           prefixIcon: Icon(
                             Iconsax.note,
-                            color: UIColors.violet,
+                            color: UIColors.blue,
                           ),
                         ),
                         autofocus: false,

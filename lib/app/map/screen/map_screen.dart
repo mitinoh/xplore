@@ -23,20 +23,10 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        top: false,
         bottom: false,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                children: [
-                  InkWell(
-                      onTap: () => {Navigator.pop(context)},
-                      child: const Icon(Iconsax.arrow_left)),
-                  const Align(alignment: Alignment.center, child: Text("Mappa"))
-                ],
-              ),
-            ),
             Expanded(
               child: MapContainer(
                 mapBloc: _mapBloc,

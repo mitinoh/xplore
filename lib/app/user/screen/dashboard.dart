@@ -5,7 +5,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/location/screen/new_location_screen.dart';
+
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widget/navbar.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Getting the user from the FirebaseAuth Instance
     final user = FirebaseAuth.instance.currentUser!;
+    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FA),
       body: BlocListener<AuthBloc, AuthState>(
@@ -34,13 +37,8 @@ class UserScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                          onTap: () => {Navigator.pop(context)},
-                          child: const Icon(Iconsax.arrow_left)),
-                      const Icon(Iconsax.more)
-                    ],
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [const Icon(Iconsax.more)],
                   ),
                   const SizedBox(height: 50),
                   Column(
@@ -114,17 +112,37 @@ class UserScreen extends StatelessWidget {
                       const Icon(Iconsax.instagram),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
                   Row(
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.0),
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 15.0),
                         child: Text(
                           "Posti piaciuti",
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 15.0),
+                        child: Text(
+                          "Salvati",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black.withOpacity(0.2)),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 15.0),
+                        child: Text(
+                          "I tuoi posti",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black.withOpacity(0.2)),
                         ),
                       ),
                     ],

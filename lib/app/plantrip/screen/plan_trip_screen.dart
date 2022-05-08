@@ -34,9 +34,8 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Icon(Iconsax.arrow_left),
                     InkWell(
                         onTap: () => {
                               Navigator.push(

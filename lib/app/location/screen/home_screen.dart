@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: const Color(0xffF3F7FA),
       body: SafeArea(
         top: false,
-        bottom: false,
         child: Stack(children: [
           BuildListCardHome(
             homeBloc: _homeBloc,

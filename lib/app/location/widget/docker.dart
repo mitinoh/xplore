@@ -30,13 +30,13 @@ class Docker extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
 
     return Positioned(
-        bottom: mediaQuery.size.height * 0.30,
+        bottom: mediaQuery.size.height * 0.25,
         right: 20,
         child: Container(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: UIColors.violet.withOpacity(0.8),
+            color: Color(0xffF3F7FA).withOpacity(0.8),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,8 +47,7 @@ class Docker extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SearchScreen(
-                                  )),
+                              builder: (context) => SearchScreen()),
                         )
                       },
                   child: Icon(Iconsax.search_normal, color: UIColors.black)),
@@ -59,6 +58,11 @@ class Docker extends StatelessWidget {
                       locationId: locationList[indexLocation].iId ?? ''));
                 },
                 child: Icon(Iconsax.heart, color: UIColors.black),
+              ),
+              const SizedBox(height: 25),
+              InkWell(
+                onTap: () {},
+                child: Icon(Iconsax.star, color: UIColors.black),
               ),
               const SizedBox(height: 25),
               InkWell(

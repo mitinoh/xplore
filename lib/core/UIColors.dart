@@ -9,6 +9,10 @@ class UIColors {
     return const Color(0xFF8980F0);
   }
 
+  static Color get platinium {
+    return const Color(0xFFEBEBEB);
+  }
+
   static Color get bluelight {
     //usare sempre questa tonalità
     return const Color(0xFFD0EAFD);
@@ -19,7 +23,7 @@ class UIColors {
   }
 
   static Color get lightRed {
-    return const Color(0xFFD52941);
+    return const Color(0xFFEA2B1F);
   }
 
   static Color get darkblueTile {
@@ -31,7 +35,7 @@ class UIColors {
   }
 
   static Color get orange {
-    return const Color(0xFFFAC886);
+    return const Color(0xFFFDCA40);
   }
 
   static Color get metallic {
@@ -50,10 +54,6 @@ class UIColors {
     return const Color(0xFFF3F7FA);
   }
 
-  static Color get pink {
-    return const Color(0xFFF72585);
-  }
-
   static Color get accentRed {
     return const Color(0xFFFF220C);
   }
@@ -63,7 +63,7 @@ class UIColors {
   }
 
   static Color get green {
-    return const Color(0xFF0EC41C);
+    return const Color(0xFF44AF69);
   }
 
   static Color get darkPurple {

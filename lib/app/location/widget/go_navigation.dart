@@ -12,7 +12,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.30,
+      height: mediaQuery.size.height * 0.22,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
