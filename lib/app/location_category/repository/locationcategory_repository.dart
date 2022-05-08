@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:xplore/core/repository.dart';
-import 'package:xplore/model/locationCategory_model.dart';
+import 'package:xplore/model/location_category_model.dart';
 
 class LocationCategoryRepository extends Repository {
   final Dio _dio = Dio();

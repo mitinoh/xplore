@@ -26,6 +26,7 @@ class SearchLocationBloc
 
         final mList = await _locationRepository.fetchLocationList(mng: mng);
         log(mList.toString());
+        log("loaded");
         emit(SearchLocationLoaded(mList, event.add));
       } catch (e) {
         //throw Exception('FooException');

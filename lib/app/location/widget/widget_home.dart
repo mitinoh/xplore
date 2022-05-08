@@ -10,7 +10,7 @@ import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widget/widget_core.dart';
-import 'package:xplore/model/locationCategory_model.dart';
+import 'package:xplore/model/location_category_model.dart';
 import 'package:xplore/model/location_model.dart';
 
 /*
@@ -99,42 +99,8 @@ class FilterMenuHome extends StatelessWidget {
 }
 
 */
-/*
-class BuildListCardCategory extends StatelessWidget {
-  const BuildListCardCategory(
-      {Key? key,
-      required this.context,
-      required this.model,
-      required this.homeBloc})
-      : super(key: key);
-  final BuildContext context;
-  final List<LocationCategory> model;
-  final LocationBloc homeBloc;
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: model.length,
-      itemBuilder: (BuildContext context, int index) {
-        return TextButton(
-            onPressed: () {
-              log("2");
-              toggleCategoryFilter(index);
-              homeBloc.add(const GetLocationList(add: false));
-            },
-            child: Text(model[index].name ?? ''));
-      },
-    );
-  }
 
-  toggleCategoryFilter(int index) {
-    if (LocationRepository.categoryFilter.contains(model[index].iId)) {
-      LocationRepository.categoryFilter.remove(model[index].iId);
-    } else {
-      LocationRepository.categoryFilter.add(model[index].iId ?? '');
-    }
-  }
-}
-*/
+
 class BuildListCardHome extends StatefulWidget {
   BuildListCardHome(
       {Key? key, required this.homeBloc, required this.pageController})
@@ -177,7 +143,6 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
                   model: widget.modelLoc,
                   pageController: widget.pageController,
                   locationBloc: widget.homeBloc);
-                  
             } else if (state is LocationError) {
               return Container();
             } else {
@@ -208,15 +173,11 @@ class BuildMainCard extends StatefulWidget {
 
 class _BuildMainCardState extends State<BuildMainCard> {
   Config conf = Config();
-
   List<Widget> card = [];
-
   double _height = 85;
-
   late bool _valore = true;
-
   int indexLocation = 0;
-  // ignore: non_constant_identifier_names
+
   changeIndexLocation(int i) {
     setState(() {
       indexLocation = i;
@@ -224,8 +185,12 @@ class _BuildMainCardState extends State<BuildMainCard> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     getCards();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Stack(
       children: [

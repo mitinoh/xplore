@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:xplore/model/location_category_model.dart';
 
 import 'coordinate_model.dart';
 
@@ -8,7 +9,7 @@ class Location {
   String? iId;
   String? name;
   Coordinate? coordinate;
-  List<int>? category;
+  List<LocationCategory>? locationCategory;
   String? desc;
   DateTime? cdate;
 
@@ -16,7 +17,7 @@ class Location {
       {this.iId,
       this.name,
       this.coordinate,
-      this.category,
+      this.locationCategory,
       this.desc,
       this.cdate});
 
@@ -26,7 +27,13 @@ class Location {
     coordinate = json['coordinate'] != null
         ? new Coordinate.fromJson(json['coordinate'])
         : null;
-    category = json['category'] != null ? json['category'].cast<String>() : [];
+
+    if (json['locationCategory'] != null) {
+      locationCategory = <LocationCategory>[];
+      json['locationCategory'].forEach((v) {
+        locationCategory!.add(new LocationCategory.fromJson(v));
+      });
+    }
     desc = json['desc'];
     cdate =
         json['cdate'] != null ? DateTime.parse(json['cdate']) : DateTime.now();
@@ -41,7 +48,7 @@ class Location {
     if (this.coordinate != null) {
       data['coordinate'] = this.coordinate!.toJson();
     }
-    data['category'] = this.category;
+    data['locationCategory'] = this.locationCategory;
     data['desc'] = this.desc;
     if (this.cdate != null) {
       data['cdate'] = this.cdate;

@@ -1,12 +1,17 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:masonry_grid/masonry_grid.dart';
+import 'package:xplore/app/location/bloc/location_bloc.dart';
+import 'package:xplore/app/location/repository/location_repository.dart';
+import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/search_location/bloc/search_location_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/model/location_category_model.dart';
 import 'package:xplore/model/location_model.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -18,14 +23,15 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   late bool _ptGridVisible = false;
+  final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   SearchLocationBloc _searchLocationBloc = SearchLocationBloc();
 
   @override
   void initState() {
-    log(_searchLocationBloc.isClosed.toString());
-    if (!_searchLocationBloc.isClosed)
+    if (!_searchLocationBloc.isClosed) {
       _searchLocationBloc.add(const GetSearchLocationList(add: true));
-
+    }
+    _locCatBloc.add(GetLocationCategoryList());
     super.initState();
   }
 
@@ -51,7 +57,55 @@ class _SearchScreenState extends State<SearchScreen> {
                   InkWell(
                       onTap: () => {Navigator.pop(context)},
                       child: const Icon(Iconsax.arrow_left)),
-                  InkWell(onTap: () => {}, child: const Icon(Iconsax.setting_4))
+                  InkWell(
+                      onTap: () => {
+                            showModalBottomSheet<void>(
+                                useRootNavigator: true,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return BlocProvider(
+                                    create: (_) => _locCatBloc,
+                                    child: BlocListener<LocationcategoryBloc,
+                                        LocationcategoryState>(
+                                      listener: (context, state) {
+                                        if (state is LocationError) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text("error"),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      child: BlocBuilder<LocationcategoryBloc,
+                                          LocationcategoryState>(
+                                        builder: (context, state) {
+                                          if (state
+                                                  is LocationcategoryInitial ||
+                                              state
+                                                  is LocationCategoryLoading) {
+                                            return const LoadingIndicator();
+                                          } else if (state
+                                              is LocationcategoryLoaded) {
+                                            return BuildListCardCategory(
+                                              context: context,
+                                              model:
+                                                  state.locationCategoryModel,
+                                              homeBloc: _searchLocationBloc,
+                                            );
+                                          } else if (state
+                                              is LocationcategoryError) {
+                                            return Container();
+                                          } else {
+                                            return Container();
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                })
+                          },
+                      child: const Icon(Iconsax.setting_4))
                 ],
               ),
               const SizedBox(height: 20),
@@ -213,7 +267,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               Visibility(
-                visible: !_ptGridVisible,
+                visible: true,
                 child: Row(
                   children: const [
                     Padding(
@@ -231,7 +285,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               Visibility(
-                  visible: !_ptGridVisible,
+                  visible: true,
                   child: BlocProvider(
                     create: (_) => _searchLocationBloc,
                     child:
@@ -284,6 +338,12 @@ class PtLocationGrid extends StatelessWidget {
 
   final List<Location> locationList;
 
+  double getRndSize() {
+    double size = Random().nextInt(200).toDouble();
+    if (size < 100) size = 100;
+    return size;
+  }
+
   List<Widget> getLocationCnt() {
     List<Widget> locCnt = [];
 
@@ -297,12 +357,8 @@ class PtLocationGrid extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      el.name ?? '',
-                      overflow: TextOverflow.visible,
-                    ),
+                  SizedBox(
+                    height: getRndSize(),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10.0),
@@ -310,7 +366,7 @@ class PtLocationGrid extends StatelessWidget {
                       el.name ?? '',
                       overflow: TextOverflow.visible,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -329,5 +385,64 @@ class PtLocationGrid extends StatelessWidget {
           column: 2,
           children: getLocationCnt()),
     );
+  }
+}
+
+class BuildListCardCategory extends StatefulWidget {
+  const BuildListCardCategory(
+      {Key? key,
+      required this.context,
+      required this.model,
+      required this.homeBloc})
+      : super(key: key);
+
+  final BuildContext context;
+  final List<LocationCategory> model;
+  final SearchLocationBloc homeBloc;
+
+  @override
+  State<BuildListCardCategory> createState() => _BuildListCardCategoryState();
+}
+
+class _BuildListCardCategoryState extends State<BuildListCardCategory> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: widget.model.length,
+      itemBuilder: (BuildContext context, int index) {
+        return TextButton(
+          onPressed: () {
+            toggleCategoryFilter(index);
+            widget.homeBloc.add(const GetSearchLocationList(add: false));
+          },
+          child: Text(
+            widget.model[index].name ?? '',
+            style: isCategoryFilterActive(index)
+                ? TextStyle(
+                    color: Colors.green,
+                  )
+                : TextStyle(
+                    color: Colors.black,
+                  ),
+          ),
+        );
+      },
+    );
+  }
+
+  toggleCategoryFilter(int index) {
+    if (LocationRepository.categoryFilter.contains(widget.model[index].iId)) {
+      setState(() {
+        LocationRepository.categoryFilter.remove(widget.model[index].iId);
+      });
+    } else {
+      setState(() {
+        LocationRepository.categoryFilter.add(widget.model[index].iId ?? '');
+      });
+    }
+  }
+
+  bool isCategoryFilterActive(int index) {
+    return LocationRepository.categoryFilter.contains(widget.model[index].iId);
   }
 }
