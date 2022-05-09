@@ -5,6 +5,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/location/screen/new_location_screen.dart';
+import 'package:xplore/app/user/widgets/settings.dart';
+import 'package:xplore/app/user/widgets/edit_profile.dart';
 
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/navbar.dart';
@@ -37,10 +39,33 @@ class UserScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [const Icon(Iconsax.more)],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (context) {
+                                  return const EditProfileBottomSheet();
+                                });
+                          },
+                          child: const Icon(Iconsax.edit)),
+                      InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (context) {
+                                  return const SettingsBottomSheet();
+                                });
+                          },
+                          child: Icon(Iconsax.more))
+                    ],
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 25),
                   Column(
                     children: [
                       CircleAvatar(
@@ -95,24 +120,33 @@ class UserScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(left: 10, right: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              20,
-                            ),
-                            border: Border.all(width: 1, color: UIColors.grey)),
-                        child: const Text("Modifica profilo"),
+                  const SizedBox(height: 30),
+                  Container(
+                    width: mediaQuery.size.height * 0.25,
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.only(left: 0, right: 0),
+                    decoration: BoxDecoration(
+                      color: UIColors.green,
+                      borderRadius: BorderRadius.circular(
+                        20,
                       ),
-                      const Icon(Iconsax.instagram),
-                    ],
+                      // border: Border.all(width: 1, color: UIColors.grey)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Iconsax.cup, color: Colors.white),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Trophy room".toUpperCase(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white)),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 30),
                   Row(
                     children: [
                       const Padding(
