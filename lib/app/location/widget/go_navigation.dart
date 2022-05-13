@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/core/UIColors.dart';
 
@@ -16,8 +17,8 @@ class GoNavigationBottomSheet extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
         color: Color(0xffF3F7FA),
       ),
@@ -28,10 +29,10 @@ class GoNavigationBottomSheet extends StatelessWidget {
             children: [
               const SizedBox(height: 20),
               Row(
-                children: const [
+                children: [
                   Text("Vuoi raggiungere il luogo desiderito?",
-                      style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w300,
                           color: Colors.black)),
@@ -46,14 +47,11 @@ class GoNavigationBottomSheet extends StatelessWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
                       "Raggiungi su google maps",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                     ),
-                    Icon(
-                      Iconsax.arrow_right_1,
-                    )
                   ],
                 ),
               )

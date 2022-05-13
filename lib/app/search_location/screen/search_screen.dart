@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:masonry_grid/masonry_grid.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
@@ -127,15 +128,15 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: TextFormField(
                         controller: _searchController,
                         textAlign: TextAlign.start,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 14),
+                        style: GoogleFonts.poppins(
+                            color: Colors.black, fontSize: 14),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(15.0),
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           hintText: "cerca un posto",
-                          hintStyle:
-                              TextStyle(color: UIColors.grey, fontSize: 14),
+                          hintStyle: GoogleFonts.poppins(
+                              color: UIColors.grey, fontSize: 14),
                           border: const OutlineInputBorder(),
                           suffixIconColor: UIColors.violet,
                           prefixIcon: IconButton(
@@ -180,9 +181,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             radius: 22,
                             backgroundColor: UIColors.bluelight,
                           ),
-                          const Text(
+                          Text(
                             "Roma",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.black),
@@ -198,9 +199,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             radius: 22,
                             backgroundColor: UIColors.bluelight,
                           ),
-                          const Text(
+                          Text(
                             "Bologna",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.black),
@@ -216,9 +217,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             radius: 22,
                             backgroundColor: UIColors.bluelight,
                           ),
-                          const Text(
+                          Text(
                             "Genova",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.black),
@@ -234,9 +235,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             radius: 22,
                             backgroundColor: UIColors.bluelight,
                           ),
-                          const Text(
+                          Text(
                             "Milano",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.black),
@@ -252,9 +253,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             radius: 22,
                             backgroundColor: UIColors.bluelight,
                           ),
-                          const Text(
+                          Text(
                             "Barcellona",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.black),
@@ -269,13 +270,13 @@ class _SearchScreenState extends State<SearchScreen> {
               Visibility(
                 visible: true,
                 child: Row(
-                  children: const [
+                  children: [
                     Padding(
-                      padding:
-                          EdgeInsets.only(right: 10.0, top: 20, bottom: 15),
+                      padding: const EdgeInsets.only(
+                          right: 10.0, top: 20, bottom: 15),
                       child: Text(
                         "Posti suggeriti",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: Colors.black),
@@ -365,6 +366,7 @@ class PtLocationGrid extends StatelessWidget {
                     child: Text(
                       el.name ?? '',
                       overflow: TextOverflow.visible,
+                      style: GoogleFonts.poppins(),
                     ),
                   ),
                 ],

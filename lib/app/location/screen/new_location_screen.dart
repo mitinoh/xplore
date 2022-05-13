@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
@@ -52,7 +53,7 @@ class _NewLocationState extends State<NewLocation> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Vuoi raccomandare un luogo ',
-                          style: const TextStyle(
+                          style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
@@ -74,12 +75,12 @@ class _NewLocationState extends State<NewLocation> {
                   height: 20,
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text(
                           "lorem ipsum is simply dummy text of the printing and typesetting industry.",
-                          style: TextStyle(
-                              overflow: TextOverflow.visible,
+                          overflow: TextOverflow.visible,
+                          style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                               color: Colors.grey)),
@@ -106,8 +107,8 @@ class _NewLocationState extends State<NewLocation> {
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           hintText: "Nome un posto",
-                          hintStyle:
-                              TextStyle(color: UIColors.grey, fontSize: 14),
+                          hintStyle: GoogleFonts.poppins(
+                              color: UIColors.grey, fontSize: 14),
                           border: const OutlineInputBorder(),
                           prefixIcon: Icon(
                             Iconsax.note_add,
@@ -143,9 +144,9 @@ class _NewLocationState extends State<NewLocation> {
                             color: UIColors.blue,
                           ),
                         ),
-                        const Text(
+                        Text(
                           "Aggiugni foto",
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ),
                       ],
@@ -175,9 +176,9 @@ class _NewLocationState extends State<NewLocation> {
                           contentPadding: const EdgeInsets.all(15.0),
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
-                          hintText: "Breve descrizione",
-                          hintStyle:
-                              TextStyle(color: UIColors.grey, fontSize: 14),
+                          hintText: "Breve descrizione...",
+                          hintStyle: GoogleFonts.poppins(
+                              color: UIColors.grey, fontSize: 14),
                           border: const OutlineInputBorder(),
                           prefixIcon: Icon(
                             Iconsax.note,
@@ -193,12 +194,12 @@ class _NewLocationState extends State<NewLocation> {
                   height: 20,
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text(
                           "lorem ipsum is simply dummy text of the printing and typesetting industry.",
-                          style: TextStyle(
-                              overflow: TextOverflow.visible,
+                          overflow: TextOverflow.visible,
+                          style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                               color: Colors.grey)),
@@ -227,7 +228,8 @@ class _NewLocationState extends State<NewLocation> {
                         ),
                         Text(
                           "Aggiungi luogo".toUpperCase(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style:
+                              GoogleFonts.poppins(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),

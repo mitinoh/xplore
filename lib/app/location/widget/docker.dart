@@ -36,7 +36,7 @@ class Docker extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color(0xffF3F7FA).withOpacity(0.8),
+            color: const Color(0xffF3F7FA).withOpacity(0.8),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

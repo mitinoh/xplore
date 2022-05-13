@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/location/bloc/location_bloc.dart';
 import 'package:xplore/app/location/widget/docker.dart';
@@ -222,11 +223,11 @@ class _BuildMainCardState extends State<BuildMainCard> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                      color: Color(0xffF3F7FA).withOpacity(0.8),
+                      color: const Color(0xffF3F7FA).withOpacity(0.8),
                       borderRadius: BorderRadius.circular(20)),
-                  child: const Text("@xplore",
-                      style: TextStyle(
-                          fontSize: 14,
+                  child: Text("@xplore",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
                           fontWeight: FontWeight.w700,
                           color: Colors.black)),
                 ),
@@ -240,7 +241,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Color(0xffF3F7FA).withOpacity(0.8)),
-                padding: const EdgeInsets.all(25),
+                padding: const EdgeInsets.all(20),
                 margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
                 duration: const Duration(seconds: 1),
                 curve: Curves.bounceOut,
@@ -252,32 +253,23 @@ class _BuildMainCardState extends State<BuildMainCard> {
                         textScaleFactor: 1,
                         text: TextSpan(
                             text: widget.model[indexLocation].name.toString(),
-                            style: const TextStyle(
+                            style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
-                            children: const [
+                            children: [
                               TextSpan(
                                   text:
                                       " lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                                  style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.poppins(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w300,
                                       color: Colors.black)),
                               TextSpan(
                                   text: " @xplore.",
-                                  style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.poppins(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700,
-                                      color: Colors.black)),
-                              TextSpan(
-                                  text: "\n\n#roma #inverno #congliamici",
-                                  style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
                                       color: Colors.black)),
                             ]),
                       ),

@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/location/screen/new_location_screen.dart';
+import 'package:xplore/app/user/screen/edit_screen.dart';
 import 'package:xplore/app/user/widgets/settings.dart';
-import 'package:xplore/app/user/widgets/edit_profile.dart';
 
 import 'package:xplore/core/UIColors.dart';
 
@@ -59,13 +60,11 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                         children: [
                           InkWell(
                               onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    builder: (context) {
-                                      return const EditProfileBottomSheet();
-                                    });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditProfile()),
+                                );
                               },
                               child: const Icon(Iconsax.edit)),
                           InkWell(
@@ -91,9 +90,9 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const Text(
+                      Text(
                         "mite.g",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: Colors.black),
@@ -103,59 +102,65 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Column(
-                            children: const [
+                            children: [
                               Text(
                                 "29",
-                                style: TextStyle(
+                                style: GoogleFonts.poppins(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black),
                               ),
                               Text(
                                 "post visitati",
+                                style: GoogleFonts.poppins(),
                               ),
                             ],
                           ),
                           Column(
-                            children: const [
+                            children: [
                               Text(
                                 "2",
-                                style: TextStyle(
+                                style: GoogleFonts.poppins(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black),
                               ),
                               Text(
                                 "in programma",
+                                style: GoogleFonts.poppins(),
                               ),
                             ],
                           )
                         ],
                       ),
                       const SizedBox(height: 30),
-                      Container(
-                        width: mediaQuery.size.height * 0.25,
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: UIColors.green,
-                          borderRadius: BorderRadius.circular(
-                            20,
-                          ),
-                          // border: Border.all(width: 1, color: UIColors.grey)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Iconsax.cup, color: Colors.white),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text("Trophy room".toUpperCase(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: UIColors.green,
+                              borderRadius: BorderRadius.circular(
+                                20,
+                              ),
+                              // border: Border.all(width: 1, color: UIColors.grey)
                             ),
-                          ],
-                        ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Iconsax.cup, color: Colors.white),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text("Trophy room lv.4".toUpperCase(),
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 20),
                       TabBar(
@@ -164,12 +169,12 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                         indicatorWeight: 3,
                         labelColor: Colors.black,
                         unselectedLabelColor: Colors.black.withOpacity(0.2),
-                        tabs: const [
+                        tabs: [
                           Tab(
                               //iconMargin: EdgeInsets.zero,
                               child: Text(
                             "Piaciuti",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                             ),
@@ -177,7 +182,7 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                           Tab(
                               child: Text(
                             "Salvati",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                             ),
@@ -185,7 +190,7 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                           Tab(
                               child: Text(
                             "Visitati",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                             ),
@@ -217,13 +222,13 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                               alignment: Alignment.center,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
-                                children: const <Widget>[
+                                children: <Widget>[
                                   Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Text(
-                                      "luogo",
-                                      overflow: TextOverflow.visible,
-                                    ),
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text("luogo",
+                                        overflow: TextOverflow.visible,
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w300)),
                                   )
                                 ],
                               ),
