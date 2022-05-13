@@ -12,7 +12,7 @@ class EditProfileBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.75,
+      height: mediaQuery.size.height * 0.62,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -86,36 +86,6 @@ class EditProfileBottomSheet extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 5),
-          Row(
-            children: [
-              Expanded(
-                  child: Container(
-                padding: const EdgeInsets.only(
-                    left: 15, right: 15, bottom: 5, top: 5),
-                decoration: BoxDecoration(
-                    color: UIColors.grey.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextField(
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(color: Colors.black, fontSize: 14),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15.0),
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: "Nome utente",
-                    hintStyle: TextStyle(color: UIColors.grey, fontSize: 14),
-                    border: const OutlineInputBorder(),
-                    prefixIcon: Icon(
-                      Iconsax.user,
-                      color: UIColors.blue,
-                    ),
-                  ),
-                  autofocus: false,
-                ),
-              ))
-            ],
-          ),
-          const SizedBox(height: 5),
           Container(
             padding:
                 const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
@@ -134,13 +104,64 @@ class EditProfileBottomSheet extends StatelessWidget {
                   ),
                 ),
                 const Text(
-                  "Modifica foto",
+                  "Modifica foto profilo",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Expanded(
+                  child: Container(
+                padding: const EdgeInsets.only(
+                    left: 15, right: 15, bottom: 5, top: 5),
+                decoration: BoxDecoration(
+                    color: UIColors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(20)),
+                child: TextField(
+                  textAlign: TextAlign.start,
+                  minLines: 6,
+                  maxLines: 10,
+                  style: const TextStyle(color: Colors.black, fontSize: 14),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(15.0),
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: "Bio...",
+                    hintStyle: TextStyle(color: UIColors.grey, fontSize: 14),
+                    border: const OutlineInputBorder(),
+                    prefixIcon: Icon(
+                      Iconsax.note,
+                      color: UIColors.blue,
+                    ),
+                  ),
+                  autofocus: false,
+                ),
+              ))
+            ],
+          ),
           const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: UIColors.lightGreen,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Iconsax.add,
+                ),
+                Text(
+                  "Salva modifiche".toUpperCase(),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
         ]),
       ),
     );

@@ -29,15 +29,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_auth: ^3.3.9
-  google_sign_in: ^5.2.4
+  firebase_auth: ^3.3.17
+  google_sign_in: ^5.3.1
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
   dio: ^4.0.4
   persistent_bottom_nav_bar: ^4.0.2
   flutter_map: ^0.14.0
   url_launcher: ^6.0.20
-  image_picker: ^0.8.4+11
+  image_picker: ^0.8.5+3
   location: ^4.3.0
   geocoding: ^2.0.4
   iconsax: ^0.0.8
