@@ -2,34 +2,50 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:xplore/core/config.dart';
+import 'package:xplore/core/http_service.dart';
 import 'package:xplore/core/repository.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
 
-class HomeRepository extends Repository {
+class HomeRepository /* extends Repository */ {
+  Config conf = Config();
+  HttpService httpService = HttpService();
   static int lastSkipIndex = 0;
   static var skip = 0;
   static var limit = 15;
   static List<String> categoryFilter = [];
-  final Dio _dio = Dio();
+  // final Dio _dio = Dio();
 
   Future<List<Location>> fetchLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
-    await setDio(_dio);
-    Response response = await _dio.get(url);
+    Response response = await httpService.request(method: Method.GET, url: url);
+    //await setDio(_dio);
+    // Response response = await _dio.get(url);
     return Location().toList(response);
   }
 
-  Future<void> newLocationPut({required Map<String, dynamic> map}) async {
-    doPost(url: conf.newLocationColl, data: json.encode(map));
+  Future<void> newLocationPost({required Map<String, dynamic> map}) async {
+    Response response = await httpService.request(
+        method: Method.POST,
+        url: conf.newLocationColl,
+        params: json.encode(map));
+    // doPost(url: conf.newLocationColl, data: json.encode(map));
   }
 
   Future<void> saveUserLocationPost({required String id, bool? save}) async {
     if (save == false) {
-      doDelete(url: conf.savedLocationColl + '/' + id);
+      Response response = await httpService.request(
+          method: Method.DELETE, url: conf.savedLocationColl + '/' + id);
+      // doDelete(url: conf.savedLocationColl + '/' + id);
     } else {
       Map<String, dynamic> map = {"location": id};
-      doPost(url: conf.savedLocationColl, data: json.encode(map));
+      Response response = await httpService.request(
+          method: Method.POST,
+          url: conf.savedLocationColl,
+          params: json.encode(map));
+
+      //  doPost(url: conf.savedLocationColl, data: json.encode(map));
     }
   }
 

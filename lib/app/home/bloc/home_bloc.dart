@@ -28,7 +28,7 @@ class HomeBloc extends Bloc<LocationEvent, LocationState> {
 
     on<CreateNewLocation>((event, emit) async {
       try {
-        await _locationRepository.newLocationPut(map: event.map);
+        await _locationRepository.newLocationPost(map: event.map);
       } catch (e) {
         emit(const LocationError(
             "Failed to fetch data. is your device online?"));
