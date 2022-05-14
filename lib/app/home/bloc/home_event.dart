@@ -1,4 +1,4 @@
-part of 'location_bloc.dart';
+part of 'home_bloc.dart';
 
 abstract class LocationEvent extends Equatable {
   const LocationEvent();
@@ -9,9 +9,8 @@ abstract class LocationEvent extends Equatable {
 
 class GetLocationList extends LocationEvent {
   final String? searchName;
-  final bool add;
   final bool? homePage;
-  const GetLocationList({this.searchName, required this.add, this.homePage});
+  const GetLocationList({this.searchName, this.homePage});
 }
 
 class CreateNewLocation extends LocationEvent {
@@ -21,5 +20,6 @@ class CreateNewLocation extends LocationEvent {
 
 class SaveUserLocation extends LocationEvent {
   final String locationId;
-  const SaveUserLocation({required this.locationId});
+  final bool? save; // true per aggiungere al db 
+  const SaveUserLocation({required this.locationId, this.save});
 }

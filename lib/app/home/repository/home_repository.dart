@@ -6,7 +6,7 @@ import 'package:xplore/core/repository.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
 
-class LocationRepository extends Repository {
+class HomeRepository extends Repository {
   static int lastSkipIndex = 0;
   static var skip = 0;
   static var limit = 15;
@@ -16,9 +16,7 @@ class LocationRepository extends Repository {
   Future<List<Location>> fetchLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
     await setDio(_dio);
-    log(url);
     Response response = await _dio.get(url);
-
     return Location().toList(response);
   }
 
@@ -26,30 +24,15 @@ class LocationRepository extends Repository {
     doPost(url: conf.newLocationColl, data: json.encode(map));
   }
 
-  Future<void> saveUserLocationPost({required String id}) async {
-    Map<String, dynamic> map = {"location": id};
-    doPost(url: conf.savedLocationColl, data: json.encode(map));
+  Future<void> saveUserLocationPost({required String id, bool? save}) async {
+    if (save == false) {
+      doDelete(url: conf.savedLocationColl + '/' + id);
+    } else {
+      Map<String, dynamic> map = {"location": id};
+      doPost(url: conf.savedLocationColl, data: json.encode(map));
+    }
   }
 
-/*
-  String getPipeline({String? searchName}) {
-    List<String> mtc = [];
-    if (searchName != null && searchName.trim() != "") {
-      mtc.add('{ "name": {  "\$regex": "$searchName",  "\$options": "gi" } }');
-    }
-    if (categoryFilter.isNotEmpty) {
-      mtc.add(' { "category": { "\$in" : [${categoryFilter.join(",")}]}} ');
-    }
-    String pipe = ""; //  {'\$limit': 1 }
-    if (mtc.isNotEmpty) {
-      pipe = ' {"\$match": ${mtc.join(",")} } ';
-    }
-
-    pipe =
-        '{pipeline: [' + pipe + ', {"\$skip": $skip}, {"\$limit": $limit }]}';
-    return pipe;
-  }
-*/
   Mongoose getMongoose({String? searchName}) {
     Mongoose mng = Mongoose();
     mng.limit = limit;
@@ -57,16 +40,12 @@ class LocationRepository extends Repository {
     mng.filter = {};
 
     if (searchName != null && searchName.trim() != "") {
-      mng.filter?.putIfAbsent("name", () => '*$searchName*');
-    }
-    if (searchName != null && searchName.trim() != "") {
-      mng.filter?.putIfAbsent("name", () => '*$searchName*');
+      mng.filter?.putIfAbsent("name", () => '*$searchName*,desc=*$searchName*');
     }
     if (categoryFilter.isNotEmpty) {
       mng.filter
           ?.putIfAbsent("locationCategory", () => categoryFilter.join(','));
     }
-
     return mng;
   }
 }

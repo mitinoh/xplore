@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
-import 'package:xplore/app/location/screen/new_location_screen.dart';
+import 'package:xplore/app/home/screen/new_location_screen.dart';
 import 'package:xplore/app/user/screen/edit_screen.dart';
 import 'package:xplore/app/user/widgets/settings.dart';
 

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:xplore/app/location/bloc/location_bloc.dart';
+import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
@@ -22,7 +22,7 @@ class _NewLocationState extends State<NewLocation> {
   final TextEditingController _descController = TextEditingController();
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
 
-  final LocationBloc _locationBloc = LocationBloc();
+  final HomeBloc _locationBloc = HomeBloc();
   final List<String> _catSelected = [];
 
   late File imageFile;

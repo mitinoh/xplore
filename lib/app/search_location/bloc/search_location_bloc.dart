@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:xplore/app/location/repository/location_repository.dart';
+import 'package:xplore/app/home/repository/home_repository.dart';
 import 'package:xplore/model/location_model.dart';
 
 import '../../../model/mongoose_model.dart';
@@ -10,10 +10,9 @@ import '../../../model/mongoose_model.dart';
 part 'search_location_event.dart';
 part 'search_location_state.dart';
 
-class SearchLocationBloc
-    extends Bloc<SearchLocationEvent, SearchLocationState> {
-  SearchLocationBloc() : super(SearchLocationInitial()) {
-    final LocationRepository _locationRepository = LocationRepository();
+class SearchHomeBloc extends Bloc<SearchLocationEvent, SearchLocationState> {
+  SearchHomeBloc() : super(SearchLocationInitial()) {
+    final HomeRepository _locationRepository = HomeRepository();
     on<SearchLocationEvent>((event, emit) {
       // TODO: implement event handler
     });

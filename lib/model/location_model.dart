@@ -12,6 +12,7 @@ class Location {
   List<LocationCategory>? locationCategory;
   String? desc;
   DateTime? cdate;
+  bool? saved;
 
   Location(
       {this.iId,
@@ -19,7 +20,8 @@ class Location {
       this.coordinate,
       this.locationCategory,
       this.desc,
-      this.cdate});
+      this.cdate,
+      this.saved});
 
   Location.fromJson(Map<String, dynamic> json) {
     iId = json['_id'] ?? '';
@@ -37,6 +39,8 @@ class Location {
     desc = json['desc'];
     cdate =
         json['cdate'] != null ? DateTime.parse(json['cdate']) : DateTime.now();
+
+    saved = json['saved'];
   }
 
   Map<String, dynamic> toJson() {
@@ -53,6 +57,7 @@ class Location {
     if (this.cdate != null) {
       data['cdate'] = this.cdate;
     }
+    data['saved'] = this.saved;
     return data;
   }
 

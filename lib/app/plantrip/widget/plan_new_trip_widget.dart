@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/app/location/bloc/location_bloc.dart';
+import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
@@ -489,8 +489,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                       ],
                     ),
                   ),
-                  CategoryPreference(
-                  ),
+                  CategoryPreference(),
                   Flexible(
                     flex: 2,
                     child: InkWell(

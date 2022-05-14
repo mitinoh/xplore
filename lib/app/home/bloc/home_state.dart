@@ -1,4 +1,4 @@
-part of 'location_bloc.dart';
+part of 'home_bloc.dart';
 
 abstract class LocationState extends Equatable {
   const LocationState();
@@ -13,8 +13,7 @@ class LocationHomeLoading extends LocationState {}
 
 class LocationHomeLoaded extends LocationState {
   final List<Location> homeModel;
-  final bool add;
-  const LocationHomeLoaded(this.homeModel, this.add);
+  const LocationHomeLoaded(this.homeModel);
 }
 
 class LocationError extends LocationState {

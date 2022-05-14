@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/location/bloc/location_bloc.dart';
+import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 

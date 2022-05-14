@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/app/location/bloc/location_bloc.dart';
-import 'package:xplore/app/location/widget/widget_home.dart';
+import 'package:xplore/app/home/bloc/home_bloc.dart';
+import 'package:xplore/app/home/widget/list_card_widget.dart';
+import 'package:xplore/app/home/widget/widget_home.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,13 +12,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final LocationBloc _homeBloc = LocationBloc();
+  final HomeBloc _homeBloc = HomeBloc();
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   final PageController _pageController = PageController();
 
   @override
   void initState() {
-    _homeBloc.add(const GetLocationList(add: true));
+    _homeBloc.add(const GetLocationList());
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
   }

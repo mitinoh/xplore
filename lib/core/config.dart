@@ -10,8 +10,12 @@ class Config {
     return 'http://${address}:${port}/${appName}/';
   }
 
-  String get urlImages {
+  String get urlFolderImages {
     return 'http://${address}:${port}/${imageFolder}/';
+  }
+
+  String getLocationImageUrl(String id) {
+    return locationImage + id + '.jpg';
   }
 
   String get userColl {
@@ -51,6 +55,6 @@ class Config {
   }
 
   String get locationImage {
-    return urlImages + "location/";
+    return urlFolderImages + "location/";
   }
 }

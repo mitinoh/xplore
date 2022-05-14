@@ -38,4 +38,14 @@ class Repository {
       throw Exception(e);
     }
   }
+
+  Future<Response> doDelete({required String url}) async {
+    try {
+      await setDio(_dio);
+      print(url);
+      return await _dio.delete(url);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:masonry_grid/masonry_grid.dart';
-import 'package:xplore/app/location/bloc/location_bloc.dart';
-import 'package:xplore/app/location/repository/location_repository.dart';
+import 'package:xplore/app/home/bloc/home_bloc.dart';
+import 'package:xplore/app/home/repository/home_repository.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/search_location/bloc/search_location_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
@@ -25,19 +25,19 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   late bool _ptGridVisible = false;
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
-  SearchLocationBloc _searchLocationBloc = SearchLocationBloc();
+  SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
 
   @override
   void initState() {
-    if (!_searchLocationBloc.isClosed) {
-      _searchLocationBloc.add(const GetSearchLocationList(add: true));
+    if (!_searchHomeBloc.isClosed) {
+      _searchHomeBloc.add(const GetSearchLocationList(add: true));
     }
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
   }
 
   filterLocation() {
-    _searchLocationBloc.add(GetSearchLocationList(
+    _searchHomeBloc.add(GetSearchLocationList(
         searchName: _searchController.text.toString(), add: false));
   }
 
@@ -92,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                               context: context,
                                               model:
                                                   state.locationCategoryModel,
-                                              homeBloc: _searchLocationBloc,
+                                              homeBloc: _searchHomeBloc,
                                             );
                                           } else if (state
                                               is LocationcategoryError) {
@@ -148,11 +148,11 @@ class _SearchScreenState extends State<SearchScreen> {
                             onPressed: () {
                               filterLocation();
 
-                              _searchLocationBloc.add(GetSearchLocationList(
+                              _searchHomeBloc.add(GetSearchLocationList(
                                   searchName: _searchController.text.toString(),
                                   add: false));
 
-                              //LocationRepository.skip = 1;
+                              //HomeRepository.skip = 1;
                             },
                           ),
                         ),
@@ -288,9 +288,8 @@ class _SearchScreenState extends State<SearchScreen> {
               Visibility(
                   visible: true,
                   child: BlocProvider(
-                    create: (_) => _searchLocationBloc,
-                    child:
-                        BlocListener<SearchLocationBloc, SearchLocationState>(
+                    create: (_) => _searchHomeBloc,
+                    child: BlocListener<SearchHomeBloc, SearchLocationState>(
                       listener: (context, state) {
                         if (state is SearchLocationError) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -300,8 +299,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           );
                         }
                       },
-                      child:
-                          BlocBuilder<SearchLocationBloc, SearchLocationState>(
+                      child: BlocBuilder<SearchHomeBloc, SearchLocationState>(
                         builder: (context, state) {
                           if (state is SearchLocationInitial ||
                               state is SearchLocationLoading) {
@@ -400,7 +398,7 @@ class BuildListCardCategory extends StatefulWidget {
 
   final BuildContext context;
   final List<LocationCategory> model;
-  final SearchLocationBloc homeBloc;
+  final SearchHomeBloc homeBloc;
 
   @override
   State<BuildListCardCategory> createState() => _BuildListCardCategoryState();
@@ -433,18 +431,18 @@ class _BuildListCardCategoryState extends State<BuildListCardCategory> {
   }
 
   toggleCategoryFilter(int index) {
-    if (LocationRepository.categoryFilter.contains(widget.model[index].iId)) {
+    if (HomeRepository.categoryFilter.contains(widget.model[index].iId)) {
       setState(() {
-        LocationRepository.categoryFilter.remove(widget.model[index].iId);
+        HomeRepository.categoryFilter.remove(widget.model[index].iId);
       });
     } else {
       setState(() {
-        LocationRepository.categoryFilter.add(widget.model[index].iId ?? '');
+        HomeRepository.categoryFilter.add(widget.model[index].iId ?? '');
       });
     }
   }
 
   bool isCategoryFilterActive(int index) {
-    return LocationRepository.categoryFilter.contains(widget.model[index].iId);
+    return HomeRepository.categoryFilter.contains(widget.model[index].iId);
   }
 }

@@ -1,8 +1,8 @@
 import 'package:location/location.dart' as lc;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xplore/app/location/repository/location_repository.dart';
+import 'package:xplore/app/home/repository/home_repository.dart';
 
-class MapRepository extends LocationRepository {
+class MapRepository extends HomeRepository {
   late bool _serviceEnabled;
   late lc.PermissionStatus _permissionGranted;
   lc.LocationData? _userLocation;
@@ -61,4 +61,3 @@ class MapRepository extends LocationRepository {
     */
   }
 }
-
