@@ -50,7 +50,7 @@ class SettingsBottomSheet extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                        "lorem ipsum is simply dummy text of the printing and typesetting industry.",
+                        "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
                         overflow: TextOverflow.visible,
                         style: GoogleFonts.poppins(
                             fontSize: 12,
@@ -66,32 +66,9 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.bluelight,
+                        backgroundColor: UIColors.orange,
                         child: Icon(
-                          Iconsax.info_circle,
-                          color: UIColors.black,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Versione app 1.0.1",
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(height: 30),
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 22,
-                        backgroundColor: UIColors.bluelight,
-                        child: Icon(
-                          Iconsax.support,
+                          Iconsax.star,
                           color: UIColors.black,
                         ),
                       ),
@@ -112,7 +89,7 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.bluelight,
+                        backgroundColor: UIColors.lightGreen,
                         child: Icon(
                           Iconsax.happyemoji,
                           color: UIColors.black,
@@ -135,9 +112,9 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.bluelight,
+                        backgroundColor: UIColors.violet,
                         child: Icon(
-                          Iconsax.document,
+                          Iconsax.shield,
                           color: UIColors.black,
                         ),
                       ),
@@ -158,9 +135,9 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.bluelight,
+                        backgroundColor: UIColors.platinium,
                         child: Icon(
-                          Iconsax.document,
+                          Iconsax.note_2,
                           color: UIColors.black,
                         ),
                       ),
@@ -181,9 +158,9 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.bluelight,
+                        backgroundColor: UIColors.platinium,
                         child: Icon(
-                          Iconsax.arrow_left,
+                          Iconsax.logout,
                           color: UIColors.black,
                         ),
                       ),
@@ -204,7 +181,7 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.lightRed,
+                        backgroundColor: UIColors.platinium,
                         child: Icon(
                           Iconsax.trash,
                           color: UIColors.black,

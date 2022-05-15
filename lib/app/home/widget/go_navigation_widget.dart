@@ -31,13 +31,29 @@ class GoNavigationBottomSheet extends StatelessWidget {
             children: [
               const SizedBox(height: 20),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Vuoi raggiungere il luogo desiderito?",
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black)),
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Vuoi raggiungere il luogo ',
+                        style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: 'desiderato',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: UIColors.blue)),
+                          const TextSpan(text: '?'),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -60,7 +76,8 @@ class GoNavigationBottomSheet extends StatelessWidget {
                           "Raggiungi su google maps",
                           style:
                               GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                        ))
+                        )),
+                    const Icon(Iconsax.routing)
                   ],
                 ),
               )

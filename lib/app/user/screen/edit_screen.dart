@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/core/UIColors.dart';
@@ -15,9 +13,10 @@ class EditProfile extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(left: 20.0, right: 20),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const SizedBox(height: 20),
               InkWell(
                   onTap: () => {Navigator.pop(context)},
                   child: const Icon(Iconsax.arrow_left)),
@@ -109,39 +108,6 @@ class EditProfile extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 5),
-              Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                    padding: const EdgeInsets.only(
-                        left: 15, right: 15, bottom: 5, top: 5),
-                    decoration: BoxDecoration(
-                        color: UIColors.grey.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: TextField(
-                      textAlign: TextAlign.start,
-                      minLines: 6,
-                      maxLines: 10,
-                      style: const TextStyle(color: Colors.black, fontSize: 14),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15.0),
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        hintText: "Bio...",
-                        hintStyle: GoogleFonts.poppins(
-                            color: UIColors.grey, fontSize: 14),
-                        border: const OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Iconsax.note,
-                          color: UIColors.blue,
-                        ),
-                      ),
-                      autofocus: false,
-                    ),
-                  ))
-                ],
               ),
               const SizedBox(height: 20),
               Container(

@@ -7,6 +7,7 @@ import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/home/screen/new_location_screen.dart';
 import 'package:xplore/app/user/screen/edit_screen.dart';
+import 'package:xplore/app/user/screen/trophy_screen.dart';
 import 'package:xplore/app/user/widgets/settings.dart';
 
 import 'package:xplore/core/UIColors.dart';
@@ -24,7 +25,7 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(length: 3, vsync: this);
+    _tabController = new TabController(length: 2, vsync: this);
   }
 
   @override
@@ -32,8 +33,8 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
     // Getting the user from the FirebaseAuth Instance
     final user = FirebaseAuth.instance.currentUser!;
     var mediaQuery = MediaQuery.of(context);
-    final List<String> tabs = <String>['Tab 1', 'Tab 2'];
-    final List<String> _tabs = <String>['Piaciuti', 'Salvati', 'Visitati'];
+
+    final List<String> _tabs = <String>['Piaciuti', 'Visitati'];
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FA),
       body: BlocListener<AuthBloc, AuthState>(
@@ -66,7 +67,7 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                                       builder: (context) => EditProfile()),
                                 );
                               },
-                              child: const Icon(Iconsax.edit)),
+                              child: const Icon(Iconsax.magicpen)),
                           InkWell(
                               onTap: () {
                                 showModalBottomSheet(
@@ -137,27 +138,37 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: UIColors.green,
-                              borderRadius: BorderRadius.circular(
-                                20,
-                              ),
-                              // border: Border.all(width: 1, color: UIColors.grey)
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Iconsax.cup, color: Colors.white),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text("Trophy room lv.4".toUpperCase(),
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white)),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TrophyRoomScreen()),
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: UIColors.green,
+                                borderRadius: BorderRadius.circular(
+                                  20,
                                 ),
-                              ],
+                                // border: Border.all(width: 1, color: UIColors.grey)
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Iconsax.cup, color: Colors.white),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                        "Trophy room lv.4".toUpperCase(),
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white)),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -174,14 +185,6 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                               //iconMargin: EdgeInsets.zero,
                               child: Text(
                             "Piaciuti",
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )),
-                          Tab(
-                              child: Text(
-                            "Salvati",
                             style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -234,7 +237,6 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          const Icon(Iconsax.note_favorite),
                           const Icon(Icons.done),
                         ],
                       );
