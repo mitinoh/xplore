@@ -19,18 +19,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<GetLocationList>((event, emit) async {
       try {
         emit(MapLoading());
-
-        String pipe = _mapRepository.getPipelineMap(x: event.x, y: event.y);
-        final mList = await _mapRepository.fetchLocationList(mng: Mongoose());
-        Timer(Duration(milliseconds: 50), () {
-          lc.LocationData? _userLocation;
-          emit(MapLoaded(mList, _userLocation));
-        });
-        // FIXME: non risponde quasi mai stammerda
+        lc.LocationData? _userLocation;
+        final mList = await _mapRepository.getLocationList(mng: Mongoose());
         final userLoc = await _mapRepository.getUserLocation();
         //final userLoc =  lc.LocationData;
+        emit(MapLoaded(mList, _userLocation));
 
-        // log(userLoc.toString());
         emit(MapLoaded(mList, userLoc));
       } catch (e) {
         emit(const MapError("Failed to fetch data. is your device online?"));

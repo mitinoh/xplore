@@ -7,14 +7,6 @@ class MapRepository extends HomeRepository {
   late lc.PermissionStatus _permissionGranted;
   lc.LocationData? _userLocation;
 
-  String getPipelineMap({double? x, double? y}) {
-    List<String> mtc = [];
-    String pipe = "{}"; //  {'\$limit': 1 }
-    if (mtc.isNotEmpty) {
-      pipe = '{pipeline: [ {"\$match": ${mtc.join(",")} } ]}';
-    }
-    return pipe;
-  }
 
   Future<void> openMap(double latitude, double longitude) async {
     String googleUrl =

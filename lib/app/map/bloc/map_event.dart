@@ -8,9 +8,9 @@ abstract class MapEvent extends Equatable {
 }
 
 class GetLocationList extends MapEvent {
-  double? x;
-  double? y;
-  GetLocationList({this.x, this.y});
+  final double? x;
+  final double? y;
+  const GetLocationList({this.x, this.y});
 }
 
 class OpeningExternalMap extends MapEvent {

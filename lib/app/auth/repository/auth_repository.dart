@@ -5,12 +5,14 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:xplore/core/repository.dart';
+import 'package:xplore/core/config.dart';
+import 'package:xplore/core/http_service.dart';
 
-class AuthRepository extends Repository {
+class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
-
-  final Dio _dio = Dio();
+  Config conf = Config();
+  HttpService httpService = HttpService();
+  
   @override
   Future<void> signUp({required String email, required String password}) async {
     try {
@@ -88,13 +90,12 @@ class AuthRepository extends Repository {
 
   Future<void> newUserPut(List<String> categoryPref) async {
     try {
-      String url = conf.userColl;
-      await setDio(_dio);
       await Future.delayed(const Duration(seconds: 1));
-      log(url);
-      Map<String, dynamic> body = {'categoryPref': categoryPref, 'name': "---"};
-      log(json.encode(body));
-      Response response = await _dio.post(url, data: json.encode(body));
+      Map<String, dynamic> map = {'categoryPref': categoryPref, 'name': "---"};
+      Response response = await httpService.request(
+        method: Method.POST,
+        url: conf.userColl,
+        params: json.encode(map));
     } catch (e) {
       throw Exception(e);
     }

@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +8,8 @@ import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/home/repository/home_repository.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/search_location/bloc/search_location_bloc.dart';
+import 'package:xplore/app/search_location/screen/list_card_category_widget.dart';
+import 'package:xplore/app/search_location/screen/pt_location_grid_widget.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/location_category_model.dart';
@@ -25,7 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   late bool _ptGridVisible = false;
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
-  SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
+  final SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
 
   @override
   void initState() {
@@ -39,6 +39,15 @@ class _SearchScreenState extends State<SearchScreen> {
   filterLocation() {
     _searchHomeBloc.add(GetSearchLocationList(
         searchName: _searchController.text.toString(), add: false));
+  }
+
+  void applyFilterName() {
+    filterLocation();
+
+    _searchHomeBloc.add(GetSearchLocationList(
+        searchName: _searchController.text.toString(), add: false));
+
+    //HomeRepository.skip = 1;
   }
 
   @override
@@ -59,390 +68,277 @@ class _SearchScreenState extends State<SearchScreen> {
                       onTap: () => {Navigator.pop(context)},
                       child: const Icon(Iconsax.arrow_left)),
                   InkWell(
-                      onTap: () => {
-                            showModalBottomSheet<void>(
-                                useRootNavigator: true,
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return BlocProvider(
-                                    create: (_) => _locCatBloc,
-                                    child: BlocListener<LocationcategoryBloc,
-                                        LocationcategoryState>(
-                                      listener: (context, state) {
-                                        if (state is LocationError) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content: Text("error"),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      child: BlocBuilder<LocationcategoryBloc,
-                                          LocationcategoryState>(
-                                        builder: (context, state) {
-                                          if (state
-                                                  is LocationcategoryInitial ||
-                                              state
-                                                  is LocationCategoryLoading) {
-                                            return const LoadingIndicator();
-                                          } else if (state
-                                              is LocationcategoryLoaded) {
-                                            return BuildListCardCategory(
-                                              context: context,
-                                              model:
-                                                  state.locationCategoryModel,
-                                              homeBloc: _searchHomeBloc,
-                                            );
-                                          } else if (state
-                                              is LocationcategoryError) {
-                                            return Container();
-                                          } else {
-                                            return Container();
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                })
-                          },
+                      onTap: () => {categoryModal(context)},
                       child: const Icon(Iconsax.setting_4))
                 ],
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                    padding: const EdgeInsets.only(
-                        left: 15, right: 15, bottom: 5, top: 5),
-                    decoration: BoxDecoration(
-                        color: UIColors.grey.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Focus(
-                      onFocusChange: (hasFocus) {
-                        setState(() {
-                          _ptGridVisible = hasFocus;
-                        });
-                      },
-                      child: TextFormField(
-                        controller: _searchController,
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.poppins(
-                            color: Colors.black, fontSize: 14),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(15.0),
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          hintText: "cerca un posto",
-                          hintStyle: GoogleFonts.poppins(
-                              color: UIColors.grey, fontSize: 14),
-                          border: const OutlineInputBorder(),
-                          suffixIconColor: UIColors.violet,
-                          prefixIcon: IconButton(
-                            icon: Icon(
-                              Iconsax.search_normal,
-                              color: UIColors.violet,
-                            ),
-                            color: Colors.white,
-                            onPressed: () {
-                              filterLocation();
-
-                              _searchHomeBloc.add(GetSearchLocationList(
-                                  searchName: _searchController.text.toString(),
-                                  add: false));
-
-                              //HomeRepository.skip = 1;
-                            },
-                          ),
-                        ),
-                        autofocus: false,
-                      ),
-                    ),
-                  ))
-                ],
-              ),
+              searchBar(),
               const SizedBox(
                 height: 10,
               ),
-              Visibility(
-                visible: _ptGridVisible,
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            radius: 22,
-                            backgroundColor: UIColors.bluelight,
-                          ),
-                          Text(
-                            "Roma",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black),
-                          ),
-                          const Icon(Iconsax.arrow_right_1)
-                        ],
-                      ),
-                      const Divider(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            radius: 22,
-                            backgroundColor: UIColors.bluelight,
-                          ),
-                          Text(
-                            "Bologna",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black),
-                          ),
-                          const Icon(Iconsax.arrow_right_1)
-                        ],
-                      ),
-                      const Divider(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            radius: 22,
-                            backgroundColor: UIColors.bluelight,
-                          ),
-                          Text(
-                            "Genova",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black),
-                          ),
-                          const Icon(Iconsax.arrow_right_1)
-                        ],
-                      ),
-                      const Divider(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            radius: 22,
-                            backgroundColor: UIColors.bluelight,
-                          ),
-                          Text(
-                            "Milano",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black),
-                          ),
-                          const Icon(Iconsax.arrow_right_1)
-                        ],
-                      ),
-                      const Divider(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            radius: 22,
-                            backgroundColor: UIColors.bluelight,
-                          ),
-                          Text(
-                            "Barcellona",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black),
-                          ),
-                          const Icon(Iconsax.arrow_right_1)
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: true,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 10.0, top: 20, bottom: 15),
-                      child: Text(
-                        "Posti suggeriti",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Visibility(
-                  visible: true,
-                  child: BlocProvider(
-                    create: (_) => _searchHomeBloc,
-                    child: BlocListener<SearchHomeBloc, SearchLocationState>(
-                      listener: (context, state) {
-                        if (state is SearchLocationError) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(state.message!),
-                            ),
-                          );
-                        }
-                      },
-                      child: BlocBuilder<SearchHomeBloc, SearchLocationState>(
-                        builder: (context, state) {
-                          if (state is SearchLocationInitial ||
-                              state is SearchLocationLoading) {
-                            return const LoadingIndicator();
-                          } else if (state is SearchLocationLoaded) {
-                            return PtLocationGrid(
-                              locationList: state.searchLocationModel,
-                            );
-                          } else if (state is SearchLocationError) {
-                            return Container(
-                              child: Text("error 1"),
-                            );
-                          } else {
-                            return Container(
-                              child: Text("error 2"),
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  ))
+              suggestedLocation(),
+              gridHeader(),
+              locationGrid()
             ],
           ),
         )),
       ),
     );
   }
-}
 
-class PtLocationGrid extends StatelessWidget {
-  const PtLocationGrid({
-    Key? key,
-    required this.locationList,
-  }) : super(key: key);
-
-  final List<Location> locationList;
-
-  double getRndSize() {
-    double size = Random().nextInt(200).toDouble();
-    if (size < 100) size = 100;
-    return size;
+  Visibility suggestedLocation() {
+    return Visibility(
+              visible: _ptGridVisible,
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          radius: 22,
+                          backgroundColor: UIColors.bluelight,
+                        ),
+                        Text(
+                          "Roma",
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black),
+                        ),
+                        const Icon(Iconsax.arrow_right_1)
+                      ],
+                    ),
+                    const Divider(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          radius: 22,
+                          backgroundColor: UIColors.bluelight,
+                        ),
+                        Text(
+                          "Bologna",
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black),
+                        ),
+                        const Icon(Iconsax.arrow_right_1)
+                      ],
+                    ),
+                    const Divider(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          radius: 22,
+                          backgroundColor: UIColors.bluelight,
+                        ),
+                        Text(
+                          "Genova",
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black),
+                        ),
+                        const Icon(Iconsax.arrow_right_1)
+                      ],
+                    ),
+                    const Divider(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          radius: 22,
+                          backgroundColor: UIColors.bluelight,
+                        ),
+                        Text(
+                          "Milano",
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black),
+                        ),
+                        const Icon(Iconsax.arrow_right_1)
+                      ],
+                    ),
+                    const Divider(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          radius: 22,
+                          backgroundColor: UIColors.bluelight,
+                        ),
+                        Text(
+                          "Barcellona",
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black),
+                        ),
+                        const Icon(Iconsax.arrow_right_1)
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
   }
 
-  List<Widget> getLocationCnt() {
-    List<Widget> locCnt = [];
-
-    locationList.forEach((el) => {
-          locCnt.add(Container(
-            decoration: BoxDecoration(
-                color: UIColors.bluelight,
-                borderRadius: BorderRadius.circular(20)),
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  SizedBox(
-                    height: getRndSize(),
-                  ),
+  Visibility gridHeader() {
+    return Visibility(
+              visible: true,
+              child: Row(
+                children: [
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(
+                        right: 10.0, top: 20, bottom: 15),
                     child: Text(
-                      el.name ?? '',
-                      overflow: TextOverflow.visible,
-                      style: GoogleFonts.poppins(),
+                      "Posti suggeriti",
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
                     ),
                   ),
                 ],
               ),
-            ),
-          ))
-        });
-
-    return locCnt;
+            );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: MasonryGrid(
-          mainAxisSpacing: 5,
-          crossAxisSpacing: 5,
-          column: 2,
-          children: getLocationCnt()),
-    );
-  }
-}
-
-class BuildListCardCategory extends StatefulWidget {
-  const BuildListCardCategory(
-      {Key? key,
-      required this.context,
-      required this.model,
-      required this.homeBloc})
-      : super(key: key);
-
-  final BuildContext context;
-  final List<LocationCategory> model;
-  final SearchHomeBloc homeBloc;
-
-  @override
-  State<BuildListCardCategory> createState() => _BuildListCardCategoryState();
-}
-
-class _BuildListCardCategoryState extends State<BuildListCardCategory> {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.model.length,
-      itemBuilder: (BuildContext context, int index) {
-        return TextButton(
-          onPressed: () {
-            toggleCategoryFilter(index);
-            widget.homeBloc.add(const GetSearchLocationList(add: false));
-          },
-          child: Text(
-            widget.model[index].name ?? '',
-            style: isCategoryFilterActive(index)
-                ? TextStyle(
-                    color: Colors.green,
-                  )
-                : TextStyle(
-                    color: Colors.black,
+  Row searchBar() {
+    return Row(
+              children: [
+                Expanded(
+                    child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 15, right: 15, bottom: 5, top: 5),
+                  decoration: BoxDecoration(
+                      color: UIColors.grey.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Focus(
+                    onFocusChange: (hasFocus) {
+                      setState(() {
+                        _ptGridVisible = hasFocus;
+                      });
+                    },
+                    child: TextFormField(
+                      controller: _searchController,
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.poppins(
+                          color: Colors.black, fontSize: 14),
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(15.0),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        hintText: "cerca un posto",
+                        hintStyle: GoogleFonts.poppins(
+                            color: UIColors.grey, fontSize: 14),
+                        border: const OutlineInputBorder(),
+                        suffixIconColor: UIColors.violet,
+                        prefixIcon: IconButton(
+                          icon: Icon(
+                            Iconsax.search_normal,
+                            color: UIColors.violet,
+                          ),
+                          color: Colors.white,
+                          onPressed: () {
+                            applyFilterName();
+                          },
+                        ),
+                      ),
+                      autofocus: false,
+                    ),
                   ),
-          ),
-        );
-      },
-    );
+                ))
+              ],
+            );
   }
 
-  toggleCategoryFilter(int index) {
-    if (HomeRepository.categoryFilter.contains(widget.model[index].iId)) {
-      setState(() {
-        HomeRepository.categoryFilter.remove(widget.model[index].iId);
-      });
-    } else {
-      setState(() {
-        HomeRepository.categoryFilter.add(widget.model[index].iId ?? '');
-      });
-    }
+  Visibility locationGrid() {
+    return Visibility(
+                visible: true,
+                child: BlocProvider(
+                  create: (_) => _searchHomeBloc,
+                  child: BlocListener<SearchHomeBloc, SearchLocationState>(
+                    listener: (context, state) {
+                      if (state is SearchLocationError) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(state.message!),
+                          ),
+                        );
+                      }
+                    },
+                    child: BlocBuilder<SearchHomeBloc, SearchLocationState>(
+                      builder: (context, state) {
+                        if (state is SearchLocationInitial ||
+                            state is SearchLocationLoading) {
+                          return const LoadingIndicator();
+                        } else if (state is SearchLocationLoaded) {
+                          return PtLocationGrid(
+                            locationList: state.searchLocationModel,
+                          );
+                        } else if (state is SearchLocationError) {
+                          return Container(
+                            child: Text("error 1"),
+                          );
+                        } else {
+                          return Container(
+                            child: Text("error 2"),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ));
   }
 
-  bool isCategoryFilterActive(int index) {
-    return HomeRepository.categoryFilter.contains(widget.model[index].iId);
+  Future<void> categoryModal(BuildContext context) {
+    return showModalBottomSheet<void>(
+        useRootNavigator: true,
+        context: context,
+        builder: (BuildContext context) {
+          return BlocProvider(
+            create: (_) => _locCatBloc,
+            child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
+              listener: (context, state) {
+                if (state is LocationError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("error"),
+                    ),
+                  );
+                }
+              },
+              child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
+                builder: (context, state) {
+                  if (state is LocationcategoryInitial ||
+                      state is LocationCategoryLoading) {
+                    return const LoadingIndicator();
+                  } else if (state is LocationcategoryLoaded) {
+                    return BuildListCardCategory(
+                      context: context,
+                      model: state.locationCategoryModel,
+                      homeBloc: _searchHomeBloc,
+                    );
+                  } else if (state is LocationcategoryError) {
+                    return Container();
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ),
+          );
+        });
   }
 }
+

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/map/bloc/map_bloc.dart';
-import 'package:xplore/app/map/widget/widget_map.dart';
+import 'package:xplore/app/map/widget/map_container_widget.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
-    _mapBloc.add(GetLocationList());
+    _mapBloc.add(const GetLocationList());
   }
 
   @override

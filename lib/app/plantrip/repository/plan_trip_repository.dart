@@ -1,47 +1,35 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:xplore/core/repository.dart';
+import 'package:xplore/core/config.dart';
+import 'package:xplore/core/http_service.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
 import 'package:xplore/model/plan_trip_model.dart';
 
-class PlanTripRepository extends Repository {
-  final Dio _dio = Dio();
+class PlanTripRepository {
+  Config conf = Config();
+  HttpService httpService = HttpService();
 
-  Future<List<Location>> fetchLocationList(
+  Future<List<Location>> getLocationList(
       {/*required String body, */ required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
-    await setDio(_dio);
-    Response response = await _dio.get(url);
+    Response response = await httpService.request(method: Method.GET, url: url);
     return Location().toList(response);
   }
 
   Future<void> newPlanTripPut({required Map<String, dynamic> body}) async {
     try {
       String url = conf.planTripColl;
-      log(url);
-      //log(PlanTrip().toJsonPost(body).toString());
       // FIXME: encode sbaglaito
-      log("*****");
-      log(json.encode(PlanTrip().toJsonPost(body)));
-      await setDio(_dio);
-      Response response =
-          await _dio.post(url, data: PlanTrip().toJsonPost(body));
-      log(response.toString());
+      Response response = await httpService.request(
+          method: Method.POST, url: url, params: PlanTrip().toJsonPost(body));
     } catch (e) {
       throw Exception(e);
     }
   }
 
   Future<List<PlanTrip>> fetchPlannedTripList() async {
-
     String url = conf.planTripColl + '?progress=true';
-
-    log(url);
-    await setDio(_dio);
-    Response response = await _dio.get(url);
+    Response response = await httpService.request(method: Method.GET, url: url);
     return PlanTrip().toList(response);
   }
 }

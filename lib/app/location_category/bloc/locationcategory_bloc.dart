@@ -6,25 +6,21 @@ import 'package:xplore/model/location_category_model.dart';
 part 'locationcategory_event.dart';
 part 'locationcategory_state.dart';
 
-class LocationcategoryBloc extends Bloc<LocationcategoryEvent, LocationcategoryState> {
+class LocationcategoryBloc
+    extends Bloc<LocationcategoryEvent, LocationcategoryState> {
   LocationcategoryBloc() : super(LocationcategoryInitial()) {
+    final LocationCategoryRepository _locCatRepository =
+        LocationCategoryRepository();
+    on<LocationcategoryEvent>((event, emit) {});
 
-    final LocationCategoryRepository _locCatRepository = LocationCategoryRepository();
-    on<LocationcategoryEvent>((event, emit) {
-    });
-
-
-
-     on<GetLocationCategoryList>((event, emit) async {
+    on<GetLocationCategoryList>((event, emit) async {
       try {
         emit(LocationCategoryLoading());
-        final catList = await _locCatRepository.fetchLocationCategoryList();
+        final catList = await _locCatRepository.getLocationCategoryList();
         emit(LocationcategoryLoaded(catList));
-        /*if (mList. != null) {
-          emit(HomeError(mList.error));
-        }*/
       } on NetworkError {
-        emit(LocationcategoryError("Failed to fetch data. is your device online?"));
+        emit(LocationcategoryError(
+            "Failed to fetch data. is your device online?"));
       }
     });
   }

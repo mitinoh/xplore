@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -9,7 +11,7 @@ import 'package:xplore/core/config.dart';
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
 class HttpService {
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
   var logger = Logger();
 
   Config conf = Config();
@@ -21,7 +23,7 @@ class HttpService {
       dio.options.headers['content-Type'] = 'application/json';
       dio.options.headers["authorization"] = await user?.getIdToken();
     }
-    log(await user?.getIdToken() ?? '');
+    // log(await user?.getIdToken() ?? '');
   }
 
   String getUserID() {
@@ -39,18 +41,15 @@ class HttpService {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (requestOptions, handler) {
-          logger.i(
-              "REQUEST[${requestOptions.method}] => PATH: ${requestOptions.path}"
-              "=> REQUEST VALUES: ${requestOptions.queryParameters} => HEADERS: ${requestOptions.headers}");
+          //logger.i("REQUEST[${requestOptions.method}] => PATH: ${requestOptions.path}" "=> REQUEST VALUES: ${requestOptions.queryParameters} => HEADERS: ${requestOptions.headers}");
           return handler.next(requestOptions);
         },
         onResponse: (response, handler) {
-          logger
-              .i("RESPONSE[${response.statusCode}] => DATA: ${response.data}");
+          //logger.i("RESPONSE[${response.statusCode}] => DATA: ${response.data}");
           return handler.next(response);
         },
         onError: (err, handler) {
-          logger.i("Error[${err.response?.statusCode}]");
+          //logger.i("Error[${err.response?.statusCode}]");
           return handler.next(err);
         },
       ),

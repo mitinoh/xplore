@@ -19,7 +19,6 @@ class PlantripLoadedLocation extends PlantripState {
 class PlantripLoadingPlannedTrip extends PlantripState {}
 
 class PlantripLoadedPlannedTrip extends PlantripState {
-// Definire metodo fatto bene e non sta stronzata e anche model
   final List<PlanTrip> planTripModel;
   const PlantripLoadedPlannedTrip(this.planTripModel);
 }

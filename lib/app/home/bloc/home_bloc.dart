@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/app/home/repository/home_repository.dart';
@@ -18,7 +17,7 @@ class HomeBloc extends Bloc<LocationEvent, LocationState> {
         Mongoose mng =
             _locationRepository.getMongoose(searchName: event.searchName);
 
-        final mList = await _locationRepository.fetchLocationList(mng: mng);
+        final mList = await _locationRepository.getLocationList(mng: mng);
         emit(LocationHomeLoaded(mList));
       } catch (e) {
         emit(const LocationError(
