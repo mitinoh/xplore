@@ -168,14 +168,13 @@ class _BuildMainCardState extends State<BuildMainCard> {
     for (Location el in widget.model) {
       cards.add(
         CachedNetworkImage(
-          imageUrl: "http://via.placeholder.com/200x150",
+          imageUrl: conf.getLocationImageUrl(el.iId ?? ''),
           imageBuilder: (context, imageProvider) => Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                  colorFilter:
-                      ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           placeholder: (context, url) => CircularProgressIndicator(),
