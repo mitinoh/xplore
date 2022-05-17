@@ -1,15 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
-import 'package:xplore/app/home/screen/new_location_screen.dart';
-import 'package:xplore/app/user/screen/edit_screen.dart';
-import 'package:xplore/app/user/screen/trophy_screen.dart';
-import 'package:xplore/app/user/widgets/settings.dart';
-
+import 'package:xplore/app/user/widgets/header_navigation.dart';
+import 'package:xplore/app/user/widgets/image_tile.dart';
+import 'package:xplore/app/user/widgets/user_information.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class UserScreen extends StatefulWidget {
@@ -19,232 +16,143 @@ class UserScreen extends StatefulWidget {
   State<UserScreen> createState() => _UserScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
-  late TabController _tabController;
-
+class _UserScreenState extends State<UserScreen> {
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     // Getting the user from the FirebaseAuth Instance
-    final user = FirebaseAuth.instance.currentUser!;
     var mediaQuery = MediaQuery.of(context);
 
-    final List<String> _tabs = <String>['Piaciuti', 'Visitati'];
-    return Scaffold(
-      backgroundColor: const Color(0xffF3F7FA),
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is UnAuthenticated) {
-            // Navigate to the sign in screen when the user Signs Out
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => SignIn()),
-              (route) => false,
-            );
-          }
-        },
-        child: SafeArea(
-          child: Padding(
+    final List<String> tabs = <String>['Piaciuti', 'Visitati'];
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is UnAuthenticated) {
+          // Navigate to the sign in screen when the user Signs Out
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => SignIn()),
+            (route) => false,
+          );
+        }
+      },
+      child: DefaultTabController(
+        length: tabs.length, // This is the number of tabs.
+        child: Scaffold(
+          //backgroundColor: const Color(0xffF3F7FA),
+          body: Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20),
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: SafeArea(
+              child: NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  // These are the slivers that show up in the "outer" scroll view.
+                  return <Widget>[
+                    SliverToBoxAdapter(
+                      child: Column(
                         children: [
-                          InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EditProfile()),
-                                );
-                              },
-                              child: const Icon(Iconsax.magicpen)),
-                          InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    builder: (context) {
-                                      return const SettingsBottomSheet();
-                                    });
-                              },
-                              child: Icon(Iconsax.more))
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundColor: UIColors.blue,
-                        child: const Icon(
-                          Iconsax.user,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        "mite.g",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                      const SizedBox(height: 40),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                "29",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black),
-                              ),
-                              Text(
-                                "post visitati",
-                                style: GoogleFonts.poppins(),
-                              ),
-                            ],
+                          const SizedBox(height: 20),
+                          const UserHeaderNavigation(),
+                          const SizedBox(height: 20),
+                          const UserInformation(),
+                          const SizedBox(height: 20),
+                          TabBar(
+                            // These are the widgets to put in each tab in the tab bar.
+                            indicatorColor: UIColors.blue,
+                            indicatorWeight: 3,
+                            labelColor: Colors.black,
+                            unselectedLabelColor: Colors.black.withOpacity(0.2),
+                            tabs: tabs
+                                .map((String name) => Tab(
+                                      child: Text(
+                                        name,
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
                           ),
-                          Column(
-                            children: [
-                              Text(
-                                "2",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black),
-                              ),
-                              Text(
-                                "in programma",
-                                style: GoogleFonts.poppins(),
-                              ),
-                            ],
-                          )
+                          const SizedBox(height: 20),
                         ],
                       ),
-                      const SizedBox(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TrophyRoomScreen()),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                color: UIColors.green,
-                                borderRadius: BorderRadius.circular(
-                                  20,
+                    ),
+                  ];
+                },
+                body: TabBarView(
+                  // These are the contents of the tab views, below the tabs.
+                  children: tabs.map((String name) {
+                    return SafeArea(
+                      top: false,
+                      bottom: false,
+                      child: Builder(
+                        // This Builder is needed to provide a BuildContext that is
+                        // "inside" the NestedScrollView, so that
+                        // sliverOverlapAbsorberHandleFor() can find the
+                        // NestedScrollView.
+                        builder: (BuildContext context) {
+                          return CustomScrollView(
+                            // The "controller" and "primary" members should be left
+                            // unset, so that the NestedScrollView can control this
+                            // inner scroll view.
+                            // If the "controller" property is set, then this scroll
+                            // view will not be associated with the NestedScrollView.
+                            // The PageStorageKey should be unique to this ScrollView;
+                            // it allows the list to remember its scroll position when
+                            // the tab view is not on the screen.
+                            key: PageStorageKey<String>(name),
+                            slivers: <Widget>[
+                              SliverGrid(
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 200.0,
+                                  mainAxisSpacing: 5.0,
+                                  crossAxisSpacing: 5.0,
+                                  childAspectRatio: 1.0,
                                 ),
-                                // border: Border.all(width: 1, color: UIColors.grey)
+                                delegate: SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                                    return ImageTile();
+                                  },
+                                  childCount: 5,
+                                ),
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Iconsax.cup, color: Colors.white),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                        "Trophy room lv.4".toUpperCase(),
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white)),
+                              /*SliverPadding(
+                                padding: const EdgeInsets.all(8.0),
+                                // In this example, the inner scroll view has
+                                // fixed-height list items, hence the use of
+                                // SliverFixedExtentList. However, one could use any
+                                // sliver widget here, e.g. SliverList or SliverGrid.
+                                sliver: SliverFixedExtentList(
+                                  // The items in this example are fixed to 48 pixels
+                                  // high. This matches the Material Design spec for
+                                  // ListTile widgets.
+                                  itemExtent: 250.0,
+                                  delegate: SliverChildBuilderDelegate(
+                                    (BuildContext context, int index) {
+                                      // This builder is called for each child.
+                                      // In this example, we just number each list item.
+                                      return const ImageTile();
+                                    },
+                                    // The childCount of the SliverChildBuilderDelegate
+                                    // specifies how many children this inner list
+                                    // has. In this example, each tab has a list of
+                                    // exactly 30 items, but this is arbitrary.
+                                    childCount: 30,
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                                ),
+                              ),*/
+                            ],
+                          );
+                        },
                       ),
-                      const SizedBox(height: 20),
-                      TabBar(
-                        controller: _tabController,
-                        indicatorColor: UIColors.blue,
-                        indicatorWeight: 3,
-                        labelColor: Colors.black,
-                        unselectedLabelColor: Colors.black.withOpacity(0.2),
-                        tabs: [
-                          Tab(
-                              //iconMargin: EdgeInsets.zero,
-                              child: Text(
-                            "Piaciuti",
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )),
-                          Tab(
-                              child: Text(
-                            "Visitati",
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                    );
+                  }).toList(),
                 ),
-                SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200.0,
-                    mainAxisSpacing: 5.0,
-                    crossAxisSpacing: 5.0,
-                    childAspectRatio: 1.0,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return TabBarView(
-                        controller: _tabController,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: UIColors.bluelight,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Text("luogo",
-                                        overflow: TextOverflow.visible,
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w300)),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Icon(Icons.done),
-                        ],
-                      );
-                    },
-                    childCount: 5,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),

@@ -66,7 +66,7 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.orange,
+                        backgroundColor: UIColors.platinium,
                         child: Icon(
                           Iconsax.star,
                           color: UIColors.black,
@@ -89,7 +89,7 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.lightGreen,
+                        backgroundColor: UIColors.platinium,
                         child: Icon(
                           Iconsax.happyemoji,
                           color: UIColors.black,
@@ -112,7 +112,7 @@ class SettingsBottomSheet extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: UIColors.violet,
+                        backgroundColor: UIColors.platinium,
                         child: Icon(
                           Iconsax.shield,
                           color: UIColors.black,

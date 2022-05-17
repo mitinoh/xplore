@@ -10,6 +10,8 @@ import 'package:xplore/app/home/screen/home_screen.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/navbar.dart';
 
+import 'core/theme.dart';
+
 void main() async {
   // keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -dname "CN=Android Debug,O=Android,C=US"
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,11 +42,9 @@ class MyApp extends StatelessWidget {
             '/app': (context) => Navbar()
           },
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            backgroundColor: UIColors.black,
-          ),
+          themeMode: ThemeMode.system,
+          theme: MyThemes.lightTheme,
+          darkTheme: MyThemes.darkTheme,
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {

@@ -37,7 +37,6 @@ class _NewLocationState extends State<NewLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF3F7FA),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
