@@ -7,8 +7,15 @@ class ThemeProvider extends ChangeNotifier {
 }
 
 class MyThemes {
-  static final darkTheme = ThemeData(scaffoldBackgroundColor: UIColors.black);
+  static final darkTheme = ThemeData(
+    scaffoldBackgroundColor: UIColors.black,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+  );
 
-  static final lightTheme =
-      ThemeData(scaffoldBackgroundColor: const Color(0xffF3F7FA));
+  static final lightTheme = ThemeData(
+    scaffoldBackgroundColor: const Color(0xffF3F7FA),
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+  );
 }

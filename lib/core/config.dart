@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class Config {
   /// localhost for ios emulator
   /// 10.0.0.2 for android emulator
@@ -15,6 +17,7 @@ class Config {
   }
 
   String getLocationImageUrl(String id) {
+    log(locationImage + id + '.jpg');
     return locationImage + id + '.jpg';
   }
 

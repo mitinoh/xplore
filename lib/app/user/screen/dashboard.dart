@@ -26,7 +26,7 @@ class _UserScreenState extends State<UserScreen> {
     // Getting the user from the FirebaseAuth Instance
     var mediaQuery = MediaQuery.of(context);
 
-    final List<String> tabs = <String>['Piaciuti', 'Visitati'];
+    final List<String> tabs = <String>['Luoghi piaciuti', 'Luoghi visitati'];
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is UnAuthenticated) {
@@ -56,7 +56,7 @@ class _UserScreenState extends State<UserScreen> {
                           const UserHeaderNavigation(),
                           const SizedBox(height: 20),
                           const UserInformation(),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 30),
                           TabBar(
                             // These are the widgets to put in each tab in the tab bar.
                             indicatorColor: UIColors.blue,

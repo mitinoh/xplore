@@ -21,14 +21,14 @@ class ImageTile extends StatelessWidget {
         ),
         Positioned(
           bottom: 5,
-          left: 5,
-          right: 5,
+          left: 20,
+          right: 20,
           child: Container(
             padding:
                 const EdgeInsets.only(top: 5, bottom: 5, left: 15, right: 15),
             decoration: BoxDecoration(
                 color: UIColors.white.withOpacity(0.6),
-                borderRadius: BorderRadius.circular(20)),
+                borderRadius: BorderRadius.circular(10)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
