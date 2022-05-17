@@ -32,7 +32,7 @@ class SelectTripLocation extends StatefulWidget {
 
 class _SelectTripLocationState extends State<SelectTripLocation> {
   List<DragAndDropList> _contents = [];
-  List<List<MovePlanTrip>> _plan = [];
+  final List<List<MovePlanTrip>> _plan = [];
 
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
@@ -96,8 +96,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             onPressed: () {
               saveTripPlan();
             },
-            child: Text("done")),
-        Container(
+            child: const Text("done")),
+        SizedBox(
           height: 500,
           child: DragAndDropLists(
             children: _contents,

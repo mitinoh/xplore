@@ -109,7 +109,7 @@ class _NewLocationState extends State<NewLocation> {
 
   SingleChildScrollView locationCategoriesList(LocationcategoryLoaded state) {
     return SingleChildScrollView(
-      physics: ScrollPhysics(),
+      physics: const ScrollPhysics(),
       child: Column(
         children: [
           ListView.builder(
@@ -126,7 +126,7 @@ class _NewLocationState extends State<NewLocation> {
                 title:
                     Text(_getLocationName(state.locationCategoryModel, index)),
                 contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               );
             },
           )

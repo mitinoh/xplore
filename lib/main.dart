@@ -7,7 +7,6 @@ import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/repository/auth_repository.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
-import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/navbar.dart';
 
 import 'core/theme.dart';

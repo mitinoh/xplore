@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class Coordinate {
   double? lat;
@@ -14,10 +13,10 @@ class Coordinate {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = this.lat;
-    data['lng'] = this.lng;
-    data['alt'] = this.alt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lat'] = lat;
+    data['lng'] = lng;
+    data['alt'] = alt;
     return data;
   }
 

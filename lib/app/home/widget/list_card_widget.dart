@@ -7,7 +7,7 @@ import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class BuildListCardHome extends StatefulWidget {
-  BuildListCardHome(
+  const BuildListCardHome(
       {Key? key, required this.homeBloc, required this.pageController})
       : super(key: key);
 

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/user_category_preference_screen.dart';
-import 'package:xplore/app/user/screen/category_preference.dart';
-import 'package:xplore/app/map/screen/map_screen.dart';
-import 'package:xplore/core/widget/navbar.dart';
 import 'package:xplore/main.dart';
 
 class SignIn extends StatefulWidget {
@@ -26,12 +23,12 @@ class _SignInState extends State<SignIn> {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MyApp()));
+                context, MaterialPageRoute(builder: (context) => const MyApp()));
           }
           if (state is NewUserAuthenticated) {
 
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => UserCategoryPreferenceScreen()));
+                context, MaterialPageRoute(builder: (context) => const UserCategoryPreferenceScreen()));
           }
           if (state is AuthError) {
             // Showing the error message if the user has entered invalid credentials
@@ -73,7 +70,7 @@ class _SignInState extends State<SignIn> {
                 ),
               );
             }
-            return SizedBox();
+            return const SizedBox();
           },
         ),
       ),

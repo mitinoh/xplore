@@ -14,11 +14,11 @@ class LocationCategory {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.iId != null) {
-      data['_id'] = this.iId!;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (iId != null) {
+      data['_id'] = iId!;
     }
-    data['name'] = this.name;
+    data['name'] = name;
    // data['value'] = this.value;
     return data;
   }

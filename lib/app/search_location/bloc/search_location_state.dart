@@ -17,7 +17,14 @@ class SearchLocationLoaded extends SearchLocationState {
   final bool add;
   const SearchLocationLoaded(this.searchLocationModel, this.add);
 }
-
+/*
+class SuggestedLocationNameLoading extends SearchLocationState {
+}
+class SuggestedLocationNameLoaded extends SearchLocationState {
+  final List<Location> searchLocationName;
+  const SuggestedLocationNameLoaded(this.searchLocationName);
+}
+*/
 class SearchLocationError extends SearchLocationState {
  
   final String? message;

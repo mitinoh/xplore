@@ -19,5 +19,5 @@ class SaveTrip extends PlantripEvent {
 }
 
 class GetPlannedTrip extends PlantripEvent {
-  GetPlannedTrip();
+  const GetPlannedTrip();
 }

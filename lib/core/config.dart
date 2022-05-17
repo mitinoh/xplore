@@ -7,11 +7,11 @@ class Config {
   String imageFolder = "asset";
 
   String get ip {
-    return 'http://${address}:${port}/${appName}/';
+    return 'http://$address:$port/$appName/';
   }
 
   String get urlFolderImages {
-    return 'http://${address}:${port}/${imageFolder}/';
+    return 'http://$address:$port/$imageFolder/'; 
   }
 
   String getLocationImageUrl(String id) {

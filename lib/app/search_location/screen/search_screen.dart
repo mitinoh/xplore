@@ -11,7 +11,7 @@ import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 
 class SearchScreen extends StatefulWidget {
-  SearchScreen({Key? key}) : super(key: key);
+  const SearchScreen({Key? key}) : super(key: key);
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
@@ -71,7 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(
                 height: 10,
               ),
-              suggestedLocation(),
+              //suggestedLocation(),
               gridHeader(),
               locationGrid()
             ],
@@ -81,6 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
+/*
   Visibility suggestedLocation() {
     return Visibility(
       visible: _ptGridVisible,
@@ -184,7 +185,7 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
     );
   }
-
+*/
   Visibility gridHeader() {
     return Visibility(
       visible: true,
@@ -225,11 +226,13 @@ class _SearchScreenState extends State<SearchScreen> {
               onSubmitted: (value) {
                 applyFilterName();
               },
+              /*
               onChanged: (value) {
-                _searchHomeBloc.add(GetSuggestedNameLocationList(
-                    searchName: _searchController.text.toString()));
+                // _searchHomeBloc.add(GetSuggestedNameLocationList(
+                //     searchName: _searchController.text.toString()));
+                //applyFilterName();
 //GetSuggestedNameLocationList
-              },
+              },*/
               controller: _searchController,
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
@@ -287,11 +290,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 } else if (state is SearchLocationError) {
                   return Container(
-                    child: Text("error 1"),
+                    child: const Text("error 1"),
                   );
                 } else {
                   return Container(
-                    child: Text("error 2"),
+                    child: const Text("error 2"),
                   );
                 }
               },

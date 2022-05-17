@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -24,32 +23,34 @@ class PtLocationGrid extends StatelessWidget {
   List<Widget> getLocationCnt() {
     List<Widget> locCnt = [];
 
-    locationList.forEach((el) => {
-          locCnt.add(Container(
-            decoration: BoxDecoration(
-                color: UIColors.bluelight,
-                borderRadius: BorderRadius.circular(20)),
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  SizedBox(
-                    height: getRndSize(),
+    for (var el in locationList) {
+      {
+        locCnt.add(Container(
+          decoration: BoxDecoration(
+              color: UIColors.bluelight,
+              borderRadius: BorderRadius.circular(20)),
+          child: Align(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                SizedBox(
+                  height: getRndSize(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    el.name ?? '',
+                    overflow: TextOverflow.visible,
+                    style: GoogleFonts.poppins(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      el.name ?? '',
-                      overflow: TextOverflow.visible,
-                      style: GoogleFonts.poppins(),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ))
-        });
+          ),
+        ));
+      }
+    }
 
     return locCnt;
   }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 
 class MovePlanTrip {
   String? locationId;
@@ -13,10 +11,10 @@ class MovePlanTrip {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    String id = this.locationId ?? '';
+    final Map<String, dynamic> data = <String, dynamic>{};
+    String id = locationId ?? '';
     data['location'] = id; // 'ObjectId("$id")'
-    data['date'] = this.date?.toIso8601String();
+    data['date'] = date?.toIso8601String();
     return data;
   }
 }

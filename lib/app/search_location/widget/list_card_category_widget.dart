@@ -34,10 +34,10 @@ class _BuildListCardCategoryState extends State<BuildListCardCategory> {
           child: Text(
             widget.model[index].name ?? '',
             style: isCategoryFilterActive(index)
-                ? TextStyle(
+                ? const TextStyle(
                     color: Colors.green,
                   )
-                : TextStyle(
+                : const TextStyle(
                     color: Colors.black,
                   ),
           ),

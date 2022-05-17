@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/core/UIColors.dart';
 
 class TrophyRoomScreen extends StatelessWidget {
   const TrophyRoomScreen({Key? key}) : super(key: key);

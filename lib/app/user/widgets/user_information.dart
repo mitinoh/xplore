@@ -67,7 +67,7 @@ class UserInformation extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TrophyRoomScreen()),
+                  MaterialPageRoute(builder: (context) => const TrophyRoomScreen()),
                 );
               },
               child: Container(

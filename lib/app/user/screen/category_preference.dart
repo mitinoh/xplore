@@ -5,7 +5,7 @@ import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 
 class CategoryPreference extends StatefulWidget {
-  CategoryPreference({Key? key}) : super(key: key);
+  const CategoryPreference({Key? key}) : super(key: key);
   static List<String> catSelected = [];
   @override
   State<CategoryPreference> createState() => _CategoryPreferenceState();
@@ -38,12 +38,12 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
           child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
             builder: (context, state) {
               if (state is LocationcategoryInitial) {
-                return LoadingIndicator();
+                return const LoadingIndicator();
               } else if (state is LocationCategoryLoading) {
-                return LoadingIndicator();
+                return const LoadingIndicator();
               } else if (state is LocationcategoryLoaded) {
                 return SingleChildScrollView(
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   child: Column(
                     children: [
                       ListView.builder(
@@ -69,7 +69,7 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
                             },
                             title: Text(
                                 state.locationCategoryModel[index].name ?? ''),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                           );
                         },

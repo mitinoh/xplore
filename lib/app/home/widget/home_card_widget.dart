@@ -67,7 +67,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
             height: _height,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Color(0xffF3F7FA).withOpacity(0.8)),
+                color: const Color(0xffF3F7FA).withOpacity(0.8)),
             padding: const EdgeInsets.all(20),
             margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
             duration: const Duration(seconds: 1),
@@ -177,8 +177,8 @@ class _BuildMainCardState extends State<BuildMainCard> {
               ),
             ),
           ),
-          placeholder: (context, url) => CircularProgressIndicator(),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
         /*DecorationImage(
                 image: NetworkImage(conf.getLocationImageUrl(el.iId ?? '')),

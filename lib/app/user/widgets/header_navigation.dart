@@ -15,7 +15,7 @@ class UserHeaderNavigation extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => EditProfile()),
+                MaterialPageRoute(builder: (context) => const EditProfile()),
               );
             },
             child: const Icon(Iconsax.magicpen)),
@@ -29,7 +29,7 @@ class UserHeaderNavigation extends StatelessWidget {
                     return const SettingsBottomSheet();
                   });
             },
-            child: Icon(Iconsax.more))
+            child: const Icon(Iconsax.more))
       ],
     );
   }

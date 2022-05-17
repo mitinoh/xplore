@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/user/widgets/header_navigation.dart';
@@ -33,7 +32,7 @@ class _UserScreenState extends State<UserScreen> {
         if (state is UnAuthenticated) {
           // Navigate to the sign in screen when the user Signs Out
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => SignIn()),
+            MaterialPageRoute(builder: (context) => const SignIn()),
             (route) => false,
           );
         }
@@ -115,7 +114,7 @@ class _UserScreenState extends State<UserScreen> {
                                 ),
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
-                                    return ImageTile();
+                                    return const ImageTile();
                                   },
                                   childCount: 5,
                                 ),

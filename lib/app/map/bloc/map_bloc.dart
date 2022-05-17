@@ -20,7 +20,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       try {
         emit(MapLoading());
         final mList = await _mapRepository.getLocationList(mng: Mongoose());
-        Timer(Duration(milliseconds: 50), () {
+        Timer(const Duration(milliseconds: 50), () {
           lc.LocationData? _userLocation;
           emit(MapLoaded(mList, _userLocation));
         });

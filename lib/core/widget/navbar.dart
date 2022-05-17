@@ -12,7 +12,7 @@ import 'package:xplore/core/UIColors.dart';
 class Navbar extends StatelessWidget {
   Navbar({Key? key}) : super(key: key);
 
-  PersistentTabController _controller =
+  final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
   @override
@@ -68,28 +68,28 @@ class Navbar extends StatelessWidget {
         inactiveColorPrimary: UIColors.black,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Iconsax.map),
+        icon: const Icon(Iconsax.map),
         title: ("Settings"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
         inactiveColorPrimary: UIColors.black,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Iconsax.location_add),
+        icon: const Icon(Iconsax.location_add),
         title: ("Settings"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
         inactiveColorPrimary: UIColors.black,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Iconsax.calendar_search),
+        icon: const Icon(Iconsax.calendar_search),
         title: ("trip"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
         inactiveColorPrimary: UIColors.black,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Iconsax.user),
+        icon: const Icon(Iconsax.user),
         title: ("user"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,

@@ -12,7 +12,7 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          CategoryPreference(
+          const CategoryPreference(
           ),
           TextButton(
               onPressed: () {
@@ -21,10 +21,10 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                 );
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => MyApp()),
+                  MaterialPageRoute(builder: (context) => const MyApp()),
                 );
               },
-              child: Text("done"))
+              child: const Text("done"))
         ],
       ),
     );

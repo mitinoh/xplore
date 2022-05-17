@@ -19,7 +19,7 @@ class LocationcategoryBloc
         final catList = await _locCatRepository.getLocationCategoryList();
         emit(LocationcategoryLoaded(catList));
       } on NetworkError {
-        emit(LocationcategoryError(
+        emit(const LocationcategoryError(
             "Failed to fetch data. is your device online?"));
       }
     });

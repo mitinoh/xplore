@@ -17,7 +17,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   @override
   void initState() {
     super.initState();
-    _planTripBloc.add(GetPlannedTrip());
+    _planTripBloc.add(const GetPlannedTrip());
   }
 
   @override

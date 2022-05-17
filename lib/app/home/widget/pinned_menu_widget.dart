@@ -96,7 +96,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
         onTap: () => {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SearchScreen()),
+                MaterialPageRoute(builder: (context) => const SearchScreen()),
               )
             },
         child: Icon(Iconsax.search_normal, color: UIColors.black));

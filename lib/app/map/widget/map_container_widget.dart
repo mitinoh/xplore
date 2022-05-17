@@ -7,7 +7,6 @@ import 'package:xplore/app/map/widget/map_layout_widget.dart';
 import 'package:xplore/core/widget/snackbar_message.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
-import 'package:location/location.dart' as lc;
 
 class MapContainer extends StatelessWidget {
   const MapContainer({Key? key, required this.mapBloc}) : super(key: key);

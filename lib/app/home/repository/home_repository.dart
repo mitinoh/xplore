@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/http_service.dart';
@@ -15,6 +16,7 @@ class HomeRepository {
 
   Future<List<Location>> getLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
+    log(url);
     Response response = await httpService.request(method: Method.GET, url: url);
     return Location().toList(response);
   }
@@ -39,7 +41,7 @@ class HomeRepository {
     }
   }
 
-  Mongoose getMongoose({String? searchName, List<String>? select }) {
+  Mongoose getMongoose({String? searchName, List<String>? select}) {
     Mongoose mng = Mongoose();
     mng.limit = limit;
     mng.skip = skip;

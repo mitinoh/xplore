@@ -83,7 +83,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         TextFormField(
           controller: _nameController,
           cursorColor: Colors.black,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
           //  decoration: InputDecoration(border: InputBorder.none),
         ),
         TextButton(
@@ -211,7 +211,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 child: LinearProgressIndicator(
                   value: valueProgressIndicator,
                   valueColor:
-                      new AlwaysStoppedAnimation<Color>(UIColors.violet),
+                      AlwaysStoppedAnimation<Color>(UIColors.violet),
                   backgroundColor: UIColors.violet.withOpacity(0.2),
                   semanticsLabel: 'Linear progress indicator',
                 ),
@@ -260,7 +260,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           context: context,
           builder: (_) => Container(
                 height: 400,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: Column(
                   children: [
                     SizedBox(
@@ -400,7 +400,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 child: LinearProgressIndicator(
                   value: valueProgressIndicator,
                   valueColor:
-                      new AlwaysStoppedAnimation<Color>(UIColors.violet),
+                      AlwaysStoppedAnimation<Color>(UIColors.violet),
                   backgroundColor: UIColors.violet.withOpacity(0.2),
                   semanticsLabel: 'Linear progress indicator',
                 ),
@@ -493,7 +493,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             ],
           ),
         ),
-        CategoryPreference(),
+        const CategoryPreference(),
         Flexible(
           flex: 2,
           child: InkWell(
@@ -697,9 +697,9 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         child: BlocBuilder<PlantripBloc, PlantripState>(
           builder: (context, state) {
             if (state is PlantripInitial) {
-              return LoadingIndicator();
+              return const LoadingIndicator();
             } else if (state is PlantripLoadingLocation) {
-              return LoadingIndicator();
+              return const LoadingIndicator();
             } else if (state is PlantripLoadedLocation) {
               return SelectTripLocation(
                 mng: mng,

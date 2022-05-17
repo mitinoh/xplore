@@ -27,9 +27,9 @@ class SearchHomeBloc extends Bloc<SearchLocationEvent, SearchLocationState> {
             "Failed to fetch data. is your device online?"));
       }
     });
-    on<GetSuggestedNameLocationList>((event, emit) async {
+    /*on<GetSuggestedNameLocationList>((event, emit) async {
       try {
-        emit(SearchLocationLoading());
+        emit(SuggestedLocationNameLoading());
         List<String> select = [
           "name","-locationCategory"
         ];
@@ -38,11 +38,11 @@ class SearchHomeBloc extends Bloc<SearchLocationEvent, SearchLocationState> {
 
         final mList = await _locationRepository.getLocationList(mng: mng);
 
-        //emit(SearchLocationLoaded(mList, event.add));
+        emit(SuggestedLocationNameLoaded(mList));
       } catch (e) {
         emit(const SearchLocationError(
             "Failed to fetch data. is your device online?"));
       }
-    });
+    });*/
   }
 }

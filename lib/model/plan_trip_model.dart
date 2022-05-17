@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:xplore/model/coordinate_model.dart';
@@ -39,7 +37,7 @@ class PlanTrip {
     if (json['trip'] != null) {
       trip = <Trip>[];
       json['trip'].forEach((v) {
-        trip!.add(new Trip.fromJson(v));
+        trip!.add(Trip.fromJson(v));
       });
     }
 
@@ -50,7 +48,7 @@ class PlanTrip {
         ? DateTime.parse(json['goneDate'])
         : DateTime.now();
     coordinate = json['coordinate'] != null
-        ? new Coordinate.fromJson(json['coordinate'])
+        ? Coordinate.fromJson(json['coordinate'])
         : null;
     distance = json['distance'].toInt();
     periodAvaiable = json['periodAvaiable'];
@@ -72,40 +70,40 @@ class PlanTrip {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.iId != null) {
-      data['_id'] = this.iId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (iId != null) {
+      data['_id'] = iId;
     }
-    data['fid'] = this.fid;
-    if (this.trip != null) {
-      data['trip'] = this.trip!.map((v) => v.toJson()).toList();
+    data['fid'] = fid;
+    if (trip != null) {
+      data['trip'] = trip!.map((v) => v.toJson()).toList();
     }
-    if (this.returnDate != null) {
-      data['returnDate'] = this.returnDate;
+    if (returnDate != null) {
+      data['returnDate'] = returnDate;
     }
-    if (this.coordinate != null) {
-      data['coordinate'] = this.coordinate!.toJson();
+    if (coordinate != null) {
+      data['coordinate'] = coordinate!.toJson();
     }
-    data['distance'] = this.distance;
-    data['periodAvaiable'] = this.periodAvaiable;
-    data['totDay'] = this.totDay;
-    if (this.avoidCategory != null) {
-      data['avoidCategory'] = this.avoidCategory!.map((v) => v).toList();
+    data['distance'] = distance;
+    data['periodAvaiable'] = periodAvaiable;
+    data['totDay'] = totDay;
+    if (avoidCategory != null) {
+      data['avoidCategory'] = avoidCategory!.map((v) => v).toList();
     }
-    if (this.dayAvaiable != null) {
-      data['dayAvaiable'] = this.dayAvaiable!.map((v) => v).toList();
+    if (dayAvaiable != null) {
+      data['dayAvaiable'] = dayAvaiable!.map((v) => v).toList();
     }
-    if (this.goneDate != null) {
-      data['goneDate'] = this.goneDate!;
+    if (goneDate != null) {
+      data['goneDate'] = goneDate!;
     }
-    if (this.cdate != null) {
-      data['cdate'] = this.cdate;
+    if (cdate != null) {
+      data['cdate'] = cdate;
     }
     return data;
   }
 
   Map<String, dynamic> toJsonPost(Map<String, dynamic> obj) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
 
     if (obj['plannedLocation'] != null) {
       data['plannedLocation'] = obj['plannedLocation']!.map((v) => v).toList();
@@ -152,8 +150,8 @@ class Date {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['$numberLong'] = this.numberLong;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['$numberLong'] = numberLong;
     return data;
   }
 }
@@ -166,23 +164,23 @@ class Trip {
   Trip({this.date, this.locationId, this.location});
 
   Trip.fromJson(Map<String, dynamic> json) {
-    date = json['date'] != null ? new Date.fromJson(json['date']) : null;
+    date = json['date'] != null ? Date.fromJson(json['date']) : null;
     locationId = json['locationId'];
     location = json['location'] != null
-        ? new Location.fromJson(json['location'])
+        ? Location.fromJson(json['location'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.date != null) {
-      data['date'] = this.date!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (date != null) {
+      data['date'] = date!.toJson();
     }
-    if (this.locationId != null) {
-      data['locationId'] = this.locationId!;
+    if (locationId != null) {
+      data['locationId'] = locationId!;
     }
-    if (this.location != null) {
-      data['location'] = this.location!.toJson();
+    if (location != null) {
+      data['location'] = location!.toJson();
     }
     return data;
   }
