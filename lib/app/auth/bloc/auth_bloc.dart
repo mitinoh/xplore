@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:xplore/app/auth/repository/auth_repository.dart';
-import 'package:xplore/app/map/screen/map_screen.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

@@ -225,6 +225,11 @@ class _SearchScreenState extends State<SearchScreen> {
               onSubmitted: (value) {
                 applyFilterName();
               },
+              onChanged: (value) {
+                _searchHomeBloc.add(GetSuggestedNameLocationList(
+                    searchName: _searchController.text.toString()));
+//GetSuggestedNameLocationList
+              },
               controller: _searchController,
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),

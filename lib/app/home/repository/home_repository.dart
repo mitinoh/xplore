@@ -39,11 +39,12 @@ class HomeRepository {
     }
   }
 
-  Mongoose getMongoose({String? searchName}) {
+  Mongoose getMongoose({String? searchName, List<String>? select }) {
     Mongoose mng = Mongoose();
     mng.limit = limit;
     mng.skip = skip;
     mng.filter = {};
+    mng.select = select ?? [];
 
     if (searchName != null && searchName.trim() != "") {
       mng.filter?.putIfAbsent("name", () => '*$searchName*,desc=*$searchName*');

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +10,7 @@ class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
   Config conf = Config();
   HttpService httpService = HttpService();
-  
-  @override
+
   Future<void> signUp({required String email, required String password}) async {
     try {
       await FirebaseAuth.instance
@@ -93,9 +90,7 @@ class AuthRepository {
       await Future.delayed(const Duration(seconds: 1));
       Map<String, dynamic> map = {'categoryPref': categoryPref, 'name': "---"};
       Response response = await httpService.request(
-        method: Method.POST,
-        url: conf.userColl,
-        params: json.encode(map));
+          method: Method.POST, url: conf.userColl, params: json.encode(map));
     } catch (e) {
       throw Exception(e);
     }
