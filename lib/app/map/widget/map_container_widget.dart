@@ -48,8 +48,8 @@ class MapContainer extends StatelessWidget {
     List<Marker> _markers = [];
     for (Location loc in mapModel) {
       _markers.add(Marker(
-        width: 80.0,
-        height: 80.0,
+        width: 55.0,
+        height: 55.0,
         point: LatLng(loc.coordinate?.lat ?? 0.0, loc.coordinate?.lng ?? 0.0),
         builder: (ctx) => GestureDetector(
             onTap: () {
@@ -130,12 +130,25 @@ class MapContainer extends StatelessWidget {
                         ),
                         const SizedBox(height: 30),
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
                           child: Image.network(
                               "https://images.unsplash.com/photo-1604580864964-0462f5d5b1a8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
                               height: mediaQuery.size.height * 0.45,
                               width: mediaQuery.size.height * 1,
                               fit: BoxFit.cover),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                  "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                                  overflow: TextOverflow.visible,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.grey)),
+                            )
+                          ],
                         ),
                       ],
                     ),
