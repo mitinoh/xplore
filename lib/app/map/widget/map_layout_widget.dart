@@ -20,7 +20,7 @@ class MapLayout extends StatelessWidget {
       options: MapOptions(
         center: LatLng(
             userLoc?.latitude ?? 41.902782, userLoc?.longitude ?? 12.496366),
-        zoom: 5.0,
+        zoom: 15.0,
       ),
       layers: [
         TileLayerOptions(

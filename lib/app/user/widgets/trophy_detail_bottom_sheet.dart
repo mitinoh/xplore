@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:xplore/core/UIColors.dart';
 
 // ignore: must_be_immutable
 class TrophyDetailBottomSheet extends StatelessWidget {
