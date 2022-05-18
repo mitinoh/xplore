@@ -41,15 +41,15 @@ class _UserScreenState extends State<UserScreen> {
         length: tabs.length, // This is the number of tabs.
         child: Scaffold(
           //backgroundColor: const Color(0xffF3F7FA),
-          body: Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20),
-            child: SafeArea(
-              child: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  // These are the slivers that show up in the "outer" scroll view.
-                  return <Widget>[
-                    SliverToBoxAdapter(
+          body: SafeArea(
+            child: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                // These are the slivers that show up in the "outer" scroll view.
+                return <Widget>[
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20),
                       child: Column(
                         children: [
                           const SizedBox(height: 20),
@@ -59,8 +59,8 @@ class _UserScreenState extends State<UserScreen> {
                           const SizedBox(height: 30),
                           TabBar(
                             // These are the widgets to put in each tab in the tab bar.
-                            indicatorColor: UIColors.blue,
-                            indicatorWeight: 3,
+                            indicatorColor: Colors.black,
+                            indicatorWeight: 1,
                             labelColor: Colors.black,
                             unselectedLabelColor: Colors.black.withOpacity(0.2),
                             tabs: tabs
@@ -79,9 +79,12 @@ class _UserScreenState extends State<UserScreen> {
                         ],
                       ),
                     ),
-                  ];
-                },
-                body: TabBarView(
+                  ),
+                ];
+              },
+              body: Padding(
+                padding: const EdgeInsets.only(left: 17.5, right: 17.5),
+                child: TabBarView(
                   // These are the contents of the tab views, below the tabs.
                   children: tabs.map((String name) {
                     return SafeArea(
@@ -108,13 +111,16 @@ class _UserScreenState extends State<UserScreen> {
                                 gridDelegate:
                                     const SliverGridDelegateWithMaxCrossAxisExtent(
                                   maxCrossAxisExtent: 200.0,
-                                  mainAxisSpacing: 5.0,
-                                  crossAxisSpacing: 5.0,
+                                  mainAxisSpacing: 0,
+                                  crossAxisSpacing: 0,
                                   childAspectRatio: 1.0,
                                 ),
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
-                                    return const ImageTile();
+                                    return const Padding(
+                                      padding: EdgeInsets.all(2.5),
+                                      child: ImageTile(),
+                                    );
                                   },
                                   childCount: 5,
                                 ),

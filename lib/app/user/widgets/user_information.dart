@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/user/screen/trophy_screen.dart';
+import 'package:xplore/app/user/widgets/trophy_detail_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class UserInformation extends StatelessWidget {
@@ -83,8 +84,9 @@ class UserInformation extends StatelessWidget {
                       color: Colors.black),
                 ),
                 Text(
-                  "post visitati",
-                  style: GoogleFonts.poppins(),
+                  "luoghi visitati",
+                  style: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.w300),
                 ),
               ],
             ),
@@ -99,7 +101,8 @@ class UserInformation extends StatelessWidget {
                 ),
                 Text(
                   "in programma",
-                  style: GoogleFonts.poppins(),
+                  style: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.w300),
                 ),
               ],
             )
@@ -113,10 +116,21 @@ class UserInformation extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: CircleAvatar(
-                    backgroundColor: UIColors.lightPurple,
-                    radius: 28,
-                    child: Icon(Iconsax.crown_1),
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) {
+                            return const TrophyDetailBottomSheet();
+                          });
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: UIColors.lightPurple,
+                      radius: 28,
+                      child: Icon(Iconsax.crown_1),
+                    ),
                   ),
                 ),
                 Padding(

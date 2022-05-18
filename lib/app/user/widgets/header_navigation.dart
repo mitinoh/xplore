@@ -29,7 +29,19 @@ class UserHeaderNavigation extends StatelessWidget {
                     return const SettingsBottomSheet();
                   });
             },
-            child: const Icon(Iconsax.setting_2))
+            child: Row(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.only(right: 15.0),
+                  child: Icon(Iconsax.moon),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 15.0),
+                  child: Icon(Iconsax.sun_1),
+                ),
+                Icon(Iconsax.setting_2),
+              ],
+            ))
       ],
     );
   }
