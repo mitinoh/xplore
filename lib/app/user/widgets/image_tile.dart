@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/model/location_model.dart';
 
 class ImageTile extends StatelessWidget {
-  const ImageTile({Key? key}) : super(key: key);
-
+   ImageTile({Key? key, required this.location}) : super(key: key);
+  Location location;
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -34,7 +35,7 @@ class ImageTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "nome luogo".toLowerCase(),
+                    location.name!.toLowerCase(),
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.poppins(

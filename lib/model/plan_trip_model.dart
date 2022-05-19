@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:xplore/model/coordinate_model.dart';
 import 'package:xplore/model/location_model.dart';
@@ -16,6 +15,7 @@ class PlanTrip {
   List<int>? dayAvaiable;
   DateTime? goneDate;
   DateTime? cdate;
+  String? tripName;
 
   PlanTrip(
       {this.iId,
@@ -29,11 +29,13 @@ class PlanTrip {
       this.avoidCategory,
       this.dayAvaiable,
       this.goneDate,
-      this.cdate});
+      this.cdate,
+      this.tripName});
 
   PlanTrip.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];
     fid = json['fid'];
+    tripName = json['tripName'];
     if (json['trip'] != null) {
       trip = <Trip>[];
       json['trip'].forEach((v) {
@@ -75,6 +77,7 @@ class PlanTrip {
       data['_id'] = iId;
     }
     data['fid'] = fid;
+    data['tripName'] = tripName;
     if (trip != null) {
       data['trip'] = trip!.map((v) => v.toJson()).toList();
     }
@@ -166,9 +169,8 @@ class Trip {
   Trip.fromJson(Map<String, dynamic> json) {
     date = json['date'] != null ? Date.fromJson(json['date']) : null;
     locationId = json['locationId'];
-    location = json['location'] != null
-        ? Location.fromJson(json['location'])
-        : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
   }
 
   Map<String, dynamic> toJson() {

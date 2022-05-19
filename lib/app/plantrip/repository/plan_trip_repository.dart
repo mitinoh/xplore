@@ -27,8 +27,14 @@ class PlanTripRepository {
     }
   }
 
-  Future<List<PlanTrip>> fetchPlannedTripList() async {
-    String url = conf.planTripColl + '?progress=true';
+  Future<List<PlanTrip>> getPlannedTripList() async {
+    String url = conf.planTripColl + '?future=true';
+    Response response = await httpService.request(method: Method.GET, url: url);
+    return PlanTrip().toList(response);
+  }
+
+  Future<List<PlanTrip>> getCurrentPlannedTripList() async {
+    String url = conf.planTripColl + '?current=true';
     Response response = await httpService.request(method: Method.GET, url: url);
     return PlanTrip().toList(response);
   }

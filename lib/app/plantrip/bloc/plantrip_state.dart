@@ -20,7 +20,8 @@ class PlantripLoadingPlannedTrip extends PlantripState {}
 
 class PlantripLoadedPlannedTrip extends PlantripState {
   final List<PlanTrip> planTripModel;
-  const PlantripLoadedPlannedTrip(this.planTripModel);
+  final List<PlanTrip> currentPlanTripModel;
+  const PlantripLoadedPlannedTrip(this.planTripModel, this.currentPlanTripModel);
 }
 
 class LocationHomeLoading extends PlantripState {}

@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
+import 'package:xplore/app/user/bloc/saved_location_bloc.dart';
 import 'package:xplore/app/user/widgets/header_navigation.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
 import 'package:xplore/app/user/widgets/user_information.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widget/snackbar_message.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -16,8 +18,11 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  final SavedLocationBloc _savedLocationBloc = SavedLocationBloc();
+
   @override
   void initState() {
+    _savedLocationBloc.add(GetSavedLocationList());
     super.initState();
   }
 
@@ -91,65 +96,66 @@ class _UserScreenState extends State<UserScreen> {
                       top: false,
                       bottom: false,
                       child: Builder(
-                        // This Builder is needed to provide a BuildContext that is
-                        // "inside" the NestedScrollView, so that
-                        // sliverOverlapAbsorberHandleFor() can find the
-                        // NestedScrollView.
                         builder: (BuildContext context) {
                           return CustomScrollView(
-                            // The "controller" and "primary" members should be left
-                            // unset, so that the NestedScrollView can control this
-                            // inner scroll view.
-                            // If the "controller" property is set, then this scroll
-                            // view will not be associated with the NestedScrollView.
-                            // The PageStorageKey should be unique to this ScrollView;
-                            // it allows the list to remember its scroll position when
-                            // the tab view is not on the screen.
                             key: PageStorageKey<String>(name),
                             slivers: <Widget>[
-                              SliverGrid(
-                                gridDelegate:
-                                    const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 200.0,
-                                  mainAxisSpacing: 0,
-                                  crossAxisSpacing: 0,
-                                  childAspectRatio: 1.0,
-                                ),
-                                delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                    return const Padding(
-                                      padding: EdgeInsets.all(2.5),
-                                      child: ImageTile(),
-                                    );
+                              BlocProvider(
+                                create: (_) => _savedLocationBloc,
+                                child: BlocListener<SavedLocationBloc,
+                                    SavedLocationState>(
+                                  listener: (context, state) {
+                                    if (state is LocationError) {
+                                      SnackBarMessage.show(
+                                          context, state.message ?? '');
+                                    }
                                   },
-                                  childCount: 5,
-                                ),
-                              ),
-                              /*SliverPadding(
-                                padding: const EdgeInsets.all(8.0),
-                                // In this example, the inner scroll view has
-                                // fixed-height list items, hence the use of
-                                // SliverFixedExtentList. However, one could use any
-                                // sliver widget here, e.g. SliverList or SliverGrid.
-                                sliver: SliverFixedExtentList(
-                                  // The items in this example are fixed to 48 pixels
-                                  // high. This matches the Material Design spec for
-                                  // ListTile widgets.
-                                  itemExtent: 250.0,
-                                  delegate: SliverChildBuilderDelegate(
-                                    (BuildContext context, int index) {
-                                      // This builder is called for each child.
-                                      // In this example, we just number each list item.
-                                      return const ImageTile();
+                                  child: BlocBuilder<SavedLocationBloc,
+                                      SavedLocationState>(
+                                    builder: (context, state) {
+                                      if (state is SavedLocationLoaded) {
+                                        return SliverGrid(
+                                          gridDelegate:
+                                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                            maxCrossAxisExtent: 200.0,
+                                            mainAxisSpacing: 5.0,
+                                            crossAxisSpacing: 5.0,
+                                            childAspectRatio: 1.0,
+                                          ),
+                                          delegate: SliverChildBuilderDelegate(
+                                            (BuildContext context, int index) {
+                                              return ImageTile(
+                                                  location:
+                                                      state.savedLocationModel[
+                                                          index]);
+                                            },
+                                            childCount:
+                                                state.savedLocationModel.length,
+                                          ),
+                                        );
+                                        //return getCards(state.homeModel);
+                                      } else {
+                                        return SliverGrid(
+                                          gridDelegate:
+                                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                            maxCrossAxisExtent: 200.0,
+                                            mainAxisSpacing: 5.0,
+                                            crossAxisSpacing: 5.0,
+                                            childAspectRatio: 1.0,
+                                          ),
+                                          delegate: SliverChildBuilderDelegate(
+                                            (BuildContext context, int index) {
+                                              return Container();
+                                            },
+                                            childCount: 0,
+                                          ),
+                                        );
+                                        ;
+                                      }
                                     },
-                                    // The childCount of the SliverChildBuilderDelegate
-                                    // specifies how many children this inner list
-                                    // has. In this example, each tab has a list of
-                                    // exactly 30 items, but this is arbitrary.
-                                    childCount: 30,
                                   ),
                                 ),
-                              ),*/
+                              )
                             ],
                           );
                         },

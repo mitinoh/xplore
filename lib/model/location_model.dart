@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:xplore/model/location_category_model.dart';
@@ -32,7 +33,8 @@ class Location {
     if (json['locationCategory'] != null) {
       locationCategory = <LocationCategory>[];
       json['locationCategory'].forEach((v) {
-        locationCategory!.add(LocationCategory.fromJson(v));
+        if (v is Map<String, dynamic>)
+          locationCategory!.add(LocationCategory.fromJson(v));
       });
     }
     desc = json['desc'];
@@ -64,6 +66,15 @@ class Location {
     List<Location> _location = [];
     response.data.forEach((v) {
       _location.add(Location.fromJson(v));
+    });
+    return _location;
+  }
+
+  List<Location> toSavedLocationList(Response response) {
+    List<Location> _location = [];
+    response.data.forEach((v) {
+      log(v["location"].toString());
+      _location.add(Location.fromJson(v["location"]));
     });
     return _location;
   }

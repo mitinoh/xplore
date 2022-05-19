@@ -135,7 +135,6 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             .toString()
             .substring(4)
             .split(','));
-    print(widget.planQuery["avoidCategory"]);
 
     //widget.planQuery["trip"] = [planList.join(",")];
     widget.planTripBloc.add(SaveTrip(body: widget.planQuery));
