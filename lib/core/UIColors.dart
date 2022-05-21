@@ -47,7 +47,7 @@ class UIColors {
   }
 
   static Color get blue {
-    return const Color(0xFF47549F);
+    return const Color(0xFF3029D8);
   }
 
   static Color get backgroundGrey {
@@ -59,7 +59,7 @@ class UIColors {
   }
 
   static Color get lightGreen {
-    return const Color.fromRGBO(151, 228, 150, 1);
+    return const Color(0xFF17CC8A);
   }
 
   static Color get green {
@@ -95,7 +95,7 @@ class UIColors {
   }
 
   static Color get violetMain {
-    return const Color(0xFF4B3869);
+    return const Color(0xFF8A8ACB);
   }
 
   static Color get violetMainlightOption {
@@ -103,6 +103,6 @@ class UIColors {
   }
 
   static Color get azure {
-    return const Color(0xFF259fba);
+    return const Color(0xFFA9C6E0);
   }
 }

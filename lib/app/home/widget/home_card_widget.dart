@@ -86,17 +86,11 @@ class _BuildMainCardState extends State<BuildMainCard> {
                             color: Colors.black),
                         children: [
                           TextSpan(
-                              text: " " +
+                              text: " - " +
                                   widget.model[_indexLocation].desc.toString(),
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w300,
-                                  color: Colors.black)),
-                          TextSpan(
-                              text: " @xplore.",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
                                   color: Colors.black)),
                         ]),
                   ),

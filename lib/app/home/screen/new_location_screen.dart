@@ -199,7 +199,7 @@ class _NewLocationState extends State<NewLocation> {
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: "Breve descrizione...",
+              hintText: "Breve descrizione del luogo che vuoi raccomandare...",
               hintStyle:
                   GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
               border: const OutlineInputBorder(),
@@ -266,12 +266,12 @@ class _NewLocationState extends State<NewLocation> {
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: "Nome un posto",
+              hintText: "Nome del luogo",
               hintStyle:
                   GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
-                Iconsax.note_add,
+                Iconsax.location,
                 color: UIColors.blue,
               ),
             ),

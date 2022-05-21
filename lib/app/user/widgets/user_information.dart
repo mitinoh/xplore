@@ -26,15 +26,15 @@ class UserInformation extends StatelessWidget {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   children: <TextSpan>[
-                    const TextSpan(
+                    TextSpan(
                         text: 'mite.g',
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: Colors.black)),
                     TextSpan(
                         text: ' LV. 4',
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: UIColors.blue))
@@ -54,13 +54,13 @@ class UserInformation extends StatelessWidget {
               Expanded(
                 child: RichText(
                   textAlign: TextAlign.center,
-                  text: const TextSpan(
+                  text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
                           text:
                               'perché i limiti, come le paure, sono spesso solo un illusione.',
-                          style: TextStyle(
-                              fontSize: 12,
+                          style: GoogleFonts.poppins(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w300,
                               color: Colors.grey)),
                     ],
@@ -127,9 +127,12 @@ class UserInformation extends StatelessWidget {
                           });
                     },
                     child: CircleAvatar(
-                      backgroundColor: UIColors.lightPurple,
+                      backgroundColor: UIColors.violetMain,
                       radius: 28,
-                      child: Icon(Iconsax.crown_1),
+                      child: Icon(
+                        Iconsax.crown_1,
+                        color: UIColors.white,
+                      ),
                     ),
                   ),
                 ),

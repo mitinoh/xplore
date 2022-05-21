@@ -81,22 +81,48 @@ class MapContainer extends StatelessWidget {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: () => {
-                        mapBloc.add(OpeningExternalMap(
-                            loc.coordinate?.lat ?? 0.0,
-                            loc.coordinate?.lng ?? 0.0))
-                      },
-                      child: Text(
-                        "raggiungi con google maps",
-                        style: GoogleFonts.poppins(
-                            decoration: TextDecoration.underline,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundColor: UIColors.blue,
+                          backgroundImage: const NetworkImage(
+                              'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'mite.g'.toLowerCase(),
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black)),
+                                TextSpan(
+                                    text: ' LV. 4',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: UIColors.blue))
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Iconsax.discover_1),
+                        ),
+                        Icon(Iconsax.heart)
+                      ],
                     )
                   ],
                 ),
@@ -108,14 +134,25 @@ class MapContainer extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: Text(
-                                  "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
-                                  overflow: TextOverflow.visible,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w300,
-                                      color: Colors.grey)),
-                            )
+                              child: RichText(
+                                textScaleFactor: 1,
+                                text: TextSpan(
+                                    text: "Il colosseo di roma",
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                    children: [
+                                      TextSpan(
+                                          text:
+                                              " - lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                              color: Colors.grey)),
+                                    ]),
+                              ),
+                            ),
                           ],
                         ),
                         Row(
@@ -123,7 +160,7 @@ class MapContainer extends StatelessWidget {
                             Text(loc.name ?? '',
                                 overflow: TextOverflow.visible,
                                 style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w300,
                                     color: Colors.grey)),
                           ],
@@ -144,10 +181,49 @@ class MapContainer extends StatelessWidget {
                                   "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
                                   overflow: TextOverflow.visible,
                                   style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w300,
                                       color: Colors.grey)),
                             )
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () => {
+                                mapBloc.add(OpeningExternalMap(
+                                    loc.coordinate?.lat ?? 0.0,
+                                    loc.coordinate?.lng ?? 0.0))
+                              },
+                              child: Text(
+                                "raggiungi con google maps",
+                                style: GoogleFonts.poppins(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: RichText(
+                                textAlign: TextAlign.start,
+                                textScaleFactor: 1,
+                                text: TextSpan(
+                                  text: "via del successo, piacenza 29120",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.grey),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ],

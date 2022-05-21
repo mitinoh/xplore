@@ -118,8 +118,8 @@ class _UserScreenState extends State<UserScreen> {
                                           gridDelegate:
                                               const SliverGridDelegateWithMaxCrossAxisExtent(
                                             maxCrossAxisExtent: 200.0,
-                                            mainAxisSpacing: 5.0,
-                                            crossAxisSpacing: 5.0,
+                                            mainAxisSpacing: 0,
+                                            crossAxisSpacing: 0,
                                             childAspectRatio: 1.0,
                                           ),
                                           delegate: SliverChildBuilderDelegate(
@@ -150,7 +150,6 @@ class _UserScreenState extends State<UserScreen> {
                                             childCount: 0,
                                           ),
                                         );
-                                        ;
                                       }
                                     },
                                   ),
