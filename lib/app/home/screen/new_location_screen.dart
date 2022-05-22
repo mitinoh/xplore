@@ -52,11 +52,15 @@ class _NewLocationState extends State<NewLocation> {
                 const SizedBox(height: 20),
                 locationName(),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
+                ),
+                adressName(),
+                const SizedBox(
+                  height: 5,
                 ),
                 locationImage(),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 locationDesc(),
                 const SizedBox(
@@ -64,7 +68,11 @@ class _NewLocationState extends State<NewLocation> {
                 ),
                 footer(),
                 const SizedBox(
-                  height: 50,
+                  height: 20,
+                ),
+                locationTips(),
+                const SizedBox(
+                  height: 20,
                 ),
                 locationCategories(),
                 addLocationBtn(),
@@ -150,9 +158,6 @@ class _NewLocationState extends State<NewLocation> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Iconsax.add,
-            ),
             Text(
               "Aggiungi luogo".toUpperCase(),
               style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
@@ -168,7 +173,7 @@ class _NewLocationState extends State<NewLocation> {
       children: [
         Expanded(
           child: Text(
-              "lorem ipsum is simply dummy text of the printing and typesetting industry.",
+              "Ci siamo quasi. Ora facoltivamente lascia qualche consiglio per i nuovi xplorer.",
               overflow: TextOverflow.visible,
               style: GoogleFonts.poppins(
                   fontSize: 12,
@@ -194,6 +199,7 @@ class _NewLocationState extends State<NewLocation> {
             textAlign: TextAlign.start,
             minLines: 6,
             maxLines: 10,
+            maxLength: 144,
             style: const TextStyle(color: Colors.black, fontSize: 14),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15.0),
@@ -205,6 +211,44 @@ class _NewLocationState extends State<NewLocation> {
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.note,
+                color: UIColors.blue,
+              ),
+            ),
+            autofocus: false,
+          ),
+        ))
+      ],
+    );
+  }
+
+  Row locationTips() {
+    return Row(
+      children: [
+        Expanded(
+            child: Container(
+          padding:
+              const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+          decoration: BoxDecoration(
+              color: UIColors.grey.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(20)),
+          child: TextField(
+            controller: _descController,
+            textAlign: TextAlign.start,
+            minLines: 6,
+            maxLines: 10,
+            maxLength: 144,
+            style: const TextStyle(color: Colors.black, fontSize: 14),
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(15.0),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              hintText:
+                  "Breve tips su come raggiungiere il luogo o in quale stagione lo consogli...",
+              hintStyle:
+                  GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
+              border: const OutlineInputBorder(),
+              prefixIcon: Icon(
+                Iconsax.lamp_on,
                 color: UIColors.blue,
               ),
             ),
@@ -233,7 +277,7 @@ class _NewLocationState extends State<NewLocation> {
             Padding(
               padding: const EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
-                Iconsax.box_2,
+                Iconsax.gallery_add,
                 color: UIColors.blue,
               ),
             ),
@@ -271,6 +315,39 @@ class _NewLocationState extends State<NewLocation> {
                   GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
+                Iconsax.flag,
+                color: UIColors.blue,
+              ),
+            ),
+            autofocus: false,
+          ),
+        ))
+      ],
+    );
+  }
+
+  Row adressName() {
+    return Row(
+      children: [
+        Expanded(
+            child: Container(
+          padding:
+              const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+          decoration: BoxDecoration(
+              color: UIColors.grey.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(20)),
+          child: TextField(
+            textAlign: TextAlign.start,
+            style: const TextStyle(color: Colors.black, fontSize: 14),
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(15.0),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              hintText: "Indirizzo",
+              hintStyle:
+                  GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
+              border: const OutlineInputBorder(),
+              prefixIcon: Icon(
                 Iconsax.location,
                 color: UIColors.blue,
               ),
@@ -287,7 +364,7 @@ class _NewLocationState extends State<NewLocation> {
       children: [
         Expanded(
           child: Text(
-              "lorem ipsum is simply dummy text of the printing and typesetting industry.",
+              "Contribuisci a rendere xplore un posto vibrante. Raccomanda un nuovo posto e ricevi 200 punti.",
               overflow: TextOverflow.visible,
               style: GoogleFonts.poppins(
                   fontSize: 12,

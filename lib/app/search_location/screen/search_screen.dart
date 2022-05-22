@@ -244,11 +244,11 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintStyle:
                     GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
                 border: const OutlineInputBorder(),
-                suffixIconColor: UIColors.violet,
+                suffixIconColor: UIColors.blue,
                 prefixIcon: IconButton(
                   icon: Icon(
                     Iconsax.search_normal,
-                    color: UIColors.violet,
+                    color: UIColors.blue,
                   ),
                   color: Colors.white,
                   onPressed: () {
@@ -305,7 +305,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future<void> categoryModal(BuildContext context) {
     return showModalBottomSheet<void>(
-        useRootNavigator: true,
+        //useRootNavigator: true,
+        isScrollControlled: true,
+        backgroundColor: const Color(0xffF3F7FA),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
         context: context,
         builder: (BuildContext context) {
           return BlocProvider(

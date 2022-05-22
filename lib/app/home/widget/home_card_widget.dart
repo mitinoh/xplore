@@ -171,8 +171,10 @@ class _BuildMainCardState extends State<BuildMainCard> {
               ),
             ),
           ),
-          placeholder: (context, url) => const CircularProgressIndicator(),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) =>
+              const Icon(Iconsax.gallery_remove),
         ),
         /*DecorationImage(
                 image: NetworkImage(conf.getLocationImageUrl(el.iId ?? '')),
