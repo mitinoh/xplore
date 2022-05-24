@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
@@ -74,8 +75,18 @@ class CurrentPlannedTripList extends StatelessWidget {
   Container currentTripCard(PlanTrip pTrip) {
     return Container(
       padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(bottom: 5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20), color: UIColors.yellow),
+          borderRadius: BorderRadius.circular(20),
+          gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment(0.8, 1),
+            colors: <Color>[
+              Color(0xffcaefd7),
+              Color(0xfff5bfd7),
+              Color(0xffabc9e9),
+            ], // Gradient from https://learnui.design/tools/gradient-generator.html
+          )),
       child: Column(
         children: [
           const SizedBox(
@@ -83,7 +94,7 @@ class CurrentPlannedTripList extends StatelessWidget {
           ),
           CircleAvatar(
             radius: 50,
-            backgroundColor: UIColors.orange,
+            backgroundColor: const Color(0xffcaefd7),
             foregroundColor: UIColors.violet,
             child: const Icon(
               Iconsax.play_circle,
@@ -107,6 +118,11 @@ class CurrentPlannedTripList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text("la tua vacanza in corso...",
+              style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.black)),
           continueTrip(pTrip),
           const SizedBox(height: 20),
           progressIndicator()
@@ -123,9 +139,9 @@ class CurrentPlannedTripList extends StatelessWidget {
               overflow: TextOverflow.visible,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black)),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: UIColors.black)),
         ),
       ],
     );
