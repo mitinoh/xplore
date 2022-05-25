@@ -45,3 +45,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 *.lock
+ios/Podfile
+ios/Podfile.lock
+.gitignore
+ios/Runner.xcodeproj/project.pbxproj
