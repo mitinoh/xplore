@@ -82,9 +82,9 @@ class CurrentPlannedTripList extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment(0.8, 1),
             colors: <Color>[
-              Color(0xffcaefd7),
-              Color(0xfff5bfd7),
-              Color(0xffabc9e9),
+              Color(0xffcaefd7), //f0ebc0
+              Color(0xfff5bfd7), //9dddf4
+              Color(0xffabc9e9), //e93a28
             ], // Gradient from https://learnui.design/tools/gradient-generator.html
           )),
       child: Column(
