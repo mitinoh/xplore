@@ -5,18 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:masonry_grid/masonry_grid.dart';
+import 'package:xplore/app/map/bloc/map_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/config.dart';
+import 'package:xplore/core/widget/detail_location_modal.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class PtLocationGrid extends StatelessWidget {
-  const PtLocationGrid({
+  PtLocationGrid({
     Key? key,
     required this.locationList,
   }) : super(key: key);
 
   final List<Location> locationList;
 
+  Config conf = Config();
+
+  final MapBloc _mapBloc = MapBloc();
   double getRndSize() {
     double size = Random().nextInt(250).toDouble();
     if (size < 150) size = 150;
@@ -29,7 +35,9 @@ class PtLocationGrid extends StatelessWidget {
     for (var el in locationList) {
       {
         locCnt.add(InkWell(
-          onTap: () {},
+          onTap: () {
+            DetailLocationModal(loc: el, mapBloc: _mapBloc).show(context);
+          },
           child: Container(
             decoration: BoxDecoration(
                 color: UIColors.bluelight,
@@ -41,8 +49,7 @@ class PtLocationGrid extends StatelessWidget {
                     child: CachedNetworkImage(
                       height: getRndSize(),
                       width: mediaQuery.size.height * 1,
-                      imageUrl:
-                          'https://images.unsplash.com/photo-1528744598421-b7b93e12df15?ixlib=rb-1.2.1&ixid=&auto=format&fit=crop&w=928&q=80',
+                      imageUrl: conf.getLocationImageUrl(el.iId ?? ''),
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(

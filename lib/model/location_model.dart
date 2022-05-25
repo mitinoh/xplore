@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:xplore/model/location_category_model.dart';
 
@@ -73,7 +71,6 @@ class Location {
   List<Location> toSavedLocationList(Response response) {
     List<Location> _location = [];
     response.data.forEach((v) {
-      log(v["location"].toString());
       _location.add(Location.fromJson(v["location"]));
     });
     return _location;

@@ -22,7 +22,6 @@ class HttpService {
       dio.options.headers['content-Type'] = 'application/json';
       dio.options.headers["authorization"] = await user?.getIdToken();
     }
-    // log(await user?.getIdToken() ?? '');
   }
 
   String getUserID() {

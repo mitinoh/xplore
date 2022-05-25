@@ -16,7 +16,6 @@ class HomeRepository {
 
   Future<List<Location>> getLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
-    log(url);
     Response response = await httpService.request(method: Method.GET, url: url);
     return Location().toList(response);
   }

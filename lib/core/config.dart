@@ -17,7 +17,6 @@ class Config {
   }
 
   String getLocationImageUrl(String id) {
-    log(locationImage + id + '.jpg');
     return locationImage + id + '.jpg';
   }
 

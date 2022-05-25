@@ -76,7 +76,6 @@ class _PinnedMenuState extends State<PinnedMenu> {
         bool isSaved = widget.locationList[widget.indexLocation].saved ?? false;
 
         setState(() {
-          log(isSaved.toString());
           widget.locationList[widget.indexLocation].saved = !isSaved;
         });
 

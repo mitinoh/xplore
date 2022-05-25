@@ -12,9 +12,7 @@ class UserRepository {
 
   Future<List<Location>> getSavedLocationList(Mongoose mng) async {
     String url = conf.savedLocationColl + mng.getUrl();
-    log(url);
     Response response = await httpService.request(method: Method.GET, url: url);
-    log(response.toString());
     return Location().toSavedLocationList(response);
   }
 }
