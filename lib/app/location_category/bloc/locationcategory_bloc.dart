@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/app/location_category/repository/locationcategory_repository.dart';
@@ -18,7 +20,8 @@ class LocationcategoryBloc
         emit(LocationCategoryLoading());
         final catList = await _locCatRepository.getLocationCategoryList();
         emit(LocationcategoryLoaded(catList));
-      } on NetworkError {
+      } on NetworkError catch (exception) {
+        log(exception.toString());
         emit(const LocationcategoryError(
             "Failed to fetch data. is your device online?"));
       }

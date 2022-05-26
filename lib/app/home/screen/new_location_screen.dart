@@ -20,6 +20,7 @@ class NewLocation extends StatefulWidget {
 class _NewLocationState extends State<NewLocation> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
+  final TextEditingController _indicationController = TextEditingController();
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
 
   final HomeBloc _locationBloc = HomeBloc();
@@ -232,7 +233,7 @@ class _NewLocationState extends State<NewLocation> {
               color: UIColors.grey.withOpacity(0.3),
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
-            controller: _descController,
+            controller: _indicationController,
             textAlign: TextAlign.start,
             minLines: 6,
             maxLines: 10,
@@ -418,6 +419,7 @@ class _NewLocationState extends State<NewLocation> {
     Map<String, dynamic> newLocationMap = {
       "name": _nameController.text,
       "desc": _descController.text,
+      "indication": _indicationController.text,
       "categories": _catSelected
     };
 

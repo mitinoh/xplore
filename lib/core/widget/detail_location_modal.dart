@@ -60,7 +60,7 @@ class DetailLocationModal extends StatelessWidget {
                               text: TextSpan(
                                 children: <TextSpan>[
                                   TextSpan(
-                                      text: 'mite.g'.toLowerCase(),
+                                      text: loc.insertUid?.name,
                                       style: GoogleFonts.poppins(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w700,

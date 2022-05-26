@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:xplore/model/location_category_model.dart';
+import 'package:xplore/model/user_model.dart';
 
 import 'coordinate_model.dart';
 
@@ -9,8 +12,10 @@ class Location {
   Coordinate? coordinate;
   List<LocationCategory>? locationCategory;
   String? desc;
+  String? indication;
   DateTime? cdate;
   bool? saved;
+  UserModel? insertUid;
 
   Location(
       {this.iId,
@@ -18,8 +23,10 @@ class Location {
       this.coordinate,
       this.locationCategory,
       this.desc,
+      this.indication,
       this.cdate,
-      this.saved});
+      this.saved,
+      this.insertUid});
 
   Location.fromJson(Map<String, dynamic> json) {
     iId = json['_id'] ?? '';
@@ -36,8 +43,12 @@ class Location {
       });
     }
     desc = json['desc'];
+    indication = json['indication'];
     cdate =
         json['cdate'] != null ? DateTime.parse(json['cdate']) : DateTime.now();
+
+    if (json['insertUid'] != null)
+      insertUid = UserModel.fromJson(json['insertUid']);
 
     saved = json['saved'];
   }
@@ -53,6 +64,7 @@ class Location {
     }
     data['locationCategory'] = locationCategory;
     data['desc'] = desc;
+    data['indication'] = indication;
     if (cdate != null) {
       data['cdate'] = cdate;
     }

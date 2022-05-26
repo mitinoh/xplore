@@ -125,7 +125,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
               decoration: BoxDecoration(
                   color: const Color(0xffF3F7FA).withOpacity(0.8),
                   borderRadius: BorderRadius.circular(20)),
-              child: Text("@xplore",
+              child: Text(widget.model[_indexLocation].insertUid?.name ?? '',
                   style: GoogleFonts.poppins(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,

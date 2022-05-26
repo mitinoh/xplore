@@ -70,6 +70,7 @@ class HttpService {
         response = await _dio.get(url /*, queryParameters: params*/);
       }
 
+// TODO: mettere logger su tutti i code
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response;
       } else if (response.statusCode == 401) {
