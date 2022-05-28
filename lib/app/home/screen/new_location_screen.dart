@@ -67,6 +67,11 @@ class _NewLocationState extends State<NewLocation> {
                 ),
                 locationDesc(),
                 const SizedBox(
+                  height: 5,
+                ),
+                filter(),
+                //locationCategories(),
+                const SizedBox(
                   height: 20,
                 ),
                 footer(),
@@ -77,7 +82,6 @@ class _NewLocationState extends State<NewLocation> {
                 const SizedBox(
                   height: 20,
                 ),
-                locationCategories(),
                 addLocationBtn(),
               ],
             ),
@@ -121,27 +125,75 @@ class _NewLocationState extends State<NewLocation> {
   SingleChildScrollView locationCategoriesList(LocationcategoryLoaded state) {
     return SingleChildScrollView(
       physics: const ScrollPhysics(),
-      child: Column(
-        children: [
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: state.locationCategoryModel.length,
-            itemBuilder: (BuildContext context, int index) {
-              // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta
-              return CheckboxListTile(
-                value: _categoryIsSelected(state.locationCategoryModel, index),
-                onChanged: (bln) {
-                  _toggleSelectedCat(state.locationCategoryModel, index);
-                },
-                title:
-                    Text(_getLocationName(state.locationCategoryModel, index)),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              );
-            },
-          )
-        ],
+      child: Container(
+        decoration: BoxDecoration(
+            color: UIColors.grey.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state.locationCategoryModel.length,
+              itemBuilder: (BuildContext context, int index) {
+                // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta
+                return CheckboxListTile(
+                  value:
+                      _categoryIsSelected(state.locationCategoryModel, index),
+                  onChanged: (bln) {
+                    _toggleSelectedCat(state.locationCategoryModel, index);
+                  },
+                  title: Text(
+                      _getLocationName(state.locationCategoryModel, index),
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.black)),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                );
+              },
+            ),
+            const Icon(Iconsax.more),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  InkWell filter() {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        padding:
+            const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: UIColors.grey.withOpacity(0.3),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 15.0, left: 15),
+              child: Icon(
+                Iconsax.hashtag,
+                color: UIColors.blue,
+              ),
+            ),
+            Text(
+              "Applica il filtro",
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+          ],
+        ),
       ),
     );
   }

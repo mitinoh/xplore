@@ -84,6 +84,40 @@ class EditProfile extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 5),
+              Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                    padding: const EdgeInsets.only(
+                        left: 15, right: 15, bottom: 5, top: 5),
+                    decoration: BoxDecoration(
+                        color: UIColors.grey.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: TextField(
+                      textAlign: TextAlign.start,
+                      minLines: 6,
+                      maxLines: 10,
+                      maxLength: 144,
+                      style: const TextStyle(color: Colors.black, fontSize: 14),
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(15.0),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        hintText: "Bio...",
+                        hintStyle: GoogleFonts.poppins(
+                            color: UIColors.grey, fontSize: 14),
+                        border: const OutlineInputBorder(),
+                        prefixIcon: Icon(
+                          Iconsax.brush_4,
+                          color: UIColors.blue,
+                        ),
+                      ),
+                      autofocus: false,
+                    ),
+                  ))
+                ],
+              ),
+              const SizedBox(height: 5),
               Container(
                 padding: const EdgeInsets.only(
                     left: 15, top: 20, right: 20, bottom: 20),
@@ -97,12 +131,12 @@ class EditProfile extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 15.0, left: 15),
                       child: Icon(
-                        Iconsax.box_2,
+                        Iconsax.gallery_add,
                         color: UIColors.blue,
                       ),
                     ),
                     Text(
-                      "Modifica foto profilo",
+                      "Cambia foto profilo",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, fontSize: 14),
                     ),
@@ -120,9 +154,6 @@ class EditProfile extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Iconsax.verify,
-                    ),
                     Text(
                       "Salva modifiche".toUpperCase(),
                       style: GoogleFonts.poppins(fontWeight: FontWeight.bold),

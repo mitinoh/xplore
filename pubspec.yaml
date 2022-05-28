@@ -41,7 +41,6 @@ dependencies:
   location: ^4.3.0
   geocoding: ^2.0.4
   iconsax: ^0.0.8
-  like_button: ^2.0.4
   masonry_grid: ^1.0.0
   drag_and_drop_lists: ^0.3.2+2
   google_fonts: ^2.3.2

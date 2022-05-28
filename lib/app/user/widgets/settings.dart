@@ -183,7 +183,7 @@ class SettingsBottomSheet extends StatelessWidget {
                         radius: 22,
                         backgroundColor: UIColors.platinium,
                         child: Icon(
-                          Iconsax.trash,
+                          Iconsax.profile_delete,
                           color: UIColors.black,
                         ),
                       ),
