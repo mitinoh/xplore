@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:location/location.dart' as lc;
@@ -26,6 +28,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         });
 
         final userLoc = await _mapRepository.getUserLocation();
+        log(userLoc.toString());
         //final userLoc =  lc.LocationData;
 
         emit(MapLoaded(mList, userLoc));

@@ -210,8 +210,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               Expanded(
                 child: LinearProgressIndicator(
                   value: valueProgressIndicator,
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(UIColors.violet),
+                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.violet),
                   backgroundColor: UIColors.violet.withOpacity(0.2),
                   semanticsLabel: 'Linear progress indicator',
                 ),
@@ -399,8 +398,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               Expanded(
                 child: LinearProgressIndicator(
                   value: valueProgressIndicator,
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(UIColors.violet),
+                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.violet),
                   backgroundColor: UIColors.violet.withOpacity(0.2),
                   semanticsLabel: 'Linear progress indicator',
                 ),
@@ -722,6 +720,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
   void getCoordinate(String location) async {
     List<geo.Location> locations = await geo.locationFromAddress(location);
+
     locLatitude = locations[0].latitude;
     locLongitude = locations[0].longitude;
 

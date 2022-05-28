@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as lc;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xplore/app/home/repository/home_repository.dart';
@@ -7,7 +10,6 @@ class MapRepository extends HomeRepository {
   late lc.PermissionStatus _permissionGranted;
   lc.LocationData? _userLocation;
 
-
   Future<void> openMap(double latitude, double longitude) async {
     String googleUrl =
         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
@@ -16,6 +18,13 @@ class MapRepository extends HomeRepository {
     } else {
       throw 'Could not open the map.';
     }
+  }
+
+  _getUserLocation() async {
+    Position userLocation = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    log(userLocation.toString());
+    return userLocation;
   }
 
   Future<lc.LocationData?> getUserLocation() async {

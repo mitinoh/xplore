@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +19,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _searchController = TextEditingController();
+ // final TextEditingController _searchController = TextEditingController();
   late bool _ptGridVisible = false;
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   final SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
@@ -31,11 +33,11 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
   }
 
-  filterLocation() {
-    _searchHomeBloc.add(GetSearchLocationList(
-        searchName: _searchController.text.toString(), add: false));
+  filterLocation(String filter) {
+    _searchHomeBloc.add(GetSearchLocationList(searchName: filter, add: false));
   }
 
+/*
   void applyFilterName() {
     filterLocation();
 
@@ -44,7 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     //HomeRepository.skip = 1;
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -224,7 +226,10 @@ class _SearchScreenState extends State<SearchScreen> {
             },
             child: TextField(
               onSubmitted: (value) {
-                applyFilterName();
+                // applyFilterName();
+              },
+              onChanged: (value) {
+                filterLocation(value);
               },
               /*
               onChanged: (value) {
@@ -233,7 +238,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 //applyFilterName();
 //GetSuggestedNameLocationList
               },*/
-              controller: _searchController,
+              //controller: _searchController,
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
               decoration: InputDecoration(
@@ -252,7 +257,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   color: Colors.white,
                   onPressed: () {
-                    applyFilterName();
+                    //  applyFilterName();
                   },
                 ),
               ),

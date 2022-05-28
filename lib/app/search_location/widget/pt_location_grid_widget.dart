@@ -36,7 +36,7 @@ class PtLocationGrid extends StatelessWidget {
       {
         locCnt.add(InkWell(
           onTap: () {
-            DetailLocationModal(loc: el, mapBloc: _mapBloc).show(context);
+            DetailLocationModal(loc: el).show(context);
           },
           child: Container(
             decoration: BoxDecoration(

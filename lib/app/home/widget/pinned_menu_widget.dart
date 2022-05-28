@@ -1,10 +1,10 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
-import 'package:xplore/app/search_location/screen/search_screen.dart';
 import 'package:xplore/app/home/widget/go_navigation_widget.dart';
+import 'package:xplore/app/search_location/screen/search_screen.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widget/like_btn.dart';
 import 'package:xplore/model/location_model.dart';
 
 class PinnedMenu extends StatefulWidget {
@@ -46,7 +46,11 @@ class _PinnedMenuState extends State<PinnedMenu> {
               const SizedBox(height: 15),
               searchBtn(context),
               const SizedBox(height: 25),
-              saveBtn(),
+              LikeButton(
+                indexLocation: widget.indexLocation,
+                locationBloc: widget.locationBloc,
+                locationList: widget.locationList,
+              ),
               const SizedBox(height: 25),
               navigateBtn(context),
               const SizedBox(height: 15),

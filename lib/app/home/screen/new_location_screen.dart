@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,8 +10,6 @@ import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
-import 'dart:io';
-
 import 'package:xplore/model/location_category_model.dart';
 
 class NewLocation extends StatefulWidget {
@@ -21,6 +22,7 @@ class _NewLocationState extends State<NewLocation> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
   final TextEditingController _indicationController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
 
   final HomeBloc _locationBloc = HomeBloc();
@@ -283,7 +285,7 @@ class _NewLocationState extends State<NewLocation> {
               ),
             ),
             Text(
-              "Aggiugni foto",
+              "Aggiungi foto",
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold, fontSize: 14),
             ),
@@ -338,6 +340,7 @@ class _NewLocationState extends State<NewLocation> {
               color: UIColors.grey.withOpacity(0.3),
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
+            controller: _addressController,
             textAlign: TextAlign.start,
             style: const TextStyle(color: Colors.black, fontSize: 14),
             decoration: InputDecoration(
@@ -420,8 +423,11 @@ class _NewLocationState extends State<NewLocation> {
       "name": _nameController.text,
       "desc": _descController.text,
       "indication": _indicationController.text,
-      "categories": _catSelected
+      "locationCategory": _catSelected,
+      "address": _addressController.text
     };
+
+    log(imageFile.toString());
 
     _locationBloc.add(CreateNewLocation(map: newLocationMap));
   }
@@ -439,9 +445,11 @@ class _NewLocationState extends State<NewLocation> {
   }
 
   _getFromGallery() async {
+    _picker.pickImage(source: ImageSource.gallery);
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
+        log(image.path);
         imageFile = File(image.path);
       });
     }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/map/bloc/map_bloc.dart';
+import 'package:xplore/app/map/repository/map_repository.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/model/location_model.dart';
 
@@ -9,8 +10,7 @@ import 'package:xplore/model/location_model.dart';
 class GoNavigationBottomSheet extends StatelessWidget {
   GoNavigationBottomSheet({Key? key, required this.location}) : super(key: key);
   final Location location;
-
-  final MapBloc _mapBloc = MapBloc();
+                         final MapRepository _mapRepository =  MapRepository();
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -68,9 +68,8 @@ class GoNavigationBottomSheet extends StatelessWidget {
                   children: [
                     InkWell(
                         onTap: () => {
-                              _mapBloc.add(OpeningExternalMap(
-                                  location.coordinate?.lat ?? 0.0,
-                                  location.coordinate?.lng ?? 0.0))
+_mapRepository.openMap(location.coordinate?.lat ?? 0.0,
+                                          location.coordinate?.lng ?? 0.0)
                             },
                         child: Text(
                           "Raggiungi su google maps",
