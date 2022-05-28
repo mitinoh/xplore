@@ -8,6 +8,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
+import 'package:xplore/app/post/widgets/filters_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/location_category_model.dart';
@@ -169,7 +170,15 @@ class _NewLocationState extends State<NewLocation> {
 
   InkWell filter() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) {
+              return const FiltersBottomSheet();
+            });
+      },
       child: Container(
         padding:
             const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),

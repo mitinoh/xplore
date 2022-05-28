@@ -14,7 +14,7 @@ class SettingsBottomSheet extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     return Container(
       height: mediaQuery.size.height * 0.62,
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -35,7 +35,7 @@ class SettingsBottomSheet extends StatelessWidget {
                   Expanded(
                     child: RichText(
                       text: TextSpan(
-                        text: 'Settings',
+                        text: 'Impostazioni',
                         style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,

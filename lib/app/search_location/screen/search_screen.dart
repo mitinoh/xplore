@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +17,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
- // final TextEditingController _searchController = TextEditingController();
+  // final TextEditingController _searchController = TextEditingController();
   late bool _ptGridVisible = false;
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   final SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
