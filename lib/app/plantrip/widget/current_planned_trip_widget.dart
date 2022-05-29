@@ -61,11 +61,11 @@ class CurrentPlannedTripList extends StatelessWidget {
     );
   }
 
-  Future<String> getUserLocation(PlanTrip pt) async {
+  Future<String> getUserLocation(PlanTripModel pt) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(
         pt.coordinate?.lat ?? 0.0, pt.coordinate?.lng ?? 0.0);
     Placemark place = placemarks[0];
-  
+
     return place.locality! +
         ',' +
         place.country! +
@@ -75,7 +75,7 @@ class CurrentPlannedTripList extends StatelessWidget {
         place.street!;
   }
 
-  Container currentTripCard(PlanTrip pTrip) {
+  Container currentTripCard(PlanTripModel pTrip) {
     return Container(
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.only(bottom: 5),
@@ -114,7 +114,7 @@ class CurrentPlannedTripList extends StatelessWidget {
     );
   }
 
-  Container currentTripInfo(PlanTrip pTrip) {
+  Container currentTripInfo(PlanTripModel pTrip) {
     return Container(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -134,7 +134,7 @@ class CurrentPlannedTripList extends StatelessWidget {
     );
   }
 
-  Row continueTrip(PlanTrip pTrip) {
+  Row continueTrip(PlanTripModel pTrip) {
     return Row(
       children: [
         Expanded(

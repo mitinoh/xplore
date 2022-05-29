@@ -1,23 +1,21 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:xplore/model/location_category_model.dart';
 import 'package:xplore/model/user_model.dart';
 
 import 'coordinate_model.dart';
 
-class Location {
+class LocationModel {
   String? iId;
   String? name;
-  Coordinate? coordinate;
-  List<LocationCategory>? locationCategory;
+  CoordinateModel? coordinate;
+  List<LocationCategoryModel>? locationCategory;
   String? desc;
   String? indication;
   DateTime? cdate;
   bool? saved;
   UserModel? insertUid;
 
-  Location(
+  LocationModel(
       {this.iId,
       this.name,
       this.coordinate,
@@ -28,18 +26,18 @@ class Location {
       this.saved,
       this.insertUid});
 
-  Location.fromJson(Map<String, dynamic> json) {
+  LocationModel.fromJson(Map<String, dynamic> json) {
     iId = json['_id'] ?? '';
     name = json['name'] ?? '';
     coordinate = json['coordinate'] != null
-        ? Coordinate.fromJson(json['coordinate'])
+        ? CoordinateModel.fromJson(json['coordinate'])
         : null;
 
     if (json['locationCategory'] != null) {
-      locationCategory = <LocationCategory>[];
+      locationCategory = <LocationCategoryModel>[];
       json['locationCategory'].forEach((v) {
         if (v is Map<String, dynamic>)
-          locationCategory!.add(LocationCategory.fromJson(v));
+          locationCategory!.add(LocationCategoryModel.fromJson(v));
       });
     }
     desc = json['desc'];
@@ -72,18 +70,18 @@ class Location {
     return data;
   }
 
-  List<Location> toList(Response response) {
-    List<Location> _location = [];
+  List<LocationModel> toList(Response response) {
+    List<LocationModel> _location = [];
     response.data.forEach((v) {
-      _location.add(Location.fromJson(v));
+      _location.add(LocationModel.fromJson(v));
     });
     return _location;
   }
 
-  List<Location> toSavedLocationList(Response response) {
-    List<Location> _location = [];
+  List<LocationModel> toSavedLocationList(Response response) {
+    List<LocationModel> _location = [];
     response.data.forEach((v) {
-      _location.add(Location.fromJson(v["location"]));
+      _location.add(LocationModel.fromJson(v["location"]));
     });
     return _location;
   }

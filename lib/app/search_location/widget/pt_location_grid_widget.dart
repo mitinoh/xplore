@@ -18,7 +18,7 @@ class PtLocationGrid extends StatelessWidget {
     required this.locationList,
   }) : super(key: key);
 
-  final List<Location> locationList;
+  final List<LocationModel> locationList;
 
   Config conf = Config();
 

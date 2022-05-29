@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/app/user/repository/user_repository.dart';
@@ -21,8 +23,10 @@ class SavedLocationBloc extends Bloc<SavedLocationEvent, SavedLocationState> {
         Mongoose mng =
             Mongoose(filter: {}, select: ["-uid", "-cdate", "-_id"], sort: {});
         final mList = await _userRepository.getSavedLocationList(mng);
+        log(mList.toString());
         emit(SavedLocationLoaded(mList));
       } catch (e) {
+        log(e.toString());
         emit(const LocationError(
             "Failed to fetch data. is your device online?"));
       }

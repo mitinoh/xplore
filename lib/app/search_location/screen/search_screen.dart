@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +24,8 @@ class _SearchScreenState extends State<SearchScreen> {
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   final SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
 
+  String searchText = "";
+  late FocusNode filerFocusNode;
   @override
   void initState() {
     if (!_searchHomeBloc.isClosed) {
@@ -29,6 +33,15 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
+
+    filerFocusNode = FocusNode();
+    filerFocusNode.addListener(() {
+      if (!filerFocusNode.hasFocus) {
+        setState(() {
+          filterLocation(searchText);
+        });
+      }
+    });
   }
 
   filterLocation(String filter) {
@@ -223,11 +236,13 @@ class _SearchScreenState extends State<SearchScreen> {
               });
             },
             child: TextField(
+              focusNode: filerFocusNode,
               onSubmitted: (value) {
-                // applyFilterName();
-              },
-              onChanged: (value) {
                 filterLocation(value);
+              },
+              onChanged: (String value) {
+                searchText = value;
+                // filterLocation(value);
               },
               /*
               onChanged: (value) {

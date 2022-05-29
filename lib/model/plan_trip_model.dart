@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:xplore/model/coordinate_model.dart';
 import 'package:xplore/model/location_model.dart';
 
-class PlanTrip {
+class PlanTripModel {
   String? iId;
   String? fid;
   List<Trip>? trip;
   DateTime? returnDate;
-  Coordinate? coordinate;
+  CoordinateModel? coordinate;
   int? distance;
   int? periodAvaiable;
   int? totDay;
@@ -17,7 +17,7 @@ class PlanTrip {
   DateTime? cdate;
   String? tripName;
 
-  PlanTrip(
+  PlanTripModel(
       {this.iId,
       this.fid,
       this.trip,
@@ -32,7 +32,7 @@ class PlanTrip {
       this.cdate,
       this.tripName});
 
-  PlanTrip.fromJson(Map<String, dynamic> json) {
+  PlanTripModel.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];
     fid = json['fid'];
     tripName = json['tripName'];
@@ -50,7 +50,7 @@ class PlanTrip {
         ? DateTime.parse(json['goneDate'])
         : DateTime.now();
     coordinate = json['coordinate'] != null
-        ? Coordinate.fromJson(json['coordinate'])
+        ? CoordinateModel.fromJson(json['coordinate'])
         : null;
     distance = json['distance'].toInt();
     periodAvaiable = json['periodAvaiable'];
@@ -134,10 +134,10 @@ class PlanTrip {
     return data;
   }
 
-  List<PlanTrip> toList(Response response) {
-    List<PlanTrip> _location = [];
+  List<PlanTripModel> toList(Response response) {
+    List<PlanTripModel> _location = [];
     response.data.forEach((v) {
-      _location.add(PlanTrip.fromJson(v));
+      _location.add(PlanTripModel.fromJson(v));
     });
     return _location;
   }
@@ -162,15 +162,16 @@ class Date {
 class Trip {
   Date? date;
   String? locationId;
-  Location? location;
+  LocationModel? location;
 
   Trip({this.date, this.locationId, this.location});
 
   Trip.fromJson(Map<String, dynamic> json) {
     date = json['date'] != null ? Date.fromJson(json['date']) : null;
     locationId = json['locationId'];
-    location =
-        json['location'] != null ? Location.fromJson(json['location']) : null;
+    location = json['location'] != null
+        ? LocationModel.fromJson(json['location'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

@@ -1,11 +1,10 @@
-
-class MovePlanTrip {
+class MovePlanTripModel {
   String? locationId;
   DateTime? date;
 
-  MovePlanTrip({this.locationId, this.date});
+  MovePlanTripModel({this.locationId, this.date});
 
-  MovePlanTrip.fromJson(Map<String, dynamic> json) {
+  MovePlanTripModel.fromJson(Map<String, dynamic> json) {
     locationId = json['locationId'];
     date = json['date'];
   }

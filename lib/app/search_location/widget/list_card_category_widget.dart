@@ -14,7 +14,7 @@ class BuildListCardCategory extends StatefulWidget {
       : super(key: key);
 
   final BuildContext context;
-  final List<LocationCategory> model;
+  final List<LocationCategoryModel> model;
   final SearchHomeBloc homeBloc;
 
   @override

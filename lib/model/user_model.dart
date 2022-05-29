@@ -3,7 +3,7 @@ import 'package:xplore/model/location_category_model.dart';
 class UserModel {
   String? sId;
   String? name;
-  List<LocationCategory>? locationCategory;
+  List<LocationCategoryModel>? locationCategory;
 
   UserModel({this.sId, this.name, this.locationCategory});
 
@@ -11,9 +11,9 @@ class UserModel {
     sId = json['_id'];
     name = json['name'];
     if (json['locationcategory'] != null) {
-      locationCategory = <LocationCategory>[];
+      locationCategory = <LocationCategoryModel>[];
       json['locationcategory'].forEach((v) {
-        locationCategory!.add(new LocationCategory.fromJson(v));
+        locationCategory!.add(new LocationCategoryModel.fromJson(v));
       });
     }
   }

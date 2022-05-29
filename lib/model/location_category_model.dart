@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 
-class LocationCategory {
+class LocationCategoryModel {
   String? iId;
   String? name;
   //int? value;
 
-  LocationCategory({this.iId, this.name});
+  LocationCategoryModel({this.iId, this.name});
 
-  LocationCategory.fromJson(Map<String, dynamic> json) {
+  LocationCategoryModel.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];
     name = json['name'];
    // value = json['value'];
@@ -23,10 +23,10 @@ class LocationCategory {
     return data;
   }
 
-  List<LocationCategory> toList(Response response) {
-    List<LocationCategory> _location = [];
+  List<LocationCategoryModel> toList(Response response) {
+    List<LocationCategoryModel> _location = [];
     response.data.forEach((v) {
-      _location.add(LocationCategory.fromJson(v));
+      _location.add(LocationCategoryModel.fromJson(v));
     });
     return _location;
   }

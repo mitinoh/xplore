@@ -9,11 +9,11 @@ class PlanTripRepository {
   Config conf = Config();
   HttpService httpService = HttpService();
 
-  Future<List<Location>> getLocationList(
+  Future<List<LocationModel>> getLocationList(
       {/*required String body, */ required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
-    return Location().toList(response);
+    return LocationModel().toList(response);
   }
 
   Future<void> newPlanTripPut({required Map<String, dynamic> body}) async {
@@ -21,22 +21,24 @@ class PlanTripRepository {
       String url = conf.planTripColl;
       // FIXME: encode sbaglaito
       Response response = await httpService.request(
-          method: Method.POST, url: url, params: PlanTrip().toJsonPost(body));
+          method: Method.POST,
+          url: url,
+          params: PlanTripModel().toJsonPost(body));
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<List<PlanTrip>> getPlannedTripList() async {
+  Future<List<PlanTripModel>> getPlannedTripList() async {
     String url = conf.planTripColl + '?future=true';
     Response response = await httpService.request(method: Method.GET, url: url);
-    return PlanTrip().toList(response);
+    return PlanTripModel().toList(response);
   }
 
-  Future<List<PlanTrip>> getCurrentPlannedTripList() async {
+  Future<List<PlanTripModel>> getCurrentPlannedTripList() async {
     String url = conf.planTripColl + '?current=true';
     Response response = await httpService.request(method: Method.GET, url: url);
-    return PlanTrip().toList(response);
+    return PlanTripModel().toList(response);
   }
 }
 

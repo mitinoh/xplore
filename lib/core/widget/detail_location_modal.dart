@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
-import 'package:xplore/app/map/bloc/map_bloc.dart';
 import 'package:xplore/app/map/repository/map_repository.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
@@ -12,10 +11,9 @@ import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class DetailLocationModal extends StatelessWidget {
-  DetailLocationModal({Key? key, required this.loc})
-      : super(key: key);
-  final Location loc;
-                            MapRepository _mapRepository =  MapRepository();
+  DetailLocationModal({Key? key, required this.loc}) : super(key: key);
+  final LocationModel loc;
+  MapRepository _mapRepository = MapRepository();
 
   final HomeBloc _locationBloc = HomeBloc();
   Config conf = Config();
@@ -87,8 +85,8 @@ class DetailLocationModal extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: InkWell(
                                 onTap: () => {
-
-                                  _mapRepository.openMap(loc.coordinate?.lat ?? 0.0,
+                                      _mapRepository.openMap(
+                                          loc.coordinate?.lat ?? 0.0,
                                           loc.coordinate?.lng ?? 0.0)
                                     },
                                 child: const Icon(Iconsax.discover_1)),
@@ -98,7 +96,6 @@ class DetailLocationModal extends StatelessWidget {
                             locationBloc: _locationBloc,
                             locationList: [loc],
                           ),
-                          
                         ],
                       )
                     ],
@@ -176,8 +173,8 @@ class DetailLocationModal extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () => {
-                         _mapRepository.openMap(loc.coordinate?.lat ?? 0.0,
-                                          loc.coordinate?.lng ?? 0.0)
+                          _mapRepository.openMap(loc.coordinate?.lat ?? 0.0,
+                              loc.coordinate?.lng ?? 0.0)
                         },
                         child: Text(
                           "raggiungi con google maps",

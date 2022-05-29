@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/http_service.dart';
@@ -14,10 +14,10 @@ class HomeRepository {
   static var limit = 15;
   static List<String> categoryFilter = [];
 
-  Future<List<Location>> getLocationList({required Mongoose mng}) async {
+  Future<List<LocationModel>> getLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
-    return Location().toList(response);
+    return LocationModel().toList(response);
   }
 
   Future<void> newLocationPost({required Map<String, dynamic> map}) async {

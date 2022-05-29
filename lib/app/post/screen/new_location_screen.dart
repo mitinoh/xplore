@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,8 +9,6 @@ import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/post/widgets/filters_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/widget_core.dart';
-import 'package:xplore/model/location_category_model.dart';
 
 class NewLocation extends StatefulWidget {
   const NewLocation({Key? key}) : super(key: key);
@@ -27,13 +24,14 @@ class _NewLocationState extends State<NewLocation> {
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
 
   final HomeBloc _locationBloc = HomeBloc();
-  final List<String> _catSelected = [];
 
   late File imageFile;
 
   final ImagePicker _picker = ImagePicker();
+  late CategoriesBottomSheet categoriesBottomSheet;
   @override
   void initState() {
+    categoriesBottomSheet = CategoriesBottomSheet(locCatBloc: _locCatBloc);
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
   }
@@ -70,7 +68,7 @@ class _NewLocationState extends State<NewLocation> {
                 const SizedBox(
                   height: 5,
                 ),
-                filter(),
+                locationCategories(),
                 //locationCategories(),
                 const SizedBox(
                   height: 20,
@@ -92,83 +90,7 @@ class _NewLocationState extends State<NewLocation> {
     );
   }
 
-  BlocProvider<LocationcategoryBloc> locationCategories() {
-    return BlocProvider(
-      create: (_) => _locCatBloc,
-      child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
-        listener: (context, state) {
-          if (state is LocationError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("error"),
-              ),
-            );
-          }
-        },
-        child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
-          builder: (context, state) {
-            if (state is LocationcategoryInitial ||
-                state is LocationCategoryLoading) {
-              return const LoadingIndicator();
-            } else if (state is LocationcategoryLoaded) {
-              return locationCategoriesList(state);
-            } else if (state is LocationcategoryError) {
-              return Container();
-            } else {
-              return Container();
-            }
-          },
-        ),
-      ),
-    );
-  }
-
-  SingleChildScrollView locationCategoriesList(LocationcategoryLoaded state) {
-    return SingleChildScrollView(
-      physics: const ScrollPhysics(),
-      child: Container(
-        decoration: BoxDecoration(
-            color: UIColors.grey.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: state.locationCategoryModel.length,
-              itemBuilder: (BuildContext context, int index) {
-                // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta
-                return CheckboxListTile(
-                  value:
-                      _categoryIsSelected(state.locationCategoryModel, index),
-                  onChanged: (bln) {
-                    _toggleSelectedCat(state.locationCategoryModel, index);
-                  },
-                  title: Text(
-                      _getLocationName(state.locationCategoryModel, index),
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: Colors.black)),
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                );
-              },
-            ),
-            const Icon(Iconsax.more),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  InkWell filter() {
+  InkWell locationCategories() {
     return InkWell(
       onTap: () {
         showModalBottomSheet(
@@ -176,7 +98,7 @@ class _NewLocationState extends State<NewLocation> {
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             builder: (context) {
-              return const FiltersBottomSheet();
+              return categoriesBottomSheet;
             });
       },
       child: Container(
@@ -197,7 +119,7 @@ class _NewLocationState extends State<NewLocation> {
               ),
             ),
             Text(
-              "Applica il filtro",
+              "Aggiungi categoria",
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold, fontSize: 14),
             ),
@@ -469,40 +391,18 @@ class _NewLocationState extends State<NewLocation> {
     );
   }
 
-  bool _categoryIsSelected(
-      List<LocationCategory> locationCategoryModel, int index) {
-    return _catSelected.contains(locationCategoryModel[index].iId);
-  }
-
-  String _getLocationName(
-      List<LocationCategory> locationCategoryModel, int index) {
-    return locationCategoryModel[index].name ?? '';
-  }
-
   void _createNewLocation() {
     Map<String, dynamic> newLocationMap = {
       "name": _nameController.text,
       "desc": _descController.text,
       "indication": _indicationController.text,
-      "locationCategory": _catSelected,
+      "locationCategory": categoriesBottomSheet.catSelected,
       "address": _addressController.text
     };
 
-    log(imageFile.toString());
+    log(newLocationMap.toString());
 
     _locationBloc.add(CreateNewLocation(map: newLocationMap));
-  }
-
-  void _toggleSelectedCat(
-      List<LocationCategory> locationCategoryModel, int index) {
-    setState(() {
-      String value = locationCategoryModel[index].iId ?? '';
-      if (_catSelected.contains(value)) {
-        _catSelected.remove(value);
-      } else {
-        _catSelected.add(value);
-      }
-    });
   }
 
   _getFromGallery() async {

@@ -19,7 +19,7 @@ class SelectTripLocation extends StatefulWidget {
       : super(key: key);
   Mongoose mng = Mongoose();
   Map<String, dynamic> planQuery = {};
-  List<Location> planTripModel = [];
+  List<LocationModel> planTripModel = [];
   DateTime goneDate = DateTime.now();
   DateTime returnDate = DateTime.now();
   PlantripBloc planTripBloc = PlantripBloc();
@@ -32,12 +32,12 @@ class SelectTripLocation extends StatefulWidget {
 
 class _SelectTripLocationState extends State<SelectTripLocation> {
   List<DragAndDropList> _contents = [];
-  final List<List<MovePlanTrip>> _plan = [];
+  final List<List<MovePlanTripModel>> _plan = [];
 
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     setState(() {
-      MovePlanTrip movedPlan = _plan[oldListIndex][oldItemIndex];
+      MovePlanTripModel movedPlan = _plan[oldListIndex][oldItemIndex];
       movedPlan.date = movedPlan.date?.add(Duration(days: newListIndex));
       /*
       DateTime.fromMillisecondsSinceEpoch(movedPlan.date ?? 0 * 1000)
@@ -65,10 +65,11 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     tripDay = tripDay > 0 ? tripDay : 1;
 
     List<DragAndDropItem> _dragLocation = [];
-    List<MovePlanTrip> _locations = [];
+    List<MovePlanTripModel> _locations = [];
 
-    for (Location loc in widget.planTripModel) {
-      _locations.add(MovePlanTrip(locationId: loc.iId, date: widget.goneDate));
+    for (LocationModel loc in widget.planTripModel) {
+      _locations
+          .add(MovePlanTripModel(locationId: loc.iId, date: widget.goneDate));
       _dragLocation.add(DragAndDropItem(
         child: Text(loc.iId ?? ''),
       ));
@@ -112,7 +113,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   saveTripPlan() {
     List planList = [];
     for (List fl in _plan) {
-      for (MovePlanTrip el in fl) {
+      for (MovePlanTripModel el in fl) {
         // salvo solamente i gg in cui c'è un attivita
 
         planList.add(el.toJson());

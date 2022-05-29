@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/app/home/repository/home_repository.dart';
@@ -23,6 +25,7 @@ class SearchHomeBloc extends Bloc<SearchLocationEvent, SearchLocationState> {
 
         emit(SearchLocationLoaded(mList, event.add));
       } catch (e) {
+                log(e.toString());
         emit(const SearchLocationError(
             "Failed to fetch data. is your device online?"));
       }

@@ -12,7 +12,7 @@ class LocationcategoryInitial extends LocationcategoryState {}
 class LocationCategoryLoading extends LocationcategoryState {}
 
 class LocationcategoryLoaded extends LocationcategoryState {
-  final List<LocationCategory> locationCategoryModel;
+  final List<LocationCategoryModel> locationCategoryModel;
   const LocationcategoryLoaded(this.locationCategoryModel);
 }
 

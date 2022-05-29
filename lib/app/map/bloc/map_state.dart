@@ -11,7 +11,7 @@ class MapInitial extends MapState {}
 
 class MapLoaded extends MapState {
   final lc.LocationData? loc;
-  final List<Location> mapModel;
+  final List<LocationModel> mapModel;
   const MapLoaded(this.mapModel, this.loc);
 }
 

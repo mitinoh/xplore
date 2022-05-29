@@ -17,7 +17,7 @@ class BuildMainCard extends StatefulWidget {
       required this.locationBloc})
       : super(key: key);
   final PageController pageController;
-  final List<Location> model;
+  final List<LocationModel> model;
   final HomeBloc locationBloc;
 
   @override
@@ -27,7 +27,7 @@ class BuildMainCard extends StatefulWidget {
 class _BuildMainCardState extends State<BuildMainCard> {
   Config conf = Config();
   List<Widget> cards = [];
-  List<Location> locations = [];
+  List<LocationModel> locations = [];
   double _height = 85;
   bool _showPinnedMenu = true;
   int _lastIndexLocation = 0;
@@ -160,7 +160,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
 
   getCards() {
     locations.addAll(widget.model);
-    for (Location el in widget.model) {
+    for (LocationModel el in widget.model) {
       cards.add(
         CachedNetworkImage(
           imageUrl: conf.getLocationImageUrl(el.iId ?? ''),

@@ -7,11 +7,11 @@ class LocationCategoryRepository {
   Config conf = Config();
   HttpService httpService = HttpService();
 
-  Future<List<LocationCategory>> getLocationCategoryList(
+  Future<List<LocationCategoryModel>> getLocationCategoryList(
       {String body = "{}"}) async {
     String url = conf.locationCategoryColl;
     Response response = await httpService.request(method: Method.GET, url: url);
-    return LocationCategory().toList(response);
+    return LocationCategoryModel().toList(response);
   }
 }
 

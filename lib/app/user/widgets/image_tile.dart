@@ -8,7 +8,7 @@ import 'package:xplore/model/location_model.dart';
 
 class ImageTile extends StatelessWidget {
   ImageTile({Key? key, required this.location}) : super(key: key);
-  Location location;
+  LocationModel location;
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);

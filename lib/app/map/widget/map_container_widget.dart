@@ -45,9 +45,10 @@ class MapContainer extends StatelessWidget {
     );
   }
 
-  List<Marker> getMapMarker(List<Location> mapModel, BuildContext context) {
+  List<Marker> getMapMarker(
+      List<LocationModel> mapModel, BuildContext context) {
     List<Marker> _markers = [];
-    for (Location loc in mapModel) {
+    for (LocationModel loc in mapModel) {
       _markers.add(Marker(
         width: 55.0,
         height: 55.0,
@@ -62,7 +63,7 @@ class MapContainer extends StatelessWidget {
     return _markers;
   }
 
-  void locationDetailModal(BuildContext context, Location loc) {
+  void locationDetailModal(BuildContext context, LocationModel loc) {
     DetailLocationModal(loc: loc).show(context);
   }
 }

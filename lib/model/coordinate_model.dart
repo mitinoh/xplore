@@ -1,12 +1,12 @@
 
-class Coordinate {
+class CoordinateModel {
   double? lat;
   double? lng;
   double? alt;
 
-  Coordinate({this.lat, this.lng, this.alt});
+  CoordinateModel({this.lat, this.lng, this.alt});
 
-  Coordinate.fromJson(Map<String, dynamic> json) {
+  CoordinateModel.fromJson(Map<String, dynamic> json) {
     lat = json['lat'] != null ? json['lat'].toDouble() : 0.0;
     lng = json['lng'] != null ? json['lng'].toDouble() : 0.0;
     alt = json['alt'] != null ? json['alt'].toDouble() : 0.0;
@@ -24,7 +24,7 @@ class Coordinate {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Coordinate &&
+    return other is CoordinateModel &&
         other.lat == lat &&
         other.lng == lng &&
         other.alt == alt;

@@ -1,6 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -62,8 +61,6 @@ class HttpService {
     try {
       await setDio(_dio);
       if (method == Method.POST) {
-        log(url);
-        log(params);
         response = await _dio.post(url, data: params);
       } else if (method == Method.DELETE) {
         response = await _dio.delete(url);

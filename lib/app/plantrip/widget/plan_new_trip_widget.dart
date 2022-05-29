@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
@@ -11,7 +13,6 @@ import 'package:xplore/app/plantrip/widget/select_trip_location_widget.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
-import 'package:geocoding/geocoding.dart' as geo;
 import 'package:xplore/model/mongoose_model.dart';
 
 class NetTripQuestion extends StatefulWidget {

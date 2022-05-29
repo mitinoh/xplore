@@ -13,7 +13,7 @@ class LikeButton extends StatefulWidget {
       required this.indexLocation,
       required this.locationBloc})
       : super(key: key);
-  final List<Location> locationList;
+  final List<LocationModel> locationList;
   final int indexLocation;
   final HomeBloc locationBloc;
 
