@@ -153,27 +153,31 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                     borderRadius: BorderRadius.circular(20),
                     color: UIColors.grey.withOpacity(0.3),
                   ),
-                  child: CheckboxListTile(
-                    value:
-                        _categoryIsSelected(state.locationCategoryModel, index),
-                    onChanged: (bln) {
-                      _toggleSelectedCat(state.locationCategoryModel, index);
-                    },
-                    title: Text(
-                        _getLocationName(state.locationCategoryModel, index),
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.black)),
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  child: Theme(
+                    data: ThemeData(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        unselectedWidgetColor: Colors.black),
+                    child: CheckboxListTile(
+                      checkColor: UIColors.lightGreen,
+                      activeColor: UIColors.lightGreen,
+                      value: _categoryIsSelected(
+                          state.locationCategoryModel, index),
+                      onChanged: (bln) {
+                        _toggleSelectedCat(state.locationCategoryModel, index);
+                      },
+                      title: Text(
+                          _getLocationName(state.locationCategoryModel, index),
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.black)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 0),
+                    ),
                   ),
                 );
               },
-            ),
-            const Icon(Iconsax.more),
-            const SizedBox(
-              height: 10,
             ),
           ],
         ),

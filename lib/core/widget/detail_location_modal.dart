@@ -50,11 +50,29 @@ class DetailLocationModal extends StatelessWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            radius: 25,
-                            backgroundColor: UIColors.blue,
-                            backgroundImage: NetworkImage(
-                                conf.getLocationImageUrl(loc.iId ?? '')),
-                          ),
+                              radius: 25,
+                              backgroundColor: UIColors.bluelight,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(25),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      conf.getLocationImageUrl(loc.iId ?? ''),
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) =>
+                                      const LoadingIndicator(),
+                                  errorWidget: (context, url, error) => Center(
+                                    child: Icon(Iconsax.gallery_slash,
+                                        size: 30, color: UIColors.lightRed),
+                                  ),
+                                ),
+                              )),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: RichText(

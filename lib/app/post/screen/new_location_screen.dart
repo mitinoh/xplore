@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -8,7 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/post/widgets/filters_bottom_sheet.dart';
+import 'package:xplore/app/post/widgets/image_imported.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widget/widget_core.dart';
 
 class NewLocation extends StatefulWidget {
   const NewLocation({Key? key}) : super(key: key);
@@ -61,6 +64,10 @@ class _NewLocationState extends State<NewLocation> {
                   height: 5,
                 ),
                 locationImage(),
+                const SizedBox(
+                  height: 5,
+                ),
+                ImageImported(),
                 const SizedBox(
                   height: 5,
                 ),

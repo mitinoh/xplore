@@ -14,8 +14,8 @@ class GoNavigationBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.22,
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+      height: mediaQuery.size.height * 0.32,
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -36,31 +36,51 @@ class GoNavigationBottomSheet extends StatelessWidget {
                   Expanded(
                     child: RichText(
                       text: TextSpan(
-                        text: 'Vuoi raggiungere il luogo ',
+                        text: 'Raggiungi luogo',
                         style: GoogleFonts.poppins(
                             fontSize: 16,
-                            fontWeight: FontWeight.w300,
+                            fontWeight: FontWeight.w700,
                             color: Colors.black),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: 'desiderato',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  color: UIColors.blue)),
-                          const TextSpan(text: '?'),
-                        ],
                       ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                        "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                        overflow: TextOverflow.visible,
+                        style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.grey)),
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                        "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                        overflow: TextOverflow.visible,
+                        style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.grey)),
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.all(20),
+                margin: EdgeInsets.only(left: 20, right: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: UIColors.lightGreen,
+                  color: UIColors.blue,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -72,11 +92,10 @@ class GoNavigationBottomSheet extends StatelessWidget {
                                   location.coordinate?.lng ?? 0.0)
                             },
                         child: Text(
-                          "Raggiungi su google maps",
-                          style:
-                              GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                          "Raggiungi con google maps",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold, color: Colors.white),
                         )),
-                    const Icon(Iconsax.routing)
                   ],
                 ),
               )
