@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
+import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 
 class CategoryPreference extends StatefulWidget {
@@ -22,6 +24,7 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return SafeArea(
       child: BlocProvider(
         create: (_) => _locCatBloc,
@@ -46,33 +49,59 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
                   physics: const ScrollPhysics(),
                   child: Column(
                     children: [
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: state.locationCategoryModel.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return CheckboxListTile(
-                            value: CategoryPreference.catSelected.contains(
-                                state.locationCategoryModel[index].iId),
-                            onChanged: (bln) {
-                              setState(() {
-                                String value =
-                                    state.locationCategoryModel[index].iId ??
-                                        '';
-                                if (CategoryPreference.catSelected
-                                    .contains(value)) {
-                                  CategoryPreference.catSelected.remove(value);
-                                } else {
-                                  CategoryPreference.catSelected.add(value);
-                                }
-                              });
-                            },
-                            title: Text(
-                                state.locationCategoryModel[index].name ?? ''),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                          );
-                        },
+                      SizedBox(
+                        height: mediaQuery.size.height * 0.4,
+                        child: ListView.builder(
+                          itemCount: state.locationCategoryModel.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 5),
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: UIColors.grey.withOpacity(0.3),
+                              ),
+                              child: Theme(
+                                data: ThemeData(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    unselectedWidgetColor: Colors.black),
+                                child: CheckboxListTile(
+                                  checkColor: UIColors.lightGreen,
+                                  activeColor: UIColors.lightGreen,
+                                  value: CategoryPreference.catSelected
+                                      .contains(state
+                                          .locationCategoryModel[index].iId),
+                                  onChanged: (bln) {
+                                    setState(() {
+                                      String value = state
+                                              .locationCategoryModel[index]
+                                              .iId ??
+                                          '';
+                                      if (CategoryPreference.catSelected
+                                          .contains(value)) {
+                                        CategoryPreference.catSelected
+                                            .remove(value);
+                                      } else {
+                                        CategoryPreference.catSelected
+                                            .add(value);
+                                      }
+                                    });
+                                  },
+                                  title: Text(
+                                      state.locationCategoryModel[index].name ??
+                                          '',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: Colors.black)),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 0),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                       /*TextButton(
                             onPressed: () {

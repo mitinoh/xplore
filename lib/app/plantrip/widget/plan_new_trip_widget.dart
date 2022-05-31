@@ -5,10 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart' as geo;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
+import 'package:xplore/app/plantrip/widget/close_button.dart';
 import 'package:xplore/app/plantrip/widget/select_trip_location_widget.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/UIColors.dart';
@@ -31,7 +33,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   DateTime returnDate = DateUtils.dateOnly(DateTime.now());
 
   int questNum = 0;
-  double valueProgressIndicator = 0.25;
+  double valueProgressIndicator = 0.166;
   double _currentSliderValue = 20;
   Map<String, dynamic> planQuery = {};
   Mongoose mng = Mongoose(filter: {}, select: [], sort: {});
@@ -47,7 +49,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   void incrementQuest() {
     setState(() {
       questNum++;
-      valueProgressIndicator += 0.25;
+      valueProgressIndicator += 0.166;
     });
   }
 
@@ -80,19 +82,128 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   Widget tripNameQuest() {
     final TextEditingController _nameController = TextEditingController();
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        TextFormField(
-          controller: _nameController,
-          cursorColor: Colors.black,
-          style: const TextStyle(color: Colors.black),
-          //  decoration: InputDecoration(border: InputBorder.none),
+        Column(
+          children: [
+            Row(
+              children: const [CloseButtonUI()],
+            ),
+            const SizedBox(height: 50),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: LinearProgressIndicator(
+                    value: valueProgressIndicator,
+                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
+                    backgroundColor: UIColors.blue.withOpacity(0.2),
+                    semanticsLabel: 'Linear progress indicator',
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 40),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Rinomina la tua vacanza ',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Mite',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: UIColors.blue)),
+                        const TextSpan(text: '?'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      overflow: TextOverflow.visible,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey)),
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                    child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 15, right: 15, bottom: 5, top: 5),
+                  decoration: BoxDecoration(
+                      color: UIColors.grey.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: TextField(
+                    controller: _nameController,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(color: Colors.black, fontSize: 14),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(15.0),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: "Nome vacanza",
+                      hintStyle: TextStyle(color: UIColors.grey, fontSize: 14),
+                      border: const OutlineInputBorder(),
+                      suffixIconColor: UIColors.blue,
+                      prefixIcon: Icon(
+                        Iconsax.note,
+                        color: UIColors.blue,
+                      ),
+                    ),
+                    autofocus: false,
+                  ),
+                ))
+              ],
+            ),
+          ],
         ),
-        TextButton(
-          onPressed: () {
-            planQuery.putIfAbsent("tripName", () => _nameController.text);
-            incrementQuest();
-          },
-          child: Text(questNum.toString()),
+        Flexible(
+          flex: 1,
+          child: InkWell(
+            onTap: () => {
+              planQuery.putIfAbsent("tripName", () => _nameController.text),
+              incrementQuest()
+            },
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: UIColors.lightGreen,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Continua".toUpperCase(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -104,77 +215,103 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Flexible(
-          flex: 1,
-          child: Row(
-            children: const [Icon(Iconsax.close_square)],
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Dove vorresti andare ',
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Mite',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: UIColors.violet)),
-                      const TextSpan(text: '?'),
-                    ],
+        Column(
+          children: [
+            Row(
+              children: const [CloseButtonUI()],
+            ),
+            const SizedBox(height: 50),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: LinearProgressIndicator(
+                    value: valueProgressIndicator,
+                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
+                    backgroundColor: UIColors.blue.withOpacity(0.2),
+                    semanticsLabel: 'Linear progress indicator',
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Row(
-            children: [
-              Expanded(
-                  child: Container(
-                padding: const EdgeInsets.only(
-                    left: 15, right: 15, bottom: 5, top: 5),
-                decoration: BoxDecoration(
-                    color: UIColors.grey.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextField(
-                  controller: _nameController,
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(color: Colors.black, fontSize: 14),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15.0),
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: "Inserisci destinazione",
-                    hintStyle: TextStyle(color: UIColors.grey, fontSize: 14),
-                    border: const OutlineInputBorder(),
-                    suffixIconColor: UIColors.violet,
-                    prefixIcon: Icon(
-                      Iconsax.driving,
-                      color: UIColors.violet,
+              ],
+            ),
+            const SizedBox(height: 40),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Dove vorresti andare ',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Mite',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: UIColors.blue)),
+                        const TextSpan(text: '?'),
+                      ],
                     ),
                   ),
-                  autofocus: false,
                 ),
-              ))
-            ],
-          ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      overflow: TextOverflow.visible,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey)),
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                    child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 15, right: 15, bottom: 5, top: 5),
+                  decoration: BoxDecoration(
+                      color: UIColors.grey.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: TextField(
+                    controller: _nameController,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(color: Colors.black, fontSize: 14),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(15.0),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: "Inserisci destinazione",
+                      hintStyle: TextStyle(color: UIColors.grey, fontSize: 14),
+                      border: const OutlineInputBorder(),
+                      suffixIconColor: UIColors.blue,
+                      prefixIcon: Icon(
+                        Iconsax.flag,
+                        color: UIColors.blue,
+                      ),
+                    ),
+                    autofocus: false,
+                  ),
+                ))
+              ],
+            ),
+          ],
         ),
         Flexible(
-          flex: 2,
+          flex: 1,
           child: InkWell(
             onTap: () => {
               getCoordinate(_nameController.text.toString()),
@@ -194,31 +331,11 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                     "Continua".toUpperCase(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const Icon(
-                    Iconsax.arrow_right_1,
-                  )
                 ],
               ),
             ),
           ),
         ),
-        Flexible(
-          flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: LinearProgressIndicator(
-                  value: valueProgressIndicator,
-                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.violet),
-                  backgroundColor: UIColors.violet.withOpacity(0.2),
-                  semanticsLabel: 'Linear progress indicator',
-                ),
-              ),
-            ],
-          ),
-        )
       ],
     );
   }
@@ -283,77 +400,127 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Flexible(
-          flex: 1,
-          child: Row(
-            children: const [Icon(Iconsax.close_square)],
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Quando vorresti partire ',
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Mite',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: UIColors.violet)),
-                      const TextSpan(text: '?'),
-                    ],
+        Column(
+          children: [
+            Row(
+              children: const [CloseButtonUI()],
+            ),
+            const SizedBox(height: 50),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: LinearProgressIndicator(
+                    value: valueProgressIndicator,
+                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
+                    backgroundColor: UIColors.blue.withOpacity(0.2),
+                    semanticsLabel: 'Linear progress indicator',
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 40),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Quando vorresti partire ',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Mite',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: UIColors.blue)),
+                        const TextSpan(text: '?'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      overflow: TextOverflow.visible,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey)),
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
+            InkWell(
+              onTap: () => {_pickDateDialog(true)},
+              child: Container(
+                padding: const EdgeInsets.only(
+                    left: 15, top: 20, right: 20, bottom: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: UIColors.grey.withOpacity(0.3),
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0, left: 15),
+                      child: Icon(
+                        Iconsax.calendar_add,
+                        color: UIColors.blue,
+                      ),
+                    ),
+                    Text(
+                      "Data di partenza",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 5),
+            InkWell(
+              onTap: () => {_pickDateDialog(false)},
+              child: Container(
+                padding: const EdgeInsets.only(
+                    left: 15, top: 20, right: 20, bottom: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: UIColors.grey.withOpacity(0.3),
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0, left: 15),
+                      child: Icon(
+                        Iconsax.calendar_add,
+                        color: UIColors.blue,
+                      ),
+                    ),
+                    Text(
+                      "Data di ritorno",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
         Flexible(
           flex: 1,
-          child: InkWell(
-            onTap: () => {_pickDateDialog(true)},
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.grey.withOpacity(0.3),
-              ),
-              child: Text(
-                "Data di partenza".toUpperCase(),
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: InkWell(
-            onTap: () => {_pickDateDialog(false)},
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.grey.withOpacity(0.3),
-              ),
-              child: Text(
-                "Data di ritorno".toUpperCase(),
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-        Flexible(
-          flex: 2,
           child: InkWell(
             onTap: () {
               List<int> dayAvaiable = [];
@@ -382,29 +549,9 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                     "Continua".toUpperCase(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const Icon(
-                    Iconsax.arrow_right_1,
-                  )
                 ],
               ),
             ),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: LinearProgressIndicator(
-                  value: valueProgressIndicator,
-                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.violet),
-                  backgroundColor: UIColors.violet.withOpacity(0.2),
-                  semanticsLabel: 'Linear progress indicator',
-                ),
-              ),
-            ],
           ),
         ),
       ],
@@ -457,44 +604,73 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Flexible(
-          flex: 1,
-          child: Row(
-            children: const [Icon(Iconsax.close_square)],
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Categorie da evitare ',
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Mite',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: UIColors.violet)),
-                      const TextSpan(text: '?'),
-                    ],
+        Column(
+          children: [
+            Row(
+              children: const [CloseButtonUI()],
+            ),
+            const SizedBox(height: 50),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: LinearProgressIndicator(
+                    value: valueProgressIndicator,
+                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
+                    backgroundColor: UIColors.blue.withOpacity(0.2),
+                    semanticsLabel: 'Linear progress indicator',
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+            const SizedBox(height: 40),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Categorie da evitare ',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Mite',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: UIColors.blue)),
+                        const TextSpan(text: '?'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      overflow: TextOverflow.visible,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey)),
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
+            const CategoryPreference()
+          ],
         ),
-        const CategoryPreference(),
         Flexible(
-          flex: 2,
+          flex: 1,
           child: InkWell(
             onTap: () {
               setCategoryToAvoid();
@@ -513,29 +689,9 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                     "Continua".toUpperCase(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const Icon(
-                    Iconsax.arrow_right_1,
-                  )
                 ],
               ),
             ),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: LinearProgressIndicator(
-                  value: valueProgressIndicator,
-                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.violet),
-                  backgroundColor: UIColors.violet.withOpacity(0.2),
-                  semanticsLabel: 'Linear progress indicator',
-                ),
-              ),
-            ],
           ),
         ),
       ],
@@ -565,55 +721,93 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Flexible(
-          flex: 1,
-          child: Row(
-            children: const [Icon(Iconsax.close_square)],
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Quanto lontano ',
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Mite',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: UIColors.violet)),
-                      const TextSpan(text: '?'),
-                    ],
+        Column(
+          children: [
+            Row(
+              children: const [CloseButtonUI()],
+            ),
+            const SizedBox(height: 50),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: LinearProgressIndicator(
+                    value: valueProgressIndicator,
+                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
+                    backgroundColor: UIColors.blue.withOpacity(0.2),
+                    semanticsLabel: 'Linear progress indicator',
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 40),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Quanto lontano ',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Mite',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: UIColors.blue)),
+                        const TextSpan(text: '?'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      overflow: TextOverflow.visible,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey)),
+                )
+              ],
+            ),
+            const SizedBox(height: 60),
+            SliderTheme(
+              data: SliderThemeData(
+                inactiveTickMarkColor: UIColors.platinium,
+                activeTickMarkColor: UIColors.orange,
+                inactiveTrackColor: UIColors.platinium,
+                activeTrackColor: UIColors.orange,
+                thumbColor: UIColors.orange,
               ),
-            ],
-          ),
-        ),
-        Slider(
-          value: _currentSliderValue,
-          min: 0,
-          max: 100,
-          divisions: 5,
-          label: _currentSliderValue.round().toString(),
-          onChanged: (double value) {
-            setState(() {
-              _currentSliderValue = value;
-            });
-          },
+              child: Slider(
+                value: _currentSliderValue,
+                min: 0,
+                max: 100,
+                divisions: 5,
+                label: _currentSliderValue.round().toString(),
+                onChanged: (double value) {
+                  setState(() {
+                    _currentSliderValue = value;
+                  });
+                },
+              ),
+            ),
+          ],
         ),
         Flexible(
-          flex: 2,
+          flex: 1,
           child: InkWell(
             onTap: () {
               setDistanceLocation();
@@ -632,29 +826,9 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                     "Continua".toUpperCase(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const Icon(
-                    Iconsax.arrow_right_1,
-                  )
                 ],
               ),
             ),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: LinearProgressIndicator(
-                  value: valueProgressIndicator,
-                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.violet),
-                  backgroundColor: UIColors.violet.withOpacity(0.2),
-                  semanticsLabel: 'Linear progress indicator',
-                ),
-              ),
-            ],
           ),
         ),
       ],

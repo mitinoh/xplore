@@ -1,7 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,7 +9,6 @@ import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/post/widgets/filters_bottom_sheet.dart';
 import 'package:xplore/app/post/widgets/image_imported.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/widget_core.dart';
 
 class NewLocation extends StatefulWidget {
   const NewLocation({Key? key}) : super(key: key);
@@ -67,7 +64,7 @@ class _NewLocationState extends State<NewLocation> {
                 const SizedBox(
                   height: 5,
                 ),
-                ImageImported(),
+                ImageImported(), //qui bro ci
                 const SizedBox(
                   height: 5,
                 ),
