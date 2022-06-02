@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -33,7 +34,9 @@ class CurrentPlannedTripList extends StatelessWidget {
             } else if (state is PlantripLoadingPlannedTrip) {
               return const LoadingIndicator();
             } else if (state is PlantripLoadedPlannedTrip) {
-              return ListView.builder(
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, mainAxisExtent: 175),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: state.currentPlanTripModel.length,
@@ -75,92 +78,75 @@ class CurrentPlannedTripList extends StatelessWidget {
         place.street!;
   }
 
-  Container currentTripCard(PlanTripModel pTrip) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(bottom: 5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment(0.8, 1),
-            colors: <Color>[
-              Color(0xffcaefd7), //f0ebc0
-              Color(0xfff5bfd7), //9dddf4
-              Color(0xffabc9e9), //e93a28
-            ], // Gradient from https://learnui.design/tools/gradient-generator.html
-          )),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 100,
-          ),
-          CircleAvatar(
+  Column currentTripCard(PlanTripModel pTrip) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircleAvatar(
             radius: 50,
-            backgroundColor: const Color(0xffcaefd7),
-            foregroundColor: UIColors.violet,
-            child: const Icon(
-              Iconsax.play_circle,
-              size: 60,
+            backgroundColor: UIColors.bluelight,
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1528744598421-b7b93e12df15?ixlib=rb-1.2.1&ixid=&auto=format&fit=crop&w=928&q=80',
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                    placeholder: (context, url) => const LoadingIndicator(),
+                    errorWidget: (context, url, error) => Center(
+                      child: Icon(Iconsax.gallery_slash,
+                          size: 30, color: UIColors.lightRed),
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              top: 8, bottom: 8, left: 8, right: 8),
+                          decoration: BoxDecoration(
+                              color: UIColors.white.withOpacity(0.6),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: const Icon(
+                            Iconsax.play,
+                            size: 25,
+                            color: Colors.black,
+                          ),
+                        )))
+              ],
+            )),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              pTrip.tripName ?? '',
+              style: GoogleFonts.poppins(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
             ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          currentTripInfo(pTrip),
-          const SizedBox(height: 50),
-        ],
-      ),
-    );
-  }
-
-  Container currentTripInfo(PlanTripModel pTrip) {
-    return Container(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("la tua vacanza in corso...",
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "in corso...",
               style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w300,
-                  color: Colors.black)),
-          continueTrip(pTrip),
-          const SizedBox(height: 20),
-          progressIndicator()
-        ],
-      ),
-    );
-  }
-
-  Row continueTrip(PlanTripModel pTrip) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(pTrip.tripName ?? '',
-              overflow: TextOverflow.visible,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: UIColors.black)),
-        ),
-      ],
-    );
-  }
-
-  Row progressIndicator() {
-    return Row(
-      children: [
-        Expanded(
-          child: LinearProgressIndicator(
-            value: 0.6,
-            valueColor: AlwaysStoppedAnimation<Color>(UIColors.violet),
-            backgroundColor: UIColors.violet.withOpacity(0.2),
-            semanticsLabel: 'Linear progress indicator',
-          ),
-        ),
+                  color: Colors.grey),
+            ),
+          ],
+        )
       ],
     );
   }

@@ -56,7 +56,7 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
                               margin: const EdgeInsets.only(bottom: 5),
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(2.5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: UIColors.grey.withOpacity(0.3),
@@ -65,7 +65,8 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
                                 data: ThemeData(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
-                                    unselectedWidgetColor: Colors.black),
+                                    unselectedWidgetColor:
+                                        Colors.grey.withOpacity(0.3)),
                                 child: CheckboxListTile(
                                   checkColor: UIColors.lightGreen,
                                   activeColor: UIColors.lightGreen,

@@ -93,6 +93,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                     color: UIColors.blue,
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: CircleAvatar(),
+                ),
                 Text(
                   loc.name ?? '',
                   style: GoogleFonts.poppins(
@@ -107,7 +111,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       return DragAndDropList(
         canDrag: false,
         header: Text(
-          widget.goneDate.add(Duration(days: index)).toString(),
+          "Giorni: " + widget.goneDate.add(Duration(days: index)).toString(),
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         children: index == 0 ? _dragLocation : <DragAndDropItem>[],

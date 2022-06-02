@@ -782,14 +782,24 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 )
               ],
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text("Range " + _currentSliderValue.toString() + " km",
+                    style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black)),
+              ],
+            ),
+            const SizedBox(height: 20),
             SliderTheme(
               data: SliderThemeData(
-                inactiveTickMarkColor: UIColors.platinium,
-                activeTickMarkColor: UIColors.orange,
-                inactiveTrackColor: UIColors.platinium,
-                activeTrackColor: UIColors.orange,
-                thumbColor: UIColors.orange,
+                inactiveTickMarkColor: Colors.grey.withOpacity(0.3),
+                activeTickMarkColor: UIColors.black,
+                inactiveTrackColor: Colors.grey.withOpacity(0.3),
+                activeTrackColor: UIColors.black,
+                thumbColor: UIColors.black,
               ),
               child: Slider(
                 value: _currentSliderValue,
