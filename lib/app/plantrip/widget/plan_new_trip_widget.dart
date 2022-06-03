@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
@@ -29,8 +30,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   final PlantripBloc _planTripBloc = PlantripBloc();
 
-  DateTime goneDate = DateUtils.dateOnly(DateTime.now());
-  DateTime returnDate = DateUtils.dateOnly(DateTime.now());
+  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  DateTime goneDate = DateTime.now().add(Duration(hours: 1));
+  DateTime returnDate =
+      DateTime.now().add(Duration(hours: 1)); //DateUtils.dateOnly(
 
   int questNum = 0;
   double valueProgressIndicator = 0.166;
@@ -43,6 +46,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   @override
   void initState() {
     _locCatBloc.add(GetLocationCategoryList());
+
+    _planTripBloc.add(StartQuest());
     super.initState();
   }
 
@@ -55,28 +60,44 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
   @override
   Widget build(BuildContext context) {
-    switch (questNum) {
-      case 0:
-        return whereToGoQuest();
-      case 1:
-        return periodToGoQuest();
-      case 2:
-        return categoryToAvoidQuest();
-      case 3:
-        return distanceQuest();
-      case 4:
-        return tripNameQuest();
-      case 5:
-        _planTripBloc
-            .add(GetLocation(/*body: planQuery.toString(),*/ mng: mng));
-        return selectLocation();
-      default:
-        return Scaffold(
-          body: SafeArea(
-            child: Container(),
-          ),
-        );
-    }
+    return BlocProvider(
+      create: (_) => _planTripBloc,
+      child: BlocListener<PlantripBloc, PlantripState>(
+        listener: (context, state) {
+          if (state is PlanTripError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message.toString()),
+              ),
+            );
+          }
+        },
+        child: BlocBuilder<PlantripBloc, PlantripState>(
+          builder: (context, state) {
+            switch (questNum) {
+              case 0:
+                return whereToGoQuest();
+              case 1:
+                return periodToGoQuest();
+              case 2:
+                return categoryToAvoidQuest();
+              case 3:
+                return distanceQuest();
+              case 4:
+                return tripNameQuest();
+              case 5:
+                return selectLocation();
+              default:
+                return Scaffold(
+                  body: SafeArea(
+                    child: Container(),
+                  ),
+                );
+            }
+          },
+        ),
+      ),
+    );
   }
 
   Widget tripNameQuest() {
@@ -155,7 +176,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   decoration: BoxDecoration(
                       color: UIColors.grey.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(20)),
-                  child: TextField(
+                  child: TextFormField(
                     controller: _nameController,
                     textAlign: TextAlign.start,
                     style: const TextStyle(color: Colors.black, fontSize: 14),
@@ -183,8 +204,21 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           flex: 1,
           child: InkWell(
             onTap: () => {
-              planQuery.putIfAbsent("tripName", () => _nameController.text),
-              incrementQuest()
+              if (_nameController.text != null &&
+                  _nameController.text.trim() != "")
+                {
+                  planQuery.putIfAbsent("tripName", () => _nameController.text),
+                 
+                _planTripBloc
+                    .add(GetLocation(/*body: planQuery.toString(),*/ mng: mng)),
+                  incrementQuest()
+                }
+              else
+                {
+                  _planTripBloc.add(PlanTripLocationNotFound(
+                      message: 'trip name cannot be empty'))
+                }
+
             },
             child: Container(
               margin: const EdgeInsets.all(20),
@@ -315,7 +349,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           child: InkWell(
             onTap: () => {
               getCoordinate(_nameController.text.toString()),
-              incrementQuest()
             },
             child: Container(
               margin: const EdgeInsets.all(20),
@@ -357,11 +390,18 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
   void _pickDateDialog(bool gone) {
     // quardare https://pub.dev/packages/flutter_cupertino_date_picker#-readme-tab-
+    if (gone) {
+      print(1);
+      print(goneDate.toString());
+    } else {
+      print(2);
+      print(returnDate.toString());
+    }
     if (Platform.isAndroid) {
       showDatePicker(
               context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime.now(),
+              initialDate: goneDate,
+              firstDate: gone ? DateTime.now() : goneDate,
               lastDate: DateTime
                   .now()) //what will be the up to supported date in picker
           .then((pickedDate) {
@@ -383,8 +423,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                     SizedBox(
                       height: 400,
                       child: CupertinoDatePicker(
-                          minimumDate: DateTime.now(),
-                          initialDateTime: DateTime.now(),
+                          initialDateTime: goneDate,
+                          minimumDate: gone ? DateTime.now() : goneDate,
                           onDateTimeChanged: (pickedDate) {
                             setTripDate(gone, pickedDate);
                           }),
@@ -481,7 +521,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                       ),
                     ),
                     Text(
-                      "Data di partenza",
+                      "Data di partenza " + formatter.format(goneDate),
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, fontSize: 14),
                     ),
@@ -509,7 +549,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                       ),
                     ),
                     Text(
-                      "Data di ritorno",
+                      "Data di ritorno " + formatter.format(returnDate),
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, fontSize: 14),
                     ),
@@ -904,18 +944,15 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   }
 
   void getCoordinate(String location) async {
-    List<geo.Location> locations = await geo.locationFromAddress(location);
+    try {
+      List<geo.Location> locations = await geo.locationFromAddress(location);
 
-    locLatitude = locations[0].latitude;
-    locLongitude = locations[0].longitude;
+      locLatitude = locations[0].latitude;
+      locLongitude = locations[0].longitude;
 
-/*
-    mng.filter?.putIfAbsent(
-        "coordinate.lat", () => 'lte:' + locations[0].latitude.toString());
-    mng.filter?.putIfAbsent(
-        "coordinate.lng", () => 'lte:' + locations[0].longitude.toString());
-        */
-    // planQuery["coordinate"]["lat"] = locations[0].latitude;
-    // planQuery["coordinate"]["lng"] = locations[0].longitude;
+      incrementQuest();
+    } catch (e) {
+      _planTripBloc.add(PlanTripLocationNotFound(message: 'mess'));
+    }
   }
 }

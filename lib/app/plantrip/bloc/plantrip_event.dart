@@ -7,6 +7,8 @@ abstract class PlantripEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class StartQuest extends PlantripEvent {}
+
 class GetLocation extends PlantripEvent {
   // String body;
   Mongoose mng;
@@ -20,4 +22,9 @@ class SaveTrip extends PlantripEvent {
 
 class GetPlannedTrip extends PlantripEvent {
   const GetPlannedTrip();
+}
+
+class PlanTripLocationNotFound extends PlantripEvent {
+  String message;
+  PlanTripLocationNotFound({required this.message});
 }

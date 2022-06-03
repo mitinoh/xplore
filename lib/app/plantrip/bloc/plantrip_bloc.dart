@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/app/plantrip/repository/plan_trip_repository.dart';
@@ -30,6 +32,13 @@ class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
       List<PlanTripModel> currentPlannedTrip =
           await _planTripRepository.getCurrentPlannedTripList();
       emit(PlantripLoadedPlannedTrip(plannedTrip, currentPlannedTrip));
+    });
+    on<PlanTripLocationNotFound>((event, emit) async {
+      log(event.message);
+      emit(PlanTripError(event.message));
+    });
+    on<StartQuest>((event, emit) async {
+      emit(PlanTripStartQuest());
     });
   }
 }
