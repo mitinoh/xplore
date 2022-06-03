@@ -69,7 +69,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
                 borderRadius: BorderRadius.circular(20),
                 color: const Color(0xffF3F7FA).withOpacity(0.8)),
             padding:
-                const EdgeInsets.only(left: 20, right: 20, bottom: 19, top: 21),
+                const EdgeInsets.only(left: 20, right: 20, bottom: 19, top: 22),
             margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
             duration: const Duration(seconds: 1),
             curve: Curves.bounceOut,

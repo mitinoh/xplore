@@ -39,10 +39,25 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                 locationImage(),
                 //topMenuPlanner(),
                 //headerPlanner(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 CurrentPlannedTripList(
                   planTripBloc: _planTripBloc,
                 ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                          "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                          overflow: TextOverflow.visible,
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.grey)),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 30),
                 PlannedTripList(
                   planTripBloc: _planTripBloc,
                 ),
@@ -70,7 +85,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
               children: <TextSpan>[
                 TextSpan(
                     text: 'Mite',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         color: UIColors.blue)),

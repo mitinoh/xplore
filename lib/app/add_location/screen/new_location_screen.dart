@@ -118,7 +118,7 @@ class _NewLocationState extends State<NewLocation> {
             Padding(
               padding: const EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
-                Iconsax.hashtag,
+                Iconsax.category,
                 color: UIColors.blue,
               ),
             ),

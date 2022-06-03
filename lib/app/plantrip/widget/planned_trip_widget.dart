@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
+import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/snackbar_message.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/plan_trip_model.dart';
@@ -37,7 +40,35 @@ class PlannedTripList extends StatelessWidget {
                       future: getUserLocation(state.planTripModel[index]),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return Text(snapshot.data ?? '');
+                          return Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: CircleAvatar(
+                                      radius: 22,
+                                      backgroundColor: UIColors.platinium,
+                                      child: Icon(
+                                        Iconsax.hashtag,
+                                        color: UIColors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(snapshot.data ?? '',
+                                        overflow: TextOverflow.visible,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black)),
+                                  ),
+                                ],
+                              ),
+                              const Divider(height: 30),
+                            ],
+                          );
                         }
                         return const LoadingIndicator();
                       });
@@ -59,9 +90,9 @@ class PlannedTripList extends StatelessWidget {
         pt.coordinate?.lat ?? 0.0, pt.coordinate?.lng ?? 0.0);
     Placemark place = placemarks[0];
     return place.locality! +
-        ',' +
+        ', ' +
         place.country! +
-        ',' +
+        ', ' +
         pt.goneDate.toString();
   }
 }
