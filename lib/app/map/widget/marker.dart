@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:xplore/core/UIColors.dart';
 
@@ -6,10 +7,18 @@ class MarkerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: UIColors.blue.withOpacity(0.4),
+    return AvatarGlow(
+      glowColor: UIColors.blue,
+      endRadius: 40.0,
+      duration: const Duration(milliseconds: 2000),
+      repeat: true,
       child: CircleAvatar(
-        backgroundColor: UIColors.blue,
+        radius: 40,
+        backgroundColor: UIColors.blue.withOpacity(0.4),
+        child: CircleAvatar(
+          radius: 10,
+          backgroundColor: UIColors.blue,
+        ),
       ),
     );
   }

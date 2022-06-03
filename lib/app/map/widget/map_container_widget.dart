@@ -50,8 +50,8 @@ class MapContainer extends StatelessWidget {
     List<Marker> _markers = [];
     for (LocationModel loc in mapModel) {
       _markers.add(Marker(
-        width: 55.0,
-        height: 55.0,
+        width: 40.0,
+        height: 40.0,
         point: LatLng(loc.coordinate?.lat ?? 0.0, loc.coordinate?.lng ?? 0.0),
         builder: (ctx) => GestureDetector(
             onTap: () {
