@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/repository/auth_repository.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
@@ -55,6 +57,7 @@ Workmanager().registerOneOffTask(
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
+
   await Firebase.initializeApp();
 
 /*
@@ -81,6 +84,20 @@ class MyApp extends StatelessWidget {
           authRepository: RepositoryProvider.of<AuthRepository>(context),
         ),
         child: MaterialApp(
+
+  localizationsDelegates: AppLocalizations.localizationsDelegates,
+  supportedLocales: AppLocalizations.supportedLocales,
+         /* localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''), // English, no country code
+            Locale('it', ''), // Spanish, no country code
+          ],
+          */
           initialRoute: '/',
           routes: {
             // When navigating to the "/" route, build the FirstScreen widget.
@@ -95,6 +112,8 @@ class MyApp extends StatelessWidget {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
+             
+            // return Text(AppLocalizations.of(context)!.helloWorld);
                 if (snapshot.hasData) {
                   return Navbar();
                 }
