@@ -15,7 +15,7 @@ class UserHeaderNavigation extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const EditProfile()),
+                MaterialPageRoute(builder: (context) =>  EditProfile()),
               );
             },
             child: const Icon(Iconsax.magicpen)),

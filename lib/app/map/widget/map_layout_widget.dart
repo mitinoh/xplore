@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:xplore/app/map/bloc/map_bloc.dart';
-import 'package:location/location.dart' as lc;
 
 class MapLayout extends StatelessWidget {
   const MapLayout(
@@ -13,7 +13,7 @@ class MapLayout extends StatelessWidget {
       : super(key: key);
   final MapBloc mapBloc;
   final List<Marker> markers;
-  final lc.LocationData? userLoc;
+  final Position? userLoc;
   @override
   Widget build(BuildContext context) {
     return FlutterMap(

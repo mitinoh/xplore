@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:geolocator/geolocator.dart';
-import 'package:location/location.dart' as lc;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:workmanager/workmanager.dart';
 import 'package:xplore/app/home/repository/home_repository.dart';
 
 class MapRepository extends HomeRepository {
   late bool _serviceEnabled;
-  late lc.PermissionStatus _permissionGranted;
-  lc.LocationData? _userLocation;
 
   Future<void> openMap(double latitude, double longitude) async {
     String googleUrl =
@@ -20,14 +16,16 @@ class MapRepository extends HomeRepository {
     }
   }
 
-  _getUserLocation() async {
+  getUserPosition() async {
     Position userLocation = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    log(userLocation.toString());
+
     return userLocation;
   }
 
-  Future<lc.LocationData?> getUserLocation() async {
+
+/*
+  Future<lc.LocationData?> _getUserLocation() async {
     lc.Location location = lc.Location();
 
     // Check if location service is enable
@@ -61,4 +59,5 @@ class MapRepository extends HomeRepository {
     });
     */
   }
+*/
 }

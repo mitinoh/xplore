@@ -10,7 +10,7 @@ abstract class MapState extends Equatable {
 class MapInitial extends MapState {}
 
 class MapLoaded extends MapState {
-  final lc.LocationData? loc;
+  final Position? loc;
   final List<LocationModel> mapModel;
   const MapLoaded(this.mapModel, this.loc);
 }
@@ -25,6 +25,6 @@ class MapError extends MapState {
 class UserLocLoading extends MapState {}
 
 class UserLocLoaded extends MapState {
-  final lc.LocationData? loc;
+  final Position? loc;
   const UserLocLoaded(this.loc);
 }

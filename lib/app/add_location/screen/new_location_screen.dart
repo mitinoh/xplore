@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:xplore/app/add_location/widgets/image_imported.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
-import 'package:xplore/app/post/widgets/filters_bottom_sheet.dart';
-import 'package:xplore/app/post/widgets/image_imported.dart';
+import 'package:xplore/app/add_location/widgets/category_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class NewLocation extends StatefulWidget {
@@ -403,8 +403,6 @@ class _NewLocationState extends State<NewLocation> {
       "locationCategory": categoriesBottomSheet.catSelected,
       "address": _addressController.text
     };
-
-    log(newLocationMap.toString());
 
     _locationBloc.add(CreateNewLocation(map: newLocationMap));
   }

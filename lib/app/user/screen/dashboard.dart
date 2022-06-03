@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
-import 'package:xplore/app/user/bloc/saved_location_bloc.dart';
+import 'package:xplore/app/user/saved_bloc/saved_location_bloc.dart';
 import 'package:xplore/app/user/widgets/header_navigation.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
 import 'package:xplore/app/user/widgets/user_information.dart';

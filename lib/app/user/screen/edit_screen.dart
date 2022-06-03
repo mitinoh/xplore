@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class EditProfile extends StatelessWidget {
-  const EditProfile({Key? key}) : super(key: key);
+  EditProfile({Key? key}) : super(key: key);
 
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
+  final UserBlocBloc _userBloc = UserBlocBloc();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +67,7 @@ class EditProfile extends StatelessWidget {
                         color: UIColors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(20)),
                     child: TextField(
+                      controller: _usernameController,
                       textAlign: TextAlign.start,
                       style: const TextStyle(color: Colors.black, fontSize: 14),
                       decoration: InputDecoration(
@@ -94,6 +99,7 @@ class EditProfile extends StatelessWidget {
                         color: UIColors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(20)),
                     child: TextField(
+                      controller: _bioController,
                       textAlign: TextAlign.start,
                       minLines: 6,
                       maxLines: 10,
@@ -144,21 +150,24 @@ class EditProfile extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(20),
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: UIColors.lightGreen,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Salva modifiche".toUpperCase(),
-                      style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                    ),
-                  ],
+              InkWell(
+                onTap: (() => {_updateUserInfo()}),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.only(left: 20, right: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: UIColors.lightGreen,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Salva modifiche".toUpperCase(),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ]),
@@ -166,5 +175,19 @@ class EditProfile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _updateUserInfo() {
+    Map<String, dynamic> userData = {};
+    if (_usernameController.text.trim() != "") {
+      userData["name"] = _usernameController.text;
+    }
+    if (_bioController.text.trim() != "") {
+      userData["bio"] = _bioController.text;
+    }
+
+    _userBloc.add(UpdateUserInfo(userData));
+
+    //_locationBloc.add(CreateNewLocation(map: newLocationMap));
   }
 }

@@ -12,12 +12,58 @@ import 'package:xplore/core/widget/navbar.dart';
 import 'core/theme.dart';
 
 void main() async {
+  /*
+  const fetchBackground = "fetchBackground";
+
+  void callbackDispatcher() {
+    Workmanager().executeTask((task, inputData) async {
+      switch (task) {
+        case fetchBackground:
+          Position userLocation = await Geolocator.getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.high);
+
+          log("fetchBackground" + userLocation.toString());
+
+          noti.Notification notification = new noti.Notification();
+          notification.showNotificationWithoutSound(userLocation);
+          break;
+      }
+      return Future.value(true);
+    });
+  }
+
+Workmanager().registerOneOffTask(
+  "1", // Ignored on iOS
+  fetchBackground, // Ignored on iOS
+  initialDelay: Duration(minutes: 15),
+  constraints: Constraints(
+    // connected or metered mark the task as requiring internet
+    networkType: NetworkType.connected,
+    // require external power
+    requiresCharging: true,
+  )
+);
+
+  Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: true,
+  );
+*/
+
   // keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -dname "CN=Android Debug,O=Android,C=US"
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
   await Firebase.initializeApp();
+
+/*
+  Workmanager().registerPeriodicTask(
+    "1",
+    fetchBackground,
+    frequency: Duration(minutes: 15),
+  );*/
+
   runApp(const MyApp());
 }
 
@@ -25,6 +71,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(

@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:xplore/app/post/screen/new_location_screen.dart';
-import 'package:xplore/app/plantrip/screen/plan_trip_screen.dart';
-import 'package:xplore/app/user/screen/dashboard.dart';
+import 'package:xplore/app/add_location/screen/new_location_screen.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
 import 'package:xplore/app/map/screen/map_screen.dart';
+import 'package:xplore/app/plantrip/screen/plan_trip_screen.dart';
+import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class Navbar extends StatelessWidget {
