@@ -7,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
+import 'package:xplore/app/plantrip/screen/trip_detail_screen.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widget/snackbar_message.dart';
 import 'package:xplore/core/widget/widget_core.dart';
@@ -47,7 +48,7 @@ class CurrentPlannedTripList extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return currentTripCard(
-                              state.currentPlanTripModel[index]);
+                              state.currentPlanTripModel[index], context);
                         }
                         return const LoadingIndicator();
                       });
@@ -78,12 +79,17 @@ class CurrentPlannedTripList extends StatelessWidget {
         place.street!;
   }
 
-  Column currentTripCard(PlanTripModel pTrip) {
+  Column currentTripCard(PlanTripModel pTrip, context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(0),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const TripDetailScreen()),
+            );
+          },
           child: Align(
             alignment: Alignment.center,
             child: Container(
