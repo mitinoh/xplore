@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/user_category_preference_screen.dart';
+import 'package:xplore/app/auth/widgets/apple_login.dart';
+import 'package:xplore/app/auth/widgets/google_login.dart';
+import 'package:xplore/app/auth/widgets/header_onboarding.dart';
+import 'package:xplore/app/auth/widgets/headline.dart';
 import 'package:xplore/main.dart';
 
 class SignIn extends StatefulWidget {
@@ -15,20 +19,19 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("SignIn"),
-      ),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => const MyApp()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const MyApp()));
           }
           if (state is NewUserAuthenticated) {
-
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => const UserCategoryPreferenceScreen()));
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const UserCategoryPreferenceScreen()));
           }
           if (state is AuthError) {
             // Showing the error message if the user has entered invalid credentials
@@ -46,23 +49,29 @@ class _SignInState extends State<SignIn> {
             }
             if (state is UnAuthenticated) {
               // Showing the sign in form if the user is not authenticated
-              return Center(
+              return SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: SingleChildScrollView(
                     reverse: true,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        IconButton(
-                          onPressed: () {
+                        const HeaderOnboarding(),
+                        const SizedBox(height: 20),
+                        const HeadLine(),
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () {
                             _authenticateWithGoogle(context);
                           },
-                          icon: Image.network(
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png",
-                            height: 30,
-                            width: 30,
-                          ),
+                          child: const GoogleLogin(),
+                        ),
+                        const SizedBox(height: 5),
+                        GestureDetector(
+                          onTap: () {},
+                          child: const AppleLogin(),
                         ),
                       ],
                     ),

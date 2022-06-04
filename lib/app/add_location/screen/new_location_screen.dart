@@ -189,7 +189,7 @@ class _NewLocationState extends State<NewLocation> {
             textAlign: TextAlign.start,
             minLines: 6,
             maxLines: 10,
-            maxLength: 144,
+            maxLength: 288,
             style: const TextStyle(color: Colors.black, fontSize: 14),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15.0),
