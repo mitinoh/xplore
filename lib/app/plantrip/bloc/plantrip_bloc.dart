@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:xplore/app/plantrip/repository/plan_trip_repository.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
@@ -34,11 +31,13 @@ class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
       emit(PlantripLoadedPlannedTrip(plannedTrip, currentPlannedTrip));
     });
     on<PlanTripLocationNotFound>((event, emit) async {
-      log(event.message);
       emit(PlanTripError(event.message));
     });
     on<StartQuest>((event, emit) async {
-      emit(PlanTripStartQuest());
+      emit(PlanTripQuestion());
+    });
+    on<PlanTripEndQuestion>((event, emit) async {
+      emit(PlanTripQuestionCompleted());
     });
   }
 }

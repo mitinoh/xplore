@@ -1,6 +1,6 @@
 part of 'plantrip_bloc.dart';
 
-abstract class PlantripEvent extends Equatable {
+abstract class PlantripEvent {
   const PlantripEvent();
 
   @override
@@ -28,3 +28,6 @@ class PlanTripLocationNotFound extends PlantripEvent {
   String message;
   PlanTripLocationNotFound({required this.message});
 }
+
+class PlanTripNextQuestion extends PlantripEvent {}
+class PlanTripEndQuestion extends PlantripEvent {}

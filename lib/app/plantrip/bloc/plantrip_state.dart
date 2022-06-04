@@ -1,6 +1,6 @@
 part of 'plantrip_bloc.dart';
 
-abstract class PlantripState extends Equatable {
+abstract class PlantripState {
   const PlantripState();
 
   @override
@@ -11,7 +11,6 @@ class PlantripInitial extends PlantripState {}
 
 class PlantripLoadingLocation extends PlantripState {}
 
-class PlanTripStartQuest extends PlantripState {}
 
 class PlantripLoadedLocation extends PlantripState {
   final List<LocationModel> planTripModel;
@@ -33,3 +32,6 @@ class PlanTripError extends PlantripState {
   final String? message;
   const PlanTripError(this.message);
 }
+
+class PlanTripQuestion extends PlantripState {}
+class PlanTripQuestionCompleted extends PlantripState {}

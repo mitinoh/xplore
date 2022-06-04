@@ -70,10 +70,20 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 content: Text(state.message.toString()),
               ),
             );
-          }
+          } else if (state is PlanTripNextQuestion) {}
         },
         child: BlocBuilder<PlantripBloc, PlantripState>(
           builder: (context, state) {
+            if (state is PlanTripQuestionCompleted) {
+              return InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                    "Domande finite inserire pagina di completamento qui"),
+              );
+            }
+            // if (state is PlanTripQuestion) {
             switch (questNum) {
               case 0:
                 return whereToGoQuest();
@@ -94,6 +104,9 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   ),
                 );
             }
+            /* } else */
+
+            //  return Text("1");
           },
         ),
       ),
@@ -208,9 +221,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   _nameController.text.trim() != "")
                 {
                   planQuery.putIfAbsent("tripName", () => _nameController.text),
-                 
-                _planTripBloc
-                    .add(GetLocation(/*body: planQuery.toString(),*/ mng: mng)),
+                  _planTripBloc.add(
+                      GetLocation(/*body: planQuery.toString(),*/ mng: mng)),
                   incrementQuest()
                 }
               else
@@ -218,7 +230,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   _planTripBloc.add(PlanTripLocationNotFound(
                       message: 'trip name cannot be empty'))
                 }
-
             },
             child: Container(
               margin: const EdgeInsets.all(20),
@@ -925,15 +936,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               return const LoadingIndicator();
             } else if (state is PlantripLoadedLocation) {
               return SelectTripLocation(
-                mng: mng,
-                planQuery: planQuery,
-                planTripModel: state.planTripModel,
-                goneDate: goneDate,
-                returnDate: returnDate,
-                planTripBloc: _planTripBloc,
-                locLatitude: locLatitude,
-                locLongitude: locLongitude,
-              );
+                  mng: mng,
+                  planQuery: planQuery,
+                  planTripModel: state.planTripModel,
+                  goneDate: goneDate,
+                  returnDate: returnDate,
+                  planTripBloc: _planTripBloc,
+                  locLatitude: locLatitude,
+                  locLongitude: locLongitude);
             } else {
               return Container();
             }

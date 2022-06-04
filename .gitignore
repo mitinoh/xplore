@@ -49,3 +49,6 @@ ios/Podfile
 ios/Podfile.lock
 .gitignore
 ios/Runner.xcodeproj/project.pbxproj
+ios/Podfile.lock
+pubspec.lock
+*.lock

@@ -1,7 +1,8 @@
+import 'dart:developer';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/model/location_model.dart';
@@ -179,7 +180,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
         Flexible(
           flex: 1,
           child: InkWell(
-            onTap: () => {saveTripPlan()},
+            onTap: () => {
+              saveTripPlan(),
+              widget.planTripBloc.add(PlanTripEndQuestion())
+            },
             child: Container(
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(20),
