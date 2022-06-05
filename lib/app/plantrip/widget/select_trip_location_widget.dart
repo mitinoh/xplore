@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -94,7 +92,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                     color: UIColors.blue,
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.only(right: 15.0),
                   child: CircleAvatar(),
                 ),

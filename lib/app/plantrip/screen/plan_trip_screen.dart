@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/plantrip/screen/plan_new_trip_screen.dart';
-import 'package:xplore/app/plantrip/screen/trip_detail_screen.dart';
 import 'package:xplore/app/plantrip/widget/current_planned_trip_widget.dart';
 import 'package:xplore/app/plantrip/widget/planned_trip_widget.dart';
 import 'package:xplore/core/UIColors.dart';

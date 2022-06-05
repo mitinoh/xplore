@@ -15,6 +15,7 @@ import 'package:xplore/app/plantrip/widget/close_button.dart';
 import 'package:xplore/app/plantrip/widget/select_trip_location_widget.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widget/success_screen.dart';
 import 'package:xplore/core/widget/widget_core.dart';
 import 'package:xplore/model/mongoose_model.dart';
 
@@ -31,9 +32,9 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   final PlantripBloc _planTripBloc = PlantripBloc();
 
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
-  DateTime goneDate = DateTime.now().add(Duration(hours: 1));
+  DateTime goneDate = DateTime.now().add(const Duration(hours: 1));
   DateTime returnDate =
-      DateTime.now().add(Duration(hours: 1)); //DateUtils.dateOnly(
+      DateTime.now().add(const Duration(hours: 1)); //DateUtils.dateOnly(
 
   int questNum = 0;
   double valueProgressIndicator = 0.166;
@@ -79,8 +80,11 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: const Text(
-                    "Domande finite inserire pagina di completamento qui"),
+                child: const SuccessScreen(
+                  title: "Trip pianificato",
+                  subtitle:
+                      "Abbiamo pianificato la tua vacanza, buona fortuna e altre stronzate da radical chic.",
+                ),
               );
             }
             // if (state is PlanTripQuestion) {
