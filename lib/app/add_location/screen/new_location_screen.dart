@@ -1,13 +1,14 @@
-import 'dart:developer';
+import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:xplore/app/add_location/widgets/category_bottom_sheet.dart';
 import 'package:xplore/app/add_location/widgets/image_imported.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
-import 'package:xplore/app/add_location/widgets/category_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class NewLocation extends StatefulWidget {
@@ -25,7 +26,7 @@ class _NewLocationState extends State<NewLocation> {
 
   final HomeBloc _locationBloc = HomeBloc();
 
-  late File imageFile;
+  XFile? image;
 
   final ImagePicker _picker = ImagePicker();
   late CategoriesBottomSheet categoriesBottomSheet;
@@ -64,7 +65,11 @@ class _NewLocationState extends State<NewLocation> {
                 const SizedBox(
                   height: 5,
                 ),
-                ImageImported(), //qui bro ci
+                image != null
+                    ? ImageImported(
+                        path: image != null ? image!.path : '',
+                      )
+                    : const SizedBox(), //qui bro ci
                 const SizedBox(
                   height: 5,
                 ),
@@ -396,25 +401,38 @@ class _NewLocationState extends State<NewLocation> {
   }
 
   void _createNewLocation() {
+    String? base64Image;
+    if (image != null) {
+      final bytes = File(image!.path).readAsBytesSync();
+      base64Image = "data:image/png;base64," + base64Encode(bytes);
+    }
     Map<String, dynamic> newLocationMap = {
       "name": _nameController.text,
       "desc": _descController.text,
       "indication": _indicationController.text,
       "locationCategory": categoriesBottomSheet.catSelected,
-      "address": _addressController.text
+      "address": _addressController.text,
+      "base64": base64Image
     };
 
     _locationBloc.add(CreateNewLocation(map: newLocationMap));
   }
 
   _getFromGallery() async {
-    _picker.pickImage(source: ImageSource.gallery);
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
+    // _picker.pickImage(source: ImageSource.gallery);
+
+    XFile? img = await _picker.pickImage(source: ImageSource.gallery);
+    if (img != null)
       setState(() {
-        log(image.path);
-        imageFile = File(image.path);
+        image = img;
       });
-    }
+
+    /*
+    String base64Image = "";
+    if (image != null) {
+      final bytes = File(image!.path).readAsBytesSync();
+      base64Image = "data:image/png;base64," + base64Encode(bytes);
+      log(base64Image.toString());
+    }*/
   }
 }

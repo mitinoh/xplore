@@ -15,7 +15,7 @@ class UserHeaderNavigation extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  EditProfile()),
+                MaterialPageRoute(builder: (context) => EditProfile()),
               );
             },
             child: const Icon(Iconsax.magicpen)),
@@ -31,6 +31,8 @@ class UserHeaderNavigation extends StatelessWidget {
             },
             child: Row(
               children: const [
+                /*
+                // niente democrazia, non scelgono loro il colore
                 Padding(
                   padding: EdgeInsets.only(right: 15.0),
                   child: Icon(Iconsax.moon),
@@ -38,7 +40,7 @@ class UserHeaderNavigation extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 15.0),
                   child: Icon(Iconsax.sun_1),
-                ),
+                ),*/
                 Icon(Iconsax.setting_2),
               ],
             ))

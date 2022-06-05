@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 
@@ -10,6 +15,22 @@ class EditProfile extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final UserBlocBloc _userBloc = UserBlocBloc();
+
+  XFile? image;
+  final ImagePicker _picker = ImagePicker();
+
+  _getFromGallery() async {
+    // _picker.pickImage(source: ImageSource.gallery);
+    image = await _picker.pickImage(source: ImageSource.gallery);
+    /*
+    String base64Image = "";
+    if (image != null) {
+      final bytes = File(image!.path).readAsBytesSync();
+      base64Image = "data:image/png;base64," + base64Encode(bytes);
+      log(base64Image.toString());
+    }*/
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,22 +152,27 @@ class EditProfile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   color: UIColors.grey.withOpacity(0.3),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15.0, left: 15),
-                      child: Icon(
-                        Iconsax.gallery_add,
-                        color: UIColors.blue,
+                child: InkWell(
+                  onTap: (() {
+                    _getFromGallery();
+                  }),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15.0, left: 15),
+                        child: Icon(
+                          Iconsax.gallery_add,
+                          color: UIColors.blue,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Cambia foto profilo",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                  ],
+                      Text(
+                        "Cambia foto profilo",
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -184,6 +210,12 @@ class EditProfile extends StatelessWidget {
     }
     if (_bioController.text.trim() != "") {
       userData["bio"] = _bioController.text;
+    }
+    String? base64Image;
+    if (image != null) {
+      final bytes = File(image!.path).readAsBytesSync();
+      base64Image = "data:image/png;base64," + base64Encode(bytes);
+      userData["base64"] = base64Image;
     }
 
     _userBloc.add(UpdateUserInfo(userData));
