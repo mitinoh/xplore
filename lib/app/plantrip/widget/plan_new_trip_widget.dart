@@ -578,17 +578,23 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           flex: 1,
           child: InkWell(
             onTap: () {
-              List<int> dayAvaiable = [];
-              // FIXME
-              for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
-                dayAvaiable.add(i);
-              }
-              /*
+              if (returnDate.isBefore(goneDate)) {
+                _planTripBloc.add(PlanTripLocationNotFound(
+                    message:
+                        'la data di ritorno non può essere precedente a quella di partenza'));
+              } else {
+                List<int> dayAvaiable = [];
+                // FIXME
+                for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
+                  dayAvaiable.add(i);
+                }
+                /*
               planQuery["totDay"] = returnDate.difference(goneDate).inDays;
               planQuery["periodAvaiable"] = getSeason(goneDate.month);
               planQuery["dayAvaiable"] = dayAvaiable;
               */
-              incrementQuest();
+                incrementQuest();
+              }
             },
             child: Container(
               margin: const EdgeInsets.all(20),

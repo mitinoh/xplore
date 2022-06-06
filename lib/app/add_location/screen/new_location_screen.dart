@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -410,12 +411,38 @@ class _NewLocationState extends State<NewLocation> {
       "name": _nameController.text,
       "desc": _descController.text,
       "indication": _indicationController.text,
-      "locationCategory": categoriesBottomSheet.catSelected,
       "address": _addressController.text,
-      "base64": base64Image
+      "base64": base64Image,
+      "locationCategory": categoriesBottomSheet.catSelected,
     };
 
-    _locationBloc.add(CreateNewLocation(map: newLocationMap));
+    bool allValueValid = true;
+    newLocationMap.forEach((k, v) => {
+          if (!validateField(v)) {allValueValid = false}
+        });
+
+    if (allValueValid)
+      _locationBloc.add(CreateNewLocation(map: newLocationMap));
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("tutti i campi devono essere riempiti"),
+        ),
+      );
+    }
+  }
+
+  bool validateField(field) {
+    // log(field);
+    if (field != Null && field != null) {
+      if (field is List) {
+        log("list");
+        return field.isNotEmpty;
+      }
+      //log(field?.trim());
+      return field?.trim()?.length > 6;
+    }
+    return false;
   }
 
   _getFromGallery() async {
