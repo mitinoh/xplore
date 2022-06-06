@@ -4,8 +4,13 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class BackButtonUI extends StatelessWidget {
-  const BackButtonUI({Key? key}) : super(key: key);
-
+  const BackButtonUI({
+    Key? key,
+    required this.count,
+    required this.onCountSelected,
+  }) : super(key: key);
+  final int count;
+  final VoidCallback onCountSelected;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -14,7 +19,10 @@ class BackButtonUI extends StatelessWidget {
         const Icon(Iconsax.arrow_left),
         InkWell(
           onTap: () {
-            Navigator.pop(context);
+            print("press");
+            onCountSelected();
+
+            //Navigator.pop(context);
           },
           child: Text("scarta",
               style: GoogleFonts.poppins(

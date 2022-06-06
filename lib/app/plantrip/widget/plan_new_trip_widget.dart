@@ -125,7 +125,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            const BackButtonUI(),
+            BackButtonUI(
+              count: questNum,
+              onCountSelected: () {
+                setState(() {
+                  questNum--;
+                });
+              },
+            ),
             const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -249,7 +256,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            const BackButtonUI(),
+              BackButtonUI(
+              count: questNum,
+              onCountSelected: () {
+                setState(() {
+                  questNum--;
+                });
+              },
+            ),
             const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -485,7 +499,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BackButtonUI(),
+            BackButtonUI(
+              count: questNum,
+              onCountSelected: () {
+                setState(() {
+                  questNum--;
+                });
+              },
+            ),
             const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -713,7 +734,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            const BackButtonUI(),
+              BackButtonUI(
+              count: questNum,
+              onCountSelected: () {
+                setState(() {
+                  questNum--;
+                });
+              },
+            ),
             const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -828,7 +856,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            const BackButtonUI(),
+             BackButtonUI(
+              count: questNum,
+              onCountSelected: () {
+                setState(() {
+                  questNum--;
+                });
+              },
+            ),
             const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -996,7 +1031,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   returnDate: returnDate,
                   planTripBloc: _planTripBloc,
                   locLatitude: locLatitude,
-                  locLongitude: locLongitude);
+                  locLongitude: locLongitude,
+                  questNum: questNum);
             } else {
               return Container();
             }

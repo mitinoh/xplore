@@ -21,7 +21,8 @@ class SelectTripLocation extends StatefulWidget {
       required this.returnDate,
       required this.planTripBloc,
       required this.locLatitude,
-      required this.locLongitude})
+      required this.locLongitude,
+      required this.questNum})
       : super(key: key);
   Mongoose mng = Mongoose();
   Map<String, dynamic> planQuery = {};
@@ -31,6 +32,7 @@ class SelectTripLocation extends StatefulWidget {
   PlantripBloc planTripBloc = PlantripBloc();
   double locLatitude = 0;
   double locLongitude = 0;
+  int questNum;
 
   @override
   State<SelectTripLocation> createState() => _SelectTripLocationState();
@@ -170,7 +172,14 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       children: [
         Column(
           children: [
-            const BackButtonUI(),
+            BackButtonUI(
+              count: widget.questNum,
+              onCountSelected: () {
+                setState(() {
+                  widget.questNum--;
+                });
+              },
+            ),
             const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
