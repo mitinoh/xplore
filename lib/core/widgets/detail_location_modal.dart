@@ -6,8 +6,8 @@ import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/map/repository/map_repository.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
-import 'package:xplore/core/widget/like_btn.dart';
-import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/core/widgets/like_btn.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class DetailLocationModal extends StatelessWidget {

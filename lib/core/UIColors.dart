@@ -79,7 +79,7 @@ class UIColors {
   }
 
   static Color get black {
-    return const Color(0xFF1C222B);
+    return const Color(0xFF000000);
   }
 
   static Color get lightBlack {

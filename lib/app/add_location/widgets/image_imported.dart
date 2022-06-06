@@ -15,6 +15,7 @@ class ImageImported extends StatelessWidget {
     return Stack(
       children: [
         Container(
+          margin: const EdgeInsets.only(top: 5),
           decoration: BoxDecoration(
               color: UIColors.bluelight,
               borderRadius: BorderRadius.circular(20)),
@@ -52,7 +53,7 @@ class ImageImported extends StatelessWidget {
             decoration: BoxDecoration(
                 color: UIColors.white.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(20)),
-            child: Icon(
+            child: const Icon(
               Icons.close,
               size: 25,
             ),

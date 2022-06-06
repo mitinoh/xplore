@@ -8,8 +8,8 @@ import 'package:masonry_grid/masonry_grid.dart';
 import 'package:xplore/app/map/bloc/map_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
-import 'package:xplore/core/widget/detail_location_modal.dart';
-import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/core/widgets/detail_location_modal.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class PtLocationGrid extends StatelessWidget {

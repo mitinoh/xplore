@@ -4,7 +4,7 @@ import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/home/widget/go_navigation_widget.dart';
 import 'package:xplore/app/search_location/screen/search_screen.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/like_btn.dart';
+import 'package:xplore/core/widgets/like_btn.dart';
 import 'package:xplore/model/location_model.dart';
 
 class PinnedMenu extends StatefulWidget {

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -62,9 +61,6 @@ class _NewLocationState extends State<NewLocation> {
                   height: 5,
                 ),
                 locationImage(),
-                const SizedBox(
-                  height: 5,
-                ),
                 image != null
                     ? ImageImported(
                         path: image != null ? image!.path : '',
@@ -123,7 +119,7 @@ class _NewLocationState extends State<NewLocation> {
             Padding(
               padding: const EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
-                Iconsax.category,
+                Iconsax.hashtag,
                 color: UIColors.blue,
               ),
             ),

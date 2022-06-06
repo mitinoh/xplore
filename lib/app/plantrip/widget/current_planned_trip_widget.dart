@@ -7,8 +7,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/plantrip/screen/trip_detail_screen.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/snackbar_message.dart';
-import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/core/widgets/snackbar_message.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/plan_trip_model.dart';
 
 class CurrentPlannedTripList extends StatelessWidget {

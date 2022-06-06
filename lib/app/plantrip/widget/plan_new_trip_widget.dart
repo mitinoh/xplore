@@ -15,8 +15,9 @@ import 'package:xplore/app/plantrip/widget/close_button.dart';
 import 'package:xplore/app/plantrip/widget/select_trip_location_widget.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/success_screen.dart';
-import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/core/widgets/confirm_button.dart';
+import 'package:xplore/core/widgets/success_screen.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/mongoose_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
@@ -124,10 +125,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            Row(
-              children: const [CloseButtonUI()],
-            ),
-            const SizedBox(height: 50),
+            const BackButtonUI(),
+            const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -142,7 +141,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -235,23 +234,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                       message: 'trip name cannot be empty'))
                 }
             },
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.lightGreen,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Continua".toUpperCase(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
+            child: const ConfirmButton(text: "continua"),
           ),
         ),
       ],
@@ -266,10 +249,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            Row(
-              children: const [CloseButtonUI()],
-            ),
-            const SizedBox(height: 50),
+            const BackButtonUI(),
+            const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -284,7 +265,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -316,7 +297,20 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               children: [
                 Expanded(
                   child: Text(
-                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      "Scegli una città come destinazione e ti aiuteremo a scoprire le attrazioni più belle.",
+                      overflow: TextOverflow.visible,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey)),
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Text("Scegli una città come destinazione ",
                       overflow: TextOverflow.visible,
                       style: GoogleFonts.poppins(
                           fontSize: 12,
@@ -357,6 +351,48 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ))
               ],
             ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'esempio ',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Milano, ',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text: 'Roma, ',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text: 'Firenze, ',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text: 'Lago di garda...',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black))
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
         Flexible(
@@ -365,23 +401,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             onTap: () => {
               getCoordinate(_nameController.text.toString()),
             },
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.lightGreen,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Continua".toUpperCase(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
+            child: const ConfirmButton(text: "continua"),
           ),
         ),
       ],
@@ -431,12 +451,19 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       showCupertinoModalPopup(
           context: context,
           builder: (_) => Container(
-                height: 400,
-                color: const Color.fromARGB(255, 255, 255, 255),
+                height: 350,
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  color: Color(0xffF3F7FA),
+                ),
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 400,
+                      height: 320,
                       child: CupertinoDatePicker(
                           initialDateTime: goneDate,
                           minimumDate: gone ? DateTime.now() : goneDate,
@@ -456,11 +483,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: const [CloseButtonUI()],
-            ),
-            const SizedBox(height: 50),
+            const BackButtonUI(),
+            const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -475,7 +501,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -507,7 +533,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               children: [
                 Expanded(
                   child: Text(
-                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      "Ora seleziona la durata della tua vacanza, inserendo la data di partenza e quella di ritorno.",
                       overflow: TextOverflow.visible,
                       style: GoogleFonts.poppins(
                           fontSize: 12,
@@ -536,7 +562,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                       ),
                     ),
                     Text(
-                      "Data di partenza " + formatter.format(goneDate),
+                      "Data di partenza ",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, fontSize: 14),
                     ),
@@ -564,14 +590,50 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                       ),
                     ),
                     Text(
-                      "Data di ritorno " + formatter.format(returnDate),
+                      "Data di ritorno ",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, fontSize: 14),
                     ),
                   ],
                 ),
               ),
-            )
+            ),
+            const SizedBox(height: 20),
+            RichText(
+              text: TextSpan(
+                text: 'Hai scelto di partire il giorno ',
+                style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.grey),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: formatter.format(goneDate).toString(),
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black)),
+                ],
+              ),
+            ),
+            const SizedBox(height: 5),
+            RichText(
+              text: TextSpan(
+                text: 'Giorno di ritorno ',
+                style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.grey),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: formatter.format(returnDate).toString(),
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black)),
+                ],
+              ),
+            ),
           ],
         ),
         Flexible(
@@ -590,23 +652,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               */
               incrementQuest();
             },
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.lightGreen,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Continua".toUpperCase(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
+            child: const ConfirmButton(text: "continua"),
           ),
         ),
       ],
@@ -661,10 +707,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            Row(
-              children: const [CloseButtonUI()],
-            ),
-            const SizedBox(height: 50),
+            const BackButtonUI(),
+            const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -679,7 +723,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -778,10 +822,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            Row(
-              children: const [CloseButtonUI()],
-            ),
-            const SizedBox(height: 50),
+            const BackButtonUI(),
+            const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -796,7 +838,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -840,7 +882,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             const SizedBox(height: 20),
             Row(
               children: [
-                Text("Range " + _currentSliderValue.toString() + " km",
+                Text(
+                    "Range selezionato " +
+                        _currentSliderValue.toString() +
+                        " km",
                     style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -877,23 +922,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             onTap: () {
               setDistanceLocation();
             },
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.lightGreen,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Continua".toUpperCase(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
+            child: const ConfirmButton(text: "continua"),
           ),
         ),
       ],
