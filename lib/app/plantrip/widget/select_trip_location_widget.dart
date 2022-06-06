@@ -78,7 +78,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           .add(MovePlanTripModel(locationId: loc.iId, date: widget.goneDate));
       _dragLocation.add(DragAndDropItem(
         child: Container(
-            margin: const EdgeInsets.only(top: 5),
+            margin: const EdgeInsets.only(top: 5, left: 20, right: 20),
             padding:
                 const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 15),
             decoration: BoxDecoration(
@@ -116,9 +116,21 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
     _contents = List.generate(tripDay, (index) {
       return DragAndDropList(
+        contentsWhenEmpty: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+              "Per questo giorno non hai programmato nessuna attività. Trascina un attività qua dentro!",
+              style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.black)),
+        ),
+        decoration: BoxDecoration(
+            color: UIColors.grey.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(20)),
         canDrag: false,
         header: Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
+          padding: const EdgeInsets.all(20.0),
           child: RichText(
             text: TextSpan(
               text: 'Giorno ',
@@ -176,33 +188,6 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             ),
             const SizedBox(height: 50),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      text: '...ultimo step ',
-                      style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: 'Mite',
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: UIColors.blue)),
-                        const TextSpan(text: '!'),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
               children: [
                 Expanded(
                   child: Text(
@@ -217,8 +202,9 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             ),
             const SizedBox(height: 20),
             SizedBox(
-              height: mediaQuery.size.height * 0.4,
+              height: mediaQuery.size.height * 0.45,
               child: DragAndDropLists(
+                listDivider: const SizedBox(height: 5),
                 children: _contents,
                 onItemReorder: _onItemReorder,
                 onListReorder: _onListReorder,

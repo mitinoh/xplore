@@ -888,14 +888,16 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             const SizedBox(height: 20),
             Row(
               children: [
-                Text(
-                    "Range selezionato " +
-                        _currentSliderValue.toString() +
-                        " km",
-                    style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black)),
+                Expanded(
+                  child: Text(
+                      "Range selezionato " +
+                          _currentSliderValue.toString() +
+                          " km",
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black)),
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -912,13 +914,25 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 min: 0,
                 max: 100,
                 divisions: 5,
-                label: _currentSliderValue.round().toString(),
                 onChanged: (double value) {
                   setState(() {
                     _currentSliderValue = value;
                   });
                 },
               ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      overflow: TextOverflow.visible,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey)),
+                )
+              ],
             ),
           ],
         ),
