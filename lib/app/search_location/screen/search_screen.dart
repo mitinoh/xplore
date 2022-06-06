@@ -10,7 +10,7 @@ import 'package:xplore/app/search_location/bloc/search_location_bloc.dart';
 import 'package:xplore/app/search_location/widget/list_card_category_widget.dart';
 import 'package:xplore/app/search_location/widget/pt_location_grid_widget.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);

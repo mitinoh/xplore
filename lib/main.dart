@@ -9,7 +9,7 @@ import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/repository/auth_repository.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
-import 'package:xplore/core/widget/navbar.dart';
+import 'package:xplore/core/widgets/navbar.dart';
 
 import 'core/theme.dart';
 
@@ -84,10 +84,9 @@ class MyApp extends StatelessWidget {
           authRepository: RepositoryProvider.of<AuthRepository>(context),
         ),
         child: MaterialApp(
-
-  localizationsDelegates: AppLocalizations.localizationsDelegates,
-  supportedLocales: AppLocalizations.supportedLocales,
-         /* localizationsDelegates: const [
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          /* localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -112,8 +111,8 @@ class MyApp extends StatelessWidget {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
-             
-            // return Text(AppLocalizations.of(context)!.helloWorld);
+
+                // return Text(AppLocalizations.of(context)!.helloWorld);
                 if (snapshot.hasData) {
                   return Navbar();
                 }

@@ -1,8 +1,10 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/confirm_button.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
 import 'package:xplore/model/move_plan_trip_model.dart';
@@ -76,42 +78,66 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           .add(MovePlanTripModel(locationId: loc.iId, date: widget.goneDate));
       _dragLocation.add(DragAndDropItem(
         child: Container(
-            margin: const EdgeInsets.only(bottom: 5, top: 5),
+            margin: const EdgeInsets.only(top: 5),
             padding:
-                const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
+                const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: UIColors.grey.withOpacity(0.3),
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0, left: 15),
+                const Padding(
+                  padding: EdgeInsets.only(right: 15.0, left: 15),
                   child: Icon(
                     Icons.drag_handle,
-                    color: UIColors.blue,
+                    color: Colors.black,
                   ),
-                ),
-                const Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: CircleAvatar(),
                 ),
                 Text(
                   loc.name ?? '',
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500, fontSize: 14),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+                ),
+                CircleAvatar(
+                  backgroundColor: UIColors.blue,
+                  backgroundImage: const NetworkImage(
+                      'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
                 ),
               ],
             )),
       ));
     }
-
+    final DateFormat formatter = DateFormat('dd-MM-yyyy');
     _contents = List.generate(tripDay, (index) {
       return DragAndDropList(
         canDrag: false,
-        header: Text(
-          "Giorni: " + widget.goneDate.add(Duration(days: index)).toString(),
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+        header: Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: RichText(
+            text: TextSpan(
+              text: 'Giorno ',
+              style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.black),
+              children: <TextSpan>[
+                TextSpan(
+                    text: formatter
+                        .format(widget.goneDate.add(Duration(days: index)))
+                        .toString(),
+                    style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black)),
+              ],
+            ),
+          ),
         ),
         children: index == 0 ? _dragLocation : <DragAndDropItem>[],
       );
@@ -132,10 +158,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       children: [
         Column(
           children: [
-            Row(
-              children: const [CloseButtonUI()],
-            ),
-            const SizedBox(height: 50),
+            const BackButtonUI(),
+            const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +174,34 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: '...ultimo step ',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Mite',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: UIColors.blue)),
+                        const TextSpan(text: '!'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
@@ -166,7 +217,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             ),
             const SizedBox(height: 20),
             SizedBox(
-              height: mediaQuery.size.height * 0.45,
+              height: mediaQuery.size.height * 0.4,
               child: DragAndDropLists(
                 children: _contents,
                 onItemReorder: _onItemReorder,
@@ -182,23 +233,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
               saveTripPlan(),
               widget.planTripBloc.add(PlanTripEndQuestion())
             },
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.lightGreen,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Fatto".toUpperCase(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
+            child: const ConfirmButton(text: "fatto"),
           ),
         ),
       ],

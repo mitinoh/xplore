@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 
 class CategoryPreference extends StatefulWidget {
   const CategoryPreference({Key? key}) : super(key: key);

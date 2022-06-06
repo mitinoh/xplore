@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/home/widget/home_card_widget.dart';
-import 'package:xplore/core/widget/snackbar_message.dart';
-import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/core/widgets/snackbar_message.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class BuildListCardHome extends StatefulWidget {

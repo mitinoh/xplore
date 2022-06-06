@@ -7,8 +7,7 @@ import 'package:xplore/app/user/saved_bloc/saved_location_bloc.dart';
 import 'package:xplore/app/user/widgets/header_navigation.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
 import 'package:xplore/app/user/widgets/user_information.dart';
-import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/snackbar_message.dart';
+import 'package:xplore/core/widgets/snackbar_message.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:masonry_grid/masonry_grid.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widget/widget_core.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 
 class HeaderOnboarding extends StatelessWidget {
   const HeaderOnboarding({Key? key}) : super(key: key);

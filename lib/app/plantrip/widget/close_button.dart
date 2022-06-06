@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:xplore/core/UIColors.dart';
 
-class CloseButtonUI extends StatelessWidget {
-  const CloseButtonUI({Key? key}) : super(key: key);
+class BackButtonUI extends StatelessWidget {
+  const BackButtonUI({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: const Icon(Icons.close));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Icon(Iconsax.arrow_left),
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Text("scarta",
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                  color: UIColors.lightRed)),
+        )
+      ],
+    );
   }
 }
