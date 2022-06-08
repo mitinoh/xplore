@@ -16,6 +16,8 @@ import 'package:xplore/app/plantrip/widget/select_trip_location_widget.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
+import 'package:xplore/core/widgets/progressbar.dart';
+import 'package:xplore/core/widgets/snackbar_message.dart';
 import 'package:xplore/core/widgets/success_screen.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/mongoose_model.dart';
@@ -129,25 +131,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               count: questNum,
               onCountSelected: () {
                 setState(() {
-                  questNum--;
+                  if (questNum != 0) {
+                    questNum--;
+                  }
                 });
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: LinearProgressIndicator(
-                    value: valueProgressIndicator,
-                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
-                    backgroundColor: UIColors.blue.withOpacity(0.2),
-                    semanticsLabel: 'Linear progress indicator',
-                  ),
-                ),
-              ],
-            ),
+            ProgressBar(valueProgressIndicator: valueProgressIndicator),
             const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -256,29 +247,18 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-              BackButtonUI(
+            BackButtonUI(
               count: questNum,
               onCountSelected: () {
                 setState(() {
-                  questNum--;
+                  if (questNum != 0) {
+                    questNum--;
+                  }
                 });
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: LinearProgressIndicator(
-                    value: valueProgressIndicator,
-                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
-                    backgroundColor: UIColors.blue.withOpacity(0.2),
-                    semanticsLabel: 'Linear progress indicator',
-                  ),
-                ),
-              ],
-            ),
+            ProgressBar(valueProgressIndicator: valueProgressIndicator),
             const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -324,13 +304,43 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             Row(
               children: [
                 Expanded(
-                  child: Text("Scegli una città come destinazione ",
-                      overflow: TextOverflow.visible,
-                      style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey)),
-                )
+                  child: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Milano, ',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text: 'Roma, ',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text: 'Firenze, ',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text: 'Venezia, ',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text: 'Lago di garda...',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black))
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -365,58 +375,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ))
               ],
             ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'esempio ',
-                      style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: 'Milano, ',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black)),
-                        TextSpan(
-                            text: 'Roma, ',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black)),
-                        TextSpan(
-                            text: 'Firenze, ',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black)),
-                        TextSpan(
-                            text: 'Lago di garda...',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black))
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
-        Flexible(
-          flex: 1,
-          child: InkWell(
-            onTap: () => {
-              getCoordinate(_nameController.text.toString()),
-            },
-            child: const ConfirmButton(text: "continua"),
-          ),
+        InkWell(
+          onTap: () => {
+            getCoordinate(_nameController.text.toString()),
+          },
+          child: const ConfirmButton(text: "continua"),
         ),
       ],
     );
@@ -503,25 +468,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               count: questNum,
               onCountSelected: () {
                 setState(() {
-                  questNum--;
+                  if (questNum != 0) {
+                    questNum--;
+                  }
                 });
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: LinearProgressIndicator(
-                    value: valueProgressIndicator,
-                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
-                    backgroundColor: UIColors.blue.withOpacity(0.2),
-                    semanticsLabel: 'Linear progress indicator',
-                  ),
-                ),
-              ],
-            ),
+            ProgressBar(valueProgressIndicator: valueProgressIndicator),
             const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -657,30 +611,27 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             ),
           ],
         ),
-        Flexible(
-          flex: 1,
-          child: InkWell(
-            onTap: () {
-              if (returnDate.isBefore(goneDate)) {
-                _planTripBloc.add(PlanTripLocationNotFound(
-                    message:
-                        'la data di ritorno non può essere precedente a quella di partenza'));
-              } else {
-                List<int> dayAvaiable = [];
-                // FIXME
-                for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
-                  dayAvaiable.add(i);
-                }
-                /*
-              planQuery["totDay"] = returnDate.difference(goneDate).inDays;
-              planQuery["periodAvaiable"] = getSeason(goneDate.month);
-              planQuery["dayAvaiable"] = dayAvaiable;
-              */
-                incrementQuest();
+        InkWell(
+          onTap: () {
+            if (returnDate.isBefore(goneDate)) {
+              _planTripBloc.add(PlanTripLocationNotFound(
+                  message:
+                      'la data di ritorno non può essere precedente a quella di partenza'));
+            } else {
+              List<int> dayAvaiable = [];
+              // FIXME
+              for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
+                dayAvaiable.add(i);
               }
-            },
-            child: const ConfirmButton(text: "continua"),
-          ),
+              /*
+            planQuery["totDay"] = returnDate.difference(goneDate).inDays;
+            planQuery["periodAvaiable"] = getSeason(goneDate.month);
+            planQuery["dayAvaiable"] = dayAvaiable;
+            */
+              incrementQuest();
+            }
+          },
+          child: const ConfirmButton(text: "continua"),
         ),
       ],
     );
@@ -734,29 +685,18 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-              BackButtonUI(
+            BackButtonUI(
               count: questNum,
               onCountSelected: () {
                 setState(() {
-                  questNum--;
+                  if (questNum != 0) {
+                    questNum--;
+                  }
                 });
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: LinearProgressIndicator(
-                    value: valueProgressIndicator,
-                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
-                    backgroundColor: UIColors.blue.withOpacity(0.2),
-                    semanticsLabel: 'Linear progress indicator',
-                  ),
-                ),
-              ],
-            ),
+            ProgressBar(valueProgressIndicator: valueProgressIndicator),
             const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -802,31 +742,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             const CategoryPreference()
           ],
         ),
-        Flexible(
-          flex: 1,
-          child: InkWell(
+        InkWell(
             onTap: () {
               setCategoryToAvoid();
             },
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.lightGreen,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Continua".toUpperCase(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            child: const ConfirmButton(
+              text: "continua",
+            )),
       ],
     );
   }
@@ -856,29 +778,18 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-             BackButtonUI(
+            BackButtonUI(
               count: questNum,
               onCountSelected: () {
                 setState(() {
-                  questNum--;
+                  if (questNum != 0) {
+                    questNum--;
+                  }
                 });
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: LinearProgressIndicator(
-                    value: valueProgressIndicator,
-                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
-                    backgroundColor: UIColors.blue.withOpacity(0.2),
-                    semanticsLabel: 'Linear progress indicator',
-                  ),
-                ),
-              ],
-            ),
+            ProgressBar(valueProgressIndicator: valueProgressIndicator),
             const SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -935,12 +846,12 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             SliderTheme(
               data: SliderThemeData(
-                inactiveTickMarkColor: Colors.grey.withOpacity(0.3),
+                inactiveTickMarkColor: UIColors.grey.withOpacity(0.3),
                 activeTickMarkColor: UIColors.black,
-                inactiveTrackColor: Colors.grey.withOpacity(0.3),
+                inactiveTrackColor: UIColors.grey.withOpacity(0.3),
                 activeTrackColor: UIColors.black,
                 thumbColor: UIColors.black,
               ),
@@ -956,29 +867,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 },
               ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
-                      overflow: TextOverflow.visible,
-                      style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey)),
-                )
-              ],
-            ),
           ],
         ),
-        Flexible(
-          flex: 1,
-          child: InkWell(
-            onTap: () {
-              setDistanceLocation();
-            },
-            child: const ConfirmButton(text: "continua"),
-          ),
+        InkWell(
+          onTap: () {
+            setDistanceLocation();
+          },
+          child: const ConfirmButton(text: "continua"),
         ),
       ],
     );
@@ -1009,11 +904,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       child: BlocListener<PlantripBloc, PlantripState>(
         listener: (context, state) {
           if (state is PlanTripError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("error"),
-              ),
-            );
+            SnackBarMessage();
           }
         },
         child: BlocBuilder<PlantripBloc, PlantripState>(
@@ -1051,7 +942,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
       incrementQuest();
     } catch (e) {
-      _planTripBloc.add(PlanTripLocationNotFound(message: 'mess'));
+      _planTripBloc.add(PlanTripLocationNotFound(message: 'mess111'));
     }
   }
 }

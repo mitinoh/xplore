@@ -16,13 +16,14 @@ class BackButtonUI extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Icon(Iconsax.arrow_left),
+        InkWell(
+            onTap: () {
+              onCountSelected();
+            },
+            child: const Icon(Iconsax.arrow_left)),
         InkWell(
           onTap: () {
-            print("press");
-            onCountSelected();
-
-            //Navigator.pop(context);
+            Navigator.pop(context);
           },
           child: Text("scarta",
               style: GoogleFonts.poppins(

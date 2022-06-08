@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
+import 'package:xplore/core/widgets/progressbar.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
 import 'package:xplore/model/move_plan_trip_model.dart';
@@ -97,13 +98,16 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                     color: Colors.black,
                   ),
                 ),
-                Text(
-                  loc.name ?? '',
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    color: Colors.black,
+                Expanded(
+                  child: Text(
+                    loc.name ?? '',
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
                 CircleAvatar(
@@ -128,7 +132,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                   color: Colors.black)),
         ),
         decoration: BoxDecoration(
-            color: UIColors.grey.withOpacity(0.3),
+            color: UIColors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.circular(20)),
         canDrag: false,
         header: Padding(
@@ -181,20 +185,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: LinearProgressIndicator(
-                    value: 100,
-                    valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
-                    backgroundColor: UIColors.blue.withOpacity(0.2),
-                    semanticsLabel: 'Linear progress indicator',
-                  ),
-                ),
-              ],
-            ),
+            const ProgressBar(valueProgressIndicator: 100),
             const SizedBox(height: 50),
             Row(
               children: [
@@ -221,15 +212,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             )
           ],
         ),
-        Flexible(
-          flex: 1,
-          child: InkWell(
-            onTap: () => {
-              saveTripPlan(),
-              widget.planTripBloc.add(PlanTripEndQuestion())
-            },
-            child: const ConfirmButton(text: "fatto"),
-          ),
+        InkWell(
+          onTap: () =>
+              {saveTripPlan(), widget.planTripBloc.add(PlanTripEndQuestion())},
+          child: const ConfirmButton(text: "fatto"),
         ),
       ],
     );

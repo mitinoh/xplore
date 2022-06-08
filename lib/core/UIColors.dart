@@ -63,7 +63,11 @@ class UIColors {
   }
 
   static Color get green {
-    return const Color(0xFF023618);
+    return const Color(0xFF16DAAA);
+  }
+
+  static Color get ultralightgreen {
+    return const Color(0xFFc7f9cc);
   }
 
   static Color get darkPurple {

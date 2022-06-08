@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class ConfirmButton extends StatelessWidget {
@@ -12,14 +13,15 @@ class ConfirmButton extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: UIColors.lightGreen,
+        color: UIColors.blue,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             text.toString().toUpperCase(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: GoogleFonts.poppins(
+                fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ],
       ),
