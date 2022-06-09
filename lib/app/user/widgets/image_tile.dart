@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class ImageTile extends StatelessWidget {
   ImageTile({Key? key, required this.location}) : super(key: key);
   LocationModel location;
+
+  Config conf = Config();
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -26,7 +29,7 @@ class ImageTile extends StatelessWidget {
                   height: mediaQuery.size.height * 1,
                   width: mediaQuery.size.height * 1,
                   imageUrl:
-                      'https://images.unsplash.com/photo-1528744598421-b7b93e12df15?ixlib=rb-1.2.1&ixid=&auto=format&fit=crop&w=928&q=80',
+                      conf.locationImage + location.iId.toString() + '.jpg',
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(

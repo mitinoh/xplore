@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 class Config {
   /// localhost for ios emulator
   /// 10.0.0.2 for android emulator
@@ -13,7 +11,7 @@ class Config {
   }
 
   String get urlFolderImages {
-    return 'http://$address:$port/$imageFolder/'; 
+    return 'http://$address:$port/$imageFolder/';
   }
 
   String getLocationImageUrl(String id) {
@@ -42,6 +40,10 @@ class Config {
 
   String get savedLocationColl {
     return ip + "save-location";
+  }
+
+  String get uploadedLocationColl {
+    return locationColl + "/uploaded";
   }
 
   String get visitedLocationColl {
