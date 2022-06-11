@@ -45,20 +45,6 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                   planTripBloc: _planTripBloc,
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                          "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
-                          overflow: TextOverflow.visible,
-                          style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.grey)),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 30),
                 PlannedTripList(
                   planTripBloc: _planTripBloc,
                 ),

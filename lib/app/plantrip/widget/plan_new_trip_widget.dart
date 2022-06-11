@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
-import 'package:xplore/app/plantrip/widget/close_button.dart';
+import 'package:xplore/app/plantrip/widget/planner_header_commands.dart';
+
 import 'package:xplore/app/plantrip/widget/questions/avoid_category_question.dart';
 import 'package:xplore/app/plantrip/widget/questions/distance_question.dart';
 import 'package:xplore/app/plantrip/widget/questions/period_question.dart';
@@ -123,7 +124,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             }
             return Column(
               children: [
-                BackButtonUI(
+                PlannerHeaderCommand(
                   onCountSelected: () {
                     decrementQuest(context);
                   },
@@ -163,7 +164,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            BackButtonUI(
+            PlannerHeaderCommand(
+              count: questNum,
               onCountSelected: () {
                 setState(() {
                   decrementQuest(context);
@@ -282,9 +284,17 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            BackButtonUI(
+            PlannerHeaderCommand(
+              count: questNum,
               onCountSelected: () {
-                decrementQuest(context);
+                setState(() {
+                  if (questNum != 0) {
+                    questNum--;
+                  }
+                  if (questNum == 0) {
+                    Navigator.pop(context);
+                  }
+                });
               },
             ),
             const SizedBox(height: 20),
@@ -494,7 +504,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BackButtonUI(
+            PlannerHeaderCommand(
+              count: questNum,
               onCountSelected: () {
                 decrementQuest(context);
               },
@@ -710,7 +721,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            BackButtonUI(
+            PlannerHeaderCommand(
+              count: questNum,
               onCountSelected: () {
                 decrementQuest(context);
               },
@@ -798,7 +810,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       children: [
         Column(
           children: [
-            BackButtonUI(
+            PlannerHeaderCommand(
+              count: questNum,
               onCountSelected: () {
                 decrementQuest(context);
               },

@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/core/UIColors.dart';
 
-class BackButtonUI extends StatelessWidget {
-  const BackButtonUI({
+class PlannerHeaderCommand extends StatelessWidget {
+  const PlannerHeaderCommand({
     Key? key,
     required this.onCountSelected,
   }) : super(key: key);
@@ -23,10 +23,10 @@ class BackButtonUI extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Text("scarta",
+          child: Text("scarta".toUpperCase(),
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w700,
-                  fontSize: 16,
+                  fontSize: 14,
                   color: UIColors.lightRed)),
         )
       ],

@@ -45,7 +45,8 @@ class PlannedTripList extends StatelessWidget {
                           return Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
@@ -66,6 +67,7 @@ class PlannedTripList extends StatelessWidget {
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black)),
                                   ),
+                                  const Icon(Iconsax.arrow_right_1)
                                 ],
                               ),
                               const Divider(height: 30),

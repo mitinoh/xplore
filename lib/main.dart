@@ -113,11 +113,10 @@ class MyApp extends StatelessWidget {
 
                 // return Text(AppLocalizations.of(context)!.helloWorld);
                 // TODO: controllare stare
-                
+
                 if ((state.hasData)) {
                   if (BlocProvider.of<AuthBloc>(context).state
-                      is! NewUserAuthenticated)
-                    return Navbar();
+                      is! NewUserAuthenticated) return Navbar();
                 }
                 // Otherwise, they're not signed in. Show the sign in page.
                 return const SignIn();
