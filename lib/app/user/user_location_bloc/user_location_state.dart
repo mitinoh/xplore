@@ -14,40 +14,26 @@ class UserLocationLoading extends UserLocationState {}
 class UserSavedLocationLoaded extends UserLocationState {
   final List<LocationModel> savedLocationModel;
   const UserSavedLocationLoaded(this.savedLocationModel);
-  /*
+
   @override
-  List<Object> get props => [
-        ...props,
-        [1, 2, 3, 4]
-      ];
-      */
+  List<Object> get props => [savedLocationModel];
 }
 
 class UserUploadedLocationLoaded extends UserLocationState {
   final List<LocationModel> uploadedLocationModel;
   const UserUploadedLocationLoaded(this.uploadedLocationModel);
-  /*
-  @override
-  List<Object> get props => [
-        ...props,
-        [1, 2, 3, 4]
-      ];
-      */
 }
 
 class UserAllLocationLoaded extends UserLocationState {
-  final List<LocationModel> uploadedLocationModel;
+
+  
   final List<LocationModel> savedLocationModel;
+  final List<LocationModel> uploadedLocationModel;
   const UserAllLocationLoaded(
-      this.uploadedLocationModel, this.savedLocationModel);
-  /*
-  const UserAllLocationLoaded({
-    this.uploadedLocationModel = const <LocationModel>[],
-    this.savedLocationModel = const <LocationModel>[],
-  })*/
+      this.savedLocationModel, this.uploadedLocationModel);
 
   @override
-  List<Object> get props => [uploadedLocationModel, savedLocationModel];
+  List<Object> get props => [savedLocationModel, uploadedLocationModel];
 }
 
 class LocationError extends UserLocationState {

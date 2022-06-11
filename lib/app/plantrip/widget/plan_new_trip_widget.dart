@@ -1,25 +1,18 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geocoding/geocoding.dart' as geo;
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/plantrip/widget/close_button.dart';
+import 'package:xplore/app/plantrip/widget/questions/avoid_category_question.dart';
+import 'package:xplore/app/plantrip/widget/questions/distance_question.dart';
+import 'package:xplore/app/plantrip/widget/questions/period_question.dart';
+import 'package:xplore/app/plantrip/widget/questions/trip_name_question.dart';
+import 'package:xplore/app/plantrip/widget/questions/where_question.dart';
 import 'package:xplore/app/plantrip/widget/select_trip_location_widget.dart';
-import 'package:xplore/app/user/screen/category_preference.dart';
-import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widgets/confirm_button.dart';
 import 'package:xplore/core/widgets/progressbar.dart';
-import 'package:xplore/core/widgets/snackbar_message.dart';
 import 'package:xplore/core/widgets/success_screen.dart';
-import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/mongoose_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
@@ -32,8 +25,12 @@ class NetTripQuestion extends StatefulWidget {
 
 class _NetTripQuestionState extends State<NetTripQuestion> {
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
-  final PlantripBloc _planTripBloc = PlantripBloc();
 
+  PlantripBloc _planTripBloc = PlantripBloc();
+
+  //late ValueChanged<bool> onChange = false;
+
+  //ValueChanged<int> onChangee = new ValueChanged(2);
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
   DateTime goneDate = DateTime.now().add(const Duration(hours: 1));
   DateTime returnDate =
@@ -51,15 +48,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   void initState() {
     _locCatBloc.add(GetLocationCategoryList());
 
-    _planTripBloc.add(StartQuest());
     super.initState();
-  }
-
-  void incrementQuest() {
-    setState(() {
-      questNum++;
-      valueProgressIndicator += 0.166;
-    });
   }
 
   @override
@@ -74,7 +63,15 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 content: Text(state.message.toString()),
               ),
             );
-          } else if (state is PlanTripNextQuestion) {}
+          } else if (state is PlanTripNextQuestion) {
+            setState(() {
+              questNum++;
+            });
+          } else if (state is PlanTripPreviousQuestion) {
+            setState(() {
+              questNum--;
+            });
+          }
         },
         child: BlocBuilder<PlantripBloc, PlantripState>(
           builder: (context, state) {
@@ -90,20 +87,33 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ),
               );
             }
-            // if (state is PlanTripQuestion) {
+            // if (state is PlanTripQuestion) {print(context
+            Widget questionWidget;
             switch (questNum) {
               case 0:
-                return whereToGoQuest();
+                questionWidget = WhereQuestion(context: context);
+                break;
               case 1:
-                return periodToGoQuest();
+                questionWidget = PeriodQuestion(
+                  context: context,
+                );
+                break;
               case 2:
-                return categoryToAvoidQuest();
+                questionWidget = AvoidCategoryQuestion(
+                  context: context,
+                );
+                break;
               case 3:
-                return distanceQuest();
+                questionWidget = DistanceQuestion(context: context);
+                break;
               case 4:
-                return tripNameQuest();
+                questionWidget = TripNameQuestion(context: context);
+                break;
               case 5:
-                return selectLocation();
+                questionWidget = SelectTripLocation(
+                  context: context,
+                );
+                break;
               default:
                 return Scaffold(
                   body: SafeArea(
@@ -111,6 +121,19 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   ),
                 );
             }
+            return Column(
+              children: [
+                BackButtonUI(
+                  onCountSelected: () {
+                    decrementQuest(context);
+                  },
+                ),
+                const SizedBox(height: 20),
+                ProgressBar(valueProgressIndicator: valueProgressIndicator),
+                const SizedBox(height: 50),
+                questionWidget
+              ],
+            );
             /* } else */
 
             //  return Text("1");
@@ -120,6 +143,19 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     );
   }
 
+  void decrementQuest(BuildContext ctx) {
+    ctx.read<PlantripBloc>().add(PlanTripChangeQuestionEvent(increment: false));
+  }
+/*
+  void incrementQuest() {
+    setState(() {
+      questNum++;
+      valueProgressIndicator += 0.166;
+    });
+  }
+
+
+
   Widget tripNameQuest() {
     final TextEditingController _nameController = TextEditingController();
     return Column(
@@ -128,12 +164,9 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         Column(
           children: [
             BackButtonUI(
-              count: questNum,
               onCountSelected: () {
                 setState(() {
-                  if (questNum != 0) {
-                    questNum--;
-                  }
+                  decrementQuest(context);
                 });
               },
             ),
@@ -222,12 +255,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   _nameController.text.trim() != "")
                 {
                   planQuery.putIfAbsent("tripName", () => _nameController.text),
+                  if (_planTripBloc.isClosed) {_planTripBloc = PlantripBloc()},
                   _planTripBloc.add(
                       GetLocation(/*body: planQuery.toString(),*/ mng: mng)),
                   incrementQuest()
                 }
               else
                 {
+                  if (_planTripBloc.isClosed) {_planTripBloc = PlantripBloc()},
                   _planTripBloc.add(PlanTripLocationNotFound(
                       message: 'trip name cannot be empty'))
                 }
@@ -248,13 +283,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         Column(
           children: [
             BackButtonUI(
-              count: questNum,
               onCountSelected: () {
-                setState(() {
-                  if (questNum != 0) {
-                    questNum--;
-                  }
-                });
+                decrementQuest(context);
               },
             ),
             const SizedBox(height: 20),
@@ -465,13 +495,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BackButtonUI(
-              count: questNum,
               onCountSelected: () {
-                setState(() {
-                  if (questNum != 0) {
-                    questNum--;
-                  }
-                });
+                decrementQuest(context);
               },
             ),
             const SizedBox(height: 20),
@@ -686,13 +711,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         Column(
           children: [
             BackButtonUI(
-              count: questNum,
               onCountSelected: () {
-                setState(() {
-                  if (questNum != 0) {
-                    questNum--;
-                  }
-                });
+                decrementQuest(context);
               },
             ),
             const SizedBox(height: 20),
@@ -779,13 +799,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         Column(
           children: [
             BackButtonUI(
-              count: questNum,
               onCountSelected: () {
-                setState(() {
-                  if (questNum != 0) {
-                    questNum--;
-                  }
-                });
+                decrementQuest(context);
               },
             ),
             const SizedBox(height: 20),
@@ -899,6 +914,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   }
 
   Widget selectLocation() {
+    return Text("");
+    /*
     return BlocProvider(
       create: (_) => _planTripBloc,
       child: BlocListener<PlantripBloc, PlantripState>(
@@ -915,15 +932,17 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               return const LoadingIndicator();
             } else if (state is PlantripLoadedLocation) {
               return SelectTripLocation(
-                  mng: mng,
-                  planQuery: planQuery,
-                  planTripModel: state.planTripModel,
-                  goneDate: goneDate,
-                  returnDate: returnDate,
-                  planTripBloc: _planTripBloc,
-                  locLatitude: locLatitude,
-                  locLongitude: locLongitude,
-                  questNum: questNum);
+                //  mng: mng,
+                planQuery: planQuery,
+                // planTripModel: state.planTripModel,
+                goneDate: goneDate,
+                returnDate: returnDate,
+                //planTripBloc: _planTripBloc,
+                locLatitude: locLatitude,
+                locLongitude: locLongitude,
+                //   backQuest: () => decrementQuest(context),
+                context: context,
+              );
             } else {
               return Container();
             }
@@ -931,6 +950,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         ),
       ),
     );
+ */
   }
 
   void getCoordinate(String location) async {
@@ -944,5 +964,5 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     } catch (e) {
       _planTripBloc.add(PlanTripLocationNotFound(message: 'mess111'));
     }
-  }
+  }*/
 }

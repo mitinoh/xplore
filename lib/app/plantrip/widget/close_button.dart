@@ -6,10 +6,8 @@ import 'package:xplore/core/UIColors.dart';
 class BackButtonUI extends StatelessWidget {
   const BackButtonUI({
     Key? key,
-    required this.count,
     required this.onCountSelected,
   }) : super(key: key);
-  final int count;
   final VoidCallback onCountSelected;
   @override
   Widget build(BuildContext context) {

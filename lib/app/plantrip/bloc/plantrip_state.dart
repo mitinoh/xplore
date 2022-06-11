@@ -11,7 +11,6 @@ class PlantripInitial extends PlantripState {}
 
 class PlantripLoadingLocation extends PlantripState {}
 
-
 class PlantripLoadedLocation extends PlantripState {
   final List<LocationModel> planTripModel;
   const PlantripLoadedLocation(this.planTripModel);
@@ -33,5 +32,12 @@ class PlanTripError extends PlantripState {
   const PlanTripError(this.message);
 }
 
+class PlanTripNextQuestion extends PlantripState {
+  const PlanTripNextQuestion();
+}
+
+class PlanTripPreviousQuestion extends PlantripState {}
+
 class PlanTripQuestion extends PlantripState {}
+
 class PlanTripQuestionCompleted extends PlantripState {}

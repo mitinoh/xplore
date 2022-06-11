@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/repository/auth_repository.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
@@ -109,12 +108,16 @@ class MyApp extends StatelessWidget {
           darkTheme: MyThemes.darkTheme,
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
+              builder: (context, state) {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
 
                 // return Text(AppLocalizations.of(context)!.helloWorld);
-                if (snapshot.hasData) {
-                  return Navbar();
+                // TODO: controllare stare
+                
+                if ((state.hasData)) {
+                  if (BlocProvider.of<AuthBloc>(context).state
+                      is! NewUserAuthenticated)
+                    return Navbar();
                 }
                 // Otherwise, they're not signed in. Show the sign in page.
                 return const SignIn();

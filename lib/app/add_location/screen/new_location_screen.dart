@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -9,7 +10,9 @@ import 'package:xplore/app/add_location/widgets/category_bottom_sheet.dart';
 import 'package:xplore/app/add_location/widgets/image_imported.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
+import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/header_name.dart';
 
 class NewLocation extends StatefulWidget {
   const NewLocation({Key? key}) : super(key: key);
@@ -373,26 +376,7 @@ class _NewLocationState extends State<NewLocation> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-          child: RichText(
-            text: TextSpan(
-              text: 'Vuoi raccomandare un luogo ',
-              style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'Mite',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: UIColors.blue)),
-                const TextSpan(text: '?'),
-              ],
-            ),
-          ),
-        ),
+                                       HeaderName(message: "Vuoi suggerirci un posto ", questionMark: true)
       ],
     );
   }

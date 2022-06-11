@@ -12,13 +12,13 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const CategoryPreference(
-          ),
+          const CategoryPreference(),
           TextButton(
               onPressed: () {
                 BlocProvider.of<AuthBloc>(context).add(
                   NewUser(CategoryPreference.catSelected),
                 );
+
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyApp()),

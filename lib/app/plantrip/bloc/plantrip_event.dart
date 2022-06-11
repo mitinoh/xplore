@@ -24,10 +24,15 @@ class GetPlannedTrip extends PlantripEvent {
   const GetPlannedTrip();
 }
 
+// TODO: cambiare nome in errore generico
 class PlanTripLocationNotFound extends PlantripEvent {
   String message;
   PlanTripLocationNotFound({required this.message});
 }
 
-class PlanTripNextQuestion extends PlantripEvent {}
+class PlanTripChangeQuestionEvent extends PlantripEvent {
+  bool increment;
+  PlanTripChangeQuestionEvent({required this.increment});
+}
+
 class PlanTripEndQuestion extends PlantripEvent {}

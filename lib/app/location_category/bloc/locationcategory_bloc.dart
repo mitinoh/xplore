@@ -8,6 +8,7 @@ import 'package:xplore/model/location_category_model.dart';
 part 'locationcategory_event.dart';
 part 'locationcategory_state.dart';
 
+// TODO: rinominare con camel notation
 class LocationcategoryBloc
     extends Bloc<LocationcategoryEvent, LocationcategoryState> {
   LocationcategoryBloc() : super(LocationcategoryInitial()) {

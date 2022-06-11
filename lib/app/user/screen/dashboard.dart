@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
+import 'package:xplore/app/user/bloc_saved_location/saved_location_bloc.dart';
+import 'package:xplore/app/user/bloc_uploaded_location/uploaded_location_bloc.dart';
 import 'package:xplore/app/user/user_location_bloc/user_location_bloc.dart';
 import 'package:xplore/app/user/widgets/header_navigation.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
@@ -34,7 +36,7 @@ class _UserScreenState extends State<UserScreen> {
     var mediaQuery = MediaQuery.of(context);
 
     final List<dynamic> tabs = <dynamic>[
-      {"name": 'Piaciuti', "event": GetUserSavedLocationList()},
+      {"name": 'Piaciuti', "event": GetUserSavedLocationList([])},
       {"name": 'Caricati', "event": GetUserUploadedLocationList()}
     ]; // Visitati
 
@@ -101,19 +103,27 @@ class _UserScreenState extends State<UserScreen> {
                   ];
                 },
                 body: Padding(
-                    padding: EdgeInsets.only(left: 17.5, right: 17.5),
+                    padding: const EdgeInsets.only(left: 17.5, right: 17.5),
                     child: SafeArea(
                         top: false,
                         bottom: false,
-                        child: BlocProvider(
-                          create: (_) =>
-                              UserLocationBloc()..add(GetUserAllLocationList()),
-                          child:
-                              BlocBuilder<UserLocationBloc, UserLocationState>(
-                            builder: (context, state) {
-                              if (state is UserAllLocationLoaded) {
-                                return TabBarView(children: [
-                                  (state.savedLocationModel.length > 0)
+                        child: MultiBlocProvider(
+                          providers: [
+                            BlocProvider(
+                              create: (_) => SavedLocationBloc()
+                                ..add(const SavedLocationInitUserListEvent()),
+                            ),
+                            BlocProvider(
+                              create: (_) => UploadedLocationBloc()
+                                ..add(
+                                    const UploadedLocationInitUserListEvent()),
+                            )
+                          ],
+                          child: TabBarView(children: [
+                            BlocBuilder<SavedLocationBloc, SavedLocationState>(
+                              builder: (context, state) {
+                                if (state is SavedLocationLoadedState) {
+                                  return (state.savedLocationList.length > 0)
                                       ? CustomScrollView(
                                           // key: PageStorageKey<String>(obj["name"]),
                                           slivers: [
@@ -129,19 +139,47 @@ class _UserScreenState extends State<UserScreen> {
                                                   SliverChildBuilderDelegate(
                                                 (BuildContext context,
                                                     int index) {
+                                                  log("---------");
+                                                  log(state.props.toString());
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      /*
+                                                      BlocProvider.of<
+                                                              UserLocationBloc>(
+                                                          context)
+                                                        ..add(GetUserSavedLocationList(
+                                                            state
+                                                                .savedLocationModel));
+
+                                                                */
+                                                    },
+                                                    child: ImageTile(
+                                                        location: state
+                                                                .savedLocationList[
+                                                            index]),
+                                                  );
                                                   return ImageTile(
                                                       location: state
-                                                              .savedLocationModel[
+                                                              .savedLocationList[
                                                           index]);
                                                 },
                                                 childCount: state
-                                                    .savedLocationModel.length,
+                                                    .savedLocationList.length,
                                               ),
                                             )
                                           ],
                                         )
-                                      : Text("no data found"),
-                                  (state.uploadedLocationModel.length > 0)
+                                      : Text("no data found");
+                                } else {
+                                  return LoadingIndicator();
+                                }
+                              },
+                            ),
+                            BlocBuilder<UploadedLocationBloc,
+                                UploadedLocationState>(
+                              builder: (context, state) {
+                                if (state is UploadedLocationLoadedState) {
+                                  return (state.uploadedLocationList.length > 0)
                                       ? CustomScrollView(
                                           // key: PageStorageKey<String>(obj["name"]),
                                           slivers: [
@@ -157,25 +195,40 @@ class _UserScreenState extends State<UserScreen> {
                                                   SliverChildBuilderDelegate(
                                                 (BuildContext context,
                                                     int index) {
-                                                  return ImageTile(
-                                                      location: state
-                                                              .uploadedLocationModel[
-                                                          index]);
+                                                  log("---------");
+                                                  log(state.props.toString());
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      /*
+                                                      BlocProvider.of<
+                                                              UserLocationBloc>(
+                                                          context)
+                                                        ..add(GetUserSavedLocationList(
+                                                            state
+                                                                .savedLocationModel));
+
+                                                                */
+                                                    },
+                                                    child: ImageTile(
+                                                        location: state
+                                                                .uploadedLocationList[
+                                                            index]),
+                                                  );
                                                 },
                                                 childCount: state
-                                                    .uploadedLocationModel
+                                                    .uploadedLocationList
                                                     .length,
                                               ),
                                             )
                                           ],
                                         )
-                                      : Text("no data found"),
-                                ]);
-                              } else {
-                                return LoadingIndicator();
-                              }
-                            },
-                          ),
+                                      : Text("no data found");
+                                } else {
+                                  return LoadingIndicator();
+                                }
+                              },
+                            ),
+                          ]),
                         ))
 
                     /*

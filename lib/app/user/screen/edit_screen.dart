@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 
@@ -203,13 +204,16 @@ class EditProfile extends StatelessWidget {
     );
   }
 
-  void _updateUserInfo() {
+  void _updateUserInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> userData = {};
     if (_usernameController.text.trim() != "") {
       userData["name"] = _usernameController.text;
+      prefs.setString("userName", _usernameController.text);
     }
     if (_bioController.text.trim() != "") {
       userData["bio"] = _bioController.text;
+      prefs.setString("userBio", _bioController.text);
     }
     String? base64Image;
     if (image != null) {

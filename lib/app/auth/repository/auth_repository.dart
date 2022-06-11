@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -88,9 +90,16 @@ class AuthRepository {
   Future<void> newUserPut(List<String> categoryPref) async {
     try {
       await Future.delayed(const Duration(seconds: 1));
-      Map<String, dynamic> map = {'categoryPref': categoryPref, 'name': "---"};
+      Map<String, dynamic> map = {
+        'categoryPref': categoryPref,
+        'name': "---",
+        "bio": "-"
+      };
+      log(map.toString());
+
       Response response = await httpService.request(
           method: Method.POST, url: conf.userColl, params: json.encode(map));
+      log(response.toString());
     } catch (e) {
       throw Exception(e);
     }

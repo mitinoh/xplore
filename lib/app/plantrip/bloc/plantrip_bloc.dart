@@ -8,6 +8,7 @@ part 'plantrip_event.dart';
 part 'plantrip_state.dart';
 
 class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
+  Map<String, dynamic> planTripQuestionsMap = {};
   PlantripBloc() : super(PlantripInitial()) {
     final PlanTripRepository _planTripRepository = PlanTripRepository();
     on<PlantripEvent>((event, emit) {
@@ -38,6 +39,15 @@ class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
     });
     on<PlanTripEndQuestion>((event, emit) async {
       emit(PlanTripQuestionCompleted());
+    });
+
+    on<PlanTripChangeQuestionEvent>((event, emit) async {
+      final state = this.state;
+      if (event.increment) {
+        emit(PlanTripNextQuestion());
+      } else {
+        emit(PlanTripPreviousQuestion());
+      }
     });
   }
 }

@@ -6,6 +6,7 @@ import 'package:xplore/app/plantrip/screen/plan_new_trip_screen.dart';
 import 'package:xplore/app/plantrip/widget/current_planned_trip_widget.dart';
 import 'package:xplore/app/plantrip/widget/planned_trip_widget.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/header_name.dart';
 
 class PlanTripScreen extends StatefulWidget {
   const PlanTripScreen({Key? key}) : super(key: key);
@@ -73,28 +74,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: RichText(
-            text: TextSpan(
-              text: 'Il tuo planner ',
-              style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'Mite',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: UIColors.blue)),
-                const TextSpan(text: '.'),
-              ],
-            ),
-          ),
-        ),
-      ],
+      children: [HeaderName(message: "Il tuo planner ", questionMark: false)],
     );
   }
 

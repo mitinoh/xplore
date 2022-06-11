@@ -1,39 +1,39 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
-import 'package:xplore/core/widgets/progressbar.dart';
+import 'package:xplore/core/widgets/snackbar_message.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
 import 'package:xplore/model/move_plan_trip_model.dart';
 
-import 'close_button.dart';
-
 class SelectTripLocation extends StatefulWidget {
   SelectTripLocation(
       {Key? key,
-      required this.mng,
-      required this.planQuery,
-      required this.planTripModel,
-      required this.goneDate,
-      required this.returnDate,
-      required this.planTripBloc,
-      required this.locLatitude,
-      required this.locLongitude,
-      required this.questNum})
+      //required this.mng,
+      //required this.planQuery,
+      // required this.planTripModel,
+      // required this.goneDate,
+      // required this.returnDate,
+      // required this.locLatitude,
+      //required this.locLongitude,
+      //  required this.backQuest,
+      required this.context})
       : super(key: key);
-  Mongoose mng = Mongoose();
+  // Mongoose mng = Mongoose();
   Map<String, dynamic> planQuery = {};
   List<LocationModel> planTripModel = [];
   DateTime goneDate = DateTime.now();
   DateTime returnDate = DateTime.now();
-  PlantripBloc planTripBloc = PlantripBloc();
   double locLatitude = 0;
   double locLongitude = 0;
-  int questNum;
+  BuildContext context;
+  // final VoidCallback backQuest;
 
   @override
   State<SelectTripLocation> createState() => _SelectTripLocationState();
@@ -42,7 +42,6 @@ class SelectTripLocation extends StatefulWidget {
 class _SelectTripLocationState extends State<SelectTripLocation> {
   List<DragAndDropList> _contents = [];
   final List<List<MovePlanTripModel>> _plan = [];
-
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     setState(() {
@@ -69,6 +68,9 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
 
   @override
   void initState() {
+    context
+        .read<PlantripBloc>()
+        .add(GetLocation(mng: Mongoose(filter: {}, select: [], sort: {})));
     super.initState();
     int tripDay = widget.returnDate.difference(widget.goneDate).inDays + 1;
     tripDay = tripDay > 0 ? tripDay : 1;
@@ -170,23 +172,38 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: BlocProvider.of<PlantripBloc>(context),
+      child: BlocListener<PlantripBloc, PlantripState>(
+        listener: (context, state) {
+          if (state is PlanTripError) {
+            SnackBarMessage();
+          }
+        },
+        child: BlocBuilder<PlantripBloc, PlantripState>(
+          builder: (context, state) {
+            if (state is PlantripInitial) {
+              return const LoadingIndicator();
+            } else if (state is PlantripLoadingLocation) {
+              return const LoadingIndicator();
+            } else if (state is PlantripLoadedLocation) {
+              return mainWidget();
+            } else {
+              return Container();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  mainWidget() {
     var mediaQuery = MediaQuery.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           children: [
-            BackButtonUI(
-              count: widget.questNum,
-              onCountSelected: () {
-                setState(() {
-                  widget.questNum--;
-                });
-              },
-            ),
-            const SizedBox(height: 20),
-            const ProgressBar(valueProgressIndicator: 100),
-            const SizedBox(height: 50),
             Row(
               children: [
                 Expanded(
@@ -213,8 +230,11 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           ],
         ),
         InkWell(
-          onTap: () =>
-              {saveTripPlan(), widget.planTripBloc.add(PlanTripEndQuestion())},
+          onTap: () => {
+            saveTripPlan(),
+            BlocProvider.of<PlantripBloc>(widget.context)
+                .add(PlanTripEndQuestion())
+          },
           child: const ConfirmButton(text: "fatto"),
         ),
       ],
@@ -240,15 +260,16 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
         "coordinate",
         () =>
             {"lat": widget.locLatitude, "lng": widget.locLongitude, "alt": 0});
-
+/*
     widget.planQuery.putIfAbsent(
         "avoidCategory",
         () => widget.mng.filter?["locationcategory"]
             .toString()
             .substring(4)
             .split(','));
-
+*/
     //widget.planQuery["trip"] = [planList.join(",")];
-    widget.planTripBloc.add(SaveTrip(body: widget.planQuery));
+    BlocProvider.of<PlantripBloc>(widget.context)
+        .add(SaveTrip(body: widget.planQuery));
   }
 }
