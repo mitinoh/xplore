@@ -42,7 +42,8 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                                HeaderName(message: "Quando vorresti partire ", questionMark: true)
+                HeaderName(
+                    message: "Quando vorresti partire ", questionMark: true)
               ],
             ),
             const SizedBox(height: 20),
@@ -183,7 +184,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                   .add(PlanTripChangeQuestionEvent(increment: true));
             }
           },
-          child: const ConfirmButton(text: "continua"),
+          child: const ConfirmButton(text: "prossima domanda"),
         ),
       ],
     );

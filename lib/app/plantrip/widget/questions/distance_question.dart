@@ -92,7 +92,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
           onTap: () {
             setDistanceLocation();
           },
-          child: const ConfirmButton(text: "continua"),
+          child: const ConfirmButton(text: "prossima domanda"),
         ),
       ],
     );

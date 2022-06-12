@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
@@ -12,6 +14,8 @@ import 'package:xplore/app/plantrip/widget/questions/period_question.dart';
 import 'package:xplore/app/plantrip/widget/questions/trip_name_question.dart';
 import 'package:xplore/app/plantrip/widget/questions/where_question.dart';
 import 'package:xplore/app/plantrip/widget/select_trip_location_widget.dart';
+import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/confirm_button.dart';
 import 'package:xplore/core/widgets/progressbar.dart';
 import 'package:xplore/core/widgets/success_screen.dart';
 import 'package:xplore/model/mongoose_model.dart';
@@ -123,6 +127,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 );
             }
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PlannerHeaderCommand(
                   onCountSelected: () {
@@ -131,8 +136,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ),
                 const SizedBox(height: 20),
                 ProgressBar(valueProgressIndicator: valueProgressIndicator),
-                const SizedBox(height: 50),
-                questionWidget
+                const SizedBox(height: 30),
+                Expanded(child: questionWidget),
               ],
             );
             /* } else */

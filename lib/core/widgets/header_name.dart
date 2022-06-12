@@ -6,7 +6,8 @@ import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/core/UIColors.dart';
 
 class HeaderName extends StatelessWidget {
-  HeaderName({Key? key, required this.message, required this.questionMark}) : super(key: key);
+  HeaderName({Key? key, required this.message, required this.questionMark})
+      : super(key: key);
   String message = "";
   bool questionMark = false;
   @override
@@ -19,17 +20,17 @@ class HeaderName extends StatelessWidget {
               text: TextSpan(
                 text: message,
                 style: GoogleFonts.poppins(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
                 children: <TextSpan>[
                   TextSpan(
                       text: snapshot.data,
                       style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: UIColors.blue)),
-                    TextSpan(text: questionMark ? '?' : '') ,
+                  TextSpan(text: questionMark ? '?' : ''),
                 ],
               ),
             ),

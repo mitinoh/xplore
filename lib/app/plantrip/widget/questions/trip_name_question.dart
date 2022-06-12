@@ -103,7 +103,7 @@ class TripNameQuestion extends StatelessWidget {
                     message: 'trip name cannot be empty'))
               }
           },
-          child: const ConfirmButton(text: "continua"),
+          child: const ConfirmButton(text: "prossima domanda"),
         ),
       ],
     );

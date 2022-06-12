@@ -8,6 +8,7 @@ import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
 import 'package:xplore/core/widgets/header_name.dart';
+import 'package:xplore/core/widgets/subtitle.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 
 class AvoidCategoryQuestion extends StatelessWidget {
@@ -57,25 +58,19 @@ class AvoidCategoryQuestion extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                HeaderName(message: "Categorie da evitare ", questionMark: false)
+                HeaderName(
+                    message: "Categorie da evitare ", questionMark: false)
               ],
             ),
             const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
-                      overflow: TextOverflow.visible,
-                      style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey)),
-                )
-              ],
-            ),
+            const Subtitle(
+                text: "Seleziona le categorie che vorresti evitare in vacanza"),
             const SizedBox(height: 20),
-            const CategoryPreference()
+            ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(left: 20.0, right: 20),
+              children: const <Widget>[CategoryPreference()],
+            ),
           ],
         ),
         InkWell(
@@ -83,7 +78,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
               setCategoryToAvoid();
             },
             child: const ConfirmButton(
-              text: "continua",
+              text: "prossima domanda",
             )),
       ],
     );

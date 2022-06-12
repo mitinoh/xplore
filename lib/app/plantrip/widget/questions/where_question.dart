@@ -9,6 +9,7 @@ import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
 import 'package:xplore/core/widgets/header_name.dart';
+import 'package:xplore/core/widgets/subtitle.dart';
 
 class WhereQuestion extends StatelessWidget {
   WhereQuestion({Key? key, required this.context}) : super(key: key);
@@ -31,62 +32,9 @@ class WhereQuestion extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                      "Scegli una città come destinazione e ti aiuteremo a scoprire le attrazioni più belle.",
-                      overflow: TextOverflow.visible,
-                      style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey)),
-                )
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: 'Milano, ',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black)),
-                        TextSpan(
-                            text: 'Roma, ',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black)),
-                        TextSpan(
-                            text: 'Firenze, ',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black)),
-                        TextSpan(
-                            text: 'Venezia, ',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black)),
-                        TextSpan(
-                            text: 'Lago di garda...',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black))
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            const Subtitle(
+                text:
+                    "Scegli una città come destinazione e ti aiuteremo a scoprire le attrazioni più belle."),
             const SizedBox(height: 20),
             Row(
               children: [
@@ -125,7 +73,7 @@ class WhereQuestion extends StatelessWidget {
           onTap: () => {
             getCoordinate(_nameController.text.toString()),
           },
-          child: const ConfirmButton(text: "continua"),
+          child: const ConfirmButton(text: "prossima domanda"),
         ),
       ],
     );

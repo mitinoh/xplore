@@ -49,22 +49,30 @@ class EditProfile extends StatelessWidget {
               const SizedBox(height: 20),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Edit profile',
-                        style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Edit profile',
+                      style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
                     ),
                   ),
+                  InkWell(
+                    onTap: (() => {_updateUserInfo()}),
+                    child: CircleAvatar(
+                      backgroundColor: UIColors.blue,
+                      child: Icon(
+                        Icons.done,
+                        color: UIColors.white,
+                      ),
+                    ),
+                  )
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               Row(
                 children: [
                   Expanded(
@@ -131,7 +139,7 @@ class EditProfile extends StatelessWidget {
                         contentPadding: const EdgeInsets.all(15.0),
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
-                        hintText: "Bio...",
+                        hintText: "Inserisci la tua bio...",
                         hintStyle: GoogleFonts.poppins(
                             color: UIColors.grey, fontSize: 14),
                         border: const OutlineInputBorder(),
@@ -171,27 +179,6 @@ class EditProfile extends StatelessWidget {
                         "Cambia foto profilo",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold, fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              InkWell(
-                onTap: (() => {_updateUserInfo()}),
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.only(left: 20, right: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: UIColors.lightGreen,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Salva modifiche".toUpperCase(),
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

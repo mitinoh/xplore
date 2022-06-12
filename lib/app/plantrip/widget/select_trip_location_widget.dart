@@ -222,7 +222,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             ),
             const SizedBox(height: 20),
             SizedBox(
-              height: mediaQuery.size.height * 0.45,
+              height: mediaQuery.size.height * 0.35,
               child: DragAndDropLists(
                 listDivider: const SizedBox(height: 5),
                 children: _contents,
@@ -238,7 +238,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             BlocProvider.of<PlantripBloc>(widget.context)
                 .add(PlanTripEndQuestion())
           },
-          child: const ConfirmButton(text: "fatto"),
+          child: const ConfirmButton(text: "Abbiamo finito"),
         ),
       ],
     );

@@ -13,7 +13,7 @@ class ConfirmButton extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: UIColors.blue,
+        color: UIColors.lightGreen,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -21,7 +21,7 @@ class ConfirmButton extends StatelessWidget {
           Text(
             text.toString().toUpperCase(),
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: Colors.white),
+                fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ],
       ),
