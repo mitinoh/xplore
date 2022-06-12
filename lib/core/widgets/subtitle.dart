@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Subtitle extends StatelessWidget {
-  const Subtitle({Key? key, required this.text}) : super(key: key);
+  const Subtitle({Key? key, required this.text, required this.colors})
+      : super(key: key);
   final String text;
+  final Color colors;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,7 @@ class Subtitle extends StatelessWidget {
           child: Text(text.toString(),
               overflow: TextOverflow.visible,
               style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.grey)),
+                  fontSize: 12, fontWeight: FontWeight.w300, color: colors)),
         )
       ],
     );

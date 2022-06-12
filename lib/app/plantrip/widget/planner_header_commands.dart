@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widgets/subtitle.dart';
 
 class PlannerHeaderCommand extends StatelessWidget {
   const PlannerHeaderCommand({
@@ -22,37 +20,22 @@ class PlannerHeaderCommand extends StatelessWidget {
                   onCountSelected();
                 },
                 child: const Icon(Iconsax.arrow_left)),
-          ],
-        ),
-        const SizedBox(height: 20),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
             RichText(
               text: TextSpan(
                 text: 'Creazione vacanza',
                 style: GoogleFonts.poppins(
                     fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                     color: Colors.black),
               ),
             ),
             InkWell(
-              onTap: (() => {Navigator.pop(context)}),
-              child: CircleAvatar(
-                backgroundColor: UIColors.lightRed,
-                child: Icon(
-                  Icons.cancel,
-                  color: UIColors.white,
-                ),
-              ),
-            )
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(Icons.close)),
           ],
         ),
-        const SizedBox(height: 25),
-        const Subtitle(
-            text: "Settiamo insieme la tua prossima vacanza in pochi step.")
       ],
     );
   }

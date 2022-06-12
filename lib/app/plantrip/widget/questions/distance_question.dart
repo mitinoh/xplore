@@ -54,14 +54,24 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                      "Range selezionato " +
-                          _currentSliderValue.toString() +
-                          " km",
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text: _currentSliderValue.toString(),
                       style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black)),
+                          fontSize: 40,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: " km",
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey)),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

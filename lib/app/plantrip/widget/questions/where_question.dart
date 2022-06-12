@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +18,7 @@ class WhereQuestion extends StatefulWidget {
 }
 
 class _WhereQuestionState extends State<WhereQuestion> {
-  String _locationFound = "-";
+  String _locationFound = "ancora nessuno";
 
   final TextEditingController _locationController = TextEditingController();
 
@@ -32,6 +30,12 @@ class _WhereQuestionState extends State<WhereQuestion> {
       children: [
         Column(
           children: [
+            const Subtitle(
+              text:
+                  "Parti per una breve vacanza o invece per una lunga oppure semplicemente in giornata.",
+              colors: Colors.grey,
+            ),
+            const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -41,8 +45,10 @@ class _WhereQuestionState extends State<WhereQuestion> {
             ),
             const SizedBox(height: 20),
             const Subtitle(
-                text:
-                    "Scegli una città come destinazione e ti aiuteremo a scoprire le attrazioni più belle."),
+              text:
+                  "Scegli una città come destinazione e ti aiuteremo a scoprire le attrazioni più belle.",
+              colors: Colors.black,
+            ),
             const SizedBox(height: 20),
             Row(
               children: [
@@ -71,7 +77,6 @@ class _WhereQuestionState extends State<WhereQuestion> {
                           hintStyle:
                               TextStyle(color: UIColors.grey, fontSize: 14),
                           border: const OutlineInputBorder(),
-                          suffixIconColor: UIColors.blue,
                           prefixIcon: Icon(
                             Iconsax.flag,
                             color: UIColors.blue,
@@ -80,24 +85,35 @@ class _WhereQuestionState extends State<WhereQuestion> {
                         autofocus: false,
                       ),
                     ),
-                    TextField(
-                      onSubmitted: (value) {},
-                      onChanged: (String value) {
-                        // filterLocation(value);
-                      },
-                      //controller: _searchController,
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.poppins(
-                          color: Colors.black, fontSize: 14),
-                      decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(15.0),
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          hintStyle: GoogleFonts.poppins(
-                              color: UIColors.grey, fontSize: 14),
-                          border: const OutlineInputBorder(),
-                          hintText: _locationFound),
-                      autofocus: false,
+                    const SizedBox(height: 20),
+                    const Subtitle(
+                      text:
+                          "es. Roma, Milano, Venezia, Firenze, Napoli Torino...",
+                      colors: Colors.grey,
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RichText(
+                            text: TextSpan(
+                                text: 'Luogi trovati\n',
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: _locationFound.toString(),
+                                    style: GoogleFonts.poppins(
+                                        color: UIColors.blue,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                  )
+                                ]),
+                          ),
+                        )
+                      ],
                     ),
                   ],
                 )),
@@ -146,8 +162,12 @@ class _WhereQuestionState extends State<WhereQuestion> {
     Placemark place = placemarks[0];
 
     setState(() {
-      _locationFound =
-          place.locality! + ', ' + place.postalCode! + ', ' + place.country!;
+      _locationFound = place.locality! +
+          ', ' +
+          place.postalCode! +
+          ', ' +
+          place.country! +
+          ', ';
     });
   }
 }

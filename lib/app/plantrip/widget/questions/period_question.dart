@@ -82,7 +82,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                     Text(
                       "Data di partenza ",
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold, fontSize: 14),
+                          fontWeight: FontWeight.w600, fontSize: 14),
                     ),
                   ],
                 ),
@@ -110,7 +110,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                     Text(
                       "Data di ritorno ",
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold, fontSize: 14),
+                          fontWeight: FontWeight.w600, fontSize: 14),
                     ),
                   ],
                 ),

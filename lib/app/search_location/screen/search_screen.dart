@@ -209,7 +209,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: Text(
               "Posti suggeriti",
               style: GoogleFonts.poppins(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: Colors.black),
             ),

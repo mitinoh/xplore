@@ -218,7 +218,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                         margin:
                             const EdgeInsets.only(top: 5, left: 20, right: 20),
                         padding: const EdgeInsets.only(
-                            left: 15, top: 15, right: 15, bottom: 15),
+                            left: 10, top: 10, right: 10, bottom: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: UIColors.grey.withOpacity(0.3),
@@ -287,7 +287,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             ),
             const SizedBox(height: 20),
             SizedBox(
-              height: mediaQuery.size.height * 0.35,
+              height: mediaQuery.size.height * 0.45,
               child: DragAndDropLists(
                 listDivider: const SizedBox(height: 5),
                 children: _contents,

@@ -62,7 +62,9 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     const Subtitle(
-                        text: "Prenditi un momento per creare il tuo profilo."),
+                      text: "Prenditi un momento per creare il tuo profilo.",
+                      colors: Colors.grey,
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -96,8 +98,10 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 30),
                     const Subtitle(
-                        text:
-                            "Dopo aver scelto la foto profilo, scegli il tuo username con il quale il mondo di xplore ti conoscerà e scoprirà."),
+                      text:
+                          "Dopo aver scelto la foto profilo, scegli il tuo username con il quale il mondo di xplore ti conoscerà e scoprirà.",
+                      colors: Colors.grey,
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       children: [
@@ -133,8 +137,10 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     const Subtitle(
-                        text:
-                            "Selezioni gli argomenti di maggior interesse per te."),
+                      text:
+                          "Selezioni gli argomenti di maggior interesse per te.",
+                      colors: Colors.grey,
+                    ),
                     const SizedBox(height: 20),
                   ],
                 ),

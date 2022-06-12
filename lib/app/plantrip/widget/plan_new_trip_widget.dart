@@ -134,7 +134,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                     decrementQuest(context);
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 ProgressBar(valueProgressIndicator: valueProgressIndicator),
                 const SizedBox(height: 30),
                 Expanded(child: questionWidget),

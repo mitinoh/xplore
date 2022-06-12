@@ -6,6 +6,7 @@ import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
+import 'package:xplore/core/widgets/gridView_category_preference.dart';
 import 'package:xplore/core/widgets/header_name.dart';
 import 'package:xplore/core/widgets/subtitle.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
@@ -57,20 +58,22 @@ class AvoidCategoryQuestion extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                HeaderName(
-                    message: "Quali categorie non vuoi che ti suggeriamo ",
-                    questionMark: true)
+                HeaderName(message: "Categorie da evitare ", questionMark: true)
               ],
             ),
             const SizedBox(height: 20),
             const Subtitle(
-                text: "Seleziona le categorie che vorresti evitare in vacanza"),
-            const SizedBox(height: 20),
-            ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(left: 20.0, right: 20),
-              children: const <Widget>[CategoryPreference()],
+              text:
+                  "Seleziona le categorie che vorresti evitare in vacanza oppure prosegui.",
+              colors: Colors.grey,
             ),
+            const SizedBox(height: 20),
+            /*ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(left: 0.0, right: 0),
+              children: const <Widget>[CategoryPreference()],
+            ),*/
+            const GridViewCategoryPreference()
           ],
         ),
         InkWell(
