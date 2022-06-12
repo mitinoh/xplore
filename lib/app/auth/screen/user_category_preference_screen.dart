@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widgets/confirm_button.dart';
+import 'package:xplore/core/widgets/subtitle.dart';
 import 'package:xplore/main.dart';
 
 class UserCategoryPreferenceScreen extends StatelessWidget {
@@ -61,22 +61,9 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                              "Contribuisci a rendere xplore un posto vibrante. Raccomanda un nuovo posto e ricevi 200 punti.",
-                              overflow: TextOverflow.visible,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.grey)),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const Subtitle(
+                        text: "Prenditi un momento per creare il tuo profilo."),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -92,32 +79,25 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                                 bottom: -15,
                                 left: 50,
                                 right: 0,
-                                child: CircleAvatar(
-                                    backgroundColor: UIColors.blue,
-                                    child: const Icon(
-                                      Iconsax.add,
-                                      color: Colors.white,
-                                    )))
+                                child: InkWell(
+                                  onTap: () {
+                                    //qui si scatena l'evento del caricamento
+                                  },
+                                  child: CircleAvatar(
+                                      backgroundColor: UIColors.lightblueTile,
+                                      child: const Icon(
+                                        Iconsax.add,
+                                        color: Colors.black,
+                                      )),
+                                ))
                           ],
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                              "Contribuisci a rendere xplore un posto vibrante. Raccomanda un nuovo posto e ricevi 200 punti.",
-                              overflow: TextOverflow.visible,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.grey)),
-                        )
-                      ],
-                    ),
+                    const SizedBox(height: 30),
+                    const Subtitle(
+                        text:
+                            "Dopo aver scelto la foto profilo, scegli il tuo username con il quale il mondo di xplore ti conoscerà e scoprirà."),
                     const SizedBox(height: 20),
                     Row(
                       children: [
@@ -151,25 +131,11 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                         ))
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                              "Contribuisci a rendere xplore un posto vibrante. Raccomanda un nuovo posto e ricevi 200 punti.",
-                              overflow: TextOverflow.visible,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.grey)),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
+                    const Subtitle(
+                        text:
+                            "Selezioni gli argomenti di maggior interesse per te."),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

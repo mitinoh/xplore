@@ -186,27 +186,32 @@ class SettingsBottomSheet extends StatelessWidget {
                     ],
                   ),
                   const Divider(height: 30),
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 22,
-                        backgroundColor: UIColors.platinium,
-                        child: Icon(
-                          Iconsax.profile_delete,
-                          color: UIColors.black,
+                  InkWell(
+                    onTap: () {
+                      context.read<AuthBloc>().add(DeleteAccount());
+                    },
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 22,
+                          backgroundColor: UIColors.platinium,
+                          child: Icon(
+                            Iconsax.profile_delete,
+                            color: UIColors.black,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Cancella account",
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Cancella account",
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 30),
                 ],

@@ -376,7 +376,7 @@ class _NewLocationState extends State<NewLocation> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-                                       HeaderName(message: "Vuoi suggerirci un posto ", questionMark: true)
+        HeaderName(message: "Vuoi suggerirci un posto ", questionMark: true)
       ],
     );
   }

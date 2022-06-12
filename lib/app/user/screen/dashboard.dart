@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/user/bloc_saved_location/saved_location_bloc.dart';
@@ -36,7 +37,7 @@ class _UserScreenState extends State<UserScreen> {
     var mediaQuery = MediaQuery.of(context);
 
     final List<dynamic> tabs = <dynamic>[
-      {"name": 'Piaciuti', "event": GetUserSavedLocationList([])},
+      {"name": 'Posti piaciuti', "event": GetUserSavedLocationList([])},
       {"name": 'Caricati', "event": GetUserUploadedLocationList()}
     ]; // Visitati
 
@@ -158,10 +159,6 @@ class _UserScreenState extends State<UserScreen> {
                                                                 .savedLocationList[
                                                             index]),
                                                   );
-                                                  return ImageTile(
-                                                      location: state
-                                                              .savedLocationList[
-                                                          index]);
                                                 },
                                                 childCount: state
                                                     .savedLocationList.length,
@@ -169,9 +166,24 @@ class _UserScreenState extends State<UserScreen> {
                                             )
                                           ],
                                         )
-                                      : Text("no data found");
+                                      : Center(
+                                          child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Icon(Iconsax.coffee),
+                                            ),
+                                            Text("no data found",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black)),
+                                          ],
+                                        ));
                                 } else {
-                                  return LoadingIndicator();
+                                  return const LoadingIndicator();
                                 }
                               },
                             ),
@@ -222,9 +234,24 @@ class _UserScreenState extends State<UserScreen> {
                                             )
                                           ],
                                         )
-                                      : Text("no data found");
+                                      : Center(
+                                          child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Icon(Iconsax.coffee),
+                                            ),
+                                            Text("no data found",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black)),
+                                          ],
+                                        ));
                                 } else {
-                                  return LoadingIndicator();
+                                  return const LoadingIndicator();
                                 }
                               },
                             ),

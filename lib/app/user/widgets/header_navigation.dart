@@ -19,31 +19,30 @@ class UserHeaderNavigation extends StatelessWidget {
               );
             },
             child: const Icon(Iconsax.magicpen)),
-        InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) {
-                    return const SettingsBottomSheet();
-                  });
-            },
-            child: Row(
-              children: const [
-                /*
-                // niente democrazia, non scelgono loro il colore
-                Padding(
-                  padding: EdgeInsets.only(right: 15.0),
-                  child: Icon(Iconsax.moon),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 15.0),
-                  child: Icon(Iconsax.sun_1),
-                ),*/
-                Icon(Iconsax.setting_2),
-              ],
-            ))
+        Row(
+          children: [
+            // niente democrazia, non scelgono loro il colore
+            const Padding(
+              padding: EdgeInsets.only(right: 15.0),
+              child: Icon(Iconsax.moon),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(right: 15.0),
+              child: Icon(Iconsax.sun_1),
+            ),
+            InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) {
+                        return const SettingsBottomSheet();
+                      });
+                },
+                child: const Icon(Iconsax.setting_2)),
+          ],
+        )
       ],
     );
   }
