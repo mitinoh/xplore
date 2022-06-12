@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,14 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
-import 'package:xplore/core/widgets/progressbar.dart';
 import 'package:xplore/core/widgets/snackbar_message.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
 import 'package:xplore/model/move_plan_trip_model.dart';
-
-import 'planner_header_commands.dart';
 
 class SelectTripLocation extends StatefulWidget {
   SelectTripLocation(
@@ -28,13 +27,13 @@ class SelectTripLocation extends StatefulWidget {
       //  required this.backQuest,
       required this.context})
       : super(key: key);
-  // Mongoose mng = Mongoose();
-  Map<String, dynamic> planQuery = {};
-  List<LocationModel> planTripModel = [];
-  DateTime goneDate = DateTime.now();
-  DateTime returnDate = DateTime.now();
-  double locLatitude = 0;
-  double locLongitude = 0;
+  // // Mongoose mng = Mongoose();
+  // Map<String, dynamic> planQuery = {};
+  // List<LocationModel> planTripModel = [];
+  // DateTime goneDate = DateTime.now();
+  // DateTime returnDate = DateTime.now();
+  // double locLatitude = 0;
+  // double locLongitude = 0;
   BuildContext context;
   // final VoidCallback backQuest;
 
@@ -44,6 +43,16 @@ class SelectTripLocation extends StatefulWidget {
 
 class _SelectTripLocationState extends State<SelectTripLocation> {
   List<DragAndDropList> _contents = [];
+  String tripName = "";
+
+  double latitude = 0;
+  double longitude = 0;
+  double distance = 0;
+  bool firstLoad = true;
+  List<String> avoidCategory = [];
+
+  DateTime goneDate = DateTime.now();
+  DateTime returnDate = DateTime.now();
   final List<List<MovePlanTripModel>> _plan = [];
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
@@ -69,68 +78,72 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     });
   }
 
+  void setMngCoordinate(double distance) {
+    // mng.filter?["coordinate.lat"] = '';
+  }
+
+  double getLatDis(double dis) {
+    return dis / 110.574;
+  }
+
+  double getLngDis(double dis, double lat) {
+    return dis / (111.320 * cos(lat));
+  }
+
+  Mongoose getQuery() {
+    Mongoose mng = Mongoose(filter: {});
+    print(context.read<PlantripBloc>().planTripQuestionsMap);
+    latitude = context.read<PlantripBloc>().planTripQuestionsMap["latitude"];
+    longitude = context.read<PlantripBloc>().planTripQuestionsMap["longitude"];
+    distance = context.read<PlantripBloc>().planTripQuestionsMap["distance"];
+    tripName = context.read<PlantripBloc>().planTripQuestionsMap["tripName"];
+    goneDate = context.read<PlantripBloc>().planTripQuestionsMap["goneDate"];
+    returnDate =
+        context.read<PlantripBloc>().planTripQuestionsMap["returnDate"];
+    if (context.read<PlantripBloc>().planTripQuestionsMap["avoidCategory"] !=
+        null) {
+      print(context
+          .read<PlantripBloc>()
+          .planTripQuestionsMap["avoidCategory"]
+          .split(','));
+      avoidCategory = context
+          .read<PlantripBloc>()
+          .planTripQuestionsMap["avoidCategory"]
+          .split(',');
+    }
+
+    double latDis = getLatDis(distance);
+    double lngDis = getLngDis(distance, latDis);
+    mng.filter?["coordinate.lat=lte:" + (latitude + latDis).toString()] = null;
+    mng.filter?["coordinate.lat=gte:" + (latitude - latDis).toString()] = null;
+    mng.filter?["coordinate.lng=lte:" + (longitude + lngDis).toString()] = null;
+    mng.filter?["coordinate.lng=gte:" + (longitude - lngDis).toString()] = null;
+    return mng;
+  }
+
+  List<DragAndDropItem> _dragLocation = [];
+  List<MovePlanTripModel> _locations = [];
+
   @override
   void initState() {
-    context
-        .read<PlantripBloc>()
-        .add(GetLocation(mng: Mongoose(filter: {}, select: [], sort: {})));
+    Mongoose query = getQuery();
+    context.read<PlantripBloc>().add(GetLocation(mng: query));
     super.initState();
-    int tripDay = widget.returnDate.difference(widget.goneDate).inDays + 1;
+    int tripDay = DateUtils.dateOnly(returnDate)
+            .difference(DateUtils.dateOnly(goneDate))
+            .inDays +
+        1;
     tripDay = tripDay > 0 ? tripDay : 1;
 
-    List<DragAndDropItem> _dragLocation = [];
-    List<MovePlanTripModel> _locations = [];
-
-    for (LocationModel loc in widget.planTripModel) {
-      _locations
-          .add(MovePlanTripModel(locationId: loc.iId, date: widget.goneDate));
-      _dragLocation.add(DragAndDropItem(
-        child: Container(
-            margin: const EdgeInsets.only(top: 5, left: 20, right: 20),
-            padding:
-                const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: UIColors.grey.withOpacity(0.3),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(right: 15.0, left: 15),
-                  child: Icon(
-                    Icons.drag_handle,
-                    color: Colors.black,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    loc.name ?? '',
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                CircleAvatar(
-                  backgroundColor: UIColors.blue,
-                  backgroundImage: const NetworkImage(
-                      'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
-                ),
-              ],
-            )),
-      ));
-    }
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
-    _contents = List.generate(tripDay, (index) {
+    _contents = List.generate(tripDay + 1, (index) {
       return DragAndDropList(
         contentsWhenEmpty: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Text(
-              "Per questo giorno non hai programmato nessuna attività. Trascina un attività qua dentro!",
+              index == 0
+                  ? "Non ci sono più posti disponibili"
+                  : "Per questo giorno non hai programmato nessuna attività. Trascina un attività qua dentro!",
               style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w300,
@@ -144,16 +157,20 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           padding: const EdgeInsets.all(20.0),
           child: RichText(
             text: TextSpan(
-              text: 'Giorno ',
+              text: index == 0
+                  ? 'Ecco la lista di tutti i posti che abbiamo trovato'
+                  : 'Giorno ',
               style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
                   color: Colors.black),
               children: <TextSpan>[
                 TextSpan(
-                    text: formatter
-                        .format(widget.goneDate.add(Duration(days: index)))
-                        .toString(),
+                    text: index == 0
+                        ? ''
+                        : formatter
+                            .format(goneDate.add(Duration(days: index)))
+                            .toString(),
                     style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -190,6 +207,54 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             } else if (state is PlantripLoadingLocation) {
               return const LoadingIndicator();
             } else if (state is PlantripLoadedLocation) {
+              for (LocationModel loc in state.planTripModel) {
+                if (firstLoad) {
+                  _locations.add(
+                      MovePlanTripModel(locationId: loc.iId, date: goneDate));
+                  firstLoad = false;
+
+                  _dragLocation.add(DragAndDropItem(
+                    child: Container(
+                        margin:
+                            const EdgeInsets.only(top: 5, left: 20, right: 20),
+                        padding: const EdgeInsets.only(
+                            left: 15, top: 15, right: 15, bottom: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: UIColors.grey.withOpacity(0.3),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(right: 15.0, left: 15),
+                              child: Icon(
+                                Icons.drag_handle,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                loc.name ?? '',
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            CircleAvatar(
+                              backgroundColor: UIColors.blue,
+                              backgroundImage: const NetworkImage(
+                                  'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
+                            ),
+                          ],
+                        )),
+                  ));
+                }
+              }
               return mainWidget();
             } else {
               return Container();
@@ -254,6 +319,17 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       }
     }
 
+    Map<String, dynamic> planQuery = {};
+    planQuery["goneDate"] = goneDate.toIso8601String();
+    planQuery["returnDate"] = returnDate.toIso8601String();
+    planQuery["plannedLocation"] = planList;
+    planQuery["tripName"] = tripName;
+    planQuery["distance"] = distance;
+    planQuery["coordinate"] = {"lat": latitude, "lng": longitude, "alt": 0};
+    planQuery["avoidCategory"] = avoidCategory;
+    BlocProvider.of<PlantripBloc>(widget.context)
+        .add(SaveTrip(body: planQuery));
+/*
     widget.planQuery
         .putIfAbsent("goneDate", () => widget.goneDate.toIso8601String());
     widget.planQuery
@@ -263,6 +339,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
         "coordinate",
         () =>
             {"lat": widget.locLatitude, "lng": widget.locLongitude, "alt": 0});
+            */
 /*
     widget.planQuery.putIfAbsent(
         "avoidCategory",
@@ -272,7 +349,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             .split(','));
 */
     //widget.planQuery["trip"] = [planList.join(",")];
+    /*
     BlocProvider.of<PlantripBloc>(widget.context)
-        .add(SaveTrip(body: widget.planQuery));
+        .add(SaveTrip(body: widget.planQuery));*/
   }
 }

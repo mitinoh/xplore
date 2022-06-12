@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
@@ -59,7 +58,8 @@ class AvoidCategoryQuestion extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 HeaderName(
-                    message: "Categorie da evitare ", questionMark: false)
+                    message: "Quali categorie non vuoi che ti suggeriamo ",
+                    questionMark: true)
               ],
             ),
             const SizedBox(height: 20),
@@ -87,7 +87,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
   void setCategoryToAvoid() {
     if (CategoryPreference.catSelected.isNotEmpty) {
       context.read<PlantripBloc>().planTripQuestionsMap["avoidCategory"] =
-          CategoryPreference.catSelected.join(',');
+          CategoryPreference.catSelected.join(',').toString();
       // mng.filter?.putIfAbsent("locationcategory",  () => 'nin:' + CategoryPreference.catSelected.join(','));
     }
 

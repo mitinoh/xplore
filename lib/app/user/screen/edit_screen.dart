@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 
@@ -32,8 +32,15 @@ class EditProfile extends StatelessWidget {
     }*/
   }
 
+  void initState() async {
+    print("name: " + await UserRepository.getUserName());
+    _usernameController.text = await UserRepository.getUserName();
+    _bioController.text = await UserRepository.getUserBio();
+  }
+
   @override
   Widget build(BuildContext context) {
+    initState();
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FA),
       body: SafeArea(

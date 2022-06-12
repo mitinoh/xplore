@@ -127,8 +127,9 @@ class PlanTripModel {
     if (obj['avoidCategory'] != null) {
       List<String> cat = [];
 
-      obj['avoidCategory']!
-          .map((v) => {if (v != null && v.toString().trim() != "") cat.add(v)});
+      if (obj['avoidCategory'] != "")
+        obj['avoidCategory']!.map(
+            (v) => {if (v != null && v.toString().trim() != "") cat.add(v)});
       data['avoidCategory'] = cat;
     }
     return data;

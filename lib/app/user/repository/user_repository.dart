@@ -27,6 +27,7 @@ class UserRepository {
 
   void updateUserInfo(Map<String, dynamic> map) async {
     String url = conf.userColl;
+    print(json.encode(map));
     Response response = await httpService.request(
         method: Method.PATCH, url: url, params: json.encode(map));
   }
@@ -34,5 +35,10 @@ class UserRepository {
   static Future<String> getUserName() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString("userName") ?? "";
+  }
+
+  static Future<String> getUserBio() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("userBio") ?? "";
   }
 }
