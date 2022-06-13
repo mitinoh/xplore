@@ -147,7 +147,7 @@ class PlanTripModel {
 class Date {
   String? numberLong;
 
-  Date({this.numberLong});
+  Date(int i, {this.numberLong});
 
   Date.fromJson(Map<String, dynamic> json) {
     numberLong = json['$numberLong'];

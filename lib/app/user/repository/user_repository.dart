@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/http_service.dart';
@@ -40,5 +41,12 @@ class UserRepository {
   static Future<String> getUserBio() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString("userBio") ?? "";
+  }
+
+  getUserPosition() async {
+    Position userLocation = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    return userLocation;
   }
 }

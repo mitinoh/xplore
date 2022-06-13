@@ -16,12 +16,7 @@ class MapRepository extends HomeRepository {
     }
   }
 
-  getUserPosition() async {
-    Position userLocation = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    return userLocation;
-  }
+  
 
 
 /*

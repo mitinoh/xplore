@@ -23,6 +23,13 @@ class _WhereQuestionState extends State<WhereQuestion> {
   final TextEditingController _locationController = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    setLocationIfExist();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +70,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                           borderRadius: BorderRadius.circular(20)),
                       child: TextField(
                         onEditingComplete: () {
-                          geLocationName();
+                          setLocationName();
                         },
                         controller: _locationController,
                         textAlign: TextAlign.start,
@@ -154,11 +161,20 @@ class _WhereQuestionState extends State<WhereQuestion> {
     }
   }
 
-  Future<void> geLocationName() async {
-    List<Location> locations =
-        await locationFromAddress(_locationController.text);
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-        locations[0].latitude, locations[0].longitude);
+  Future<void> setLocationName({double? lat, double? lng}) async {
+    double latitude = 0;
+    double longitude = 0;
+    if (lat == null || lng == null) {
+      List<Location> locations =
+          await locationFromAddress(_locationController.text);
+      latitude = locations[0].latitude;
+      longitude = locations[0].longitude;
+    } else {
+      latitude = lat;
+      longitude = lng;
+    }
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
     Placemark place = placemarks[0];
 
     setState(() {
@@ -169,5 +185,13 @@ class _WhereQuestionState extends State<WhereQuestion> {
           place.country! +
           ', ';
     });
+  }
+
+  setLocationIfExist() {
+    double lat =
+        context.read<PlantripBloc>().planTripQuestionsMap["latitude"] ?? 0;
+    double lng =
+        context.read<PlantripBloc>().planTripQuestionsMap["longitude"] ?? 0;
+    setLocationName(lat: lat, lng: lng);
   }
 }

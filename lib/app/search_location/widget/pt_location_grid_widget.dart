@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:masonry_grid/masonry_grid.dart';
-import 'package:xplore/app/map/bloc/map_bloc.dart';
+import 'package:xplore/app/map/bloc_map/map_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widgets/detail_location_modal.dart';
