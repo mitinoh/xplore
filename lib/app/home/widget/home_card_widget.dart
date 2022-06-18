@@ -61,59 +61,68 @@ class _BuildMainCardState extends State<BuildMainCard> {
 
   Positioned detailMenu() {
     return Positioned(
-      child: Column(
-        children: [
-          AnimatedContainer(
-            height: _height,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xffF3F7FA).withOpacity(0.8)),
-            padding:
-                const EdgeInsets.only(left: 20, right: 20, bottom: 19, top: 22),
-            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
-            duration: const Duration(seconds: 1),
-            curve: Curves.bounceOut,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: RichText(
-                    textScaleFactor: 1,
-                    text: TextSpan(
-                        text: widget.model[_indexLocation].name.toString(),
-                        style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                        children: [
-                          TextSpan(
-                              text: ", " +
-                                  widget.model[_indexLocation].desc.toString(),
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.black)),
-                          TextSpan(
-                              text:
-                                  "\nQui ci sarà la parte dei consigli su come raggiungere il luogo e altri piccoli consigli,",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.black)),
-                        ]),
-                  ),
+      child: AnimatedContainer(
+        height: _height,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: const Color(0xffF3F7FA).withOpacity(0.8)),
+        padding:
+            const EdgeInsets.only(left: 20, right: 20, bottom: 19, top: 22),
+        margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
+        duration: const Duration(seconds: 1),
+        curve: Curves.bounceOut,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: RichText(
+                  textScaleFactor: 1,
+                  text: TextSpan(
+                      text: widget.model[_indexLocation].name.toString(),
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                      children: [
+                        TextSpan(
+                            text: ", " +
+                                widget.model[_indexLocation].desc
+                                    .toString()
+                                    .toLowerCase(),
+                            style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text:
+                                "\n\nQui ci sarà la parte dei consigli su come raggiungere il luogo e altri piccoli consigli.",
+                            style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
+                        TextSpan(
+                            text: "\n\n#mare #italy #ladolcevita #estate",
+                            style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black)),
+                      ]),
                 ),
-                InkWell(
-                  onTap: () => {setDetailMenuHeight()},
-                  child: _showPinnedMenu
-                      ? const Icon(Iconsax.maximize_4)
-                      : Icon(Icons.close, color: UIColors.black),
-                )
-              ],
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(left: 25.0),
+              child: InkWell(
+                onTap: () => {setDetailMenuHeight()},
+                child: _showPinnedMenu
+                    ? const Icon(Iconsax.maximize_4)
+                    : Icon(Icons.close, color: UIColors.black),
+              ),
+            )
+          ],
+        ),
       ),
       bottom: 0,
       right: 0,

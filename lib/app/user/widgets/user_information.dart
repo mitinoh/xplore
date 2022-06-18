@@ -13,40 +13,54 @@ class UserInformation extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 50,
+          radius: 48,
           backgroundColor: UIColors.blue,
           backgroundImage: const NetworkImage(
               'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
         ),
         const SizedBox(height: 20),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: 'mite.g',
-                        style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black)),
-                    TextSpan(
-                        text: ' LV. 4',
-                        style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: UIColors.blue))
-                  ],
-                ),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                      text: 'mite.g',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black)),
+                  TextSpan(
+                      text: ' LV. 4',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: UIColors.blue))
+                ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Container(
+                padding: const EdgeInsets.only(
+                    right: 20, left: 20, top: 5, bottom: 5),
+                decoration: BoxDecoration(
+                    color: UIColors.platinium,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Text("segui",
+                    style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black)),
+              ),
+            )
           ],
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 15),
         Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20),
+          padding: const EdgeInsets.only(left: 40.0, right: 40),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +72,8 @@ class UserInformation extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                           text:
-                              'perché i limiti, come le paure, sono spesso solo un illusione.',
+                              'perché i limiti, come le paure, sono spesso solo delle illusione.'
+                                  .toLowerCase(),
                           style: GoogleFonts.poppins(
                               fontSize: 11.5,
                               fontWeight: FontWeight.w300,
@@ -70,7 +85,7 @@ class UserInformation extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

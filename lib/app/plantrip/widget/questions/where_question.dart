@@ -18,7 +18,7 @@ class WhereQuestion extends StatefulWidget {
 }
 
 class _WhereQuestionState extends State<WhereQuestion> {
-  String _locationFound = "ancora nessuno";
+  String _locationFound = "";
 
   final TextEditingController _locationController = TextEditingController();
 

@@ -139,7 +139,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     _contents = List.generate(tripDay + 1, (index) {
       return DragAndDropList(
         contentsWhenEmpty: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding:
+              const EdgeInsets.only(left: 20.0, right: 20, bottom: 10, top: 10),
           child: Text(
               index == 0
                   ? "Non ci sono più posti disponibili"
@@ -154,14 +155,15 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             borderRadius: BorderRadius.circular(20)),
         canDrag: false,
         header: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding:
+              const EdgeInsets.only(left: 20.0, right: 20, bottom: 10, top: 20),
           child: RichText(
             text: TextSpan(
               text: index == 0
-                  ? 'Ecco la lista di tutti i posti che abbiamo trovato'
+                  ? 'Ecco la lista di tutti i posti che abbiamo trovato.'
                   : 'Giorno ',
               style: GoogleFonts.poppins(
-                  fontSize: 14,
+                  fontSize: 13,
                   fontWeight: FontWeight.w300,
                   color: Colors.black),
               children: <TextSpan>[
@@ -172,7 +174,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                             .format(goneDate.add(Duration(days: index)))
                             .toString(),
                     style: GoogleFonts.poppins(
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w700,
                         color: Colors.black)),
               ],
@@ -226,12 +228,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 15.0, left: 15),
-                              child: Icon(
-                                Icons.drag_handle,
-                                color: Colors.black,
-                              ),
+                            CircleAvatar(
+                              backgroundColor: UIColors.blue,
+                              backgroundImage: const NetworkImage(
+                                  'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
                             ),
                             Expanded(
                               child: Text(
@@ -245,10 +245,12 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                                 ),
                               ),
                             ),
-                            CircleAvatar(
-                              backgroundColor: UIColors.blue,
-                              backgroundImage: const NetworkImage(
-                                  'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
+                            const Padding(
+                              padding: EdgeInsets.only(right: 15.0, left: 15),
+                              child: Icon(
+                                Icons.drag_handle,
+                                color: Colors.black,
+                              ),
                             ),
                           ],
                         )),
@@ -272,22 +274,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       children: [
         Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
-                      overflow: TextOverflow.visible,
-                      style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey)),
-                )
-              ],
-            ),
-            const SizedBox(height: 20),
             SizedBox(
-              height: mediaQuery.size.height * 0.45,
+              height: mediaQuery.size.height * 0.55,
               child: DragAndDropLists(
                 listDivider: const SizedBox(height: 5),
                 children: _contents,
