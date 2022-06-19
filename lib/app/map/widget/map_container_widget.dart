@@ -14,11 +14,12 @@ import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class MapContainer extends StatelessWidget {
-  MapContainer({Key? key, required this.context, required this.userPosition}) : super(key: key);
+  MapContainer({Key? key, required this.context, required this.userPosition})
+      : super(key: key);
   BuildContext context;
   Position userPosition;
   @override
-  Widget build( context) {
+  Widget build(context) {
     return BlocProvider(
       create: (_) => MapBloc()..add(MapGetLocationInitEvent()),
       child: BlocListener<MapBloc, MapState>(
@@ -53,7 +54,8 @@ class MapContainer extends StatelessWidget {
       _markers.add(Marker(
         width: 40.0,
         height: 40.0,
-        point: LatLng(loc.coordinate?.lat ?? 0.0, loc.coordinate?.lng ?? 0.0),
+        point: LatLng(loc.geometry?.coordinates?[0] ?? 0.0,
+            loc.geometry?.coordinates?[1] ?? 0.0),
         builder: (ctx) => GestureDetector(
             onTap: () {
               locationDetailModal(context, loc);

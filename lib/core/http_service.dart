@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -67,6 +68,7 @@ class HttpService {
       } else if (method == Method.PATCH) {
         response = await _dio.patch(url, data: params);
       } else {
+        log(url);
         response = await _dio.get(url /*, queryParameters: params*/);
       }
 

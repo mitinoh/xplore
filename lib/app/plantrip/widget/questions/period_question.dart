@@ -29,6 +29,21 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
       DateTime.now().add(const Duration(hours: 1)); //DateUtils.dateOnly(
 
   @override
+  void initState() {
+    DateTime? goneContext =
+        context.read<PlantripBloc>().planTripQuestionsMap["goneDate"];
+
+    DateTime? returnContext =
+        context.read<PlantripBloc>().planTripQuestionsMap["returnDate"];
+    setState(() {
+      if (goneContext != null) goneDate = goneContext;
+
+      if (returnContext != null) returnDate = returnContext;
+    });
+    super.initState();
+  }
+
+  @override
   @override
   Widget build(context) {
     return Column(

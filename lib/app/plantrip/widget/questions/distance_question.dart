@@ -21,6 +21,19 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
   double _currentSliderValue = 20;
 
   @override
+  void initState() {
+    double? contextDistance =
+        context.read<PlantripBloc>().planTripQuestionsMap["distance"];
+    if (contextDistance != null) {
+      setState(() {
+        _currentSliderValue = contextDistance / 1000;
+      });
+    }
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +101,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
                 value: _currentSliderValue,
                 min: 0,
                 max: 100,
-                divisions: 5,
+                divisions: 10,
                 onChanged: (double value) {
                   setState(() {
                     _currentSliderValue = value;
@@ -126,7 +139,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
     // planQuery["distance"] = _currentSliderValue;
 
     context.read<PlantripBloc>().planTripQuestionsMap["distance"] =
-        _currentSliderValue;
+        _currentSliderValue * 1000;
     context
         .read<PlantripBloc>()
         .add(PlanTripChangeQuestionEvent(increment: true));

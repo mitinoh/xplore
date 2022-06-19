@@ -7,7 +7,7 @@ import 'coordinate_model.dart';
 class LocationModel {
   String? iId;
   String? name;
-  CoordinateModel? coordinate;
+  GeometryModel? geometry;
   List<LocationCategoryModel>? locationCategory;
   String? desc;
   String? indication;
@@ -18,7 +18,7 @@ class LocationModel {
   LocationModel(
       {this.iId,
       this.name,
-      this.coordinate,
+      this.geometry,
       this.locationCategory,
       this.desc,
       this.indication,
@@ -29,8 +29,8 @@ class LocationModel {
   LocationModel.fromJson(Map<String, dynamic> json) {
     iId = json['_id'] ?? '';
     name = json['name'] ?? '';
-    coordinate = json['coordinate'] != null
-        ? CoordinateModel.fromJson(json['coordinate'])
+    geometry = json['geometry'] != null
+        ? GeometryModel.fromJson(json['geometry'])
         : null;
 
     if (json['locationCategory'] != null) {
@@ -47,8 +47,8 @@ class LocationModel {
 
     if (json['insertUid'] != null)
       insertUid = UserModel.fromJson(json['insertUid']);
-
-    saved = json['saved'];
+ if (json['saved'] != null)
+    saved = json['saved'].length > 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -57,8 +57,8 @@ class LocationModel {
       data['_id'] = iId;
     }
     data['name'] = name;
-    if (coordinate != null) {
-      data['coordinate'] = coordinate!.toJson();
+    if (geometry != null) {
+      data['geometry'] = geometry!.toJson();
     }
     data['locationCategory'] = locationCategory;
     data['desc'] = desc;

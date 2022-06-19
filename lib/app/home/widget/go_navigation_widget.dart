@@ -88,8 +88,8 @@ class GoNavigationBottomSheet extends StatelessWidget {
                     InkWell(
                         onTap: () => {
                               _mapRepository.openMap(
-                                  location.coordinate?.lat ?? 0.0,
-                                  location.coordinate?.lng ?? 0.0)
+                                  location.geometry?.coordinates?[0] ?? 0.0,
+                                  location.geometry?.coordinates?[1] ?? 0.0)
                             },
                         child: Text(
                           "Raggiungi con google maps",

@@ -22,7 +22,7 @@ class MapLayout extends StatelessWidget {
   loadMoreLocation() {
     //context.read<PlantripBloc>().add(PlanTripChangeQuestionEvent(increment: true));
     // TODO: aggiungere locations facendo chiamata
-    print(currentMapPosition.center);
+    if (currentMapPosition.zoom! > 14) print(currentMapPosition.center);
   }
 
   void startTimer() {}

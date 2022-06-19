@@ -7,7 +7,7 @@ class PlanTripModel {
   String? fid;
   List<Trip>? trip;
   DateTime? returnDate;
-  CoordinateModel? coordinate;
+  GeometryModel? geometry;
   int? distance;
   int? periodAvaiable;
   int? totDay;
@@ -22,7 +22,7 @@ class PlanTripModel {
       this.fid,
       this.trip,
       this.returnDate,
-      this.coordinate,
+      this.geometry,
       this.distance,
       this.periodAvaiable,
       this.totDay,
@@ -49,8 +49,8 @@ class PlanTripModel {
     goneDate = json['goneDate'] != null
         ? DateTime.parse(json['goneDate'])
         : DateTime.now();
-    coordinate = json['coordinate'] != null
-        ? CoordinateModel.fromJson(json['coordinate'])
+    geometry = json['geometry'] != null
+        ? GeometryModel.fromJson(json['geometry'])
         : null;
     distance = json['distance'].toInt();
     periodAvaiable = json['periodAvaiable'];
@@ -84,8 +84,8 @@ class PlanTripModel {
     if (returnDate != null) {
       data['returnDate'] = returnDate;
     }
-    if (coordinate != null) {
-      data['coordinate'] = coordinate!.toJson();
+    if (geometry != null) {
+      data['geometry'] = geometry!.toJson();
     }
     data['distance'] = distance;
     data['periodAvaiable'] = periodAvaiable;

@@ -12,10 +12,18 @@ import 'package:xplore/core/widgets/header_name.dart';
 class TripNameQuestion extends StatelessWidget {
   TripNameQuestion({Key? key, required this.context}) : super(key: key);
   BuildContext context;
+
+  final TextEditingController _nameController = TextEditingController();
+
+  initState() {
+    String? contextName =
+        context.read<PlantripBloc>().planTripQuestionsMap["tripName"];
+    if (contextName != null) _nameController.text = contextName;
+  }
+
   @override
   Widget build(context) {
-    final TextEditingController _nameController = TextEditingController();
-
+    initState();
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

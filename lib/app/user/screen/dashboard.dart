@@ -194,10 +194,11 @@ class _UserScreenState extends State<UserScreen> {
                                                 return InkWell(
                                                   onTap: () {
                                                     DetailLocationModal(
-                                                            loc: state
-                                                                    .savedLocationList[
-                                                                index])
-                                                        .show(context);
+                                                      loc: state
+                                                              .savedLocationList[
+                                                          index],
+                                                      fromLikedSection: true,
+                                                    ).show(context);
                                                     /*
                                                       BlocProvider.of<
                                                               UserLocationBloc>(

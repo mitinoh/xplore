@@ -112,12 +112,18 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           .split(',');
     }
 
+    mng.filter?["latitude"] = latitude;
+        mng.filter?["longitude"] = longitude;
+            mng.filter?["distance"] = distance;
+
+/*
     double latDis = getLatDis(distance);
     double lngDis = getLngDis(distance, latDis);
     mng.filter?["coordinate.lat=lte:" + (latitude + latDis).toString()] = null;
     mng.filter?["coordinate.lat=gte:" + (latitude - latDis).toString()] = null;
     mng.filter?["coordinate.lng=lte:" + (longitude + lngDis).toString()] = null;
     mng.filter?["coordinate.lng=gte:" + (longitude - lngDis).toString()] = null;
+    */
     return mng;
   }
 

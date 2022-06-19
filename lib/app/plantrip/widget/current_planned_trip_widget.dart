@@ -65,7 +65,7 @@ class CurrentPlannedTripList extends StatelessWidget {
 
   Future<String> getUserLocation(PlanTripModel pt) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        pt.coordinate?.lat ?? 0.0, pt.coordinate?.lng ?? 0.0);
+        pt.geometry?.coordinates?[0] ?? 0.0, pt.geometry?.coordinates?[1] ?? 0.0);
     Placemark place = placemarks[0];
 
     return place.locality! +

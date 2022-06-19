@@ -25,6 +25,14 @@ class _WhereQuestionState extends State<WhereQuestion> {
   @override
   void initState() {
     // TODO: implement initState
+
+    String? contextName =
+        context.read<PlantripBloc>().planTripQuestionsMap["locationNam"];
+
+    if (contextName != null)
+      setState(() {
+        _locationController.text = contextName;
+      });
     setLocationIfExist();
     super.initState();
   }
@@ -145,7 +153,8 @@ class _WhereQuestionState extends State<WhereQuestion> {
           locations[0].latitude;
       context.read<PlantripBloc>().planTripQuestionsMap["longitude"] =
           locations[0].longitude;
-//      context.read<PlantripBloc>().planTripQuestionsMap["location"] = location;
+      context.read<PlantripBloc>().planTripQuestionsMap["locationNam"] =
+          location;
       context
           .read<PlantripBloc>()
           .add(PlanTripChangeQuestionEvent(increment: true));

@@ -11,8 +11,9 @@ import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/location_model.dart';
 
 class DetailLocationModal extends StatelessWidget {
-  DetailLocationModal({Key? key, required this.loc}) : super(key: key);
+  DetailLocationModal({Key? key, required this.loc, this.fromLikedSection = false}) : super(key: key);
   final LocationModel loc;
+  final bool fromLikedSection; // Passare true se viene richiamata dalla sezione salvati
   MapRepository _mapRepository = MapRepository();
 
   final HomeBloc _locationBloc = HomeBloc();
@@ -104,8 +105,8 @@ class DetailLocationModal extends StatelessWidget {
                             child: InkWell(
                                 onTap: () => {
                                       _mapRepository.openMap(
-                                          loc.coordinate?.lat ?? 0.0,
-                                          loc.coordinate?.lng ?? 0.0)
+                                          loc.geometry?.coordinates?[0] ?? 0.0,
+                                          loc.geometry?.coordinates?[1] ?? 0.0)
                                     },
                                 child: const Icon(Iconsax.discover_1)),
                           ),
@@ -113,6 +114,7 @@ class DetailLocationModal extends StatelessWidget {
                             indexLocation: 0,
                             locationBloc: _locationBloc,
                             locationList: [loc],
+                            liked: fromLikedSection,
                           ),
                         ],
                       )
@@ -191,8 +193,9 @@ class DetailLocationModal extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () => {
-                          _mapRepository.openMap(loc.coordinate?.lat ?? 0.0,
-                              loc.coordinate?.lng ?? 0.0)
+                          _mapRepository.openMap(
+                              loc.geometry?.coordinates?[0] ?? 0.0,
+                              loc.geometry?.coordinates?[1] ?? 0.0)
                         },
                         child: Text(
                           "raggiungi con google maps",
