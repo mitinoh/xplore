@@ -10,11 +10,11 @@ import 'package:xplore/app/user/bloc_saved_location/saved_location_bloc.dart';
 import 'package:xplore/app/user/bloc_uploaded_location/uploaded_location_bloc.dart';
 import 'package:xplore/app/user/screen/edit_screen.dart';
 import 'package:xplore/app/user/user_location_bloc/user_location_bloc.dart';
-import 'package:xplore/app/user/widgets/header_navigation.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
 import 'package:xplore/app/user/widgets/settings.dart';
 import 'package:xplore/app/user/widgets/user_information.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/detail_location_modal.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 
 class UserScreen extends StatefulWidget {
@@ -197,6 +197,11 @@ class _UserScreenState extends State<UserScreen> {
                                                   log(state.props.toString());
                                                   return InkWell(
                                                     onTap: () {
+                                                      DetailLocationModal(
+                                                              loc: state
+                                                                      .savedLocationList[
+                                                                  index])
+                                                          .show(context);
                                                       /*
                                                       BlocProvider.of<
                                                               UserLocationBloc>(
@@ -264,6 +269,11 @@ class _UserScreenState extends State<UserScreen> {
                                                   log(state.props.toString());
                                                   return InkWell(
                                                     onTap: () {
+                                                      DetailLocationModal(
+                                                              loc: state
+                                                                      .uploadedLocationList[
+                                                                  index])
+                                                          .show(context);
                                                       /*
                                                       BlocProvider.of<
                                                               UserLocationBloc>(

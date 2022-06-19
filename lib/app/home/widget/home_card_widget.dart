@@ -28,7 +28,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
   Config conf = Config();
   List<Widget> cards = [];
   List<LocationModel> locations = [];
-  double _height = 85;
+  double _height = 82;
   bool _showPinnedMenu = true;
   int _lastIndexLocation = 0;
   int _indexLocation = 0;
@@ -41,7 +41,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
 
   setDetailMenuHeight() {
     setState(() {
-      _height = _showPinnedMenu ? 340 : 84;
+      _height = _showPinnedMenu ? 340 : 82;
       _showPinnedMenu = !_showPinnedMenu;
     });
   }
@@ -67,7 +67,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
             borderRadius: BorderRadius.circular(20),
             color: const Color(0xffF3F7FA).withOpacity(0.8)),
         padding:
-            const EdgeInsets.only(left: 20, right: 20, bottom: 19, top: 22),
+            const EdgeInsets.only(left: 20, right: 20, bottom: 16, top: 24),
         margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
         duration: const Duration(seconds: 1),
         curve: Curves.bounceOut,
@@ -82,7 +82,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
                   text: TextSpan(
                       text: widget.model[_indexLocation].name.toString(),
                       style: GoogleFonts.poppins(
-                          fontSize: 14,
+                          fontSize: 12.5,
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
                       children: [
@@ -92,20 +92,20 @@ class _BuildMainCardState extends State<BuildMainCard> {
                                     .toString()
                                     .toLowerCase(),
                             style: GoogleFonts.poppins(
-                                fontSize: 14,
+                                fontSize: 12.5,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.black)),
                         TextSpan(
                             text:
                                 "\n\nQui ci sarà la parte dei consigli su come raggiungere il luogo e altri piccoli consigli.",
                             style: GoogleFonts.poppins(
-                                fontSize: 14,
+                                fontSize: 12.5,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.black)),
                         TextSpan(
                             text: "\n\n#mare #italy #ladolcevita #estate",
                             style: GoogleFonts.poppins(
-                                fontSize: 14,
+                                fontSize: 12.5,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black)),
                       ]),

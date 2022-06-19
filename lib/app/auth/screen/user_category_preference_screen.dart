@@ -5,7 +5,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/UIColors.dart';
-import 'package:xplore/core/widgets/gridView_category_preference.dart';
 import 'package:xplore/core/widgets/subtitle.dart';
 import 'package:xplore/main.dart';
 
@@ -49,12 +48,9 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => const MyApp()),
                       );
                     },
-                    child: CircleAvatar(
-                      backgroundColor: UIColors.blue,
-                      child: const Icon(
-                        Iconsax.arrow_right_1,
-                        color: Colors.white,
-                      ),
+                    child: const Icon(
+                      Iconsax.arrow_right_1,
+                      color: Colors.black,
                     ),
                   ),
                 ],

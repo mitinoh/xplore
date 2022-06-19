@@ -44,154 +44,161 @@ class EditProfile extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FA),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const SizedBox(height: 20),
-              InkWell(
-                  onTap: () => {Navigator.pop(context)},
-                  child: const Icon(Iconsax.arrow_left)),
-              const SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      text: 'Edit profile',
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black),
-                    ),
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                floating: true,
+                pinned: true,
+                snap: true,
+                elevation: 0,
+                backgroundColor: UIColors.backgroundGrey,
+                iconTheme: const IconThemeData(color: Colors.black),
+                actionsIconTheme: const IconThemeData(color: Colors.black),
+                leading: GestureDetector(
+                    onTap: () => {Navigator.pop(context), print("heyyyy")},
+                    child: const Icon(Iconsax.arrow_left)),
+                leadingWidth: 23,
+                title: Text(
+                  "Edit profile",
+                  style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black),
+                ),
+                actions: [
                   InkWell(
                     onTap: (() => {_updateUserInfo()}),
-                    child: CircleAvatar(
-                      backgroundColor: UIColors.blue,
-                      child: Icon(
-                        Icons.done,
-                        color: UIColors.white,
-                      ),
+                    child: const Icon(
+                      Icons.done,
+                      color: Colors.black,
                     ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 25),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                        "lorem ipsum is simply dummy text of the printing and typesetting industry.",
-                        overflow: TextOverflow.visible,
-                        style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey)),
-                  )
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                    padding: const EdgeInsets.only(
-                        left: 15, right: 15, bottom: 5, top: 5),
-                    decoration: BoxDecoration(
-                        color: UIColors.grey.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: TextField(
-                      controller: _usernameController,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(color: Colors.black, fontSize: 14),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15.0),
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        hintText: "Username",
-                        hintStyle: GoogleFonts.poppins(
-                            color: UIColors.grey, fontSize: 14),
-                        border: const OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Iconsax.user,
-                          color: UIColors.blue,
-                        ),
-                      ),
-                      autofocus: false,
-                    ),
-                  ))
-                ],
-              ),
-              const SizedBox(height: 5),
-              Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                    padding: const EdgeInsets.only(
-                        left: 15, right: 15, bottom: 5, top: 5),
-                    decoration: BoxDecoration(
-                        color: UIColors.grey.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: TextField(
-                      controller: _bioController,
-                      textAlign: TextAlign.start,
-                      minLines: 6,
-                      maxLines: 10,
-                      maxLength: 144,
-                      style: const TextStyle(color: Colors.black, fontSize: 14),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15.0),
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        hintText: "Inserisci la tua bio...",
-                        hintStyle: GoogleFonts.poppins(
-                            color: UIColors.grey, fontSize: 14),
-                        border: const OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Iconsax.brush_4,
-                          color: UIColors.blue,
-                        ),
-                      ),
-                      autofocus: false,
-                    ),
-                  ))
-                ],
-              ),
-              const SizedBox(height: 5),
-              Container(
-                padding: const EdgeInsets.only(
-                    left: 15, top: 20, right: 20, bottom: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: UIColors.grey.withOpacity(0.3),
-                ),
-                child: InkWell(
-                  onTap: (() {
-                    _getFromGallery();
-                  }),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15.0, left: 15),
-                        child: Icon(
-                          Iconsax.gallery_add,
-                          color: UIColors.blue,
-                        ),
-                      ),
-                      Text(
-                        "Cambia foto profilo",
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold, fontSize: 14),
-                      ),
-                    ],
                   ),
-                ),
+                ],
               ),
-            ]),
+              SliverToBoxAdapter(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                                "lorem ipsum is simply dummy text of the printing and typesetting industry.",
+                                overflow: TextOverflow.visible,
+                                style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.grey)),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: Container(
+                            padding: const EdgeInsets.only(
+                                left: 15, right: 15, bottom: 5, top: 5),
+                            decoration: BoxDecoration(
+                                color: UIColors.grey.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: TextField(
+                              controller: _usernameController,
+                              textAlign: TextAlign.start,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(15.0),
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                hintText: "Username",
+                                hintStyle: GoogleFonts.poppins(
+                                    color: UIColors.grey, fontSize: 14),
+                                border: const OutlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Iconsax.user,
+                                  color: UIColors.blue,
+                                ),
+                              ),
+                              autofocus: false,
+                            ),
+                          ))
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: Container(
+                            padding: const EdgeInsets.only(
+                                left: 15, right: 15, bottom: 5, top: 5),
+                            decoration: BoxDecoration(
+                                color: UIColors.grey.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: TextField(
+                              controller: _bioController,
+                              textAlign: TextAlign.start,
+                              minLines: 6,
+                              maxLines: 10,
+                              maxLength: 144,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(15.0),
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                hintText: "Inserisci la tua bio...",
+                                hintStyle: GoogleFonts.poppins(
+                                    color: UIColors.grey, fontSize: 14),
+                                border: const OutlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Iconsax.brush_4,
+                                  color: UIColors.blue,
+                                ),
+                              ),
+                              autofocus: false,
+                            ),
+                          ))
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 15, top: 20, right: 20, bottom: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: UIColors.grey.withOpacity(0.3),
+                        ),
+                        child: InkWell(
+                          onTap: (() {
+                            _getFromGallery();
+                          }),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 15.0, left: 15),
+                                child: Icon(
+                                  Iconsax.gallery_add,
+                                  color: UIColors.blue,
+                                ),
+                              ),
+                              Text(
+                                "Cambia foto profilo",
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold, fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ]),
+              ),
+            ],
           ),
         ),
       ),
