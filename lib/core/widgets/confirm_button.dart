@@ -12,7 +12,7 @@ class ConfirmButton extends StatelessWidget {
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(40),
         color: UIColors.lightGreen,
       ),
       child: Row(

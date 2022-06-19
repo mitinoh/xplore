@@ -61,7 +61,7 @@ class Navbar extends StatelessWidget {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(Iconsax.home),
+        icon: const Icon(Iconsax.home_1),
         iconSize: 22,
         title: ("Home"),
         activeColorPrimary: UIColors.blue,

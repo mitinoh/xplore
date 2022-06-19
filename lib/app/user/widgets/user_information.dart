@@ -91,15 +91,28 @@ class UserInformation extends StatelessWidget {
           children: [
             Column(
               children: [
-                Text(
-                  "29",
-                  style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black),
+                Row(
+                  children: [
+                    Icon(Iconsax.arrow_up_3),
+                    Text(
+                      "20",
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
+                    Icon(Iconsax.arrow_down),
+                    Text(
+                      "29",
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
+                  ],
                 ),
                 Text(
-                  "luoghi visitati",
+                  "la tua cerchia",
                   style: GoogleFonts.poppins(
                       fontSize: 14, fontWeight: FontWeight.w300),
                 ),
@@ -111,7 +124,7 @@ class UserInformation extends StatelessWidget {
                   "2",
                   style: GoogleFonts.poppins(
                       fontSize: 18,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                       color: Colors.black),
                 ),
                 Text(
