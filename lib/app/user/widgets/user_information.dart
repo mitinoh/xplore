@@ -55,7 +55,7 @@ class UserInformation extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         color: Colors.black)),
               ),
-            )
+            ), //da commentare ovviamente e scommentare solo quando daremo la possibilità che gli utenti interagiscano tra di loro
           ],
         ),
         const SizedBox(height: 15),
@@ -156,7 +156,7 @@ class UserInformation extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: UIColors.orange,
                     radius: 28,
-                    child: Icon(Iconsax.crown_1),
+                    child: const Icon(Iconsax.crown_1),
                   ),
                 ),
                 Padding(
@@ -164,7 +164,7 @@ class UserInformation extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: UIColors.yellow,
                     radius: 28,
-                    child: Icon(Iconsax.crown),
+                    child: const Icon(Iconsax.crown),
                   ),
                 ),
                 Padding(
@@ -172,7 +172,7 @@ class UserInformation extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: UIColors.platinium,
                     radius: 28,
-                    child: Icon(Iconsax.crown),
+                    child: const Icon(Iconsax.crown),
                   ),
                 ),
                 InkWell(
@@ -180,7 +180,7 @@ class UserInformation extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TrophyRoomScreen()),
+                          builder: (context) => const TrophyRoomScreen()),
                     );
                   },
                   child: Text(

@@ -8,10 +8,13 @@ import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/user/bloc_saved_location/saved_location_bloc.dart';
 import 'package:xplore/app/user/bloc_uploaded_location/uploaded_location_bloc.dart';
+import 'package:xplore/app/user/screen/edit_screen.dart';
 import 'package:xplore/app/user/user_location_bloc/user_location_bloc.dart';
 import 'package:xplore/app/user/widgets/header_navigation.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
+import 'package:xplore/app/user/widgets/settings.dart';
 import 'package:xplore/app/user/widgets/user_information.dart';
+import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 
 class UserScreen extends StatefulWidget {
@@ -37,8 +40,8 @@ class _UserScreenState extends State<UserScreen> {
     var mediaQuery = MediaQuery.of(context);
 
     final List<dynamic> tabs = <dynamic>[
-      {"name": 'Posti piaciuti', "event": GetUserSavedLocationList([])},
-      {"name": 'Caricati', "event": GetUserUploadedLocationList()}
+      {"name": 'Posti piaciuti', "event": const GetUserSavedLocationList([])},
+      {"name": 'Caricati', "event": const GetUserUploadedLocationList()}
     ]; // Visitati
 
     event(dynamic obj) {
@@ -66,14 +69,64 @@ class _UserScreenState extends State<UserScreen> {
                     (BuildContext context, bool innerBoxIsScrolled) {
                   // These are the slivers that show up in the "outer" scroll view.
                   return <Widget>[
+                    SliverAppBar(
+                      floating: true,
+                      pinned: true,
+                      snap: true,
+                      elevation: 0,
+                      centerTitle: false,
+                      titleSpacing: 0,
+                      automaticallyImplyLeading: false,
+                      backgroundColor: UIColors.backgroundGrey,
+                      iconTheme: const IconThemeData(color: Colors.black),
+                      actionsIconTheme:
+                          const IconThemeData(color: Colors.black),
+                      leading: GestureDetector(
+                          onTap: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditProfile()),
+                                )
+                              },
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 20.0),
+                            child: Icon(Iconsax.magicpen),
+                          )),
+                      leadingWidth: 44,
+                      actions: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Icon(Iconsax.moon),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Icon(Iconsax.sun_1),
+                        ),
+                        InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) {
+                                    return const SettingsBottomSheet();
+                                  });
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.only(right: 20.0),
+                              child: Icon(Iconsax.setting_2),
+                            )),
+                      ],
+                    ),
                     SliverToBoxAdapter(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0, right: 20),
                         child: Column(
                           children: [
-                            const SizedBox(height: 20),
-                            const UserHeaderNavigation(),
-                            const SizedBox(height: 20),
+                            //const SizedBox(height: 20),
+                            //const UserHeaderNavigation(),
+                            const SizedBox(height: 10),
                             const UserInformation(),
                             const SizedBox(height: 30),
                             TabBar(

@@ -51,7 +51,7 @@ class UIColors {
   }
 
   static Color get backgroundGrey {
-    return const Color(0xFFF3F7FA);
+    return const Color(0xffF3F7FA);
   }
 
   static Color get accentRed {
