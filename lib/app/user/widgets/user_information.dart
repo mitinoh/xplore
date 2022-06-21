@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/user/screen/trophy_screen.dart';
+import 'package:xplore/app/user/widgets/follower.dart';
 import 'package:xplore/app/user/widgets/trophy_detail_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
 
@@ -91,25 +92,36 @@ class UserInformation extends StatelessWidget {
           children: [
             Column(
               children: [
-                Row(
-                  children: [
-                    Icon(Iconsax.arrow_up_3),
-                    Text(
-                      "20",
-                      style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                    ),
-                    Icon(Iconsax.arrow_down),
-                    Text(
-                      "29",
-                      style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                    ),
-                  ],
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) {
+                          return const followerBottomSheet();
+                        });
+                  },
+                  child: Row(
+                    children: [
+                      const Icon(Iconsax.arrow_up_3),
+                      Text(
+                        "20",
+                        style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      ),
+                      const Icon(Iconsax.arrow_down),
+                      Text(
+                        "29",
+                        style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
                 ),
                 Text(
                   "la tua cerchia",

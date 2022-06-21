@@ -73,7 +73,7 @@ class _UserScreenState extends State<UserScreen> {
                     pinned: true,
                     snap: true,
                     elevation: 0,
-                    centerTitle: false,
+                    centerTitle: true,
                     titleSpacing: 0,
                     automaticallyImplyLeading: false,
                     backgroundColor: UIColors.backgroundGrey,
@@ -92,15 +92,14 @@ class _UserScreenState extends State<UserScreen> {
                           child: Icon(Iconsax.magicpen),
                         )),
                     leadingWidth: 44,
+                    title: Text(
+                      "Il tuo profilo",
+                      style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
                     actions: [
-                      const Padding(
-                        padding: EdgeInsets.only(right: 15.0),
-                        child: Icon(Iconsax.moon),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(right: 15.0),
-                        child: Icon(Iconsax.sun_1),
-                      ),
                       InkWell(
                           onTap: () {
                             showModalBottomSheet(
