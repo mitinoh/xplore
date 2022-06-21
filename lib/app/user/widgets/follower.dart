@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:xplore/core/UIColors.dart';
 
 // ignore: must_be_immutable
 class followerBottomSheet extends StatelessWidget {
@@ -14,7 +12,7 @@ class followerBottomSheet extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     return Container(
       height: mediaQuery.size.height * 0.43,
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -55,7 +53,7 @@ class followerBottomSheet extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding:
-                        const EdgeInsets.only(top: 20.0, left: 5, right: 5),
+                        const EdgeInsets.only(top: 20.0, left: 0, right: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -64,11 +62,13 @@ class followerBottomSheet extends StatelessWidget {
                             const Padding(
                                 padding: EdgeInsets.only(right: 8.0),
                                 child: CircleAvatar(
-                                  backgroundImage: const NetworkImage(
-                                      'https://i.pinimg.com/originals/5b/82/29/5b8229fd30350305dc3545846f2c8f65.jpg'),
+                                  radius: 22,
+                                  backgroundImage: NetworkImage(
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZl7DaWMSexxDHWARgwp2ncCprSz1yV4Q_Rg&usqp=CAU'),
                                 )),
                             Text(
                               "madison_beer",
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
@@ -76,13 +76,20 @@ class followerBottomSheet extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Text(
-                          "visulizza profilo",
-                          style: GoogleFonts.poppins(
-                            decoration: TextDecoration.underline,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Container(
+                          padding: const EdgeInsets.only(
+                              right: 20, left: 20, top: 5, bottom: 5),
+                          decoration: BoxDecoration(
+                              // color: UIColors.platinium,
+                              border: Border.all(
+                                  width: 1,
+                                  color: Colors.grey.withOpacity(0.3)),
+                              borderRadius: BorderRadius.circular(0)),
+                          child: Text("visulizza profilo",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black)),
                         )
                       ],
                     ),
@@ -94,7 +101,7 @@ class followerBottomSheet extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding:
-                        const EdgeInsets.only(top: 20.0, left: 5, right: 5),
+                        const EdgeInsets.only(top: 20.0, left: 10, right: 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -102,10 +109,13 @@ class followerBottomSheet extends StatelessWidget {
                           children: [
                             const Padding(
                               padding: EdgeInsets.only(right: 8.0),
-                              child: CircleAvatar(),
+                              child: CircleAvatar(
+                                radius: 22,
+                              ),
                             ),
                             Text(
                               "artenismolla",
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
@@ -113,13 +123,20 @@ class followerBottomSheet extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Text(
-                          "visulizza profilo",
-                          style: GoogleFonts.poppins(
-                            decoration: TextDecoration.underline,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Container(
+                          padding: const EdgeInsets.only(
+                              right: 20, left: 20, top: 5, bottom: 5),
+                          decoration: BoxDecoration(
+                              // color: UIColors.platinium,
+                              border: Border.all(
+                                  width: 1,
+                                  color: Colors.grey.withOpacity(0.3)),
+                              borderRadius: BorderRadius.circular(0)),
+                          child: Text("visulizza profilo",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black)),
                         )
                       ],
                     ),
