@@ -17,7 +17,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     on<MapGetLocationInitEvent>((event, emit) async {
       try {
-        final mapList = await _mapRepository.getLocationList(mng: Mongoose());
+        Mongoose mng = Mongoose(filter: {});
+        mng.filter?["latitude"] = event.latitude;
+        mng.filter?["longitude"] = event.longitude;
+        mng.filter?["distance"] = event.zoom * 1000;
+
+        final mapList = await _mapRepository.getLocationList(mng: mng);
         emit(MapLocationLoadedState(mapLocation: mapList));
         /*
         Timer(const Duration(milliseconds: 50), () {
@@ -32,25 +37,33 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
         // emit(MapLoaded(mList, userLoc));
       } catch (e, stacktrace) {
-      log(stacktrace.toString());
-      emit(MapError(e.toString()));
+        log(stacktrace.toString());
+        emit(MapError(e.toString()));
       }
     });
 
     on<MapGetLocationListEvent>((event, emit) async {
       try {
+        List<String?> idToAVoid = [];
+        event.mapLocationList.forEach((m) => idToAVoid.add(m.iId));
 
-      final state = this.state;
+        final state = this.state;
+        Mongoose mng = Mongoose(filter: {});
+        mng.filter?["latitude"] = event.latitude;
+        mng.filter?["longitude"] = event.longitude;
+        mng.filter?["distance"] = event.zoom * 1000;
 
-        final newMapList = await _mapRepository.getLocationList(mng: Mongoose());
+        if (idToAVoid.isNotEmpty) {
+          mng.filter?["_id!=" + idToAVoid.join(',')] = null;
+        }
+
+        final newMapList = await _mapRepository.getLocationList(mng: mng);
         if (state is MapLocationLoadedState) {
-        emit(
-          MapLocationLoadedState(mapLocation: [
-            ...state.mapLocation,
-            ...newMapList
-          ]),
-        );
-      }
+          emit(
+            MapLocationLoadedState(
+                mapLocation: [...state.mapLocation, ...newMapList]),
+          );
+        }
         /*
         Timer(const Duration(milliseconds: 50), () {
           lc.LocationData? _userLocation;
@@ -64,8 +77,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
         // emit(MapLoaded(mList, userLoc));
       } catch (e, stacktrace) {
-      log(stacktrace.toString());
-      emit(MapError(e.toString()));
+        log(stacktrace.toString());
+        emit(MapError(e.toString()));
       }
     });
 /*

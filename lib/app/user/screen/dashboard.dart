@@ -44,7 +44,6 @@ class _UserScreenState extends State<UserScreen> {
     ]; // Visitati
 
     event(dynamic obj) {
-      log(obj["event"].toString());
       //_savedLocationBloc.add(obj["event"]);
     }
 
@@ -188,8 +187,6 @@ class _UserScreenState extends State<UserScreen> {
                                                 SliverChildBuilderDelegate(
                                               (BuildContext context,
                                                   int index) {
-                                                log("---------");
-                                                log(state.props.toString());
                                                 return InkWell(
                                                   onTap: () {
                                                     DetailLocationModal(
@@ -261,8 +258,6 @@ class _UserScreenState extends State<UserScreen> {
                                                 SliverChildBuilderDelegate(
                                               (BuildContext context,
                                                   int index) {
-                                                log("---------");
-                                                log(state.props.toString());
                                                 return InkWell(
                                                   onTap: () {
                                                     DetailLocationModal(

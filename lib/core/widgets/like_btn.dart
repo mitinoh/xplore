@@ -12,7 +12,7 @@ class LikeButton extends StatefulWidget {
       required this.locationList,
       required this.indexLocation,
       required this.locationBloc,
-       this.liked = false})
+      this.liked = false})
       : super(key: key);
   final List<LocationModel> locationList;
   final int indexLocation;
@@ -24,24 +24,31 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> {
+  bool isSaved = false;
+
+  @override
+  void initState() {
+    if (widget.locationList[widget.indexLocation].saved == true ||
+        widget.liked) {
+      isSaved = true;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        bool isSaved = widget.locationList[widget.indexLocation].saved ?? false;
-
         setState(() {
-          widget.locationList[widget.indexLocation].saved = !isSaved;
+          isSaved = !isSaved;
         });
 
         widget.locationBloc.add(SaveUserLocation(
             locationId: widget.locationList[widget.indexLocation].iId ?? '',
-            save: !isSaved));
+            save: isSaved));
       },
       child: Icon(Iconsax.heart,
-          color: (widget.locationList[widget.indexLocation].saved == true || widget.liked) 
-              ? UIColors.lightRed
-              : UIColors.black),
+          color: (isSaved) ? UIColors.lightRed : UIColors.black),
     );
   }
 }

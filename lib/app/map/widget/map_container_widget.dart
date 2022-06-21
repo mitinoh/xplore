@@ -21,7 +21,11 @@ class MapContainer extends StatelessWidget {
   @override
   Widget build(context) {
     return BlocProvider(
-      create: (_) => MapBloc()..add(MapGetLocationInitEvent()),
+      create: (_) => MapBloc()
+        ..add(MapGetLocationInitEvent(
+            latitude: userPosition.latitude,
+            longitude: userPosition.longitude,
+            zoom: 15)),
       child: BlocListener<MapBloc, MapState>(
         listener: (context, state) {
           if (state is MapError) {
@@ -32,10 +36,9 @@ class MapContainer extends StatelessWidget {
           builder: (context, state) {
             if (state is MapLocationLoadedState) {
               return MapLayout(
-                markers: getMapMarker(state.mapLocation, context),
-                userLoc: userPosition,
-                context: context,
-              );
+                  userLoc: userPosition,
+                  context: context,
+                  mapLocation: state.mapLocation);
             } else if (state is MapError) {
               return const Text("error");
             } else {
@@ -47,26 +50,4 @@ class MapContainer extends StatelessWidget {
     );
   }
 
-  List<Marker> getMapMarker(
-      List<LocationModel> mapModel, BuildContext context) {
-    List<Marker> _markers = [];
-    for (LocationModel loc in mapModel) {
-      _markers.add(Marker(
-        width: 40.0,
-        height: 40.0,
-        point: LatLng(loc.geometry?.coordinates?[0] ?? 0.0,
-            loc.geometry?.coordinates?[1] ?? 0.0),
-        builder: (ctx) => GestureDetector(
-            onTap: () {
-              locationDetailModal(context, loc);
-            },
-            child: const MarkerWidget()),
-      ));
-    }
-    return _markers;
-  }
-
-  void locationDetailModal(BuildContext context, LocationModel loc) {
-    DetailLocationModal(loc: loc).show(context);
-  }
 }

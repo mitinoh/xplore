@@ -226,13 +226,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
 
   void _pickDateDialog(bool gone) {
     // quardare https://pub.dev/packages/flutter_cupertino_date_picker#-readme-tab-
-    if (gone) {
-      print(1);
-      print(goneDate.toString());
-    } else {
-      print(2);
-      print(returnDate.toString());
-    }
+
     if (Platform.isAndroid) {
       showDatePicker(
               context: context,

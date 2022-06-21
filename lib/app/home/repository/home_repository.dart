@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:xplore/core/config.dart';
@@ -17,6 +18,7 @@ class HomeRepository {
   Future<List<LocationModel>> getLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
+    log(response.data.length.toString());
     return LocationModel().toList(response);
   }
 

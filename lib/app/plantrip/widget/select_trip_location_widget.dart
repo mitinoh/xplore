@@ -92,7 +92,6 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
 
   Mongoose getQuery() {
     Mongoose mng = Mongoose(filter: {});
-    print(context.read<PlantripBloc>().planTripQuestionsMap);
     latitude = context.read<PlantripBloc>().planTripQuestionsMap["latitude"];
     longitude = context.read<PlantripBloc>().planTripQuestionsMap["longitude"];
     distance = context.read<PlantripBloc>().planTripQuestionsMap["distance"];
@@ -102,10 +101,6 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
         context.read<PlantripBloc>().planTripQuestionsMap["returnDate"];
     if (context.read<PlantripBloc>().planTripQuestionsMap["avoidCategory"] !=
         null) {
-      print(context
-          .read<PlantripBloc>()
-          .planTripQuestionsMap["avoidCategory"]
-          .split(','));
       avoidCategory = context
           .read<PlantripBloc>()
           .planTripQuestionsMap["avoidCategory"]

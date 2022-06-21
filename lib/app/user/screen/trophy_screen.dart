@@ -24,7 +24,7 @@ class TrophyRoomScreen extends StatelessWidget {
             iconTheme: const IconThemeData(color: Colors.black),
             actionsIconTheme: const IconThemeData(color: Colors.black),
             leading: GestureDetector(
-                onTap: () => {Navigator.pop(context), print("heyyyy")},
+                onTap: () => {Navigator.pop(context)},
                 child: const Icon(Iconsax.arrow_left)),
             leadingWidth: 23,
             title: Text(

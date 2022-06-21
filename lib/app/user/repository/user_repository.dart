@@ -21,14 +21,12 @@ class UserRepository {
 
   Future<List<LocationModel>> getUploadedLocationList(Mongoose mng) async {
     String url = conf.uploadedLocationColl + mng.getUrl();
-    log(url);
     Response response = await httpService.request(method: Method.GET, url: url);
     return LocationModel().toList(response);
   }
 
   void updateUserInfo(Map<String, dynamic> map) async {
     String url = conf.userColl;
-    print(json.encode(map));
     Response response = await httpService.request(
         method: Method.PATCH, url: url, params: json.encode(map));
   }

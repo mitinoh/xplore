@@ -3,7 +3,7 @@ class Mongoose {
   int? skip;
   List<String>? select;
   Map<String, dynamic>? sort;
-  Map<String, dynamic>? filter;
+  Map<String, dynamic>? filter; // TODO trasformare in { key, operation, value}
 
   Mongoose({this.limit, this.skip, this.select, this.sort, this.filter});
 
