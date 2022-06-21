@@ -26,6 +26,7 @@ class followerBottomSheet extends StatelessWidget {
           appBar: TabBar(
             labelColor: Colors.black,
             indicatorColor: Colors.black,
+            indicatorWeight: 1,
             unselectedLabelColor: Colors.black.withOpacity(0.2),
             tabs: [
               Tab(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:xplore/app/add_location/screen/before_adding_new_location.dart';
 import 'package:xplore/app/add_location/screen/new_location_screen.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
 import 'package:xplore/app/map/screen/map_screen.dart';
@@ -52,7 +53,7 @@ class Navbar extends StatelessWidget {
     return [
       const HomePage(),
       const MapScreen(),
-      const NewLocation(),
+      const BeforeAddingNewLocation(),
       const PlanTripScreen(),
       const UserScreen()
     ];
@@ -69,28 +70,28 @@ class Navbar extends StatelessWidget {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.map),
-        title: ("Settings"),
+        title: ("Map"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
         inactiveColorPrimary: UIColors.black,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.location_add),
-        title: ("Settings"),
+        title: ("Add"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
         inactiveColorPrimary: UIColors.black,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.calendar_search),
-        title: ("trip"),
+        title: ("Trip"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
         inactiveColorPrimary: UIColors.black,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.user),
-        title: ("user"),
+        title: ("Profile"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
         inactiveColorPrimary: UIColors.black,
