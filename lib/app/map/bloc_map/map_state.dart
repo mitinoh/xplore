@@ -1,6 +1,6 @@
 part of 'map_bloc.dart';
 
-abstract class MapState extends Equatable {
+abstract class MapState{
   const MapState();
 
   @override

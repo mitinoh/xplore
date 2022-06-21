@@ -28,7 +28,6 @@ class UserLocationBloc extends Bloc<UserLocationEvent, UserLocationState> {
         final uploadedLocationList =
             await _userRepository.getUploadedLocationList(mng);
 
-        log(savedLocationList.toString());
         emit(UserAllLocationLoaded(savedLocationList, uploadedLocationList));
       } catch (e, stacktrace) {
         log(stacktrace.toString());
@@ -49,7 +48,6 @@ class UserLocationBloc extends Bloc<UserLocationEvent, UserLocationState> {
             await _userRepository.getSavedLocationList(mng);
         if (state is UserSavedLocationLoaded) {
           state.savedLocationModel;
-          log(savedLocationList.toString());
           emit(UserSavedLocationLoaded(
               [...state.savedLocationModel, ...savedLocationList]));
         }
@@ -66,7 +64,6 @@ class UserLocationBloc extends Bloc<UserLocationEvent, UserLocationState> {
             Mongoose(filter: {}, select: ["-uid", "-cdate"], sort: {});
         final uploadedLocationList =
             await _userRepository.getUploadedLocationList(mng);
-        log(uploadedLocationList.toString());
         emit(UserUploadedLocationLoaded(uploadedLocationList));
       } catch (e, stacktrace) {
         log(stacktrace.toString());

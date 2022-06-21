@@ -13,7 +13,6 @@ class PlanTripRepository {
 
   Future<List<LocationModel>> getLocationList(
       {/*required String body, */ required Mongoose mng}) async {
-    log(mng.toString());
     String url = conf.locationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
     return LocationModel().toList(response);
@@ -22,7 +21,6 @@ class PlanTripRepository {
   Future<void> newPlanTripPut({required Map<String, dynamic> body}) async {
     try {
       String url = conf.planTripColl;
-      log(PlanTripModel().toJsonPost(body).toString());
       Response response = await httpService.request(
           method: Method.POST,
           url: url,
