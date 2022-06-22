@@ -16,7 +16,7 @@ class PinnedMenu extends StatefulWidget {
       : super(key: key);
   final List<LocationModel> locationList;
   final int indexLocation;
-  final HomeBloc locationBloc;
+  final HomeBloc locationBloc; // TODO: non passare ome parametro
 
   @override
   State<PinnedMenu> createState() => _PinnedMenuState();

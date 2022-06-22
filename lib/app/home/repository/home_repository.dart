@@ -44,17 +44,18 @@ class HomeRepository {
 
   Mongoose getMongoose({String? searchName, List<String>? select}) {
     Mongoose mng = Mongoose();
-    mng.limit = limit;
-    mng.skip = skip;
-    mng.filter = {};
-    mng.select = select ?? [];
+    mng.filter = [];
 
     if (searchName != null && searchName.trim() != "") {
-      mng.filter?.putIfAbsent("name", () => '*$searchName*,desc=*$searchName*');
+      // TODO Sistemare questo che non funziona
+      mng.filter
+          ?.add(Filter(key: "searchDoc", operation: "=", value: searchName));
     }
     if (categoryFilter.isNotEmpty) {
-      mng.filter
-          ?.putIfAbsent("locationCategory", () => categoryFilter.join(','));
+      mng.filter?.add(Filter(
+          key: "locationCategory",
+          operation: "=",
+          value: categoryFilter.join(',')));
     }
     return mng;
   }
