@@ -40,7 +40,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   double valueProgressIndicator = 0.166;
   double _currentSliderValue = 20;
   Map<String, dynamic> planQuery = {};
-  Mongoose mng = Mongoose(filter: {}, select: [], sort: {});
+  Mongoose mng = Mongoose(select: [], sort: {});
 
   double locLatitude = 0;
   double locLongitude = 0;

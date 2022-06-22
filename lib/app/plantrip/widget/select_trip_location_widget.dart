@@ -91,7 +91,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   }
 
   Mongoose getQuery() {
-    Mongoose mng = Mongoose(filter: {});
+    Mongoose mng = Mongoose(filter: []);
     latitude = context.read<PlantripBloc>().planTripQuestionsMap["latitude"];
     longitude = context.read<PlantripBloc>().planTripQuestionsMap["longitude"];
     distance = context.read<PlantripBloc>().planTripQuestionsMap["distance"];
@@ -107,9 +107,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           .split(',');
     }
 
-    mng.filter?["latitude"] = latitude;
-        mng.filter?["longitude"] = longitude;
-            mng.filter?["distance"] = distance;
+    mng.filter?.add(Filter(key: "latitude", operation: "=", value: latitude.toString()));
+    mng.filter?.add(Filter(key: "longitude", operation: "=", value: longitude.toString()));
+    mng.filter?.add(Filter(key: "distance", operation: "=", value: distance.toString()));
+
 
 /*
     double latDis = getLatDis(distance);

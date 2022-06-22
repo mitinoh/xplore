@@ -23,7 +23,7 @@ class UploadedLocationBloc
   ) async {
     try {
       // TODO: impostare limite
-      Mongoose mng = Mongoose(filter: {}, select: ["-uid", "-cdate"], sort: {});
+      Mongoose mng = Mongoose( select: ["-uid", "-cdate"]);
       final newUploadedLocationList =
           await _userRepository.getUploadedLocationList(mng);
 
@@ -42,7 +42,7 @@ class UploadedLocationBloc
   ) async {
     try {
       final state = this.state;
-      Mongoose mng = Mongoose(filter: {}, select: ["-uid", "-cdate"], sort: {});
+      Mongoose mng = Mongoose(select: ["-uid", "-cdate"]);
       final newUploadedLocationList =
           await _userRepository.getUploadedLocationList(mng);
 

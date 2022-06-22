@@ -17,10 +17,17 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     on<MapGetLocationInitEvent>((event, emit) async {
       try {
-        Mongoose mng = Mongoose(filter: {});
-        mng.filter?["latitude"] = event.latitude;
-        mng.filter?["longitude"] = event.longitude;
-        mng.filter?["distance"] = event.zoom * 1000;
+        Mongoose mng = Mongoose(filter: []);
+        mng.filter?.add(Filter(
+            key: "latitude", operation: "=", value: event.latitude.toString()));
+        mng.filter?.add(Filter(
+            key: "longitude",
+            operation: "=",
+            value: event.longitude.toString()));
+        mng.filter?.add(Filter(
+            key: "distance",
+            operation: "=",
+            value: (event.zoom * 1000).toString()));
 
         final mapList = await _mapRepository.getLocationList(mng: mng);
         emit(MapLocationLoadedState(mapLocation: mapList));
@@ -48,13 +55,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         event.mapLocationList.forEach((m) => idToAVoid.add(m.iId));
 
         final state = this.state;
-        Mongoose mng = Mongoose(filter: {});
-        mng.filter?["latitude"] = event.latitude;
-        mng.filter?["longitude"] = event.longitude;
-        mng.filter?["distance"] = event.zoom * 1000;
+        Mongoose mng = Mongoose(filter: []);
+        mng.filter?.add(Filter(
+            key: "latitude", operation: "=", value: event.latitude.toString()));
+        mng.filter?.add(Filter(
+            key: "longitude",
+            operation: "=",
+            value: event.longitude.toString()));
+        mng.filter?.add(Filter(
+            key: "distance",
+            operation: "=",
+            value: (event.zoom * 1000).toString()));
 
         if (idToAVoid.isNotEmpty) {
-          mng.filter?["_id!=" + idToAVoid.join(',')] = null;
+          mng.filter?.add(
+              Filter(key: "_id", operation: "!=", value: idToAVoid.join(',')));
         }
 
         final newMapList = await _mapRepository.getLocationList(mng: mng);
