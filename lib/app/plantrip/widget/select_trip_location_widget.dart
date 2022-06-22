@@ -107,10 +107,16 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           .split(',');
     }
 
-    mng.filter?.add(Filter(key: "latitude", operation: "=", value: latitude.toString()));
-    mng.filter?.add(Filter(key: "longitude", operation: "=", value: longitude.toString()));
-    mng.filter?.add(Filter(key: "distance", operation: "=", value: distance.toString()));
-
+    mng.filter?.add(
+        Filter(key: "latitude", operation: "=", value: latitude.toString()));
+    mng.filter?.add(
+        Filter(key: "longitude", operation: "=", value: longitude.toString()));
+    mng.filter?.add(
+        Filter(key: "distance", operation: "=", value: distance.toString()));
+    mng.filter?.add(Filter(
+        key: "locationCategory",
+        operation: "!=",
+        value: avoidCategory.join(',')));
 
 /*
     double latDis = getLatDis(distance);

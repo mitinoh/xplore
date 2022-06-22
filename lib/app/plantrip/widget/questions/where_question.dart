@@ -18,7 +18,8 @@ class WhereQuestion extends StatefulWidget {
 }
 
 class _WhereQuestionState extends State<WhereQuestion> {
-  String _locationFound = "";
+  String? _locationFound;
+  bool _hasFoundLocation = false;
 
   final TextEditingController _locationController = TextEditingController();
 
@@ -29,11 +30,12 @@ class _WhereQuestionState extends State<WhereQuestion> {
     String? contextName =
         context.read<PlantripBloc>().planTripQuestionsMap["locationNam"];
 
-    if (contextName != null)
+    if (contextName != null) {
       setState(() {
         _locationController.text = contextName;
       });
-    setLocationIfExist();
+      setLocationIfExist();
+    }
     super.initState();
   }
 
@@ -107,29 +109,35 @@ class _WhereQuestionState extends State<WhereQuestion> {
                       colors: Colors.grey,
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: RichText(
-                            text: TextSpan(
-                                text: 'Luogi trovati\n',
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: _locationFound.toString(),
-                                    style: GoogleFonts.poppins(
-                                        color: UIColors.blue,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14),
-                                  )
-                                ]),
-                          ),
-                        )
-                      ],
-                    ),
+                    _locationFound != null
+                        ? Row(
+                            children: [
+                              Expanded(
+                                child: RichText(
+                                  text: TextSpan(
+                                      text: _hasFoundLocation
+                                          ? 'Luoghi trovati\n'
+                                          : 'nessun luogo trovato',
+                                      style: GoogleFonts.poppins(
+                                          color: _hasFoundLocation
+                                              ? Colors.black
+                                              : Colors.red,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: _locationFound?.toString(),
+                                          style: GoogleFonts.poppins(
+                                              color: UIColors.blue,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14),
+                                        )
+                                      ]),
+                                ),
+                              )
+                            ],
+                          )
+                        : const SizedBox(),
                   ],
                 )),
               ],
@@ -171,29 +179,37 @@ class _WhereQuestionState extends State<WhereQuestion> {
   }
 
   Future<void> setLocationName({double? lat, double? lng}) async {
-    double latitude = 0;
-    double longitude = 0;
-    if (lat == null || lng == null) {
-      List<Location> locations =
-          await locationFromAddress(_locationController.text);
-      latitude = locations[0].latitude;
-      longitude = locations[0].longitude;
-    } else {
-      latitude = lat;
-      longitude = lng;
-    }
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
-    Placemark place = placemarks[0];
+    try {
+      double latitude = 0;
+      double longitude = 0;
+      if (lat == null || lng == null) {
+        List<Location> locations =
+            await locationFromAddress(_locationController.text);
+        latitude = locations[0].latitude;
+        longitude = locations[0].longitude;
+      } else {
+        latitude = lat;
+        longitude = lng;
+      }
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude, longitude);
+      Placemark place = placemarks[0];
 
-    setState(() {
-      _locationFound = place.locality! +
-          ', ' +
-          place.postalCode! +
-          ', ' +
-          place.country! +
-          ', ';
-    });
+      setState(() {
+        _hasFoundLocation = true;
+        _locationFound = place.locality! +
+            ', ' +
+            place.postalCode! +
+            ', ' +
+            place.country! +
+            ', ';
+      });
+    } catch (e) {
+      setState(() {
+        _locationFound = '';
+        _hasFoundLocation = false;
+      });
+    }
   }
 
   setLocationIfExist() {
