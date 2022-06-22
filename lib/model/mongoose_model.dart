@@ -13,7 +13,7 @@ class Mongoose {
     // filter?.forEach((k, v) => {if (k.toString().contains("=")) url += "$k&" else url += "$k=$v&"});
 
     filter?.asMap().forEach((index, f) {
-      if (index > 0) url += "\$";
+      if (index > 0) url += "&";
       url += f.key + f.operation + f.value;
     });
     if (select != null && select!.isNotEmpty) {
