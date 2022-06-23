@@ -38,7 +38,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       DateTime.now().add(const Duration(hours: 1)); //DateUtils.dateOnly(
 
   int questNum = 0;
-  double valueProgressIndicator = 0.166;
+  double valueProgressIndicator = 0;
   double _currentSliderValue = 20;
   Map<String, dynamic> planQuery = {};
   Mongoose mng = Mongoose(select: [], sort: {});
@@ -51,6 +51,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +67,14 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             );
           } else if (state is PlanTripNextQuestion) {
             setState(() {
+
+      valueProgressIndicator +=  0.166;
               questNum++;
             });
           } else if (state is PlanTripPreviousQuestion) {
             if (questNum != 0) {
               setState(() {
+                      valueProgressIndicator -=  0.166;
                 questNum--;
               });
             } else {
@@ -97,6 +101,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             Widget questionWidget;
             switch (questNum) {
               case 0:
+              
                 questionWidget = WhereQuestion(context: context);
                 break;
               case 1:
