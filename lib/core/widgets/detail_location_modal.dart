@@ -130,6 +130,7 @@ class DetailLocationModal extends StatelessWidget {
                               indexLocation: 0,
                               locationBloc: _locationBloc,
                               locationList: [loc],
+                              callback: callback,
                             ),
                           ],
                         )
