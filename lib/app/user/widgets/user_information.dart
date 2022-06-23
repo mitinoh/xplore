@@ -11,10 +11,11 @@ class UserInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Column(
       children: [
         CircleAvatar(
-          radius: 48,
+          radius: 50,
           backgroundColor: UIColors.blue,
           backgroundImage: const NetworkImage(
               'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
@@ -32,7 +33,7 @@ class UserInformation extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                          color: Colors.black)),
+                          color: lightDark.primaryColor)),
                   TextSpan(
                       text: ' LV. 4',
                       style: GoogleFonts.poppins(
@@ -97,6 +98,7 @@ class UserInformation extends StatelessWidget {
                     showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
+                        useRootNavigator: true,
                         backgroundColor: Colors.transparent,
                         builder: (context) {
                           return const followerBottomSheet();
@@ -104,21 +106,21 @@ class UserInformation extends StatelessWidget {
                   },
                   child: Row(
                     children: [
-                      const Icon(Iconsax.arrow_up_3),
+                      Icon(Iconsax.arrow_up_3, color: lightDark.primaryColor),
                       Text(
                         "20",
                         style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black),
+                            color: lightDark.primaryColor),
                       ),
-                      const Icon(Iconsax.arrow_down),
+                      Icon(Iconsax.arrow_down, color: lightDark.primaryColor),
                       Text(
                         "29",
                         style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black),
+                            color: lightDark.primaryColor),
                       ),
                     ],
                   ),
@@ -126,7 +128,9 @@ class UserInformation extends StatelessWidget {
                 Text(
                   "la tua cerchia",
                   style: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.w300),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                      color: lightDark.primaryColor),
                 ),
               ],
             ),
@@ -137,12 +141,14 @@ class UserInformation extends StatelessWidget {
                   style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black),
+                      color: lightDark.primaryColor),
                 ),
                 Text(
                   "in programma",
                   style: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.w300),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                      color: lightDark.primaryColor),
                 ),
               ],
             )
@@ -161,6 +167,7 @@ class UserInformation extends StatelessWidget {
                       showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
+                          useRootNavigator: true,
                           backgroundColor: Colors.transparent,
                           builder: (context) {
                             return const TrophyDetailBottomSheet();
@@ -214,7 +221,7 @@ class UserInformation extends StatelessWidget {
                         decoration: TextDecoration.underline,
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black),
+                        color: lightDark.primaryColor),
                   ),
                 )
               ],

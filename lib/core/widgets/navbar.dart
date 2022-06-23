@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:xplore/app/add_location/screen/before_adding_new_location.dart';
 import 'package:xplore/app/add_location/screen/new_location_screen.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
 import 'package:xplore/app/map/screen/map_screen.dart';
@@ -18,13 +17,15 @@ class Navbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return PersistentTabView(
       context,
       controller: _controller,
       screens: _buildScreens(),
-      items: _navBarsItems(),
+      items: _navBarsItems(lightDark),
       confineInSafeArea: true,
-      backgroundColor: const Color(0xffF3F7FA), // Default is Colors.white.
+      backgroundColor:
+          lightDark.scaffoldBackgroundColor, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset:
           false, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
@@ -53,48 +54,48 @@ class Navbar extends StatelessWidget {
     return [
       const HomePage(),
       const MapScreen(),
-      const BeforeAddingNewLocation(),
+      const NewLocation(),
       const PlanTripScreen(),
       const UserScreen()
     ];
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
+  List<PersistentBottomNavBarItem> _navBarsItems(lightDark) {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.home_1),
         iconSize: 22,
         title: ("Home"),
         activeColorPrimary: UIColors.blue,
-        inactiveColorPrimary: UIColors.black,
+        inactiveColorPrimary: lightDark.primaryColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.map),
         title: ("Map"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
-        inactiveColorPrimary: UIColors.black,
+        inactiveColorPrimary: lightDark.primaryColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.location_add),
         title: ("Add"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
-        inactiveColorPrimary: UIColors.black,
+        inactiveColorPrimary: lightDark.primaryColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.calendar_search),
         title: ("Trip"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
-        inactiveColorPrimary: UIColors.black,
+        inactiveColorPrimary: lightDark.primaryColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.user),
         title: ("Profile"),
         iconSize: 22,
         activeColorPrimary: UIColors.blue,
-        inactiveColorPrimary: UIColors.black,
+        inactiveColorPrimary: lightDark.primaryColor,
       ),
     ];
   }

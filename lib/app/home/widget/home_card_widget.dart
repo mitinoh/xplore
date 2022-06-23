@@ -49,23 +49,24 @@ class _BuildMainCardState extends State<BuildMainCard> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+    var lightDark = Theme.of(context);
     return Stack(
       children: [
         listPageView(),
         pinnedMenu(),
-        header(mediaQuery),
-        detailMenu(),
+        header(mediaQuery, lightDark),
+        detailMenu(lightDark),
       ],
     );
   }
 
-  Positioned detailMenu() {
+  Positioned detailMenu(lightDark) {
     return Positioned(
       child: AnimatedContainer(
         height: _height,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: const Color(0xffF3F7FA).withOpacity(0.8)),
+            color: lightDark.scaffoldBackgroundColor.withOpacity(0.8)),
         padding:
             const EdgeInsets.only(left: 20, right: 20, bottom: 16, top: 24),
         margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
@@ -84,7 +85,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
                       style: GoogleFonts.poppins(
                           fontSize: 12.5,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black),
+                          color: lightDark.primaryColor),
                       children: [
                         TextSpan(
                             text: ", " +
@@ -94,20 +95,20 @@ class _BuildMainCardState extends State<BuildMainCard> {
                             style: GoogleFonts.poppins(
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w300,
-                                color: Colors.black)),
+                                color: lightDark.primaryColor)),
                         TextSpan(
                             text:
                                 "\n\nQui ci sarà la parte dei consigli su come raggiungere il luogo e altri piccoli consigli.",
                             style: GoogleFonts.poppins(
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w300,
-                                color: Colors.black)),
+                                color: lightDark.primaryColor)),
                         TextSpan(
                             text: "\n\n#mare #italy #ladolcevita #estate",
                             style: GoogleFonts.poppins(
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.black)),
+                                color: lightDark.primaryColor)),
                       ]),
                 ),
               ),
@@ -117,8 +118,8 @@ class _BuildMainCardState extends State<BuildMainCard> {
               child: InkWell(
                 onTap: () => {setDetailMenuHeight()},
                 child: _showPinnedMenu
-                    ? const Icon(Iconsax.maximize_4)
-                    : Icon(Icons.close, color: UIColors.black),
+                    ? Icon(Iconsax.maximize_4, color: lightDark.primaryColor)
+                    : Icon(Icons.close, color: lightDark.primaryColor),
               ),
             )
           ],
@@ -130,7 +131,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
     );
   }
 
-  Positioned header(MediaQueryData mediaQuery) {
+  Positioned header(MediaQueryData mediaQuery, lightDark) {
     return Positioned(
         top: mediaQuery.size.height * 0.1,
         left: 20,
@@ -141,14 +142,14 @@ class _BuildMainCardState extends State<BuildMainCard> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  color: const Color(0xffF3F7FA).withOpacity(0.8),
+                  color: lightDark.scaffoldBackgroundColor.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(20)),
               child: Text(
                   widget.model[_indexLocation].insertUid?.name ?? '@xplore',
                   style: GoogleFonts.poppins(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
-                      color: Colors.black)),
+                      color: lightDark.primaryColor)),
             ),
           ],
         ));
