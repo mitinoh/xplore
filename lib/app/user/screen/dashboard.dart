@@ -192,6 +192,7 @@ class _UserScreenState extends State<UserScreen> {
                                                             index]
                                                         .saved ==
                                                     true);
+                                                    // commento
                                                 return state
                                                             .savedLocationList[
                                                                 index]
