@@ -40,8 +40,8 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initState();
+    var lightDark = Theme.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xffF3F7FA),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20),
@@ -52,26 +52,29 @@ class EditProfile extends StatelessWidget {
                 pinned: true,
                 snap: true,
                 elevation: 0,
-                backgroundColor: UIColors.backgroundGrey,
+                backgroundColor: lightDark.scaffoldBackgroundColor,
                 iconTheme: const IconThemeData(color: Colors.black),
                 actionsIconTheme: const IconThemeData(color: Colors.black),
                 leading: GestureDetector(
                     onTap: () => {Navigator.pop(context)},
-                    child: const Icon(Iconsax.arrow_left)),
+                    child: Icon(
+                      Iconsax.arrow_left,
+                      color: lightDark.primaryColor,
+                    )),
                 leadingWidth: 23,
                 title: Text(
                   "Edit profile",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black),
+                      color: lightDark.primaryColor),
                 ),
                 actions: [
                   InkWell(
                     onTap: (() => {_updateUserInfo()}),
-                    child: const Icon(
+                    child: Icon(
                       Icons.done,
-                      color: Colors.black,
+                      color: lightDark.primaryColor,
                     ),
                   ),
                 ],
@@ -102,13 +105,14 @@ class EditProfile extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 left: 15, right: 15, bottom: 5, top: 5),
                             decoration: BoxDecoration(
-                                color: UIColors.grey.withOpacity(0.3),
+                                color: lightDark.backgroundColor,
                                 borderRadius: BorderRadius.circular(20)),
                             child: TextField(
                               controller: _usernameController,
                               textAlign: TextAlign.start,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 14),
+                              style: TextStyle(
+                                  color: lightDark.primaryColorDark,
+                                  fontSize: 14),
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.all(15.0),
                                 enabledBorder: InputBorder.none,
@@ -135,7 +139,7 @@ class EditProfile extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 left: 15, right: 15, bottom: 5, top: 5),
                             decoration: BoxDecoration(
-                                color: UIColors.grey.withOpacity(0.3),
+                                color: lightDark.backgroundColor,
                                 borderRadius: BorderRadius.circular(20)),
                             child: TextField(
                               controller: _bioController,
@@ -143,8 +147,9 @@ class EditProfile extends StatelessWidget {
                               minLines: 6,
                               maxLines: 10,
                               maxLength: 144,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 14),
+                              style: TextStyle(
+                                  color: lightDark.primaryColorDark,
+                                  fontSize: 14),
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.all(15.0),
                                 enabledBorder: InputBorder.none,
@@ -169,7 +174,7 @@ class EditProfile extends StatelessWidget {
                             left: 15, top: 20, right: 20, bottom: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: UIColors.grey.withOpacity(0.3),
+                          color: lightDark.backgroundColor,
                         ),
                         child: InkWell(
                           onTap: (() {
@@ -189,7 +194,9 @@ class EditProfile extends StatelessWidget {
                               Text(
                                 "Cambia foto profilo",
                                 style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold, fontSize: 14),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: lightDark.primaryColorDark),
                               ),
                             ],
                           ),

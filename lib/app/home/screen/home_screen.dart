@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //return Text(AppLocalizations.of(context)!.helloWorld);
     return Scaffold(
-      backgroundColor: const Color(0xffF3F7FA),
       body: SafeArea(
         top: false,
         child: Stack(children: [

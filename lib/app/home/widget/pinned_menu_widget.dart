@@ -31,6 +31,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+    var lightDark = Theme.of(context);
     return Positioned(
         bottom: mediaQuery.size.height * 0.25,
         right: 20,
@@ -38,13 +39,13 @@ class _PinnedMenuState extends State<PinnedMenu> {
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: const Color(0xffF3F7FA).withOpacity(0.8),
+            color: lightDark.scaffoldBackgroundColor.withOpacity(0.8),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 15),
-              searchBtn(context),
+              searchBtn(context, lightDark),
               const SizedBox(height: 25),
               LikeButton(
                 indexLocation: widget.indexLocation,
@@ -52,14 +53,14 @@ class _PinnedMenuState extends State<PinnedMenu> {
                 locationList: widget.locationList,
               ),
               const SizedBox(height: 25),
-              navigateBtn(context),
+              navigateBtn(context, lightDark),
               const SizedBox(height: 15),
             ],
           ),
         ));
   }
 
-  InkWell navigateBtn(BuildContext context) {
+  InkWell navigateBtn(BuildContext context, lightDark) {
     return InkWell(
         onTap: () => {
               showModalBottomSheet(
@@ -71,7 +72,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
                         location: widget.locationList[widget.indexLocation]);
                   })
             },
-        child: Icon(Iconsax.discover_1, color: UIColors.black));
+        child: Icon(Iconsax.discover_1, color: lightDark.primaryColor));
   }
 
   InkWell saveBtn() {
@@ -94,7 +95,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
     );
   }
 
-  InkWell searchBtn(BuildContext context) {
+  InkWell searchBtn(BuildContext context, lightDark) {
     return InkWell(
         onTap: () => {
               Navigator.push(
@@ -102,6 +103,6 @@ class _PinnedMenuState extends State<PinnedMenu> {
                 MaterialPageRoute(builder: (context) => const SearchScreen()),
               )
             },
-        child: Icon(Iconsax.search_normal, color: UIColors.black));
+        child: Icon(Iconsax.search_normal, color: lightDark.primaryColor));
   }
 }

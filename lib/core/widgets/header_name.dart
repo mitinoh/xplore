@@ -12,6 +12,7 @@ class HeaderName extends StatelessWidget {
   bool questionMark = false;
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return FutureBuilder<String>(
         future: UserRepository.getUserName(),
         builder: (context, snapshot) {
@@ -22,7 +23,7 @@ class HeaderName extends StatelessWidget {
                 style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black),
+                    color: lightDark.primaryColor),
                 children: <TextSpan>[
                   TextSpan(
                       text: snapshot.data,

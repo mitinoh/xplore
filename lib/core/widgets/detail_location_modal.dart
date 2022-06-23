@@ -33,11 +33,13 @@ class DetailLocationModal extends StatelessWidget {
 
   show(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+    var lightDark = Theme.of(context);
 
     showModalBottomSheet<void>(
         //useRootNavigator: true,
         isScrollControlled: true,
-        backgroundColor: const Color(0xffF3F7FA),
+        useRootNavigator: true,
+        backgroundColor: lightDark.backgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -46,194 +48,201 @@ class DetailLocationModal extends StatelessWidget {
         ),
         context: context,
         builder: (BuildContext context) {
-          return Container(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
-            height: mediaQuery.size.height * 0.77,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                              radius: 25,
-                              backgroundColor: UIColors.bluelight,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      conf.getLocationImageUrl(loc.iId ?? ''),
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover),
+          return SafeArea(
+            child: Container(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+              height: mediaQuery.size.height * 0.84,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                                radius: 25,
+                                backgroundColor: UIColors.bluelight,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        conf.getLocationImageUrl(loc.iId ?? ''),
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover),
+                                      ),
+                                    ),
+                                    placeholder: (context, url) =>
+                                        const LoadingIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Center(
+                                      child: Icon(Iconsax.gallery_slash,
+                                          size: 30, color: UIColors.lightRed),
                                     ),
                                   ),
-                                  placeholder: (context, url) =>
-                                      const LoadingIndicator(),
-                                  errorWidget: (context, url, error) => Center(
-                                    child: Icon(Iconsax.gallery_slash,
-                                        size: 30, color: UIColors.lightRed),
-                                  ),
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: loc.insertUid?.name,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: lightDark.primaryColor)),
+                                    TextSpan(
+                                        text: ' LV. 4',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: UIColors.blue))
+                                  ],
                                 ),
-                              )),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: loc.insertUid?.name,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black)),
-                                  TextSpan(
-                                      text: ' LV. 4',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                          color: UIColors.blue))
-                                ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: InkWell(
-                                onTap: () => {
-                                      _mapRepository.openMap(
-                                          loc.geometry?.coordinates?[0] ?? 0.0,
-                                          loc.geometry?.coordinates?[1] ?? 0.0)
-                                    },
-                                child: const Icon(Iconsax.discover_1)),
-                          ),
-                          LikeButton(
-                            indexLocation: 0,
-                            locationBloc: _locationBloc,
-                            locationList: [loc],
-                            callback: callback,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: RichText(
-                          textScaleFactor: 1,
-                          text: TextSpan(
-                              text: "Il colosseo di roma",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                              children: [
-                                TextSpan(
-                                    text:
-                                        " - lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.grey)),
-                              ]),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(loc.name ?? '',
-                          overflow: TextOverflow.visible,
-                          style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.grey)),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  ClipRRect(
-                      child: CachedNetworkImage(
-                    height: mediaQuery.size.height * 0.45,
-                    width: mediaQuery.size.height * 1,
-                    imageUrl: conf.getLocationImageUrl(loc.iId ?? ''),
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: InkWell(
+                                  onTap: () => {
+                                        _mapRepository.openMap(
+                                            loc.geometry?.coordinates?[0] ??
+                                                0.0,
+                                            loc.geometry?.coordinates?[1] ??
+                                                0.0)
+                                      },
+                                  child: Icon(
+                                    Iconsax.discover_1,
+                                    color: lightDark.primaryColor,
+                                  )),
+                            ),
+                            LikeButton(
+                              indexLocation: 0,
+                              locationBloc: _locationBloc,
+                              locationList: [loc],
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                    placeholder: (context, url) => const LoadingIndicator(),
-                    errorWidget: (context, url, error) => Center(
-                      child: Icon(Iconsax.gallery_slash,
-                          size: 30, color: UIColors.lightRed),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RichText(
+                            textScaleFactor: 1,
+                            text: TextSpan(
+                                text: "Il colosseo di roma",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: lightDark.primaryColor),
+                                children: [
+                                  TextSpan(
+                                      text:
+                                          " - lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w300,
+                                          color: lightDark.primaryColor)),
+                                ]),
+                          ),
+                        ),
+                      ],
                     ),
-                  )),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                            "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                    Row(
+                      children: [
+                        Text(loc.name ?? '',
                             overflow: TextOverflow.visible,
                             style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w300,
-                                color: Colors.grey)),
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () => {
-                          _mapRepository.openMap(
-                              loc.geometry?.coordinates?[0] ?? 0.0,
-                              loc.geometry?.coordinates?[1] ?? 0.0)
-                        },
-                        child: Text(
-                          "raggiungi con google maps",
-                          style: GoogleFonts.poppins(
-                              decoration: TextDecoration.underline,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          textScaleFactor: 1,
-                          text: TextSpan(
-                            text: "via del successo, piacenza 29120",
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.grey),
-                          ),
+                                color: lightDark.primaryColor)),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    ClipRRect(
+                        child: CachedNetworkImage(
+                      height: mediaQuery.size.height * 0.45,
+                      width: mediaQuery.size.height * 1,
+                      imageUrl: conf.getLocationImageUrl(loc.iId ?? ''),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
                         ),
                       ),
-                    ],
-                  ),
-                ],
+                      placeholder: (context, url) => const LoadingIndicator(),
+                      errorWidget: (context, url, error) => Center(
+                        child: Icon(Iconsax.gallery_slash,
+                            size: 30, color: UIColors.lightRed),
+                      ),
+                    )),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                              "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                              overflow: TextOverflow.visible,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w300,
+                                  color: lightDark.primaryColor)),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () => {
+                            _mapRepository.openMap(
+                                loc.geometry?.coordinates?[0] ?? 0.0,
+                                loc.geometry?.coordinates?[1] ?? 0.0)
+                          },
+                          child: Text(
+                            "raggiungi con google maps",
+                            style: GoogleFonts.poppins(
+                                decoration: TextDecoration.underline,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: lightDark.primaryColor),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            textScaleFactor: 1,
+                            text: TextSpan(
+                              text: "via del successo, piacenza 29120",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w300,
+                                  color: lightDark.primaryColor),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           );

@@ -37,6 +37,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     // Getting the user from the FirebaseAuth Instance
     var mediaQuery = MediaQuery.of(context);
+    var lightDark = Theme.of(context);
 
     final List<dynamic> tabs = <dynamic>[
       {"name": 'Posti piaciuti', "event": const GetUserSavedLocationList([])},
@@ -75,9 +76,10 @@ class _UserScreenState extends State<UserScreen> {
                     centerTitle: true,
                     titleSpacing: 0,
                     automaticallyImplyLeading: false,
-                    backgroundColor: UIColors.backgroundGrey,
-                    iconTheme: const IconThemeData(color: Colors.black),
-                    actionsIconTheme: const IconThemeData(color: Colors.black),
+                    backgroundColor: lightDark.scaffoldBackgroundColor,
+                    iconTheme: IconThemeData(color: lightDark.primaryColor),
+                    actionsIconTheme:
+                        IconThemeData(color: lightDark.primaryColor),
                     leading: GestureDetector(
                         onTap: () => {
                               Navigator.push(
@@ -96,7 +98,7 @@ class _UserScreenState extends State<UserScreen> {
                       style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black),
+                          color: lightDark.primaryColor),
                     ),
                     actions: [
                       InkWell(
@@ -104,6 +106,7 @@ class _UserScreenState extends State<UserScreen> {
                             showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
+                                useRootNavigator: true,
                                 backgroundColor: Colors.transparent,
                                 builder: (context) {
                                   return const SettingsBottomSheet();
@@ -127,10 +130,11 @@ class _UserScreenState extends State<UserScreen> {
                           const SizedBox(height: 30),
                           TabBar(
                             // These are the widgets to put in each tab in the tab bar.
-                            indicatorColor: Colors.black,
+                            indicatorColor: lightDark.primaryColor,
                             indicatorWeight: 1,
-                            labelColor: Colors.black,
-                            unselectedLabelColor: Colors.black.withOpacity(0.2),
+                            labelColor: lightDark.primaryColor,
+                            unselectedLabelColor:
+                                lightDark.primaryColor.withOpacity(0.2),
                             tabs: tabs
                                 .map((dynamic obj) => Tab(
                                       iconMargin: EdgeInsets.all(0),
@@ -242,15 +246,19 @@ class _UserScreenState extends State<UserScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          const Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Icon(Iconsax.coffee),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              Iconsax.coffee,
+                                              color: lightDark.primaryColor,
+                                            ),
                                           ),
                                           Text("no data found",
                                               style: GoogleFonts.poppins(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
-                                                  color: Colors.black)),
+                                                  color:
+                                                      lightDark.primaryColor)),
                                         ],
                                       ));
                               } else {
@@ -312,15 +320,19 @@ class _UserScreenState extends State<UserScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          const Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Icon(Iconsax.coffee),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              Iconsax.coffee,
+                                              color: lightDark.primaryColor,
+                                            ),
                                           ),
                                           Text("no data found",
                                               style: GoogleFonts.poppins(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
-                                                  color: Colors.black)),
+                                                  color:
+                                                      lightDark.primaryColor)),
                                         ],
                                       ));
                               } else {

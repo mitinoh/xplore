@@ -12,6 +12,7 @@ import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/confirm_button.dart';
 import 'package:xplore/core/widgets/header_name.dart';
 
 class NewLocation extends StatefulWidget {
@@ -42,6 +43,7 @@ class _NewLocationState extends State<NewLocation> {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -56,15 +58,15 @@ class _NewLocationState extends State<NewLocation> {
                 ),
                 headerDesc(),
                 const SizedBox(height: 20),
-                locationName(),
+                locationName(lightDark),
                 const SizedBox(
                   height: 5,
                 ),
-                adressName(),
+                adressName(lightDark),
                 const SizedBox(
                   height: 5,
                 ),
-                locationImage(),
+                locationImage(lightDark),
                 image != null
                     ? ImageImported(
                         path: image != null ? image!.path : '',
@@ -73,11 +75,11 @@ class _NewLocationState extends State<NewLocation> {
                 const SizedBox(
                   height: 5,
                 ),
-                locationDesc(),
+                locationDesc(lightDark),
                 const SizedBox(
                   height: 5,
                 ),
-                locationCategories(),
+                locationCategories(lightDark),
                 //locationCategories(),
                 const SizedBox(
                   height: 20,
@@ -86,7 +88,7 @@ class _NewLocationState extends State<NewLocation> {
                 const SizedBox(
                   height: 20,
                 ),
-                locationTips(),
+                locationTips(lightDark),
                 const SizedBox(
                   height: 20,
                 ),
@@ -99,7 +101,7 @@ class _NewLocationState extends State<NewLocation> {
     );
   }
 
-  InkWell locationCategories() {
+  InkWell locationCategories(lightDark) {
     return InkWell(
       onTap: () {
         showModalBottomSheet(
@@ -115,7 +117,7 @@ class _NewLocationState extends State<NewLocation> {
             const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: UIColors.grey.withOpacity(0.3),
+          color: lightDark.cardColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -143,23 +145,7 @@ class _NewLocationState extends State<NewLocation> {
       onTap: () {
         _createNewLocation();
       },
-      child: Container(
-        margin: const EdgeInsets.only(left: 20, right: 20),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: UIColors.lightGreen,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Aggiungi luogo".toUpperCase(),
-              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
+      child: const ConfirmButton(text: "aggiungi luogo"),
     );
   }
 
@@ -179,7 +165,7 @@ class _NewLocationState extends State<NewLocation> {
     );
   }
 
-  Row locationDesc() {
+  Row locationDesc(lightDark) {
     return Row(
       children: [
         Expanded(
@@ -187,7 +173,7 @@ class _NewLocationState extends State<NewLocation> {
           padding:
               const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
           decoration: BoxDecoration(
-              color: UIColors.grey.withOpacity(0.3),
+              color: lightDark.cardColor,
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
             controller: _descController,
@@ -216,7 +202,7 @@ class _NewLocationState extends State<NewLocation> {
     );
   }
 
-  Row locationTips() {
+  Row locationTips(lightDark) {
     return Row(
       children: [
         Expanded(
@@ -224,7 +210,7 @@ class _NewLocationState extends State<NewLocation> {
           padding:
               const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
           decoration: BoxDecoration(
-              color: UIColors.grey.withOpacity(0.3),
+              color: lightDark.cardColor,
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
             controller: _indicationController,
@@ -254,7 +240,7 @@ class _NewLocationState extends State<NewLocation> {
     );
   }
 
-  InkWell locationImage() {
+  InkWell locationImage(lightDark) {
     return InkWell(
       onTap: () {
         _getFromGallery();
@@ -264,7 +250,7 @@ class _NewLocationState extends State<NewLocation> {
             const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: UIColors.grey.withOpacity(0.3),
+          color: lightDark.cardColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -287,7 +273,7 @@ class _NewLocationState extends State<NewLocation> {
     );
   }
 
-  Row locationName() {
+  Row locationName(lightDark) {
     return Row(
       children: [
         Expanded(
@@ -295,7 +281,7 @@ class _NewLocationState extends State<NewLocation> {
           padding:
               const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
           decoration: BoxDecoration(
-              color: UIColors.grey.withOpacity(0.3),
+              color: lightDark.cardColor,
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
             controller: _nameController,
@@ -321,7 +307,7 @@ class _NewLocationState extends State<NewLocation> {
     );
   }
 
-  Row adressName() {
+  Row adressName(lightDark) {
     return Row(
       children: [
         Expanded(
@@ -329,7 +315,7 @@ class _NewLocationState extends State<NewLocation> {
           padding:
               const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
           decoration: BoxDecoration(
-              color: UIColors.grey.withOpacity(0.3),
+              color: lightDark.cardColor,
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
             controller: _addressController,

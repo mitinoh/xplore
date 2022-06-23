@@ -9,6 +9,7 @@ class TrophyRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -20,19 +21,19 @@ class TrophyRoomScreen extends StatelessWidget {
             pinned: true,
             snap: true,
             elevation: 0,
-            backgroundColor: UIColors.backgroundGrey,
+            backgroundColor: lightDark.scaffoldBackgroundColor,
             iconTheme: const IconThemeData(color: Colors.black),
             actionsIconTheme: const IconThemeData(color: Colors.black),
             leading: GestureDetector(
                 onTap: () => {Navigator.pop(context)},
-                child: const Icon(Iconsax.arrow_left)),
+                child: Icon(Iconsax.arrow_left, color: lightDark.primaryColor)),
             leadingWidth: 23,
             title: Text(
               "300 punti LV.4",
               style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black),
+                  color: lightDark.primaryColor),
             ),
           ),
           SliverToBoxAdapter(
@@ -44,7 +45,7 @@ class TrophyRoomScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                          "Qui troverai tutti i premi che hai vinto e quelli che puoi sbloccare utilizzando xplore. Accetta le sfide e raccogli più premi possibili e aumenta il tuo livello.",
+                          "Accetta le sfide e raccogli più premi possibili e aumenta il tuo livello.",
                           overflow: TextOverflow.visible,
                           style: GoogleFonts.poppins(
                               fontSize: 12,
@@ -85,6 +86,7 @@ class trophyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return InkWell(
       onTap: () {
         showModalBottomSheet(
@@ -122,7 +124,7 @@ class trophyWidget extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black)),
+                          color: lightDark.primaryColor)),
                 ),
               ),
             ],
@@ -138,7 +140,7 @@ class trophyWidget extends StatelessWidget {
                   style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w300,
-                      color: Colors.black)),
+                      color: lightDark.primaryColor)),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: SizedBox(

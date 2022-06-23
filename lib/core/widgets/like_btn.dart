@@ -78,6 +78,7 @@ class _LikeButtonState extends State<LikeButton> {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return InkWell(
       onTap: () {
         setState(() {
@@ -99,7 +100,7 @@ class _LikeButtonState extends State<LikeButton> {
       child: Icon(Iconsax.heart,
           color: (widget.locationList[widget.indexLocation].saved == true)
               ? UIColors.lightRed
-              : UIColors.black),
+              : lightDark.primaryColor),
     );
   }
 }
