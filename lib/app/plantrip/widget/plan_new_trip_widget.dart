@@ -16,7 +16,8 @@ import 'package:xplore/core/widgets/success_screen.dart';
 import 'package:xplore/model/mongoose_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
-  const NetTripQuestion({Key? key}) : super(key: key);
+  const NetTripQuestion({Key? key, required this.callback}) : super(key: key);
+    final VoidCallback? callback;
   // https://pub.dev/packages/drag_and_drop_lists
 
   @override
@@ -82,6 +83,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             if (state is PlanTripQuestionCompleted) {
               return InkWell(
                 onTap: () {
+                  widget.callback!();
                   Navigator.pop(context);
                 },
                 child: const SuccessScreen(

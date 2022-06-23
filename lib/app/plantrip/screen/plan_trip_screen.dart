@@ -7,6 +7,7 @@ import 'package:xplore/app/plantrip/widget/current_planned_trip_widget.dart';
 import 'package:xplore/app/plantrip/widget/planned_trip_widget.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/header_name.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlanTripScreen extends StatefulWidget {
   const PlanTripScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -116,7 +117,10 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   void planNewTrip() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const PlanNewTrip()),
+      MaterialPageRoute(builder: (ctx) =>  PlanNewTrip(callback: () {   
+          
+            _planTripBloc.add(GetPlannedTrip());
+           },)),
     );
   }
 }

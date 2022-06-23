@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:xplore/app/plantrip/widget/plan_new_trip_widget.dart';
 
 class PlanNewTrip extends StatefulWidget {
-  const PlanNewTrip({Key? key}) : super(key: key);
-
+  const PlanNewTrip({Key? key, required this.callback}) : super(key: key);
+final VoidCallback? callback;
   @override
   State<PlanNewTrip> createState() => _PlanNewTripState();
 }
@@ -11,13 +11,17 @@ class PlanNewTrip extends StatefulWidget {
 class _PlanNewTripState extends State<PlanNewTrip> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20.0),
-          child: NetTripQuestion(),
+          child: NetTripQuestion(callback: () {
+                    widget.callback!();
+                  },),
         ),
       ),
     );
   }
+
+
 }
