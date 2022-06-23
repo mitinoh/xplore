@@ -46,12 +46,14 @@ class LikeButton extends StatefulWidget {
       required this.locationList,
       required this.indexLocation,
       required this.locationBloc, // TODO non passare ma ricavare
-      this.liked = false})
+      this.liked = false,
+      this.callback})
       : super(key: key);
   final List<LocationModel> locationList;
   final int indexLocation;
   final HomeBloc locationBloc;
   final bool liked;
+  final VoidCallback? callback;
 
   @override
   State<LikeButton> createState() => _LikeButtonState();
@@ -84,14 +86,15 @@ class _LikeButtonState extends State<LikeButton> {
                       widget.liked
                   ? false
                   : true;
+          if (widget.callback != null) {
+            widget.callback!();
+          }
         });
 
         widget.locationBloc.add(SaveUserLocation(
             locationId: widget.locationList[widget.indexLocation].iId ?? '',
             save: widget.locationList[widget.indexLocation].saved == false ||
-                    widget.liked
-                ? false
-                : true));
+                    widget.liked ? false: true));
       },
       child: Icon(Iconsax.heart,
           color: (widget.locationList[widget.indexLocation].saved == true)

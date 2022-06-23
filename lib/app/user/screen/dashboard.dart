@@ -187,15 +187,31 @@ class _UserScreenState extends State<UserScreen> {
                                                 SliverChildBuilderDelegate(
                                               (BuildContext context,
                                                   int index) {
-                                                return InkWell(
-                                                  onTap: () {
-                                                    DetailLocationModal(
-                                                      loc: state
-                                                              .savedLocationList[
-                                                          index],
-                                                      fromLikedSection: true,
-                                                    ).show(context);
-                                                    /*
+                                                print(state
+                                                        .savedLocationList[
+                                                            index]
+                                                        .saved ==
+                                                    true);
+                                                return state
+                                                            .savedLocationList[
+                                                                index]
+                                                            .saved ==
+                                                        true
+                                                    ? InkWell(
+                                                        onTap: () {
+                                                          DetailLocationModal(
+                                                            loc: state
+                                                                    .savedLocationList[
+                                                                index],
+                                                            fromLikedSection:
+                                                                true,
+                                                            callback: () {
+                                                              setState(() {
+                                                                state.savedLocationList[index].saved= state.savedLocationList[index].saved!=true ? false : true;
+                                                              });
+                                                            },
+                                                          ).show(context);
+                                                          /*
                                                       BlocProvider.of<
                                                               UserLocationBloc>(
                                                           context)
@@ -204,15 +220,18 @@ class _UserScreenState extends State<UserScreen> {
                                                                 .savedLocationModel));
 
                                                                 */
-                                                  },
-                                                  child: ImageTile(
-                                                      location: state
-                                                              .savedLocationList[
-                                                          index]),
-                                                );
+                                                        },
+                                                        child: ImageTile(
+                                                            location: state
+                                                                    .savedLocationList[
+                                                                index]),
+                                                      )
+                                                    : const SizedBox();
                                               },
                                               childCount: state
-                                                  .savedLocationList.length,
+                                                  .savedLocationList
+                                                  .map((e) => e.saved)
+                                                  .length,
                                             ),
                                           )
                                         ],

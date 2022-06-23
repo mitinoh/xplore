@@ -12,11 +12,15 @@ import 'package:xplore/model/location_model.dart';
 
 class DetailLocationModal extends StatelessWidget {
   DetailLocationModal(
-      {Key? key, required this.loc, this.fromLikedSection = false})
+      {Key? key,
+      required this.loc,
+      this.fromLikedSection = false,
+      this.callback})
       : super(key: key);
   final LocationModel loc;
   final bool
       fromLikedSection; // Passare true se viene richiamata dalla sezione salvati
+  final VoidCallback? callback;
   MapRepository _mapRepository = MapRepository();
 
   final HomeBloc _locationBloc = HomeBloc();
@@ -117,6 +121,7 @@ class DetailLocationModal extends StatelessWidget {
                             indexLocation: 0,
                             locationBloc: _locationBloc,
                             locationList: [loc],
+                            callback: callback,
                           ),
                         ],
                       )
