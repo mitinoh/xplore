@@ -36,7 +36,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<NewUser>((event, emit) async {
       //emit(Loading());
-      await authRepository.newUserPut(event.categoryPref);
+      await authRepository.newUserPut(event.username, event.bio, event.categoryPref);
+      emit(Authenticated());
       // emit(UnAuthenticated());
     });
 

@@ -9,10 +9,13 @@ import 'package:xplore/core/widgets/subtitle.dart';
 import 'package:xplore/main.dart';
 
 class UserCategoryPreferenceScreen extends StatelessWidget {
-  const UserCategoryPreferenceScreen({Key? key}) : super(key: key);
+   UserCategoryPreferenceScreen({Key? key, required this.context}) : super(key: key);
+  final BuildContext  context;
 
+  final TextEditingController _usernameController = TextEditingController();
+    final TextEditingController _bioController = TextEditingController();
   @override
-  Widget build(BuildContext context) {
+  Widget build( context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -41,12 +44,13 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       BlocProvider.of<AuthBloc>(context).add(
-                        NewUser(CategoryPreference.catSelected),
+                        NewUser(_usernameController.text, _bioController.text, CategoryPreference.catSelected),
                       );
+                      /*
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const MyApp()),
-                      );
+                      );*/
                     },
                     child: const Icon(
                       Iconsax.arrow_right_1,
@@ -112,7 +116,7 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                               color: UIColors.grey.withOpacity(0.3),
                               borderRadius: BorderRadius.circular(20)),
                           child: TextField(
-                            controller: null,
+                            controller: _usernameController,
                             textAlign: TextAlign.start,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 14),
@@ -131,7 +135,36 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                             ),
                             autofocus: false,
                           ),
+                        )),
+                        Expanded(
+                            child: Container(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, bottom: 5, top: 5),
+                          decoration: BoxDecoration(
+                              color: UIColors.grey.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: TextField(
+                            controller: _bioController,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 14),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(15.0),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              hintText: "Inserisci qui la tua bio",
+                              hintStyle: GoogleFonts.poppins(
+                                  color: UIColors.grey, fontSize: 14),
+                              border: const OutlineInputBorder(),
+                              prefixIcon: Icon(
+                                Iconsax.user,
+                                color: UIColors.blue,
+                              ),
+                            ),
+                            autofocus: false,
+                          ),
                         ))
+                   
                       ],
                     ),
                     const SizedBox(height: 20),

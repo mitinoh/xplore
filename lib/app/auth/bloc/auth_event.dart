@@ -1,6 +1,6 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthEvent extends Equatable {
+abstract class AuthEvent{
   @override
   List<Object> get props => [];
 }
@@ -31,8 +31,10 @@ class GoogleSignInRequested extends AuthEvent {
 class SignOutRequested extends AuthEvent {}
 
 class NewUser extends AuthEvent {
+  final String username;
+  final String bio;
   final List<String> categoryPref;
-  NewUser(this.categoryPref);
+  NewUser(this.username, this.bio, this.categoryPref);
 }
 
 class NewUserRegistered extends AuthEvent {}

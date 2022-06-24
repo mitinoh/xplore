@@ -24,14 +24,14 @@ class _SignInState extends State<SignIn> {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const MyApp()));
+                MaterialPageRoute(builder: (ctx) => const MyApp()));
           }
           if (state is NewUserAuthenticated) {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        const UserCategoryPreferenceScreen()));
+                    builder: (ctx) =>
+                         UserCategoryPreferenceScreen( context: context,)));
           }
           if (state is AuthError) {
             // Showing the error message if the user has entered invalid credentials

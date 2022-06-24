@@ -87,15 +87,15 @@ class AuthRepository {
     }
   }
 
-  Future<void> newUserPut(List<String> categoryPref) async {
+  Future<void> newUserPut(String username, String bio, List<String> categoryPref) async {
     try {
       await Future.delayed(const Duration(seconds: 1));
       Map<String, dynamic> map = {
         'categoryPref': categoryPref,
-        'name': "---",
-        "bio": "-"
+        'username': username,
+        "bio": bio
       };
-      log(map.toString());
+      // TODO: impostare shared pred
 
       Response response = await httpService.request(
           method: Method.POST, url: conf.userColl, params: json.encode(map));

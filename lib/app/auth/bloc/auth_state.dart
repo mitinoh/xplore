@@ -1,7 +1,7 @@
 part of 'auth_bloc.dart';
 
 @immutable
-abstract class AuthState extends Equatable {}
+abstract class AuthState {}
 
 // When the user presses the signin or signup button the state is changed to loading first and then to Authenticated.
 class Loading extends AuthState {
