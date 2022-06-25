@@ -279,7 +279,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 contentPadding: const EdgeInsets.all(15.0),
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
-                hintText: "cerca un posto",
+                hintText: "cerca un posto o un utente",
                 hintStyle: GoogleFonts.poppins(
                     color: lightDark.unselectedWidgetColor, fontSize: 14),
                 border: const OutlineInputBorder(),

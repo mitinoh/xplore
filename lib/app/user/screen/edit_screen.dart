@@ -63,20 +63,19 @@ class EditProfile extends StatelessWidget {
                     )),
                 leadingWidth: 23,
                 title: Text(
-                  "Edit profile",
+                  "Modifica profilo",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: lightDark.primaryColor),
                 ),
                 actions: [
-                  InkWell(
-                    onTap: (() => {_updateUserInfo()}),
-                    child: Icon(
-                      Icons.done,
-                      color: lightDark.primaryColor,
-                    ),
-                  ),
+                  Center(
+                      child: Text("Salva".toLowerCase(),
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: UIColors.blue))),
                 ],
               ),
               SliverToBoxAdapter(

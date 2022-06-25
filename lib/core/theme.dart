@@ -22,7 +22,7 @@ class MyThemes {
 
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: const Color(0xffF3F7FA),
-    splashColor: Colors.white.withOpacity(0.3),
+    splashColor: UIColors.grey.withOpacity(0.3),
     highlightColor: Colors.transparent,
     backgroundColor: const Color(0xffF3F7FA),
     primaryColor: Colors.black,

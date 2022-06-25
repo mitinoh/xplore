@@ -28,7 +28,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
-        color: lightDark.cardColor,
+        color: lightDark.backgroundColor,
       ),
       child: SafeArea(
         child: SingleChildScrollView(

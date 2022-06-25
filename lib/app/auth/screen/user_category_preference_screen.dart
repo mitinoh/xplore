@@ -33,7 +33,6 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                 automaticallyImplyLeading: false,
                 backgroundColor: lightDark.scaffoldBackgroundColor,
                 iconTheme: IconThemeData(color: lightDark.primaryColor),
-                actionsIconTheme: IconThemeData(color: lightDark.primaryColor),
                 title: Text(
                   "Crea il tuo profilo",
                   style: GoogleFonts.poppins(
@@ -54,7 +53,8 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => const MyApp()),
                       );*/
                     },
-                    child: const Icon(Iconsax.arrow_right_1),
+                    child: Icon(Iconsax.arrow_right_1,
+                        color: lightDark.primaryColor),
                   ),
                 ],
               ),
