@@ -1,8 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
@@ -95,7 +91,9 @@ class _LikeButtonState extends State<LikeButton> {
         widget.locationBloc.add(SaveUserLocation(
             locationId: widget.locationList[widget.indexLocation].iId ?? '',
             save: widget.locationList[widget.indexLocation].saved == false ||
-                    widget.liked ? false: true));
+                    widget.liked
+                ? false
+                : true));
       },
       child: Icon(Iconsax.heart,
           color: (widget.locationList[widget.indexLocation].saved == true)

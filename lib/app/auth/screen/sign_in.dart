@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/user_category_preference_screen.dart';
-import 'package:xplore/app/auth/widgets/apple_login.dart';
-import 'package:xplore/app/auth/widgets/google_login.dart';
 import 'package:xplore/app/auth/widgets/header_onboarding.dart';
 import 'package:xplore/app/auth/widgets/headline.dart';
+import 'package:xplore/app/auth/widgets/terms.dart';
+import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/login_button.dart';
 import 'package:xplore/main.dart';
 
 class SignIn extends StatefulWidget {
@@ -18,6 +19,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -52,7 +54,7 @@ class _SignInState extends State<SignIn> {
               // Showing the sign in form if the user is not authenticated
               return SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(left: 20.0, right: 20, top: 5),
                   child: SingleChildScrollView(
                     reverse: true,
                     child: Column(
@@ -67,13 +69,21 @@ class _SignInState extends State<SignIn> {
                           onTap: () {
                             _authenticateWithGoogle(context);
                           },
-                          child: const GoogleLogin(),
+                          child: LoginButton(
+                            text: "Google",
+                            colors: UIColors.blue,
+                          ),
                         ),
                         const SizedBox(height: 5),
                         GestureDetector(
                           onTap: () {},
-                          child: const AppleLogin(),
+                          child: LoginButton(
+                            text: "Apple",
+                            colors: lightDark.primaryColor,
+                          ),
                         ),
+                        const SizedBox(height: 10),
+                        const Terms()
                       ],
                     ),
                   ),

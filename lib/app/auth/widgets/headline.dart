@@ -35,7 +35,7 @@ class HeadLine extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                  "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                  "Immergiti in un esperienza unica e scopri il mondo intorno a te e i tuoi amici!",
                   overflow: TextOverflow.visible,
                   style: GoogleFonts.poppins(
                       fontSize: 12,
