@@ -6,6 +6,7 @@ class HeadLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Column(
       children: [
         Row(
@@ -14,14 +15,14 @@ class HeadLine extends StatelessWidget {
               text: TextSpan(
                   text: 'welcome on',
                   style: GoogleFonts.poppins(
-                      color: Colors.black,
+                      color: lightDark.primaryColor,
                       fontWeight: FontWeight.w400,
                       fontSize: 18),
                   children: <TextSpan>[
                     TextSpan(
                       text: " Xplore",
                       style: GoogleFonts.poppins(
-                          color: Colors.black,
+                          color: lightDark.primaryColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 18),
                     )

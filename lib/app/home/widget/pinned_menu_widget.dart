@@ -65,7 +65,8 @@ class _PinnedMenuState extends State<PinnedMenu> {
         onTap: () => {
               showModalBottomSheet(
                   context: context,
-                  isScrollControlled: true,
+                  //isScrollControlled: true,
+                  useRootNavigator: true,
                   backgroundColor: Colors.transparent,
                   builder: (context) {
                     return GoNavigationBottomSheet(

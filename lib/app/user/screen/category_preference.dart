@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
@@ -25,6 +24,7 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return BlocProvider(
       create: (_) => _locCatBloc,
       child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
@@ -54,13 +54,14 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
                     padding: const EdgeInsets.all(2.5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: UIColors.grey.withOpacity(0.3),
+                      color: lightDark.cardColor,
                     ),
                     child: Theme(
                       data: ThemeData(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          unselectedWidgetColor: Colors.grey.withOpacity(0.3)),
+                          unselectedWidgetColor:
+                              lightDark.unselectedWidgetColor),
                       child: CheckboxListTile(
                         checkColor: UIColors.lightGreen,
                         activeColor: UIColors.lightGreen,
@@ -83,7 +84,7 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
-                                color: Colors.black)),
+                                color: lightDark.primaryColor)),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 0),
                       ),

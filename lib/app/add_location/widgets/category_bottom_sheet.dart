@@ -19,89 +19,64 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+    var lightDark = Theme.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.5,
+      height: mediaQuery.size.height * 0.6,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
-        color: Color(0xffF3F7FA),
+        color: lightDark.cardColor,
       ),
-      child: SingleChildScrollView(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Applica categorie',
-                        style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Applica categorie',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: lightDark.primaryColor),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                        "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
-                        overflow: TextOverflow.visible,
-                        style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey)),
-                  )
-                ],
-              ),
-              const SizedBox(height: 20),
-              locationCategories(),
-              /*
-              ListView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {},
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 5),
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: UIColors.grey.withOpacity(0.3),
-                      ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
                       child: Text(
-                        'montagna',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.black),
-                      ),
-                    ),
-                  );
-                },
-              ),
-         */
-            ]),
+                          "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                          overflow: TextOverflow.visible,
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.grey)),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 20),
+                locationCategories(lightDark),
+              ]),
+        ),
       ),
     );
   }
 
-  BlocProvider<LocationcategoryBloc> locationCategories() {
+  BlocProvider<LocationcategoryBloc> locationCategories(lightDark) {
     return BlocProvider(
       create: (_) => widget.locCatBloc,
       child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
@@ -120,7 +95,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                 state is LocationCategoryLoading) {
               return const LoadingIndicator();
             } else if (state is LocationcategoryLoaded) {
-              return locationCategoriesList(state);
+              return locationCategoriesList(state, lightDark);
             } else if (state is LocationcategoryError) {
               return Container();
             } else {
@@ -132,7 +107,8 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
     );
   }
 
-  SingleChildScrollView locationCategoriesList(LocationcategoryLoaded state) {
+  SingleChildScrollView locationCategoriesList(
+      LocationcategoryLoaded state, lightDark) {
     return SingleChildScrollView(
       physics: const ScrollPhysics(),
       child: Container(
@@ -150,7 +126,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                   padding: const EdgeInsets.all(2.5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: UIColors.grey.withOpacity(0.3),
+                    color: lightDark.splashColor,
                   ),
                   child: Theme(
                     data: ThemeData(

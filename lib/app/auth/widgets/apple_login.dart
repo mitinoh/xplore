@@ -6,10 +6,11 @@ class AppleLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: lightDark.cardColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

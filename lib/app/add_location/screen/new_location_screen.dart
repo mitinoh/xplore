@@ -107,6 +107,7 @@ class _NewLocationState extends State<NewLocation> {
         showModalBottomSheet(
             context: context,
             isScrollControlled: true,
+            useRootNavigator: true,
             backgroundColor: Colors.transparent,
             builder: (context) {
               return categoriesBottomSheet;
@@ -132,7 +133,9 @@ class _NewLocationState extends State<NewLocation> {
             Text(
               "Aggiungi categoria",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 14),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: lightDark.hoverColor),
             ),
           ],
         ),
@@ -181,14 +184,15 @@ class _NewLocationState extends State<NewLocation> {
             minLines: 6,
             maxLines: 10,
             maxLength: 288,
-            style: const TextStyle(color: Colors.black, fontSize: 14),
+            style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
             decoration: InputDecoration(
+              counterStyle: TextStyle(color: lightDark.unselectedWidgetColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Breve descrizione del luogo che vuoi raccomandare...",
-              hintStyle:
-                  GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(
+                  color: lightDark.unselectedWidgetColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.note,
@@ -218,15 +222,16 @@ class _NewLocationState extends State<NewLocation> {
             minLines: 6,
             maxLines: 10,
             maxLength: 144,
-            style: const TextStyle(color: Colors.black, fontSize: 14),
+            style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
             decoration: InputDecoration(
+              counterStyle: TextStyle(color: lightDark.unselectedWidgetColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText:
                   "Breve tips su come raggiungiere il luogo o in quale stagione lo consogli...",
-              hintStyle:
-                  GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(
+                  color: lightDark.unselectedWidgetColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.lamp_on,
@@ -249,9 +254,8 @@ class _NewLocationState extends State<NewLocation> {
         padding:
             const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: lightDark.cardColor,
-        ),
+            borderRadius: BorderRadius.circular(20),
+            color: lightDark.cardColor),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -265,7 +269,9 @@ class _NewLocationState extends State<NewLocation> {
             Text(
               "Aggiungi foto",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 14),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: lightDark.hoverColor),
             ),
           ],
         ),
@@ -286,14 +292,14 @@ class _NewLocationState extends State<NewLocation> {
           child: TextField(
             controller: _nameController,
             textAlign: TextAlign.start,
-            style: const TextStyle(color: Colors.black, fontSize: 14),
+            style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Nome del luogo",
-              hintStyle:
-                  GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(
+                  color: lightDark.unselectedWidgetColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.flag,
@@ -320,14 +326,14 @@ class _NewLocationState extends State<NewLocation> {
           child: TextField(
             controller: _addressController,
             textAlign: TextAlign.start,
-            style: const TextStyle(color: Colors.black, fontSize: 14),
+            style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Indirizzo",
-              hintStyle:
-                  GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(
+                  color: lightDark.unselectedWidgetColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.location,

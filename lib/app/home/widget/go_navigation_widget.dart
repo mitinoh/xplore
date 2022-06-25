@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/map/repository/map_repository.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/model/location_model.dart';
@@ -13,15 +12,16 @@ class GoNavigationBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+    var lightDark = Theme.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.32,
+      height: mediaQuery.size.height * 0.35,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
-        color: Color(0xffF3F7FA),
+        color: lightDark.backgroundColor,
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -40,7 +40,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                         style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black),
+                            color: lightDark.primaryColor),
                       ),
                     ),
                   ),

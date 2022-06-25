@@ -7,7 +7,6 @@ import 'package:xplore/app/plantrip/widget/current_planned_trip_widget.dart';
 import 'package:xplore/app/plantrip/widget/planned_trip_widget.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/header_name.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlanTripScreen extends StatefulWidget {
   const PlanTripScreen({Key? key}) : super(key: key);
@@ -26,6 +25,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
 
   @override
   Widget build(BuildContext ctx) {
+    var lightDark = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,7 +38,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                 const SizedBox(height: 20),
                 headerDesc(),
                 const SizedBox(height: 20),
-                locationImage(),
+                locationImage(lightDark),
                 //topMenuPlanner(),
                 //headerPlanner(),
                 const SizedBox(height: 20),
@@ -81,7 +81,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     );
   }
 
-  InkWell locationImage() {
+  InkWell locationImage(lightDark) {
     return InkWell(
       onTap: () {
         planNewTrip();
@@ -91,7 +91,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
             const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: UIColors.grey.withOpacity(0.3),
+          color: lightDark.cardColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -106,7 +106,9 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
             Text(
               "Crea una nuova vacanza",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 14),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: lightDark.primaryColor),
             ),
           ],
         ),
@@ -117,10 +119,12 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   void planNewTrip() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (ctx) =>  PlanNewTrip(callback: () {   
-          
-            _planTripBloc.add(GetPlannedTrip());
-           },)),
+      MaterialPageRoute(
+          builder: (ctx) => PlanNewTrip(
+                callback: () {
+                  _planTripBloc.add(GetPlannedTrip());
+                },
+              )),
     );
   }
 }

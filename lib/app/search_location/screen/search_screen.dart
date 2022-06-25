@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +18,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   // final TextEditingController _searchController = TextEditingController();
-  late bool _ptGridVisible = false;
+  //late bool _ptGridVisible = false;
   final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
   final SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
 
@@ -60,38 +58,60 @@ class _SearchScreenState extends State<SearchScreen> {
 */
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
+    var lightDark = Theme.of(context);
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+        body: SafeArea(
             child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                      onTap: () => {Navigator.pop(context)},
-                      child: const Icon(Iconsax.arrow_left)),
-                  InkWell(
-                      onTap: () => {categoryModal(context)},
-                      child: const Icon(Iconsax.setting_4))
-                ],
-              ),
-              const SizedBox(height: 20),
-              searchBar(),
-              const SizedBox(
-                height: 10,
-              ),
-              //suggestedLocation(),
-              gridHeader(),
-              locationGrid()
+      padding: const EdgeInsets.only(left: 20.0, right: 20),
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            floating: true,
+            pinned: true,
+            snap: true,
+            elevation: 0,
+            centerTitle: true,
+            titleSpacing: 0,
+            automaticallyImplyLeading: false,
+            backgroundColor: lightDark.scaffoldBackgroundColor,
+            iconTheme: IconThemeData(color: lightDark.primaryColor),
+            actionsIconTheme: IconThemeData(color: lightDark.primaryColor),
+            leading: GestureDetector(
+                onTap: () => {Navigator.pop(context)},
+                child: Icon(Iconsax.arrow_left, color: lightDark.primaryColor)),
+            leadingWidth: 23,
+            title: Text(
+              "Cerca",
+              style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: lightDark.primaryColor),
+            ),
+            actions: [
+              InkWell(
+                  onTap: () => {categoryModal(context, lightDark)},
+                  child:
+                      Icon(Iconsax.setting_4, color: lightDark.primaryColor)),
             ],
           ),
-        )),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                searchBar(lightDark),
+                const SizedBox(
+                  height: 10,
+                ),
+                //suggestedLocation(),
+                gridHeader(lightDark),
+                locationGrid()
+              ],
+            ),
+          ),
+        ],
       ),
-    );
+    )));
   }
 
 /*
@@ -199,7 +219,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 */
-  Visibility gridHeader() {
+  Visibility gridHeader(lightDark) {
     return Visibility(
       visible: true,
       child: Row(
@@ -211,7 +231,7 @@ class _SearchScreenState extends State<SearchScreen> {
               style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: Colors.black),
+                  color: lightDark.primaryColor),
             ),
           ),
         ],
@@ -219,7 +239,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Row searchBar() {
+  Row searchBar(lightDark) {
     return Row(
       children: [
         Expanded(
@@ -227,14 +247,14 @@ class _SearchScreenState extends State<SearchScreen> {
           padding:
               const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
           decoration: BoxDecoration(
-              color: UIColors.grey.withOpacity(0.3),
+              color: lightDark.cardColor,
               borderRadius: BorderRadius.circular(20)),
           child: Focus(
-            onFocusChange: (hasFocus) {
+            /*onFocusChange: (hasFocus) {
               setState(() {
                 _ptGridVisible = hasFocus;
               });
-            },
+            },*/
             child: TextField(
               focusNode: filerFocusNode,
               onSubmitted: (value) {
@@ -253,14 +273,15 @@ class _SearchScreenState extends State<SearchScreen> {
               },*/
               //controller: _searchController,
               textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(color: Colors.black, fontSize: 14),
+              style: GoogleFonts.poppins(
+                  color: lightDark.hoverColor, fontSize: 14),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(15.0),
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 hintText: "cerca un posto",
-                hintStyle:
-                    GoogleFonts.poppins(color: UIColors.grey, fontSize: 14),
+                hintStyle: GoogleFonts.poppins(
+                    color: lightDark.unselectedWidgetColor, fontSize: 14),
                 border: const OutlineInputBorder(),
                 suffixIconColor: UIColors.blue,
                 prefixIcon: IconButton(
@@ -307,13 +328,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     locationList: state.searchLocationModel,
                   );
                 } else if (state is SearchLocationError) {
-                  return Container(
-                    child: const Text("error 1"),
-                  );
+                  return const Text("error 1");
                 } else {
-                  return Container(
-                    child: const Text("error 2"),
-                  );
+                  return const Text("error 2");
                 }
               },
             ),
@@ -321,11 +338,12 @@ class _SearchScreenState extends State<SearchScreen> {
         ));
   }
 
-  Future<void> categoryModal(BuildContext context) {
+  Future<void> categoryModal(BuildContext context, lightDark) {
     return showModalBottomSheet<void>(
         //useRootNavigator: true,
         isScrollControlled: true,
-        backgroundColor: const Color(0xffF3F7FA),
+        useRootNavigator: true,
+        backgroundColor: lightDark.backgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),

@@ -70,7 +70,7 @@ class SettingsBottomSheet extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: UIColors.platinium,
+                          backgroundColor: lightDark.dividerColor,
                           child: Icon(
                             Iconsax.star,
                             color: UIColors.black,
@@ -96,7 +96,7 @@ class SettingsBottomSheet extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: UIColors.platinium,
+                          backgroundColor: lightDark.dividerColor,
                           child: Icon(
                             Iconsax.happyemoji,
                             color: UIColors.black,
@@ -122,7 +122,7 @@ class SettingsBottomSheet extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: UIColors.platinium,
+                          backgroundColor: lightDark.dividerColor,
                           child: Icon(
                             Iconsax.shield,
                             color: UIColors.black,
@@ -148,7 +148,7 @@ class SettingsBottomSheet extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: UIColors.platinium,
+                          backgroundColor: lightDark.dividerColor,
                           child: Icon(
                             Iconsax.note_2,
                             color: UIColors.black,
@@ -174,7 +174,7 @@ class SettingsBottomSheet extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: UIColors.platinium,
+                          backgroundColor: lightDark.dividerColor,
                           child: Icon(
                             Iconsax.logout,
                             color: UIColors.black,
@@ -211,7 +211,7 @@ class SettingsBottomSheet extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 22,
-                            backgroundColor: UIColors.platinium,
+                            backgroundColor: lightDark.dividerColor,
                             child: Icon(
                               Iconsax.profile_delete,
                               color: UIColors.black,

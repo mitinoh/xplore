@@ -105,21 +105,21 @@ class EditProfile extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 left: 15, right: 15, bottom: 5, top: 5),
                             decoration: BoxDecoration(
-                                color: lightDark.backgroundColor,
+                                color: lightDark.cardColor,
                                 borderRadius: BorderRadius.circular(20)),
                             child: TextField(
                               controller: _usernameController,
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  color: lightDark.primaryColorDark,
-                                  fontSize: 14),
+                                  color: lightDark.hoverColor, fontSize: 14),
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.all(15.0),
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 hintText: "Username",
                                 hintStyle: GoogleFonts.poppins(
-                                    color: UIColors.grey, fontSize: 14),
+                                    color: lightDark.unselectedWidgetColor,
+                                    fontSize: 14),
                                 border: const OutlineInputBorder(),
                                 prefixIcon: Icon(
                                   Iconsax.user,
@@ -139,7 +139,7 @@ class EditProfile extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 left: 15, right: 15, bottom: 5, top: 5),
                             decoration: BoxDecoration(
-                                color: lightDark.backgroundColor,
+                                color: lightDark.cardColor,
                                 borderRadius: BorderRadius.circular(20)),
                             child: TextField(
                               controller: _bioController,
@@ -148,15 +148,17 @@ class EditProfile extends StatelessWidget {
                               maxLines: 10,
                               maxLength: 144,
                               style: TextStyle(
-                                  color: lightDark.primaryColorDark,
-                                  fontSize: 14),
+                                  color: lightDark.hoverColor, fontSize: 14),
                               decoration: InputDecoration(
+                                counterStyle: TextStyle(
+                                    color: lightDark.unselectedWidgetColor),
                                 contentPadding: const EdgeInsets.all(15.0),
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 hintText: "Inserisci la tua bio...",
                                 hintStyle: GoogleFonts.poppins(
-                                    color: UIColors.grey, fontSize: 14),
+                                    color: lightDark.unselectedWidgetColor,
+                                    fontSize: 14),
                                 border: const OutlineInputBorder(),
                                 prefixIcon: Icon(
                                   Iconsax.brush_4,
@@ -174,7 +176,7 @@ class EditProfile extends StatelessWidget {
                             left: 15, top: 20, right: 20, bottom: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: lightDark.backgroundColor,
+                          color: lightDark.cardColor,
                         ),
                         child: InkWell(
                           onTap: (() {
@@ -196,7 +198,7 @@ class EditProfile extends StatelessWidget {
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: lightDark.primaryColorDark),
+                                    color: lightDark.hoverColor),
                               ),
                             ],
                           ),

@@ -6,16 +6,17 @@ import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/subtitle.dart';
-import 'package:xplore/main.dart';
 
 class UserCategoryPreferenceScreen extends StatelessWidget {
-   UserCategoryPreferenceScreen({Key? key, required this.context}) : super(key: key);
-  final BuildContext  context;
+  UserCategoryPreferenceScreen({Key? key, required this.context})
+      : super(key: key);
+  final BuildContext context;
 
   final TextEditingController _usernameController = TextEditingController();
-    final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
   @override
-  Widget build( context) {
+  Widget build(context) {
+    var lightDark = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -30,21 +31,22 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                 centerTitle: false,
                 titleSpacing: 0,
                 automaticallyImplyLeading: false,
-                backgroundColor: UIColors.backgroundGrey,
-                iconTheme: const IconThemeData(color: Colors.black),
-                actionsIconTheme: const IconThemeData(color: Colors.black),
+                backgroundColor: lightDark.scaffoldBackgroundColor,
+                iconTheme: IconThemeData(color: lightDark.primaryColor),
+                actionsIconTheme: IconThemeData(color: lightDark.primaryColor),
                 title: Text(
                   "Crea il tuo profilo",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: Colors.black),
+                      color: lightDark.primaryColor),
                 ),
                 actions: [
                   InkWell(
                     onTap: () {
                       BlocProvider.of<AuthBloc>(context).add(
-                        NewUser(_usernameController.text, _bioController.text, CategoryPreference.catSelected),
+                        NewUser(_usernameController.text, _bioController.text,
+                            CategoryPreference.catSelected),
                       );
                       /*
                       Navigator.pushReplacement(
@@ -52,10 +54,7 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => const MyApp()),
                       );*/
                     },
-                    child: const Icon(
-                      Iconsax.arrow_right_1,
-                      color: Colors.black,
-                    ),
+                    child: const Icon(Iconsax.arrow_right_1),
                   ),
                 ],
               ),
@@ -106,27 +105,27 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                       colors: Colors.grey,
                     ),
                     const SizedBox(height: 20),
-                    Row(
+                    Column(
                       children: [
-                        Expanded(
-                            child: Container(
+                        Container(
                           padding: const EdgeInsets.only(
                               left: 15, right: 15, bottom: 5, top: 5),
                           decoration: BoxDecoration(
-                              color: UIColors.grey.withOpacity(0.3),
+                              color: lightDark.cardColor,
                               borderRadius: BorderRadius.circular(20)),
                           child: TextField(
                             controller: _usernameController,
                             textAlign: TextAlign.start,
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 14),
+                            style: TextStyle(
+                                color: lightDark.hoverColor, fontSize: 14),
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(15.0),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               hintText: "Scegli un username",
                               hintStyle: GoogleFonts.poppins(
-                                  color: UIColors.grey, fontSize: 14),
+                                  color: lightDark.unselectedWidgetColor,
+                                  fontSize: 14),
                               border: const OutlineInputBorder(),
                               prefixIcon: Icon(
                                 Iconsax.user,
@@ -135,36 +134,41 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                             ),
                             autofocus: false,
                           ),
-                        )),
-                        Expanded(
-                            child: Container(
+                        ),
+                        const SizedBox(height: 5),
+                        Container(
                           padding: const EdgeInsets.only(
                               left: 15, right: 15, bottom: 5, top: 5),
                           decoration: BoxDecoration(
-                              color: UIColors.grey.withOpacity(0.3),
+                              color: lightDark.cardColor,
                               borderRadius: BorderRadius.circular(20)),
                           child: TextField(
                             controller: _bioController,
+                            minLines: 6,
+                            maxLines: 10,
+                            maxLength: 144,
                             textAlign: TextAlign.start,
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 14),
+                            style: TextStyle(
+                                color: lightDark.hoverColor, fontSize: 14),
                             decoration: InputDecoration(
+                              counterStyle: TextStyle(
+                                  color: lightDark.unselectedWidgetColor),
                               contentPadding: const EdgeInsets.all(15.0),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
-                              hintText: "Inserisci qui la tua bio",
+                              hintText: "Inserisci la tua bio...",
                               hintStyle: GoogleFonts.poppins(
-                                  color: UIColors.grey, fontSize: 14),
+                                  color: lightDark.unselectedWidgetColor,
+                                  fontSize: 14),
                               border: const OutlineInputBorder(),
                               prefixIcon: Icon(
-                                Iconsax.user,
+                                Iconsax.brush_4,
                                 color: UIColors.blue,
                               ),
                             ),
                             autofocus: false,
                           ),
-                        ))
-                   
+                        )
                       ],
                     ),
                     const SizedBox(height: 20),
