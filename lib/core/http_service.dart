@@ -1,12 +1,16 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:xplore/core/config.dart';
+import 'package:xplore/core/globals.dart';
+import 'package:xplore/model/response_model.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
@@ -89,7 +93,14 @@ class HttpService {
       logger.e(e);
       throw Exception("Bad response format");
     } on DioError catch (e) {
-      logger.e(e);
+      ResponseModel resp =
+          ResponseModel.fromJson(jsonDecode(e.response.toString()));
+      print(resp.message);
+
+      final SnackBar snackBar =
+          SnackBar(content: Text(resp.message ?? "Error"));
+      snackbarKey.currentState?.showSnackBar(snackBar);
+      logger.e(e.response?.data?.message.toString());
       throw Exception(e);
     } catch (e) {
       logger.e(e);

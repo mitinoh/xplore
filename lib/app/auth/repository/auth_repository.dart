@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/core/http_service.dart';
 
@@ -87,7 +88,8 @@ class AuthRepository {
     }
   }
 
-  Future<void> newUserPut(String username, String bio, List<String> categoryPref) async {
+  Future<void> newUserPut(
+      String username, String bio, List<String> categoryPref) async {
     try {
       await Future.delayed(const Duration(seconds: 1));
       Map<String, dynamic> map = {
@@ -95,11 +97,12 @@ class AuthRepository {
         'username': username,
         "bio": bio
       };
-      // TODO: impostare shared pred
+      UserRepository.setUserName(username);
+      UserRepository.setUserBio(bio);
 
       Response response = await httpService.request(
           method: Method.POST, url: conf.userColl, params: json.encode(map));
-      log(response.toString());
+      log(response.data.toString());
     } catch (e) {
       throw Exception(e);
     }

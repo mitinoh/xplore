@@ -41,6 +41,14 @@ class UserRepository {
     return prefs.getString("userBio") ?? "";
   }
 
+  static void setUserName(String username) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+     prefs.setString("userName", username);
+  }
+    static void setUserBio(String bio) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+     prefs.setString("userBio", bio);
+  }
   getUserPosition() async {
     bool serviceEnabled;
     LocationPermission permission;

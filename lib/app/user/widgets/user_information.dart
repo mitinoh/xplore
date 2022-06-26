@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/app/user/screen/trophy_screen.dart';
 import 'package:xplore/app/user/widgets/follower.dart';
 import 'package:xplore/app/user/widgets/trophy_detail_bottom_sheet.dart';
@@ -24,25 +25,21 @@ class UserInformation extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'mite.g',
-                      style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: lightDark.primaryColor)),
-                  TextSpan(
-                      text: ' LV. 4',
-                      style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: UIColors.blue))
-                ],
-              ),
-            ),
+            FutureBuilder<String>(
+                future: UserRepository.getUserName(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                            text: snapshot.data,
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: lightDark.primaryColor)));
+                  }
+                  return const Text("-");
+                }),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Container(
@@ -68,22 +65,21 @@ class UserInformation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                          text:
-                              'perché i limiti, come le paure, sono spesso solo delle illusione.'
-                                  .toLowerCase(),
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.grey)),
-                    ],
-                  ),
-                ),
-              ),
+                  child: FutureBuilder<String>(
+                      future: UserRepository.getUserBio(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                  text: snapshot.data,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 11.5,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.grey)));
+                        }
+                        return const Text("-");
+                      })),
             ],
           ),
         ),

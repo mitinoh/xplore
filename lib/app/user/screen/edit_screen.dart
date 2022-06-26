@@ -217,11 +217,13 @@ class EditProfile extends StatelessWidget {
     Map<String, dynamic> userData = {};
     if (_usernameController.text.trim() != "") {
       userData["name"] = _usernameController.text;
-      prefs.setString("userName", _usernameController.text);
+      UserRepository.setUserName(_usernameController.text);
+      
     }
     if (_bioController.text.trim() != "") {
       userData["bio"] = _bioController.text;
-      prefs.setString("userBio", _bioController.text);
+      UserRepository.setUserBio(_bioController.text);
+      
     }
     String? base64Image;
     if (image != null) {

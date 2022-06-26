@@ -8,6 +8,7 @@ import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/repository/auth_repository.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
+import 'package:xplore/core/globals.dart';
 import 'package:xplore/core/widgets/navbar.dart';
 
 import 'core/theme.dart';
@@ -66,14 +67,13 @@ Workmanager().registerOneOffTask(
     frequency: Duration(minutes: 15),
   );*/
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
@@ -85,6 +85,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+          // scaffoldMessengerKey: snackbarKey, // REVIEW:
           /* localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
