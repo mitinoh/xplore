@@ -151,7 +151,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       return DragAndDropList(
         contentsWhenEmpty: Padding(
           padding:
-              const EdgeInsets.only(left: 20.0, right: 20, bottom: 10, top: 10),
+              const EdgeInsets.only(left: 20.0, right: 0, bottom: 0, top: 10),
           child: Text(
               index == 0
                   ? "Non ci sono più posti disponibili"
@@ -162,12 +162,12 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                   color: lightDark.primaryColor)),
         ),
         decoration: BoxDecoration(
-            color: UIColors.grey.withOpacity(0.1),
+            //color: UIColors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.circular(20)),
         canDrag: false,
         header: Padding(
           padding:
-              const EdgeInsets.only(left: 20.0, right: 20, bottom: 10, top: 20),
+              const EdgeInsets.only(left: 0.0, right: 0, bottom: 10, top: 0),
           child: RichText(
             text: TextSpan(
               text: index == 0
@@ -229,12 +229,12 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                   _dragLocation.add(DragAndDropItem(
                     child: Container(
                         margin:
-                            const EdgeInsets.only(top: 5, left: 20, right: 20),
+                            const EdgeInsets.only(top: 5, left: 0, right: 0),
                         padding: const EdgeInsets.only(
                             left: 10, top: 10, right: 10, bottom: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: UIColors.grey.withOpacity(0.3),
+                          color: lightDark.cardColor,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -257,7 +257,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(right: 15.0, left: 15),
+                              padding:
+                                  const EdgeInsets.only(right: 15.0, left: 15),
                               child: Icon(
                                 Icons.drag_handle,
                                 color: lightDark.primaryColor,
@@ -302,9 +303,9 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             BlocProvider.of<PlantripBloc>(widget.context)
                 .add(PlanTripEndQuestion())
           },
-          child: const ConfirmButton(
+          child: ConfirmButton(
             text: "Abbiamo finito",
-            colors: Colors.white,
+            colors: UIColors.lightGreen,
           ),
         ),
       ],

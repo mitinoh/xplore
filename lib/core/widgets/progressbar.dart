@@ -15,7 +15,7 @@ class ProgressBar extends StatelessWidget {
             value: valueProgressIndicator,
             valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
             backgroundColor: UIColors.grey.withOpacity(0.3),
-            minHeight: 9,
+            minHeight: 2,
           ),
         ),
       ],

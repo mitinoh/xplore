@@ -9,6 +9,7 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -24,14 +25,14 @@ class LoginButton extends StatelessWidget {
                   text: TextSpan(
                       text: 'continua con ',
                       style: GoogleFonts.poppins(
-                          color: colors,
+                          color: lightDark.canvasColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 16),
                       children: <TextSpan>[
                         TextSpan(
                           text: text,
                           style: GoogleFonts.poppins(
-                              color: colors,
+                              color: lightDark.canvasColor,
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         )

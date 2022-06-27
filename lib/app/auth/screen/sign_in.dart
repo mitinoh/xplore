@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (ctx) =>  MyApp()));
+                context, MaterialPageRoute(builder: (ctx) => MyApp()));
           }
           if (state is NewUserAuthenticated) {
             Navigator.push(
