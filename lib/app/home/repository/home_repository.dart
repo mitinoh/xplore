@@ -47,7 +47,6 @@ class HomeRepository {
     mng.filter = [];
 
     if (searchName != null && searchName.trim() != "") {
-      // TODO Sistemare questo che non funziona
       mng.filter
           ?.add(Filter(key: "searchDoc", operation: "=", value: searchName));
     }

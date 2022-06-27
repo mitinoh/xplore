@@ -17,7 +17,7 @@ import 'package:xplore/model/mongoose_model.dart';
 
 class NetTripQuestion extends StatefulWidget {
   const NetTripQuestion({Key? key, required this.callback}) : super(key: key);
-    final VoidCallback? callback;
+  final VoidCallback? callback;
   // https://pub.dev/packages/drag_and_drop_lists
 
   @override
@@ -25,7 +25,7 @@ class NetTripQuestion extends StatefulWidget {
 }
 
 class _NetTripQuestionState extends State<NetTripQuestion> {
-  final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
+  final LocationCategoryBloc _locCatBloc = LocationCategoryBloc();
 
   PlantripBloc _planTripBloc = PlantripBloc();
 
@@ -52,7 +52,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -67,14 +66,13 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             );
           } else if (state is PlanTripNextQuestion) {
             setState(() {
-
-      valueProgressIndicator +=  0.166;
+              valueProgressIndicator += 0.166;
               questNum++;
             });
           } else if (state is PlanTripPreviousQuestion) {
             if (questNum != 0) {
               setState(() {
-                      valueProgressIndicator -=  0.166;
+                valueProgressIndicator -= 0.166;
                 questNum--;
               });
             } else {
@@ -101,7 +99,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             Widget questionWidget;
             switch (questNum) {
               case 0:
-              
                 questionWidget = WhereQuestion(context: context);
                 break;
               case 1:
@@ -681,7 +678,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   Widget categoryToAvoidQuest() {
     return BlocProvider(
       create: (_) => _locCatBloc,
-      child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
+      child: BlocListener<LocationCategoryBloc, LocationcategoryState>(
         listener: (context, state) {
           if (state is LocationError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -691,7 +688,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             );
           }
         },
-        child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
+        child: BlocBuilder<LocationCategoryBloc, LocationcategoryState>(
           builder: (context, state) {
             if (state is LocationcategoryInitial) {
               return const LoadingIndicator();

@@ -14,7 +14,7 @@ class CategoryPreference extends StatefulWidget {
 }
 
 class _CategoryPreferenceState extends State<CategoryPreference> {
-  final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
+  final LocationCategoryBloc _locCatBloc = LocationCategoryBloc();
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
     var lightDark = Theme.of(context);
     return BlocProvider(
       create: (_) => _locCatBloc,
-      child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
+      child: BlocListener<LocationCategoryBloc, LocationcategoryState>(
         listener: (context, state) {
           if (state is LocationError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -37,7 +37,7 @@ class _CategoryPreferenceState extends State<CategoryPreference> {
             );
           }
         },
-        child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
+        child: BlocBuilder<LocationCategoryBloc, LocationcategoryState>(
           builder: (context, state) {
             if (state is LocationcategoryInitial) {
               return const LoadingIndicator();

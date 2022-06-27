@@ -9,7 +9,7 @@ import 'package:xplore/model/location_category_model.dart';
 
 class CategoriesBottomSheet extends StatefulWidget {
   CategoriesBottomSheet({Key? key, required this.locCatBloc}) : super(key: key);
-  LocationcategoryBloc locCatBloc = new LocationcategoryBloc();
+  LocationCategoryBloc locCatBloc = new LocationCategoryBloc();
   List<String> catSelected = [];
   @override
   State<CategoriesBottomSheet> createState() => _CategoriesBottomSheetState();
@@ -76,10 +76,10 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
     );
   }
 
-  BlocProvider<LocationcategoryBloc> locationCategories(lightDark) {
+  BlocProvider<LocationCategoryBloc> locationCategories(lightDark) {
     return BlocProvider(
       create: (_) => widget.locCatBloc,
-      child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
+      child: BlocListener<LocationCategoryBloc, LocationcategoryState>(
         listener: (context, state) {
           if (state is LocationError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -89,7 +89,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
             );
           }
         },
-        child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
+        child: BlocBuilder<LocationCategoryBloc, LocationcategoryState>(
           builder: (context, state) {
             if (state is LocationcategoryInitial ||
                 state is LocationCategoryLoading) {

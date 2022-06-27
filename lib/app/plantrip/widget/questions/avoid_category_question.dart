@@ -19,8 +19,8 @@ class AvoidCategoryQuestion extends StatelessWidget {
   Widget build(context) {
     var lightDark = Theme.of(context);
     return BlocProvider(
-      create: (_) => LocationcategoryBloc()..add(GetLocationCategoryList()),
-      child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
+      create: (_) => LocationCategoryBloc()..add(GetLocationCategoryList()),
+      child: BlocListener<LocationCategoryBloc, LocationcategoryState>(
         listener: (context, state) {
           if (state is LocationcategoryError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -30,7 +30,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
+        child: BlocBuilder<LocationCategoryBloc, LocationcategoryState>(
           builder: (context, state) {
             if (state is LocationcategoryInitial) {
               return const LoadingIndicator();

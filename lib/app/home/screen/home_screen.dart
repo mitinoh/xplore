@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc _homeBloc = HomeBloc();
-  final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
+  final LocationCategoryBloc _locCatBloc = LocationCategoryBloc();
   final PageController _pageController = PageController();
 
   @override

@@ -19,7 +19,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   // final TextEditingController _searchController = TextEditingController();
   //late bool _ptGridVisible = false;
-  final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
+  final LocationCategoryBloc _locCatBloc = LocationCategoryBloc();
   final SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
 
   String searchText = "";
@@ -354,7 +354,7 @@ class _SearchScreenState extends State<SearchScreen> {
         builder: (BuildContext context) {
           return BlocProvider(
             create: (_) => _locCatBloc,
-            child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
+            child: BlocListener<LocationCategoryBloc, LocationcategoryState>(
               listener: (context, state) {
                 if (state is LocationError) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -364,7 +364,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 }
               },
-              child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
+              child: BlocBuilder<LocationCategoryBloc, LocationcategoryState>(
                 builder: (context, state) {
                   if (state is LocationcategoryInitial ||
                       state is LocationCategoryLoading) {
