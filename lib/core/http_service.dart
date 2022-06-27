@@ -95,7 +95,6 @@ class HttpService {
     } on DioError catch (e) {
       ResponseModel resp =
           ResponseModel.fromJson(jsonDecode(e.response.toString()));
-      print(resp.message);
 
       final SnackBar snackBar =
           SnackBar(content: Text(resp.message ?? "Error"));

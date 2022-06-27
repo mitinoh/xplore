@@ -53,6 +53,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
 
   DateTime goneDate = DateTime.now();
   DateTime returnDate = DateTime.now();
+  var lightDark;
   final List<List<MovePlanTripModel>> _plan = [];
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
@@ -134,6 +135,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
 
   @override
   void initState() {
+    lightDark = Theme.of(widget.context);
+
     Mongoose query = getQuery();
     context.read<PlantripBloc>().add(GetLocation(mng: query));
     super.initState();
@@ -156,7 +159,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
               style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w300,
-                  color: Colors.black)),
+                  color: lightDark.primaryColor)),
         ),
         decoration: BoxDecoration(
             color: UIColors.grey.withOpacity(0.1),
@@ -173,7 +176,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
               style: GoogleFonts.poppins(
                   fontSize: 13,
                   fontWeight: FontWeight.w300,
-                  color: Colors.black),
+                  color: lightDark.primaryColor),
               children: <TextSpan>[
                 TextSpan(
                     text: index == 0
@@ -184,7 +187,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                     style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black)),
+                        color: lightDark.primaryColor)),
               ],
             ),
           ),
@@ -249,15 +252,15 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 14,
-                                  color: Colors.black,
+                                  color: lightDark.primaryColor,
                                 ),
                               ),
                             ),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(right: 15.0, left: 15),
                               child: Icon(
                                 Icons.drag_handle,
-                                color: Colors.black,
+                                color: lightDark.primaryColor,
                               ),
                             ),
                           ],
@@ -299,7 +302,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             BlocProvider.of<PlantripBloc>(widget.context)
                 .add(PlanTripEndQuestion())
           },
-          child: const ConfirmButton(text: "Abbiamo finito"),
+          child: const ConfirmButton(
+            text: "Abbiamo finito",
+            colors: Colors.white,
+          ),
         ),
       ],
     );

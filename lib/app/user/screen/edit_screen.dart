@@ -71,11 +71,16 @@ class EditProfile extends StatelessWidget {
                 ),
                 actions: [
                   Center(
-                      child: Text("Salva".toLowerCase(),
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: UIColors.blue))),
+                      child: InkWell(
+                    onTap: () {
+                      _updateUserInfo();
+                    },
+                    child: Text("Salva".toLowerCase(),
+                        style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: UIColors.blue)),
+                  )),
                 ],
               ),
               SliverToBoxAdapter(
@@ -216,14 +221,12 @@ class EditProfile extends StatelessWidget {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> userData = {};
     if (_usernameController.text.trim() != "") {
-      userData["name"] = _usernameController.text;
+      userData["username"] = _usernameController.text;
       UserRepository.setUserName(_usernameController.text);
-      
     }
     if (_bioController.text.trim() != "") {
       userData["bio"] = _bioController.text;
       UserRepository.setUserBio(_bioController.text);
-      
     }
     String? base64Image;
     if (image != null) {
