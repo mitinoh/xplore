@@ -20,7 +20,7 @@ class HeadLine extends StatelessWidget {
                       fontSize: 18),
                   children: <TextSpan>[
                     TextSpan(
-                      text: " Xplore",
+                      text: " Bluemark",
                       style: GoogleFonts.poppins(
                           color: lightDark.primaryColor,
                           fontWeight: FontWeight.w600,

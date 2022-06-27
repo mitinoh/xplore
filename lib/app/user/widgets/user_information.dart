@@ -30,13 +30,24 @@ class UserInformation extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                            text: snapshot.data,
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: lightDark.primaryColor)));
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: snapshot.data.toString(),
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: lightDark.primaryColor)),
+                          TextSpan(
+                              text: ' LV. 1',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: UIColors.blue))
+                        ],
+                      ),
+                    );
                   }
                   return const Text("-");
                 }),
@@ -44,13 +55,13 @@ class UserInformation extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8.0),
               child: Container(
                 padding: const EdgeInsets.only(
-                    right: 20, left: 20, top: 5, bottom: 5),
+                    right: 15, left: 15, top: 5, bottom: 5),
                 decoration: BoxDecoration(
                     color: UIColors.platinium,
                     borderRadius: BorderRadius.circular(20)),
-                child: Text("segui",
+                child: Text("follow",
                     style: GoogleFonts.poppins(
-                        fontSize: 13,
+                        fontSize: 12.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black)),
               ),

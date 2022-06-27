@@ -205,7 +205,28 @@ class SettingsBottomSheet extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        context.read<AuthBloc>().add(DeleteAccount());
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Cancella account'),
+                            content: const Text(
+                                "Per cancellare l'account devi prima effettuare di nuovo il login e poi potrai effettuare la cancellazione"),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('NO'),
+                              ),
+                              TextButton(
+                                onPressed: () => context
+                                    .read<AuthBloc>()
+                                    .add(DeleteAccount()),
+                                child: Text('Cancella'.toUpperCase()),
+                              ),
+                            ],
+                          ),
+                        );
+                        //context.read<AuthBloc>().add(DeleteAccount());
                       },
                       child: Row(
                         children: [

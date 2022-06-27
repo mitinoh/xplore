@@ -27,6 +27,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     var mediaQuery = MediaQuery.of(context);
     return BlocProvider(
       create: (_) => _locCatBloc,
@@ -63,14 +64,14 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                       //padding: const EdgeInsets.all(2.5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: UIColors.grey.withOpacity(0.3),
+                        color: lightDark.cardColor,
                       ),
                       child: Theme(
                         data: ThemeData(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             unselectedWidgetColor:
-                                Colors.grey.withOpacity(0.3)),
+                                lightDark.unselectedWidgetColor),
                         child: CheckboxListTile(
                           checkColor: UIColors.lightGreen,
                           activeColor: UIColors.lightGreen,
@@ -94,7 +95,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 13,
-                                  color: Colors.black)),
+                                  color: lightDark.primaryColor)),
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 0),
                         ),

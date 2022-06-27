@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
@@ -35,6 +33,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +58,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
-                          color: Colors.grey)),
+                          color: lightDark.primaryColor)),
                 )
               ],
             ),
@@ -74,7 +73,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 40,
                           fontWeight: FontWeight.w300,
-                          color: Colors.black),
+                          color: lightDark.primaryColor),
                       children: <TextSpan>[
                         TextSpan(
                             text: " km",
@@ -91,11 +90,11 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
             const SizedBox(height: 30),
             SliderTheme(
               data: SliderThemeData(
-                inactiveTickMarkColor: UIColors.grey.withOpacity(0.3),
-                activeTickMarkColor: UIColors.black,
-                inactiveTrackColor: UIColors.grey.withOpacity(0.3),
-                activeTrackColor: UIColors.black,
-                thumbColor: UIColors.black,
+                inactiveTickMarkColor: lightDark.primaryColor.withOpacity(0.3),
+                activeTickMarkColor: lightDark.primaryColor,
+                inactiveTrackColor: lightDark.primaryColor.withOpacity(0.3),
+                activeTrackColor: lightDark.primaryColor,
+                thumbColor: lightDark.primaryColor,
               ),
               child: Slider(
                 value: _currentSliderValue,
@@ -115,7 +114,10 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
           onTap: () {
             setDistanceLocation();
           },
-          child: const ConfirmButton(text: "prossima domanda"),
+          child: ConfirmButton(
+            text: "prossima domanda",
+            colors: UIColors.lightGreen,
+          ),
         ),
       ],
     );

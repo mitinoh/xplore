@@ -3,7 +3,7 @@ import 'package:xplore/app/plantrip/widget/plan_new_trip_widget.dart';
 
 class PlanNewTrip extends StatefulWidget {
   const PlanNewTrip({Key? key, required this.callback}) : super(key: key);
-final VoidCallback? callback;
+  final VoidCallback? callback;
   @override
   State<PlanNewTrip> createState() => _PlanNewTripState();
 }
@@ -11,17 +11,17 @@ final VoidCallback? callback;
 class _PlanNewTripState extends State<PlanNewTrip> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: NetTripQuestion(callback: () {
-                    widget.callback!();
-                  },),
+          padding: const EdgeInsets.all(20.0),
+          child: NetTripQuestion(
+            callback: () {
+              widget.callback!();
+            },
+          ),
         ),
       ),
     );
   }
-
-
 }

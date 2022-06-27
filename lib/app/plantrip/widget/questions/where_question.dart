@@ -41,6 +41,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,10 +62,10 @@ class _WhereQuestionState extends State<WhereQuestion> {
               ],
             ),
             const SizedBox(height: 20),
-            const Subtitle(
+            Subtitle(
               text:
                   "Scegli una città come destinazione e ti aiuteremo a scoprire le attrazioni più belle.",
-              colors: Colors.black,
+              colors: lightDark.primaryColor,
             ),
             const SizedBox(height: 20),
             Row(
@@ -76,7 +77,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                       padding: const EdgeInsets.only(
                           left: 15, right: 15, bottom: 5, top: 5),
                       decoration: BoxDecoration(
-                          color: UIColors.grey.withOpacity(0.3),
+                          color: lightDark.cardColor,
                           borderRadius: BorderRadius.circular(20)),
                       child: TextField(
                         onEditingComplete: () {
@@ -84,15 +85,16 @@ class _WhereQuestionState extends State<WhereQuestion> {
                         },
                         controller: _locationController,
                         textAlign: TextAlign.start,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 14),
+                        style: TextStyle(
+                            color: lightDark.hoverColor, fontSize: 14),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(15.0),
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           hintText: "Inserisci destinazione",
-                          hintStyle:
-                              TextStyle(color: UIColors.grey, fontSize: 14),
+                          hintStyle: TextStyle(
+                              color: lightDark.unselectedWidgetColor,
+                              fontSize: 14),
                           border: const OutlineInputBorder(),
                           prefixIcon: Icon(
                             Iconsax.flag,
@@ -148,7 +150,10 @@ class _WhereQuestionState extends State<WhereQuestion> {
           onTap: () => {
             getCoordinate(_locationController.text.toString()),
           },
-          child: const ConfirmButton(text: "prossima domanda"),
+          child: ConfirmButton(
+            text: "prossima domanda",
+            colors: UIColors.lightGreen,
+          ),
         ),
       ],
     );

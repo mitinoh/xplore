@@ -18,6 +18,7 @@ class CurrentPlannedTripList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return BlocProvider(
       create: (_) => planTripBloc,
       child: BlocListener<PlantripBloc, PlantripState>(
@@ -46,7 +47,9 @@ class CurrentPlannedTripList extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return currentTripCard(
-                              state.currentPlanTripModel[index], context);
+                              state.currentPlanTripModel[index],
+                              context,
+                              lightDark);
                         }
                         return const LoadingIndicator();
                       });
@@ -65,7 +68,8 @@ class CurrentPlannedTripList extends StatelessWidget {
 
   Future<String> getUserLocation(PlanTripModel pt) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        pt.geometry?.coordinates?[0] ?? 0.0, pt.geometry?.coordinates?[1] ?? 0.0);
+        pt.geometry?.coordinates?[0] ?? 0.0,
+        pt.geometry?.coordinates?[1] ?? 0.0);
     Placemark place = placemarks[0];
 
     return place.locality! +
@@ -77,7 +81,7 @@ class CurrentPlannedTripList extends StatelessWidget {
         place.street!;
   }
 
-  Column currentTripCard(PlanTripModel pTrip, context) {
+  Column currentTripCard(PlanTripModel pTrip, context, lightDarkt) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -102,7 +106,7 @@ class CurrentPlannedTripList extends StatelessWidget {
                 padding: const EdgeInsets.all(2),
                 child: CircleAvatar(
                   radius: 53,
-                  backgroundColor: Colors.white,
+                  backgroundColor: lightDarkt.scaffoldBackgroundColor,
                   child: CircleAvatar(
                       radius: 50,
                       child: ClipRRect(
@@ -129,52 +133,20 @@ class CurrentPlannedTripList extends StatelessWidget {
             ),
           ),
         ),
-        /*Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color(0xff84ffc9), //f0ebc0
-                Color(0xffaab2ff), //9dddf4
-                Color(0xffeca0ff), //e93a28
-              ]),
-              shape: BoxShape.circle),
-          child: Padding(
-            padding: const EdgeInsets.all(2.5),
-            child: CircleAvatar(
-                radius: 50,
-                backgroundColor: UIColors.bluelight,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1528744598421-b7b93e12df15?ixlib=rb-1.2.1&ixid=&auto=format&fit=crop&w=928&q=80',
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    placeholder: (context, url) => const LoadingIndicator(),
-                    errorWidget: (context, url, error) => Center(
-                      child: Icon(Iconsax.gallery_slash,
-                          size: 30, color: UIColors.lightRed),
-                    ),
-                  ),
-                )),
-          ),
-        ),*/
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: Text(
-                pTrip.tripName ?? '',
+                pTrip.tripName!.replaceFirst(
+                    pTrip.tripName![0], pTrip.tripName![0].toUpperCase()),
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black),
+                    color: lightDarkt.primaryColor),
               ),
             ),
           ],

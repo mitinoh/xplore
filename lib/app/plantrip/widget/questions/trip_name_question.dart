@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -9,6 +7,7 @@ import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
 import 'package:xplore/core/widgets/header_name.dart';
 
+// ignore: must_be_immutable
 class TripNameQuestion extends StatelessWidget {
   TripNameQuestion({Key? key, required this.context}) : super(key: key);
   BuildContext context;
@@ -23,6 +22,7 @@ class TripNameQuestion extends StatelessWidget {
 
   @override
   Widget build(context) {
+    var lightDark = Theme.of(context);
     initState();
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,7 +48,7 @@ class TripNameQuestion extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
-                          color: Colors.grey)),
+                          color: lightDark.primaryColor)),
                 )
               ],
             ),
@@ -60,18 +60,19 @@ class TripNameQuestion extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       left: 15, right: 15, bottom: 5, top: 5),
                   decoration: BoxDecoration(
-                      color: UIColors.grey.withOpacity(0.3),
+                      color: lightDark.cardColor,
                       borderRadius: BorderRadius.circular(20)),
                   child: TextFormField(
                     controller: _nameController,
                     textAlign: TextAlign.start,
-                    style: const TextStyle(color: Colors.black, fontSize: 14),
+                    style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(15.0),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       hintText: "Nome vacanza",
-                      hintStyle: TextStyle(color: UIColors.grey, fontSize: 14),
+                      hintStyle: TextStyle(
+                          color: lightDark.unselectedWidgetColor, fontSize: 14),
                       border: const OutlineInputBorder(),
                       suffixIconColor: UIColors.blue,
                       prefixIcon: Icon(
@@ -97,13 +98,11 @@ class TripNameQuestion extends StatelessWidget {
                     .read<PlantripBloc>()
                     .add(PlanTripChangeQuestionEvent(increment: true))
 
-                /*
-                planQuery.putIfAbsent("tripName", () => _nameController.text),
-                if (_planTripBloc.isClosed) {_planTripBloc = PlantripBloc()},
-                _planTripBloc.add(
-                    GetLocation(/*body: planQuery.toString(),*/ mng: mng)),
-                incrementQuest()
-                */
+                //planQuery.putIfAbsent("tripName", () => _nameController.text),
+                //if (_planTripBloc.isClosed) {_planTripBloc = PlantripBloc()},
+                //_planTripBloc.add(
+                //    GetLocation(/*body: planQuery.toString(),*/ mng: mng)),
+                //incrementQuest()
               }
             else
               {
@@ -111,7 +110,10 @@ class TripNameQuestion extends StatelessWidget {
                     message: 'trip name cannot be empty'))
               }
           },
-          child: const ConfirmButton(text: "prossima domanda"),
+          child: ConfirmButton(
+            text: "prossima domanda",
+            colors: UIColors.lightGreen,
+          ),
         ),
       ],
     );

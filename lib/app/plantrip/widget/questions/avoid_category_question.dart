@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/user/screen/category_preference.dart';
+import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/confirm_button.dart';
 import 'package:xplore/core/widgets/gridView_category_preference.dart';
 import 'package:xplore/core/widgets/header_name.dart';
@@ -16,6 +17,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
   BuildContext context;
   @override
   Widget build(context) {
+    var lightDark = Theme.of(context);
     return BlocProvider(
       create: (_) => LocationcategoryBloc()..add(GetLocationCategoryList()),
       child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
@@ -35,7 +37,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
             } else if (state is LocationCategoryLoading) {
               return const LoadingIndicator();
             } else if (state is LocationcategoryLoaded) {
-              return categoryToAvoidWidget();
+              return categoryToAvoidWidget(lightDark);
             } else if (state is LocationcategoryError) {
               return Container();
             } else {
@@ -47,7 +49,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
     );
   }
 
-  Column categoryToAvoidWidget() {
+  Column categoryToAvoidWidget(lightDark) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,10 +64,10 @@ class AvoidCategoryQuestion extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            const Subtitle(
+            Subtitle(
               text:
                   "Seleziona le categorie che vorresti evitare in vacanza oppure prosegui.",
-              colors: Colors.grey,
+              colors: lightDark.primaryColor,
             ),
             const SizedBox(height: 20),
             /*ListView(
@@ -80,8 +82,9 @@ class AvoidCategoryQuestion extends StatelessWidget {
             onTap: () {
               setCategoryToAvoid();
             },
-            child: const ConfirmButton(
+            child: ConfirmButton(
               text: "prossima domanda",
+              colors: UIColors.lightGreen,
             )),
       ],
     );

@@ -46,6 +46,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
   @override
   @override
   Widget build(context) {
+    var lightDark = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +72,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
-                          color: Colors.grey)),
+                          color: lightDark.primaryColor)),
                 )
               ],
             ),
@@ -83,7 +84,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                     left: 15, top: 20, right: 20, bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: UIColors.grey.withOpacity(0.3),
+                  color: lightDark.cardColor,
                 ),
                 child: Row(
                   children: [
@@ -97,7 +98,9 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                     Text(
                       "Data di partenza ",
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: 14),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: lightDark.primaryColor),
                     ),
                   ],
                 ),
@@ -111,7 +114,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                     left: 15, top: 20, right: 20, bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: UIColors.grey.withOpacity(0.3),
+                  color: lightDark.cardColor,
                 ),
                 child: Row(
                   children: [
@@ -122,11 +125,11 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                         color: UIColors.blue,
                       ),
                     ),
-                    Text(
-                      "Data di ritorno ",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: 14),
-                    ),
+                    Text("Data di ritorno ",
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: lightDark.primaryColor)),
                   ],
                 ),
               ),
@@ -145,7 +148,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black)),
+                          color: lightDark.primaryColor)),
                 ],
               ),
             ),
@@ -163,7 +166,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black)),
+                          color: lightDark.primaryColor)),
                 ],
               ),
             ),
@@ -199,7 +202,10 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                   .add(PlanTripChangeQuestionEvent(increment: true));
             }
           },
-          child: const ConfirmButton(text: "prossima domanda"),
+          child: ConfirmButton(
+            text: "prossima domanda",
+            colors: UIColors.lightGreen,
+          ),
         ),
       ],
     );

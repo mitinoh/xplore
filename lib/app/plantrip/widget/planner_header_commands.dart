@@ -10,6 +10,7 @@ class PlannerHeaderCommand extends StatelessWidget {
   final VoidCallback onCountSelected;
   @override
   Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
     return Column(
       children: [
         Row(
@@ -19,21 +20,27 @@ class PlannerHeaderCommand extends StatelessWidget {
                 onTap: () {
                   onCountSelected();
                 },
-                child: const Icon(Iconsax.arrow_left)),
+                child: Icon(
+                  Iconsax.arrow_left,
+                  color: lightDark.primaryColor,
+                )),
             RichText(
               text: TextSpan(
                 text: 'Creazione vacanza',
                 style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black),
+                    color: lightDark.primaryColor),
               ),
             ),
             InkWell(
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: const Icon(Icons.close)),
+                child: Icon(
+                  Icons.close,
+                  color: lightDark.primaryColor,
+                )),
           ],
         ),
       ],

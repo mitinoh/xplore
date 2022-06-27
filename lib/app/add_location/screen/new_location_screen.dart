@@ -148,7 +148,10 @@ class _NewLocationState extends State<NewLocation> {
       onTap: () {
         _createNewLocation();
       },
-      child: const ConfirmButton(text: "aggiungi luogo"),
+      child: ConfirmButton(
+        text: "aggiungi luogo",
+        colors: UIColors.lightGreen,
+      ),
     );
   }
 

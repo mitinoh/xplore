@@ -21,10 +21,14 @@ class Terms extends StatelessWidget {
                     fontSize: 9),
                 children: <TextSpan>[
                   TextSpan(
-                      text: " " + "i termi delle condizioni e",
+                      text: " " + "i termi delle condizioni",
                       style: TextStyle(
                           color: UIColors.blue, fontWeight: FontWeight.w300)),
-                  const TextSpan(text: " " + "e" + " "),
+                  TextSpan(
+                      text: " " + "e" + " ",
+                      style: TextStyle(
+                        color: lightDark.primaryColor,
+                      )),
                   TextSpan(
                       text: "la privacy" + ".",
                       style: TextStyle(
