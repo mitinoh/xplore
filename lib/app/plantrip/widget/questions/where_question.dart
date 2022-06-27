@@ -176,10 +176,8 @@ class _WhereQuestionState extends State<WhereQuestion> {
 
       //incrementQuest();
     } catch (e) {
-      context
-          .read<PlantripBloc>()
-          .add(PlanTripLocationNotFound(message: 'mess111'));
-      // _planTripBloc.add(PlanTripLocationNotFound(message: 'mess111'));
+      context.read<PlantripBloc>().add(PlanTripErrorEvent(message: 'mess111'));
+      // _planTripBloc.add(PlanTripErrorEvent(message: 'mess111'));
     }
   }
 

@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/home/widget/go_navigation_widget.dart';
+import 'package:xplore/app/map/bloc_map/map_bloc.dart';
 import 'package:xplore/app/search_location/screen/search_screen.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/like_btn.dart';
 import 'package:xplore/model/location_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PinnedMenu extends StatefulWidget {
   const PinnedMenu(
       {Key? key,
       required this.locationList,
       required this.indexLocation,
-      required this.locationBloc})
+      required this.context})
       : super(key: key);
   final List<LocationModel> locationList;
   final int indexLocation;
-  final HomeBloc locationBloc; // TODO: non passare ome parametro
+  final BuildContext context;
 
   @override
   State<PinnedMenu> createState() => _PinnedMenuState();
@@ -24,7 +26,7 @@ class PinnedMenu extends StatefulWidget {
 
 class _PinnedMenuState extends State<PinnedMenu> {
   Future likeLocation() async {
-    widget.locationBloc.add(SaveUserLocation(
+    widget.context.read<HomeBloc>().add(SaveUserLocation(
         locationId: widget.locationList[widget.indexLocation].iId ?? ''));
   }
 
@@ -49,7 +51,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
               const SizedBox(height: 25),
               LikeButton(
                 indexLocation: widget.indexLocation,
-                locationBloc: widget.locationBloc,
+                locationBloc: widget.context.read<HomeBloc>(),
                 locationList: widget.locationList,
               ),
               const SizedBox(height: 25),
@@ -85,7 +87,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
           widget.locationList[widget.indexLocation].saved = !isSaved;
         });
 
-        widget.locationBloc.add(SaveUserLocation(
+        widget.context.read<HomeBloc>().add(SaveUserLocation(
             locationId: widget.locationList[widget.indexLocation].iId ?? '',
             save: !isSaved));
       },

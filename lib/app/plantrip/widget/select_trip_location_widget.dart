@@ -209,7 +209,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       value: BlocProvider.of<PlantripBloc>(context),
       child: BlocListener<PlantripBloc, PlantripState>(
         listener: (context, state) {
-          if (state is PlanTripError) {
+          if (state is PlanTripErrorState) {
             SnackBarMessage();
           }
         },

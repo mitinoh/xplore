@@ -161,7 +161,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
       child: PinnedMenu(
         locationList: widget.model,
         indexLocation: _indexLocation,
-        locationBloc: widget.locationBloc,
+        context: context,
       ),
     );
   }
@@ -209,7 +209,6 @@ class _BuildMainCardState extends State<BuildMainCard> {
       _indexLocation = i;
     });
 
-    // TODO: controllare che funzioni davvero
     if (_indexLocation > _lastIndexLocation && i % 15 == 0) {
       HomeRepository.skip += 15; // TODO: cambiare 15 in modo dyn
       widget.locationBloc.add(const GetLocationList());

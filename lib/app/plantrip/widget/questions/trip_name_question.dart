@@ -106,8 +106,8 @@ class TripNameQuestion extends StatelessWidget {
               }
             else
               {
-                context.read<PlantripBloc>().add(PlanTripLocationNotFound(
-                    message: 'trip name cannot be empty'))
+                context.read<PlantripBloc>().add(
+                    PlanTripErrorEvent(message: 'trip name cannot be empty'))
               }
           },
           child: ConfirmButton(

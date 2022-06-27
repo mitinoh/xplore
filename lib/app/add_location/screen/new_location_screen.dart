@@ -26,7 +26,7 @@ class _NewLocationState extends State<NewLocation> {
   final TextEditingController _descController = TextEditingController();
   final TextEditingController _indicationController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
+  final LocationCategoryBloc _locCatBloc = LocationCategoryBloc();
 
   final HomeBloc _locationBloc = HomeBloc();
 

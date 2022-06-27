@@ -17,7 +17,7 @@ class GridViewCategoryPreference extends StatefulWidget {
 }
 
 class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
-  final LocationcategoryBloc _locCatBloc = LocationcategoryBloc();
+  final LocationCategoryBloc _locCatBloc = LocationCategoryBloc();
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
     var mediaQuery = MediaQuery.of(context);
     return BlocProvider(
       create: (_) => _locCatBloc,
-      child: BlocListener<LocationcategoryBloc, LocationcategoryState>(
+      child: BlocListener<LocationCategoryBloc, LocationcategoryState>(
         listener: (context, state) {
           if (state is LocationError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -41,7 +41,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
             );
           }
         },
-        child: BlocBuilder<LocationcategoryBloc, LocationcategoryState>(
+        child: BlocBuilder<LocationCategoryBloc, LocationcategoryState>(
           builder: (context, state) {
             if (state is LocationcategoryInitial) {
               return const LoadingIndicator();

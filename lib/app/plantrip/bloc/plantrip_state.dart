@@ -27,9 +27,9 @@ class PlantripLoadedPlannedTrip extends PlantripState {
 
 class LocationHomeLoading extends PlantripState {}
 
-class PlanTripError extends PlantripState {
+class PlanTripErrorState extends PlantripState {
   final String? message;
-  const PlanTripError(this.message);
+  const PlanTripErrorState(this.message);
 }
 
 class PlanTripNextQuestion extends PlantripState {

@@ -175,7 +175,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
         InkWell(
           onTap: () {
             if (returnDate.isBefore(goneDate)) {
-              context.read<PlantripBloc>().add(PlanTripLocationNotFound(
+              context.read<PlantripBloc>().add(PlanTripErrorEvent(
                   message:
                       'la data di ritorno non può essere precedente a quella di partenza'));
             } else {
