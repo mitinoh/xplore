@@ -58,7 +58,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       create: (_) => _planTripBloc,
       child: BlocListener<PlantripBloc, PlantripState>(
         listener: (context, state) {
-          if (state is PlanTripError) {
+          if (state is PlanTripErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message.toString()),
@@ -273,7 +273,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               else
                 {
                   if (_planTripBloc.isClosed) {_planTripBloc = PlantripBloc()},
-                  _planTripBloc.add(PlanTripLocationNotFound(
+                  _planTripBloc.add(PlanTripErrorEvent(
                       message: 'trip name cannot be empty'))
                 }
             },
@@ -652,7 +652,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
         InkWell(
           onTap: () {
             if (returnDate.isBefore(goneDate)) {
-              _planTripBloc.add(PlanTripLocationNotFound(
+              _planTripBloc.add(PlanTripErrorEvent(
                   message:
                       'la data di ritorno non può essere precedente a quella di partenza'));
             } else {
@@ -977,7 +977,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
 
       incrementQuest();
     } catch (e) {
-      _planTripBloc.add(PlanTripLocationNotFound(message: 'mess111'));
+      _planTripBloc.add(PlanTripErrorEvent(message: 'mess111'));
     }
   }*/
 }

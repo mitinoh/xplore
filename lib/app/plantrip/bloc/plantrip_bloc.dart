@@ -31,8 +31,8 @@ class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
           await _planTripRepository.getCurrentPlannedTripList();
       emit(PlantripLoadedPlannedTrip(plannedTrip, currentPlannedTrip));
     });
-    on<PlanTripLocationNotFound>((event, emit) async {
-      emit(PlanTripError(event.message));
+    on<PlanTripErrorEvent>((event, emit) async {
+      emit(PlanTripErrorState(event.message));
     });
     on<StartQuest>((event, emit) async {
       emit(PlanTripQuestion());

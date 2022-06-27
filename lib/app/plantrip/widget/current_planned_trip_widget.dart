@@ -23,7 +23,7 @@ class CurrentPlannedTripList extends StatelessWidget {
       create: (_) => planTripBloc,
       child: BlocListener<PlantripBloc, PlantripState>(
         listener: (context, state) {
-          if (state is PlanTripError) {
+          if (state is PlanTripErrorState) {
             SnackBarMessage.show(context, state.message ?? '');
           }
         },
@@ -55,7 +55,7 @@ class CurrentPlannedTripList extends StatelessWidget {
                       });
                 },
               );
-            } else if (state is PlanTripError) {
+            } else if (state is PlanTripErrorState) {
               return Container();
             } else {
               return Container();

@@ -25,9 +25,9 @@ class GetPlannedTrip extends PlantripEvent {
 }
 
 // TODO: cambiare nome in errore generico
-class PlanTripLocationNotFound extends PlantripEvent {
+class PlanTripErrorEvent extends PlantripEvent {
   String message;
-  PlanTripLocationNotFound({required this.message});
+  PlanTripErrorEvent({required this.message});
 }
 
 class PlanTripChangeQuestionEvent extends PlantripEvent {
