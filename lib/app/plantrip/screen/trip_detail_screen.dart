@@ -49,7 +49,7 @@ class TripDetailScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                              "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy text of the printing and typesetting industry.",
+                              "lorem ipsum is simply dummy text of the printing and typesetting industry.",
                               overflow: TextOverflow.visible,
                               style: GoogleFonts.poppins(
                                   fontSize: 12,
@@ -71,7 +71,7 @@ class TripDetailScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("23 giugno",
+                            Text(index == 1 ? "👉 23 giugno" : "23 giugno",
                                 textAlign: TextAlign.end,
                                 overflow: TextOverflow.visible,
                                 style: GoogleFonts.poppins(
@@ -81,8 +81,11 @@ class TripDetailScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const Icon(Iconsax.sun_1),
-                                Text("32°",
+                                const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Icon(Iconsax.calendar),
+                                ),
+                                Text((index + 1).toString() + "°",
                                     style: GoogleFonts.poppins(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -99,7 +102,9 @@ class TripDetailScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       VerticalDivider(
-                                        color: UIColors.blue,
+                                        color: index == 1
+                                            ? UIColors.blue
+                                            : UIColors.platinium,
                                         thickness: 4,
                                       ),
                                       Expanded(
@@ -183,7 +188,9 @@ class TripDetailScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       VerticalDivider(
-                                        color: UIColors.blue,
+                                        color: index == 1
+                                            ? UIColors.blue
+                                            : UIColors.platinium,
                                         thickness: 4,
                                       ),
                                       Expanded(

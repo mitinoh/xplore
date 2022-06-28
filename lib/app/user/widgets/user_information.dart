@@ -68,7 +68,7 @@ class UserInformation extends StatelessWidget {
             ), //da commentare ovviamente e scommentare solo quando daremo la possibilità che gli utenti interagiscano tra di loro
           ],
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.only(left: 40.0, right: 40),
           child: Row(
@@ -94,7 +94,6 @@ class UserInformation extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -144,7 +143,7 @@ class UserInformation extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "2",
+                  "0",
                   style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,

@@ -29,12 +29,12 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   //final UserLocationBloc _savedLocationBloc = UserLocationBloc();
-    static SavedLocationBloc _savedLocationBloc = SavedLocationBloc();
-   static UploadedLocationBloc _uploadedLocationBloc = UploadedLocationBloc();
+  static SavedLocationBloc _savedLocationBloc = SavedLocationBloc();
+  static UploadedLocationBloc _uploadedLocationBloc = UploadedLocationBloc();
 
   static refreshLocations() {
-          _savedLocationBloc..add(const SavedLocationInitUserListEvent());
-        _uploadedLocationBloc..add(const UploadedLocationInitUserListEvent());
+    _savedLocationBloc..add(const SavedLocationInitUserListEvent());
+    _uploadedLocationBloc..add(const UploadedLocationInitUserListEvent());
   }
 
   @override
@@ -68,8 +68,8 @@ class _UserScreenState extends State<UserScreen> {
         // and return a Future when code finishs execution.
         //  context.read<SavedLocationBloc>().add(SavedLocationInitUserListEvent());
 
-        _savedLocationBloc..add(const SavedLocationInitUserListEvent());
-        _uploadedLocationBloc..add(const UploadedLocationInitUserListEvent());
+        //_savedLocationBloc..add(const SavedLocationInitUserListEvent());
+        //_uploadedLocationBloc..add(const UploadedLocationInitUserListEvent());
 
         return Future<void>.delayed(const Duration(seconds: 3));
       },
@@ -152,7 +152,7 @@ class _UserScreenState extends State<UserScreen> {
                             //const UserHeaderNavigation(),
                             const SizedBox(height: 10),
                             const UserInformation(),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 20.5),
                             TabBar(
                               // These are the widgets to put in each tab in the tab bar.
                               indicatorColor: lightDark.primaryColor,
@@ -162,7 +162,7 @@ class _UserScreenState extends State<UserScreen> {
                                   lightDark.primaryColor.withOpacity(0.2),
                               tabs: tabs
                                   .map((dynamic obj) => Tab(
-                                        iconMargin: EdgeInsets.all(0),
+                                        iconMargin: const EdgeInsets.all(0),
                                         child: Text(
                                           obj["name"],
                                           style: GoogleFonts.poppins(
