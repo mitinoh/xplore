@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/app/user/widgets/image_tile.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 
@@ -12,7 +11,6 @@ class TripDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var lightDark = Theme.of(context);
-    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -75,19 +73,34 @@ class TripDetailScreen extends StatelessWidget {
                                 textAlign: TextAlign.end,
                                 overflow: TextOverflow.visible,
                                 style: GoogleFonts.poppins(
-                                    color: Colors.black,
+                                    color: lightDark.primaryColor,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Icon(Iconsax.calendar),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Icon(
+                                    Iconsax.sun_1,
+                                    color: lightDark.primaryColor,
+                                  ),
+                                ),
+                                Text("33°",
+                                    style: GoogleFonts.poppins(
+                                        color: lightDark.primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300)),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Icon(
+                                    Iconsax.calendar,
+                                    color: lightDark.primaryColor,
+                                  ),
                                 ),
                                 Text((index + 1).toString() + "°",
                                     style: GoogleFonts.poppins(
-                                        color: Colors.black,
+                                        color: lightDark.primaryColor,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w300))
                               ],
@@ -95,177 +108,165 @@ class TripDetailScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        IntrinsicHeight(
-                            child: Padding(
-                                padding: const EdgeInsets.only(bottom: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IntrinsicHeight(
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      VerticalDivider(
-                                        color: index == 1
-                                            ? UIColors.blue
-                                            : UIColors.platinium,
-                                        thickness: 4,
-                                      ),
-                                      Expanded(
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text:
-                                                'lorem ipsum is simply dummy text of the printing and typesetting industry.',
-                                            style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w300),
-                                            children: const <TextSpan>[
-                                              TextSpan(
-                                                  text: '\ndettaglio luogo',
-                                                  style: TextStyle(
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.black)),
-                                            ],
+                                  VerticalDivider(
+                                    color: index == 1
+                                        ? UIColors.blue
+                                        : UIColors.platinium,
+                                    thickness: 4,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Fontana di trevi',
+                                      style: GoogleFonts.poppins(
+                                          color: lightDark.primaryColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '\ndettaglio luogo',
+                                            style: TextStyle(
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                                color: lightDark.primaryColor)),
+                                      ],
+                                    ),
+                                  ),
+                                ])),
+                            Container(
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Color(0xff9fccfa), //f0ebc0
+                                    Color(0xff0974f1), //9dddf4
+                                    //e93a28
+                                  ]),
+                                  shape: BoxShape.circle),
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor:
+                                      lightDark.scaffoldBackgroundColor,
+                                  child: CircleAvatar(
+                                      radius: 37,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              const LoadingIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              Center(
+                                            child: Icon(Iconsax.gallery_slash,
+                                                size: 30,
+                                                color: UIColors.lightRed),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                            gradient: LinearGradient(colors: [
-                                              Color(0xff9fccfa), //f0ebc0
-                                              Color(0xff0974f1), //9dddf4
-                                              //e93a28
-                                            ]),
-                                            shape: BoxShape.circle),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: CircleAvatar(
-                                            radius: 40,
-                                            backgroundColor: lightDark
-                                                .scaffoldBackgroundColor,
-                                            child: CircleAvatar(
-                                                radius: 37,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                                                    imageBuilder: (context,
-                                                            imageProvider) =>
-                                                        Container(
-                                                      decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                            image:
-                                                                imageProvider,
-                                                            fit: BoxFit.cover),
-                                                      ),
-                                                    ),
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        const LoadingIndicator(),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            Center(
-                                                      child: Icon(
-                                                          Iconsax.gallery_slash,
-                                                          size: 30,
-                                                          color: UIColors
-                                                              .lightRed),
-                                                    ),
-                                                  ),
-                                                )),
-                                          ),
-                                        ),
-                                      )
-                                    ]))),
-                        IntrinsicHeight(
-                            child: Padding(
-                                padding: const EdgeInsets.only(bottom: 20),
+                                      )),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IntrinsicHeight(
                                 child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      VerticalDivider(
-                                        color: index == 1
-                                            ? UIColors.blue
-                                            : UIColors.platinium,
-                                        thickness: 4,
-                                      ),
-                                      Expanded(
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text:
-                                                'lorem ipsum is simply dummy text of the printing and typesetting industry.',
-                                            style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w300),
-                                            children: const <TextSpan>[
-                                              TextSpan(
-                                                  text: '\ndettaglio luogo',
-                                                  style: TextStyle(
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.black)),
-                                            ],
+                                  VerticalDivider(
+                                    color: index == 1
+                                        ? UIColors.blue
+                                        : UIColors.platinium,
+                                    thickness: 4,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Fontana di trevi',
+                                      style: GoogleFonts.poppins(
+                                          color: lightDark.primaryColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '\ndettaglio luogo',
+                                            style: TextStyle(
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                                color: lightDark.primaryColor)),
+                                      ],
+                                    ),
+                                  ),
+                                ])),
+                            Container(
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Color(0xff9fccfa), //f0ebc0
+                                    Color(0xff0974f1), //9dddf4
+                                    //e93a28
+                                  ]),
+                                  shape: BoxShape.circle),
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor:
+                                      lightDark.scaffoldBackgroundColor,
+                                  child: CircleAvatar(
+                                      radius: 37,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              const LoadingIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              Center(
+                                            child: Icon(Iconsax.gallery_slash,
+                                                size: 30,
+                                                color: UIColors.lightRed),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                            gradient: LinearGradient(colors: [
-                                              Color(0xff9fccfa), //f0ebc0
-                                              Color(0xff0974f1), //9dddf4
-                                              //e93a28
-                                            ]),
-                                            shape: BoxShape.circle),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: CircleAvatar(
-                                            radius: 40,
-                                            backgroundColor: lightDark
-                                                .scaffoldBackgroundColor,
-                                            child: CircleAvatar(
-                                                radius: 37,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        'https://images.pexels.com/photos/2225442/pexels-photo-2225442.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                                                    imageBuilder: (context,
-                                                            imageProvider) =>
-                                                        Container(
-                                                      decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                            image:
-                                                                imageProvider,
-                                                            fit: BoxFit.cover),
-                                                      ),
-                                                    ),
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        const LoadingIndicator(),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            Center(
-                                                      child: Icon(
-                                                          Iconsax.gallery_slash,
-                                                          size: 30,
-                                                          color: UIColors
-                                                              .lightRed),
-                                                    ),
-                                                  ),
-                                                )),
-                                          ),
-                                        ),
-                                      )
-                                    ]))),
+                                      )),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                         const SizedBox(height: 20),
                       ],
                     );
