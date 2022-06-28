@@ -25,8 +25,6 @@ class _WhereQuestionState extends State<WhereQuestion> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     String? contextName =
         context.read<PlantripBloc>().planTripQuestionsMap["locationNam"];
 

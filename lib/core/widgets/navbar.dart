@@ -6,8 +6,10 @@ import 'package:xplore/app/add_location/screen/new_location_screen.dart';
 import 'package:xplore/app/home/screen/home_screen.dart';
 import 'package:xplore/app/map/screen/map_screen.dart';
 import 'package:xplore/app/plantrip/screen/plan_trip_screen.dart';
+import 'package:xplore/app/user/bloc_saved_location/saved_location_bloc.dart';
 import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Navbar extends StatelessWidget {
   Navbar({Key? key}) : super(key: key);
@@ -22,6 +24,9 @@ class Navbar extends StatelessWidget {
       context,
       controller: _controller,
       screens: _buildScreens(),
+      onItemSelected: (int i) {
+        if (i == 4) UserScreen.refreshLocations();
+      },
       items: _navBarsItems(lightDark),
       confineInSafeArea: true,
       backgroundColor:

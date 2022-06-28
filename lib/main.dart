@@ -113,8 +113,7 @@ class MyApp extends StatelessWidget {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
 
                 // return Text(AppLocalizations.of(context)!.helloWorld);
-                // TODO: controllare stare
-
+                
                 if ((state.hasData)) {
                   if (BlocProvider.of<AuthBloc>(context).state
                       is! NewUserAuthenticated) return Navbar();

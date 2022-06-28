@@ -657,7 +657,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                       'la data di ritorno non può essere precedente a quella di partenza'));
             } else {
               List<int> dayAvaiable = [];
-              // FIXME
               for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
                 dayAvaiable.add(i);
               }

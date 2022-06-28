@@ -24,7 +24,6 @@ class GetPlannedTrip extends PlantripEvent {
   const GetPlannedTrip();
 }
 
-// TODO: cambiare nome in errore generico
 class PlanTripErrorEvent extends PlantripEvent {
   String message;
   PlanTripErrorEvent({required this.message});

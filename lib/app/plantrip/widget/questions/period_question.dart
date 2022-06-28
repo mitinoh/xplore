@@ -180,12 +180,10 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       'la data di ritorno non può essere precedente a quella di partenza'));
             } else {
               List<int> dayAvaiable = [];
-              // FIXME
               for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
                 dayAvaiable.add(i);
               }
 
-              // TODO: impsotare valori def goneDate e return Date
               /*
             planQuery["totDay"] = returnDate.difference(goneDate).inDays;
             planQuery["periodAvaiable"] = getSeason(goneDate.month);

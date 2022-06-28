@@ -19,12 +19,23 @@ import 'package:xplore/core/widgets/widget_core.dart';
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
 
+  static refreshLocations() {
+    _UserScreenState.refreshLocations();
+  }
+
   @override
   State<UserScreen> createState() => _UserScreenState();
 }
 
 class _UserScreenState extends State<UserScreen> {
   //final UserLocationBloc _savedLocationBloc = UserLocationBloc();
+    static SavedLocationBloc _savedLocationBloc = SavedLocationBloc();
+   static UploadedLocationBloc _uploadedLocationBloc = UploadedLocationBloc();
+
+  static refreshLocations() {
+          _savedLocationBloc..add(const SavedLocationInitUserListEvent());
+        _uploadedLocationBloc..add(const UploadedLocationInitUserListEvent());
+  }
 
   @override
   void initState() {
@@ -35,10 +46,8 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-      final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
-    SavedLocationBloc _savedLocationBloc = SavedLocationBloc();
-    UploadedLocationBloc _uploadedLocationBloc = UploadedLocationBloc();
+    final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+        GlobalKey<RefreshIndicatorState>();
 
     // Getting the user from the FirebaseAuth Instance
     var mediaQuery = MediaQuery.of(context);
@@ -50,20 +59,20 @@ class _UserScreenState extends State<UserScreen> {
     ]; // Visitati
 
     return RefreshIndicator(
-        key: _refreshIndicatorKey,
-        color: Colors.white,
-        backgroundColor: Colors.blue,
-        strokeWidth: 4.0,
-      onRefresh: () { 
-              // Replace this delay with the code to be executed during refresh
-          // and return a Future when code finishs execution.
-         //  context.read<SavedLocationBloc>().add(SavedLocationInitUserListEvent());
-         
-  _savedLocationBloc..add(const SavedLocationInitUserListEvent());
-                   _uploadedLocationBloc..add(const UploadedLocationInitUserListEvent());
-         
-          return Future<void>.delayed(const Duration(seconds: 3));
-       },
+      key: _refreshIndicatorKey,
+      color: Colors.white,
+      backgroundColor: Colors.blue,
+      strokeWidth: 4.0,
+      onRefresh: () {
+        // Replace this delay with the code to be executed during refresh
+        // and return a Future when code finishs execution.
+        //  context.read<SavedLocationBloc>().add(SavedLocationInitUserListEvent());
+
+        _savedLocationBloc..add(const SavedLocationInitUserListEvent());
+        _uploadedLocationBloc..add(const UploadedLocationInitUserListEvent());
+
+        return Future<void>.delayed(const Duration(seconds: 3));
+      },
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is UnAuthenticated) {
@@ -184,7 +193,8 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                             BlocProvider(
                               create: (_) => _uploadedLocationBloc
-                                ..add(const UploadedLocationInitUserListEvent()),
+                                ..add(
+                                    const UploadedLocationInitUserListEvent()),
                             )
                           ],
                           child: TabBarView(children: [
@@ -212,7 +222,7 @@ class _UserScreenState extends State<UserScreen> {
                                                               index]
                                                           .saved ==
                                                       true);
-                                                      // commento
+                                                  // commento
                                                   return state
                                                               .savedLocationList[
                                                                   index]
@@ -228,7 +238,15 @@ class _UserScreenState extends State<UserScreen> {
                                                                   true,
                                                               callback: () {
                                                                 setState(() {
-                                                                  state.savedLocationList[index].saved= state.savedLocationList[index].saved!=true ? false : true;
+                                                                  state
+                                                                      .savedLocationList[
+                                                                          index]
+                                                                      .saved = state
+                                                                              .savedLocationList[index]
+                                                                              .saved !=
+                                                                          true
+                                                                      ? false
+                                                                      : true;
                                                                 });
                                                               },
                                                             ).show(context);
@@ -263,7 +281,8 @@ class _UserScreenState extends State<UserScreen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Icon(
                                                 Iconsax.coffee,
                                                 color: lightDark.primaryColor,
@@ -273,8 +292,8 @@ class _UserScreenState extends State<UserScreen> {
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w500,
-                                                    color:
-                                                        lightDark.primaryColor)),
+                                                    color: lightDark
+                                                        .primaryColor)),
                                           ],
                                         ));
                                 } else {
@@ -326,7 +345,8 @@ class _UserScreenState extends State<UserScreen> {
                                                   );
                                                 },
                                                 childCount: state
-                                                    .uploadedLocationList.length,
+                                                    .uploadedLocationList
+                                                    .length,
                                               ),
                                             )
                                           ],
@@ -337,7 +357,8 @@ class _UserScreenState extends State<UserScreen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Icon(
                                                 Iconsax.coffee,
                                                 color: lightDark.primaryColor,
@@ -347,8 +368,8 @@ class _UserScreenState extends State<UserScreen> {
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w500,
-                                                    color:
-                                                        lightDark.primaryColor)),
+                                                    color: lightDark
+                                                        .primaryColor)),
                                           ],
                                         ));
                                 } else {
@@ -358,7 +379,7 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                           ]),
                         ))
-    
+
                     /*
                    TabBarView(
                       // These are the contents of the tab views, below the tabs.
