@@ -9,14 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditProfile extends StatelessWidget {
-  EditProfile({Key? key}) : super(key: key);
+  EditProfile({Key? key, required this.context}) : super(key: key);
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-  final UserBlocBloc _userBloc = UserBlocBloc();
-
+  final BuildContext context;
   XFile? image;
   final ImagePicker _picker = ImagePicker();
 
@@ -235,8 +235,9 @@ class EditProfile extends StatelessWidget {
       userData["base64"] = base64Image;
     }
 
-    _userBloc.add(UpdateUserInfo(userData));
-
+    context.read<UserBlocBloc>().add(UpdateUserInfo(userData));
+    context.read<UserBlocBloc>().emit(UpdatedUserInfo());
+    Navigator.pop(context);
     //_locationBloc.add(CreateNewLocation(map: newLocationMap));
   }
 }

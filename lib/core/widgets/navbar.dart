@@ -24,9 +24,6 @@ class Navbar extends StatelessWidget {
       context,
       controller: _controller,
       screens: _buildScreens(),
-      onItemSelected: (int i) {
-        if (i == 4) UserScreen.refreshLocations();
-      },
       items: _navBarsItems(lightDark),
       confineInSafeArea: true,
       backgroundColor:
