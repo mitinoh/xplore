@@ -69,8 +69,10 @@ class _UserScreenState extends State<UserScreen> {
                         // These are the slivers that show up in the "outer" scroll view.
                         return <Widget>[
                           getSliverAppBar(lightDark, context),
-                          getSliverToBoxAdapter(context: context,
-                              lightDark: lightDark, tabs: tabs),
+                          getSliverToBoxAdapter(
+                              context: context,
+                              lightDark: lightDark,
+                              tabs: tabs),
                         ];
                       },
                       body: Padding(
@@ -80,19 +82,7 @@ class _UserScreenState extends State<UserScreen> {
                             top: false,
                             bottom: false,
                             child: getTabBarView(lightDark),
-                          )
-
-                          /*
-                                   TabBarView(
-                                      // These are the contents of the tab views, below the tabs.
-                                      children: /*tabs.map((
-                                      dynamic obj,
-                                    ) { return*/
-                                          [
-                                     ] //}).toList(),
-                                      ),
-                                ),*/
-                          ),
+                          )),
                     ),
                   ),
                 ));
@@ -183,27 +173,30 @@ class _UserScreenState extends State<UserScreen> {
                           )
                         ],
                       )
-                    : ListView(
-                        children: [
-                          Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Iconsax.coffee,
-                                  color: lightDark.primaryColor,
+                    : Center(
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: [
+                            Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Iconsax.coffee,
+                                    color: lightDark.primaryColor,
+                                  ),
                                 ),
-                              ),
-                              Text("no data found",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: lightDark.primaryColor)),
-                            ],
-                          )),
-                        ],
+                                Text("no data found",
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: lightDark.primaryColor)),
+                              ],
+                            )),
+                          ],
+                        ),
                       ),
               );
             } else {
@@ -215,6 +208,7 @@ class _UserScreenState extends State<UserScreen> {
           builder: (context, state) {
             if (state is UploadedLocationLoadedState) {
               return RefreshIndicator(
+                color: UIColors.blue,
                 onRefresh: () {
                   context
                       .read<UploadedLocationBloc>()
@@ -372,9 +366,11 @@ class getSliverToBoxAdapter extends StatelessWidget {
             //const UserHeaderNavigation(),
             const SizedBox(height: 10),
 
-             UserInformation(context: context),
+            UserInformation(context: context),
             const SizedBox(height: 20.5),
             TabBar(
+              isScrollable: false,
+              enableFeedback: true,
               // These are the widgets to put in each tab in the tab bar.
               indicatorColor: lightDark.primaryColor,
               indicatorWeight: 1,

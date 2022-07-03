@@ -56,219 +56,19 @@ class TripDetailScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 0),
                   ],
                 ),
               ),
-              SliverList(
+              SliverGrid(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 500.0,
+                  childAspectRatio: 1.6,
+                ),
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(index == 1 ? "👉 23 giugno" : "23 giugno",
-                                textAlign: TextAlign.end,
-                                overflow: TextOverflow.visible,
-                                style: GoogleFonts.poppins(
-                                    color: lightDark.primaryColor,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Icon(
-                                    Iconsax.sun_1,
-                                    color: lightDark.primaryColor,
-                                  ),
-                                ),
-                                Text("33°",
-                                    style: GoogleFonts.poppins(
-                                        color: lightDark.primaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w300)),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Icon(
-                                    Iconsax.calendar,
-                                    color: lightDark.primaryColor,
-                                  ),
-                                ),
-                                Text((index + 1).toString() + "°",
-                                    style: GoogleFonts.poppins(
-                                        color: lightDark.primaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w300))
-                              ],
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            IntrinsicHeight(
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                  VerticalDivider(
-                                    color: index == 1
-                                        ? UIColors.blue
-                                        : UIColors.platinium,
-                                    thickness: 4,
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'Fontana di trevi',
-                                      style: GoogleFonts.poppins(
-                                          color: lightDark.primaryColor,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: '\ndettaglio luogo',
-                                            style: TextStyle(
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700,
-                                                color: lightDark.primaryColor)),
-                                      ],
-                                    ),
-                                  ),
-                                ])),
-                            Container(
-                              decoration: const BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    Color(0xff9fccfa), //f0ebc0
-                                    Color(0xff0974f1), //9dddf4
-                                    //e93a28
-                                  ]),
-                                  shape: BoxShape.circle),
-                              child: Padding(
-                                padding: const EdgeInsets.all(2),
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor:
-                                      lightDark.scaffoldBackgroundColor,
-                                  child: CircleAvatar(
-                                      radius: 37,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                          placeholder: (context, url) =>
-                                              const LoadingIndicator(),
-                                          errorWidget: (context, url, error) =>
-                                              Center(
-                                            child: Icon(Iconsax.gallery_slash,
-                                                size: 30,
-                                                color: UIColors.lightRed),
-                                          ),
-                                        ),
-                                      )),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            IntrinsicHeight(
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                  VerticalDivider(
-                                    color: index == 1
-                                        ? UIColors.blue
-                                        : UIColors.platinium,
-                                    thickness: 4,
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'Fontana di trevi',
-                                      style: GoogleFonts.poppins(
-                                          color: lightDark.primaryColor,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: '\ndettaglio luogo',
-                                            style: TextStyle(
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700,
-                                                color: lightDark.primaryColor)),
-                                      ],
-                                    ),
-                                  ),
-                                ])),
-                            Container(
-                              decoration: const BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    Color(0xff9fccfa), //f0ebc0
-                                    Color(0xff0974f1), //9dddf4
-                                    //e93a28
-                                  ]),
-                                  shape: BoxShape.circle),
-                              child: Padding(
-                                padding: const EdgeInsets.all(2),
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor:
-                                      lightDark.scaffoldBackgroundColor,
-                                  child: CircleAvatar(
-                                      radius: 37,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                          placeholder: (context, url) =>
-                                              const LoadingIndicator(),
-                                          errorWidget: (context, url, error) =>
-                                              Center(
-                                            child: Icon(Iconsax.gallery_slash,
-                                                size: 30,
-                                                color: UIColors.lightRed),
-                                          ),
-                                        ),
-                                      )),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                    return tripWidget(
+                      dayNumber: index,
                     );
                   },
                   childCount: 12,
@@ -276,6 +76,130 @@ class TripDetailScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: camel_case_types
+class tripWidget extends StatelessWidget {
+  const tripWidget({Key? key, required this.dayNumber}) : super(key: key);
+  final int dayNumber;
+  @override
+  Widget build(BuildContext context) {
+    var lightDark = Theme.of(context);
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: lightDark.dividerColor),
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                    Color(0xff9fccfa), //f0ebc0
+                    Color(0xff0974f1), //9dddf4
+                    //e93a28
+                  ]),
+                  shape: BoxShape.circle),
+              child: Padding(
+                padding: const EdgeInsets.all(2),
+                child: CircleAvatar(
+                  radius: 53,
+                  backgroundColor: lightDark.scaffoldBackgroundColor,
+                  child: CircleAvatar(
+                      radius: 50,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://images.unsplash.com/photo-1528744598421-b7b93e12df15?ixlib=rb-1.2.1&ixid=&auto=format&fit=crop&w=928&q=80',
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover),
+                            ),
+                          ),
+                          placeholder: (context, url) =>
+                              const LoadingIndicator(),
+                          errorWidget: (context, url, error) => Center(
+                            child: Icon(Iconsax.gallery_slash,
+                                size: 30, color: UIColors.lightRed),
+                          ),
+                        ),
+                      )),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    child: Text("Barcellona location nome",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: lightDark.primaryColor)),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                    dayNumber == 1
+                        ? "👉23 giugno".toLowerCase()
+                        : "23 giugno".toLowerCase(),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: lightDark.primaryColor)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 7.0),
+                  child: Text(
+                      (dayNumber + 1).toString() + "° giorno".toLowerCase(),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: lightDark.primaryColor)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 7.0),
+                  child: Icon(
+                    Iconsax.sun_1,
+                    size: 20,
+                    color: lightDark.primaryColor,
+                  ),
+                ),
+                Text("23°C",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: lightDark.primaryColor)),
+              ],
+            )
+          ],
         ),
       ),
     );

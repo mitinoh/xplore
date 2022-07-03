@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +9,7 @@ import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/app/user/widgets/follower.dart';
 import 'package:xplore/app/user/widgets/trophy_detail_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 
 class UserInformation extends StatelessWidget {
   UserInformation({Key? key, required this.context}) : super(key: key);
@@ -27,13 +29,48 @@ class UserInformation extends StatelessWidget {
       },
       child: Column(
         children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundColor: UIColors.blue,
-            backgroundImage: const NetworkImage(
-                'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              CircleAvatar(
+                  radius: 50,
+                  backgroundColor: UIColors.bluelight,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
+                        ),
+                      ),
+                      placeholder: (context, url) => const LoadingIndicator(),
+                      errorWidget: (context, url, error) => Center(
+                        child: Icon(Iconsax.gallery_slash,
+                            size: 30, color: UIColors.lightRed),
+                      ),
+                    ),
+                  )),
+              Positioned(
+                  bottom: -15,
+                  left: 50,
+                  right: 0,
+                  child: InkWell(
+                    onTap: () {
+                      //qui si scatena l'evento del caricamento
+                    },
+                    child: CircleAvatar(
+                        backgroundColor: UIColors.bluelight,
+                        child: const Icon(
+                          Iconsax.add,
+                          color: Colors.black,
+                        )),
+                  ))
+            ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 25),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -106,6 +143,7 @@ class UserInformation extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -206,7 +244,10 @@ class UserInformation extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: UIColors.orange,
                       radius: 28,
-                      child: const Icon(Iconsax.crown_1),
+                      child: const Icon(
+                        Iconsax.crown_1,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                   Padding(
@@ -214,7 +255,10 @@ class UserInformation extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: UIColors.yellow,
                       radius: 28,
-                      child: const Icon(Iconsax.crown),
+                      child: Icon(
+                        Iconsax.crown,
+                        color: UIColors.blue,
+                      ),
                     ),
                   ),
                   Padding(
@@ -222,7 +266,10 @@ class UserInformation extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: UIColors.platinium,
                       radius: 28,
-                      child: const Icon(Iconsax.crown),
+                      child: Icon(
+                        Iconsax.crown,
+                        color: UIColors.blue,
+                      ),
                     ),
                   ),
                   InkWell(

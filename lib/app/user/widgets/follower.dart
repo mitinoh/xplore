@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/widget_core.dart';
 
 // ignore: must_be_immutable
 class followerBottomSheet extends StatelessWidget {
@@ -67,13 +70,35 @@ class followerBottomSheet extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Padding(
-                                  padding: EdgeInsets.only(right: 8.0),
+                              Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
                                   child: CircleAvatar(
-                                    radius: 22,
-                                    backgroundImage: NetworkImage(
-                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZl7DaWMSexxDHWARgwp2ncCprSz1yV4Q_Rg&usqp=CAU'),
-                                  )),
+                                      radius: 22,
+                                      backgroundColor: UIColors.bluelight,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(22),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              'https://www.nickiswift.com/img/gallery/what-you-dont-know-about-madison-beers-virtual-idol-career/intro-1606938484.jpg',
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              const LoadingIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              Center(
+                                            child: Icon(Iconsax.gallery_slash,
+                                                size: 30,
+                                                color: UIColors.lightRed),
+                                          ),
+                                        ),
+                                      ))),
                               Text(
                                 "madison_beer",
                                 overflow: TextOverflow.ellipsis,
@@ -115,14 +140,38 @@ class followerBottomSheet extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.only(right: 8.0),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
                                 child: CircleAvatar(
-                                  radius: 22,
-                                ),
+                                    radius: 22,
+                                    backgroundColor: UIColors.bluelight,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(22),
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            'https://www.tag24.it/wp-content/uploads/2022/04/Alessia-Lanza-TikTok.png',
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) =>
+                                            const LoadingIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            Center(
+                                          child: Icon(Iconsax.gallery_slash,
+                                              size: 30,
+                                              color: UIColors.lightRed),
+                                        ),
+                                      ),
+                                    )),
                               ),
                               Text(
-                                "artenismolla",
+                                "alessialanza",
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,

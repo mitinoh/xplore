@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
+import 'package:xplore/app/plantrip/widget/lock_trip_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/snackbar_message.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
@@ -43,43 +44,56 @@ class PlannedTripList extends StatelessWidget {
                       future: getUserLocation(state.planTripModel[index]),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: UIColors.blue,
-                                      child: Text((index + 1).toString(),
+                          return InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  useRootNavigator: true,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) {
+                                    return const LockTripBottomSheet();
+                                  });
+                            },
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: CircleAvatar(
+                                        backgroundColor: UIColors.blue,
+                                        child: Text((index + 1).toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white)),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(snapshot.data ?? '',
+                                          textAlign: TextAlign.start,
+                                          overflow: TextOverflow.visible,
                                           style: GoogleFonts.poppins(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w500,
-                                              color: Colors.white)),
+                                              color: lightDark.primaryColor)),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Text(snapshot.data ?? '',
-                                        textAlign: TextAlign.start,
-                                        overflow: TextOverflow.visible,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                            color: lightDark.primaryColor)),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Icon(
-                                      Iconsax.arrow_right_1,
-                                      color: lightDark.primaryColor,
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Icon(
+                                        Iconsax.arrow_right_1,
+                                        color: lightDark.primaryColor,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const Divider(height: 30),
-                            ],
+                                  ],
+                                ),
+                                const Divider(height: 30),
+                              ],
+                            ),
                           );
                         }
                         return const LoadingIndicator();
