@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +9,7 @@ import 'package:xplore/app/user/bloc_uploaded_location/uploaded_location_bloc.da
 import 'package:xplore/app/user/screen/edit_screen.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/app/user/user_location_bloc/user_location_bloc.dart';
+import 'package:xplore/app/user/widgets/follower.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
 import 'package:xplore/app/user/widgets/settings.dart';
 import 'package:xplore/app/user/widgets/user_information.dart';
@@ -364,30 +364,110 @@ class getSliverToBoxAdapter extends StatelessWidget {
           children: [
             //const SizedBox(height: 20),
             //const UserHeaderNavigation(),
-            const SizedBox(height: 10),
+            //const SizedBox(height: 10),
 
             UserInformation(context: context),
-            const SizedBox(height: 20.5),
-            TabBar(
-              isScrollable: false,
-              enableFeedback: true,
-              // These are the widgets to put in each tab in the tab bar.
-              indicatorColor: lightDark.primaryColor,
-              indicatorWeight: 1,
-              labelColor: lightDark.primaryColor,
-              unselectedLabelColor: lightDark.primaryColor.withOpacity(0.2),
-              tabs: tabs
-                  .map((dynamic obj) => Tab(
-                        iconMargin: const EdgeInsets.all(0),
-                        child: Text(
-                          obj["name"],
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            useRootNavigator: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) {
+                              return const followerBottomSheet();
+                            });
+                      },
+                      child: Row(
+                        children: [
+                          Icon(Iconsax.arrow_up_3,
+                              color: lightDark.primaryColor),
+                          Text(
+                            "20",
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: lightDark.primaryColor),
                           ),
-                        ),
-                      ))
-                  .toList(),
+                          Icon(Iconsax.arrow_down,
+                              color: lightDark.primaryColor),
+                          Text(
+                            "29",
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: lightDark.primaryColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      "la tua cerchia",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          color: lightDark.primaryColor),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "0",
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: lightDark.primaryColor),
+                    ),
+                    Text(
+                      "in programma",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          color: lightDark.primaryColor),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: UIColors.platinium,
+              ),
+              child: TabBar(
+                isScrollable: false,
+                enableFeedback: true,
+
+                // These are the widgets to put in each tab in the tab bar.
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: UIColors.lowTransaprentWhite.withOpacity(0.85)),
+                indicatorWeight: 1,
+                labelColor: lightDark.primaryColor,
+                unselectedLabelColor: lightDark.primaryColor.withOpacity(0.2),
+                tabs: tabs
+                    .map((dynamic obj) => Tab(
+                          iconMargin: const EdgeInsets.all(0),
+                          child: Text(
+                            obj["name"],
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+              ),
             ),
             const SizedBox(height: 20),
           ],
