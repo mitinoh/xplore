@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
+import 'package:xplore/app/user/bloc_follower_count/follower_count_bloc.dart';
 import 'package:xplore/app/user/bloc_saved_location/saved_location_bloc.dart';
 import 'package:xplore/app/user/bloc_uploaded_location/uploaded_location_bloc.dart';
 import 'package:xplore/app/user/screen/edit_screen.dart';
@@ -373,38 +374,70 @@ class getSliverToBoxAdapter extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            useRootNavigator: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) {
-                              return const followerBottomSheet();
-                            });
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Iconsax.arrow_up_3,
-                              color: lightDark.primaryColor),
-                          Text(
-                            "20",
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: lightDark.primaryColor),
-                          ),
-                          Icon(Iconsax.arrow_down,
-                              color: lightDark.primaryColor),
-                          Text(
-                            "29",
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: lightDark.primaryColor),
-                          ),
-                        ],
+                    BlocProvider(
+                      create: (context) =>
+                          FollowerCountBloc()..add(FollowerGetCountListEvent()),
+                      child: BlocBuilder<FollowerCountBloc, FollowerCountState>(
+                        builder: (context, state) {
+                          if (state is FollowerCountLoadedState) {
+                            return InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    useRootNavigator: true,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (context) {
+                                      return const followerBottomSheet();
+                                    });
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Iconsax.arrow_up_3,
+                                      color: lightDark.primaryColor),
+                                  Text(
+                                    state.followerCount.followed.toString(),
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                        color: lightDark.primaryColor),
+                                  ),
+                                  Icon(Iconsax.arrow_down,
+                                      color: lightDark.primaryColor),
+                                  Text(
+                                    state.followerCount.following.toString(),
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                        color: lightDark.primaryColor),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          return Row(
+                            children: [
+                              Icon(Iconsax.arrow_up_3,
+                                  color: lightDark.primaryColor),
+                              Text(
+                                "0",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: lightDark.primaryColor),
+                              ),
+                              Icon(Iconsax.arrow_down,
+                                  color: lightDark.primaryColor),
+                              Text(
+                                "0",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: lightDark.primaryColor),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                     Text(

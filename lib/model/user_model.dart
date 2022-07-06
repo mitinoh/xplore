@@ -9,7 +9,7 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    name = json['name'];
+    name = json['username'];
     if (json['locationcategory'] != null) {
       locationCategory = <LocationCategoryModel>[];
       json['locationcategory'].forEach((v) {
@@ -21,7 +21,7 @@ class UserModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
-    data['name'] = this.name;
+    data['username'] = this.name;
     if (this.locationCategory != null) {
       data['locationcategory'] =
           this.locationCategory!.map((v) => v.toJson()).toList();

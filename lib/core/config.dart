@@ -58,6 +58,13 @@ class Config {
     return ip + "plan-trip";
   }
 
+  String get followerCountColl {
+    return ip + "follower/follower/count";
+  }
+    String get followerColl {
+    return ip + "follower/follower/all";
+  }
+
   String get locationImage {
     return urlFolderImages + "location/";
   }
