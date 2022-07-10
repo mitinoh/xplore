@@ -17,6 +17,15 @@ class SearchLocationLoaded extends SearchLocationState {
   const SearchLocationLoaded(this.searchLocationModel, this.add);
 }
 
+class SearchUserLoading extends SearchLocationState {}
+
+class SearchUserLoaded extends SearchLocationState {
+  final List<UserModel> searchUserModel;
+  const SearchUserLoaded(
+    this.searchUserModel,
+  );
+}
+
 /*
 class SuggestedLocationNameLoading extends SearchLocationState {
 }

@@ -9,6 +9,7 @@ import 'package:xplore/app/search_location/widget/list_card_category_widget.dart
 import 'package:xplore/app/search_location/widget/pt_location_grid_widget.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
+import 'package:xplore/model/user_model.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -23,7 +24,9 @@ class _SearchScreenState extends State<SearchScreen> {
   final SearchHomeBloc _searchHomeBloc = SearchHomeBloc();
 
   String searchText = "";
-  late FocusNode filerFocusNode;
+  //late FocusNode filerFocusNode;
+
+  late var lightDark;
   @override
   void initState() {
     if (!_searchHomeBloc.isClosed) {
@@ -32,7 +35,8 @@ class _SearchScreenState extends State<SearchScreen> {
     _locCatBloc.add(GetLocationCategoryList());
     super.initState();
 
-    filerFocusNode = FocusNode();
+    //filerFocusNode = FocusNode();
+    /*
     filerFocusNode.addListener(() {
       if (!filerFocusNode.hasFocus) {
         setState(() {
@@ -40,10 +44,16 @@ class _SearchScreenState extends State<SearchScreen> {
         });
       }
     });
+    */
   }
 
   filterLocation(String filter) {
-    _searchHomeBloc.add(GetSearchLocationList(searchName: filter, add: false));
+    if (filter.startsWith("@")) {
+      _searchHomeBloc.add(GetSearchUsersList(searchName: filter));
+    } else {
+      _searchHomeBloc
+          .add(GetSearchLocationList(searchName: filter, add: false));
+    }
   }
 
 /*
@@ -58,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
 */
   @override
   Widget build(BuildContext context) {
-    var lightDark = Theme.of(context);
+    lightDark = Theme.of(context);
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -256,14 +266,15 @@ class _SearchScreenState extends State<SearchScreen> {
               });
             },*/
             child: TextField(
-              focusNode: filerFocusNode,
+              //  focusNode: filerFocusNode,
               onSubmitted: (value) {
                 filterLocation(value);
               },
+              /*
               onChanged: (String value) {
                 searchText = value;
-                // filterLocation(value);
-              },
+                filterLocation(value);
+              },*/
               /*
               onChanged: (value) {
                 // _searchHomeBloc.add(GetSuggestedNameLocationList(
@@ -279,7 +290,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 contentPadding: const EdgeInsets.all(15.0),
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
-                hintText: "cerca un posto o un utente",
+                hintText: "cerca un posto o un @utente",
                 hintStyle: GoogleFonts.poppins(
                     color: lightDark.unselectedWidgetColor, fontSize: 14),
                 border: const OutlineInputBorder(),
@@ -295,7 +306,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                 ),
               ),
-              autofocus: false,
+              autofocus: true,
             ),
           ),
         ))
@@ -321,16 +332,18 @@ class _SearchScreenState extends State<SearchScreen> {
             child: BlocBuilder<SearchHomeBloc, SearchLocationState>(
               builder: (context, state) {
                 if (state is SearchLocationInitial ||
-                    state is SearchLocationLoading) {
+                    state is SearchUserLoading) {
                   return const LoadingIndicator();
                 } else if (state is SearchLocationLoaded) {
                   return PtLocationGrid(
                     locationList: state.searchLocationModel,
                   );
+                } else if (state is SearchUserLoaded) {
+                  return userList(state.searchUserModel);
                 } else if (state is SearchLocationError) {
                   return const Text("error 1");
                 } else {
-                  return const Text("error 2");
+                  return const LoadingIndicator();
                 }
               },
             ),
@@ -385,5 +398,31 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           );
         });
+  }
+
+  Widget userList(List<UserModel> userList) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: userList.length,
+      itemBuilder: (BuildContext context, int index) {
+        // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta
+
+        return Container(
+          margin: const EdgeInsets.only(bottom: 5),
+          padding: const EdgeInsets.all(2.5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: lightDark.splashColor,
+          ),
+          child: Theme(
+              data: ThemeData(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  unselectedWidgetColor: Colors.grey.withOpacity(0.3)),
+              child: Text(userList[index].name ?? '')),
+        );
+      },
+    );
   }
 }
