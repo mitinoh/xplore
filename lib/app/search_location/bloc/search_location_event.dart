@@ -17,3 +17,8 @@ class GetSuggestedNameLocationList extends SearchLocationEvent {
   final String? searchName;
   const GetSuggestedNameLocationList({this.searchName});
 }
+
+class GetSearchUsersList extends SearchLocationEvent {
+  final String? searchName;
+  const GetSearchUsersList({this.searchName});
+}

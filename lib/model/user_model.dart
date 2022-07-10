@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:xplore/model/location_category_model.dart';
 
 class UserModel {
@@ -27,5 +29,13 @@ class UserModel {
           this.locationCategory!.map((v) => v.toJson()).toList();
     }
     return data;
+  }
+
+  List<UserModel> toList(Response response) {
+    List<UserModel> _user = [];
+    response.data.forEach((v) {
+      _user.add(UserModel.fromJson(v));
+    });
+    return _user;
   }
 }

@@ -8,6 +8,7 @@ import 'package:xplore/core/config.dart';
 import 'package:xplore/core/http_service.dart';
 import 'package:xplore/model/location_model.dart';
 import 'package:xplore/model/mongoose_model.dart';
+import 'package:xplore/model/user_model.dart';
 
 class UserRepository {
   Config conf = Config();
@@ -23,6 +24,13 @@ class UserRepository {
     String url = conf.uploadedLocationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
     return LocationModel().toList(response);
+  }
+
+  Future<List<UserModel>> getUserList(Mongoose mng) async {
+    String url = conf.userColl + mng.getUrl();
+    print(url);
+    Response response = await httpService.request(method: Method.GET, url: url);
+    return UserModel().toList(response);
   }
 
   void updateUserInfo(Map<String, dynamic> map) async {
@@ -43,12 +51,14 @@ class UserRepository {
 
   static void setUserName(String username) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-     prefs.setString("userName", username);
+    prefs.setString("userName", username);
   }
-    static void setUserBio(String bio) async {
+
+  static void setUserBio(String bio) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-     prefs.setString("userBio", bio);
+    prefs.setString("userBio", bio);
   }
+
   getUserPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
