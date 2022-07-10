@@ -38,6 +38,10 @@ class UIColors {
     return const Color(0xFFFDCA40);
   }
 
+  static Color get orangeRed {
+    return const Color(0xFFF26419);
+  }
+
   static Color get metallic {
     return const Color(0xFFF1A095);
   }
@@ -63,7 +67,7 @@ class UIColors {
   }
 
   static Color get green {
-    return const Color(0xFF16DAAA);
+    return const Color(0xFF31D843);
   }
 
   static Color get ultralightgreen {
@@ -102,8 +106,8 @@ class UIColors {
     return const Color(0xFF8A8ACB);
   }
 
-  static Color get violetMainlightOption {
-    return const Color(0xFF664E88);
+  static Color get purpleMountainMajesty {
+    return const Color(0xFF9F86C0);
   }
 
   static Color get azure {

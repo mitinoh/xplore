@@ -7,7 +7,7 @@ import 'package:xplore/app/user/bloc_follower/follower_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 
-// ignore: must_be_immutable
+// ignore: must_be_immutable, camel_case_types
 class followerBottomSheet extends StatelessWidget {
   const followerBottomSheet({
     Key? key,
@@ -19,7 +19,7 @@ class followerBottomSheet extends StatelessWidget {
     var lightDark = Theme.of(context);
 
     return BlocProvider(
-      create: (context) => FollowerBloc()..add(FollowerGetListEvent()),
+      create: (context) => FollowerBloc()..add(const FollowerGetListEvent()),
       child: Container(
         height: mediaQuery.size.height * 0.54,
         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),

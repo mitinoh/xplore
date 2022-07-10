@@ -89,7 +89,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                   Navigator.pop(context);
                 },
                 child: const SuccessScreen(
-                  title: "Trip pianificato",
+                  title: "Viaggio pianificato",
                   subtitle:
                       "Abbiamo pianificato la tua vacanza, buona fortuna e altre stronzate da radical chic.",
                 ),

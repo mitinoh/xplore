@@ -10,6 +10,8 @@ import 'package:xplore/app/user/bloc_uploaded_location/uploaded_location_bloc.da
 import 'package:xplore/app/user/screen/edit_screen.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/app/user/user_location_bloc/user_location_bloc.dart';
+import 'package:xplore/app/user/widgets/counter_follower_and_trips.dart';
+import 'package:xplore/app/user/widgets/empty_data.dart';
 import 'package:xplore/app/user/widgets/follower.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
 import 'package:xplore/app/user/widgets/settings.dart';
@@ -37,7 +39,7 @@ class _UserScreenState extends State<UserScreen> {
         GlobalKey<RefreshIndicatorState>();
 
     // Getting the user from the FirebaseAuth Instance
-    var mediaQuery = MediaQuery.of(context);
+    //var mediaQuery = MediaQuery.of(context);
     var lightDark = Theme.of(context);
 
     final List<dynamic> tabs = <dynamic>[
@@ -176,27 +178,7 @@ class _UserScreenState extends State<UserScreen> {
                       )
                     : Center(
                         child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            Center(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Iconsax.coffee,
-                                    color: lightDark.primaryColor,
-                                  ),
-                                ),
-                                Text("no data found",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        color: lightDark.primaryColor)),
-                              ],
-                            )),
-                          ],
+                          children: const [EmptyData()],
                         ),
                       ),
               );
@@ -258,26 +240,7 @@ class _UserScreenState extends State<UserScreen> {
                         ],
                       )
                     : ListView(
-                        children: [
-                          Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Iconsax.coffee,
-                                  color: lightDark.primaryColor,
-                                ),
-                              ),
-                              Text("no data found",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: lightDark.primaryColor)),
-                            ],
-                          )),
-                        ],
+                        children: const [EmptyData()],
                       ),
               );
             } else {
@@ -317,7 +280,7 @@ class _UserScreenState extends State<UserScreen> {
           )),
       leadingWidth: 44,
       title: Text(
-        "Il tuo profilo",
+        "artenis_molla".toLowerCase(),
         style: GoogleFonts.poppins(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -368,124 +331,22 @@ class getSliverToBoxAdapter extends StatelessWidget {
             //const SizedBox(height: 10),
 
             UserInformation(context: context),
+            //const SizedBox(height: 20),
+            //const CounterFollowerAndTrips(),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    BlocProvider(
-                      create: (context) =>
-                          FollowerCountBloc()..add(FollowerGetCountListEvent()),
-                      child: BlocBuilder<FollowerCountBloc, FollowerCountState>(
-                        builder: (context, state) {
-                          if (state is FollowerCountLoadedState) {
-                            return InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    useRootNavigator: true,
-                                    backgroundColor: Colors.transparent,
-                                    builder: (context) {
-                                      return const followerBottomSheet();
-                                    });
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(Iconsax.arrow_up_3,
-                                      color: lightDark.primaryColor),
-                                  Text(
-                                    state.followerCount.followed.toString(),
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        color: lightDark.primaryColor),
-                                  ),
-                                  Icon(Iconsax.arrow_down,
-                                      color: lightDark.primaryColor),
-                                  Text(
-                                    state.followerCount.following.toString(),
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        color: lightDark.primaryColor),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                          return Row(
-                            children: [
-                              Icon(Iconsax.arrow_up_3,
-                                  color: lightDark.primaryColor),
-                              Text(
-                                "0",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    color: lightDark.primaryColor),
-                              ),
-                              Icon(Iconsax.arrow_down,
-                                  color: lightDark.primaryColor),
-                              Text(
-                                "0",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    color: lightDark.primaryColor),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                    Text(
-                      "la tua cerchia",
-                      style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                          color: lightDark.primaryColor),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "0",
-                      style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: lightDark.primaryColor),
-                    ),
-                    Text(
-                      "in programma",
-                      style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                          color: lightDark.primaryColor),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            const SizedBox(height: 20),
-
             Container(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: UIColors.platinium,
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color(0xFFF9FAFC)),
               child: TabBar(
                 isScrollable: false,
                 enableFeedback: true,
-
                 // These are the widgets to put in each tab in the tab bar.
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: UIColors.lowTransaprentWhite.withOpacity(0.85)),
-                indicatorWeight: 1,
+                    color: Colors.white),
+                indicatorWeight: 0,
                 labelColor: lightDark.primaryColor,
                 unselectedLabelColor: lightDark.primaryColor.withOpacity(0.2),
                 tabs: tabs
@@ -494,15 +355,13 @@ class getSliverToBoxAdapter extends StatelessWidget {
                           child: Text(
                             obj["name"],
                             style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                                fontSize: 16, fontWeight: FontWeight.w700),
                           ),
                         ))
                     .toList(),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
           ],
         ),
       ),

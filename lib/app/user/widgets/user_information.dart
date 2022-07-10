@@ -6,11 +6,13 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/app/user/screen/trophy_screen.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
-import 'package:xplore/app/user/widgets/follower.dart';
+import 'package:xplore/app/user/widgets/counter_follower_and_trips.dart';
 import 'package:xplore/app/user/widgets/trophy_detail_bottom_sheet.dart';
+import 'package:xplore/app/user/widgets/trophy_widgets.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 
+// ignore: must_be_immutable
 class UserInformation extends StatelessWidget {
   UserInformation({Key? key, required this.context}) : super(key: key);
   final BuildContext context;
@@ -62,10 +64,10 @@ class UserInformation extends StatelessWidget {
                       //qui si scatena l'evento del caricamento
                     },
                     child: CircleAvatar(
-                        backgroundColor: UIColors.bluelight,
-                        child: const Icon(
+                        backgroundColor: UIColors.platinium,
+                        child: Icon(
                           Iconsax.add,
-                          color: Colors.black,
+                          color: UIColors.blue,
                         )),
                   ))
             ],
@@ -101,6 +103,7 @@ class UserInformation extends StatelessWidget {
                     return const Text("-");
                   }),
               Padding(
+                //questo tasto sarà visibile solo quando si visuelezzarà il profilo di un altro utente
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Container(
                   padding: const EdgeInsets.only(
@@ -117,7 +120,7 @@ class UserInformation extends StatelessWidget {
               ), //da commentare ovviamente e scommentare solo quando daremo la possibilità che gli utenti interagiscano tra di loro
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 40.0, right: 40),
             child: Row(
@@ -130,102 +133,28 @@ class UserInformation extends StatelessWidget {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             return RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                    text: snapshot.data,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 11.5,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.grey)));
+                              textAlign: TextAlign.center,
+                              text: TextSpan(children: [
+                                TextSpan(
+                                  text: snapshot.data.toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.grey),
+                                ),
+                              ]),
+                            );
                           }
                           return const Text("-");
                         })),
               ],
             ),
           ),
+          const SizedBox(height: 10),
+          const CounterFollowerAndTrips(),
           const SizedBox(height: 20),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            useRootNavigator: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) {
-                              return const TrophyDetailBottomSheet();
-                            });
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: UIColors.violetMain,
-                        radius: 28,
-                        child: Icon(
-                          Iconsax.crown_1,
-                          color: UIColors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: CircleAvatar(
-                      backgroundColor: UIColors.orange,
-                      radius: 28,
-                      child: const Icon(
-                        Iconsax.crown_1,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: CircleAvatar(
-                      backgroundColor: UIColors.yellow,
-                      radius: 28,
-                      child: Icon(
-                        Iconsax.crown,
-                        color: UIColors.blue,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: CircleAvatar(
-                      backgroundColor: UIColors.platinium,
-                      radius: 28,
-                      child: Icon(
-                        Iconsax.crown,
-                        color: UIColors.blue,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TrophyRoomScreen()),
-                      );
-                    },
-                    child: Text(
-                      "+20 more",
-                      style: GoogleFonts.poppins(
-                          decoration: TextDecoration.underline,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: lightDark.primaryColor),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
+          const TrophyWidget()
+
           /*Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

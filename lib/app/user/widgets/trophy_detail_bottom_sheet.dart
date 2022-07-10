@@ -14,7 +14,7 @@ class TrophyDetailBottomSheet extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     var lightDark = Theme.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.54,
+      height: mediaQuery.size.height * 0.525,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
