@@ -43,8 +43,11 @@ class _UserScreenState extends State<UserScreen> {
     var lightDark = Theme.of(context);
 
     final List<dynamic> tabs = <dynamic>[
-      {"name": 'Posti piaciuti', "event": const GetUserSavedLocationList([])},
-      {"name": 'Caricati', "event": const GetUserUploadedLocationList()}
+      {
+        "name": '❤️ Posti piaciuti',
+        "event": const GetUserSavedLocationList([])
+      },
+      {"name": '📤 Caricati', "event": const GetUserUploadedLocationList()}
     ]; // Visitati
 
     return BlocListener<AuthBloc, AuthState>(
@@ -112,6 +115,9 @@ class _UserScreenState extends State<UserScreen> {
           builder: (context, state) {
             if (state is SavedLocationLoadedState) {
               return RefreshIndicator(
+                color: UIColors.white,
+                backgroundColor: UIColors.blue,
+                edgeOffset: 0,
                 onRefresh: () {
                   context
                       .read<SavedLocationBloc>()
@@ -191,7 +197,9 @@ class _UserScreenState extends State<UserScreen> {
           builder: (context, state) {
             if (state is UploadedLocationLoadedState) {
               return RefreshIndicator(
-                color: UIColors.blue,
+                color: UIColors.white,
+                backgroundColor: UIColors.blue,
+                edgeOffset: 0,
                 onRefresh: () {
                   context
                       .read<UploadedLocationBloc>()
@@ -333,33 +341,28 @@ class getSliverToBoxAdapter extends StatelessWidget {
             UserInformation(context: context),
             //const SizedBox(height: 20),
             //const CounterFollowerAndTrips(),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
+            const SizedBox(height: 10),
+            TabBar(
+              isScrollable: false,
+              enableFeedback: true,
+              automaticIndicatorColorAdjustment: true,
+              // These are the widgets to put in each tab in the tab bar.
+              indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: const Color(0xFFF9FAFC)),
-              child: TabBar(
-                isScrollable: false,
-                enableFeedback: true,
-                // These are the widgets to put in each tab in the tab bar.
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white),
-                indicatorWeight: 0,
-                labelColor: lightDark.primaryColor,
-                unselectedLabelColor: lightDark.primaryColor.withOpacity(0.2),
-                tabs: tabs
-                    .map((dynamic obj) => Tab(
-                          iconMargin: const EdgeInsets.all(0),
-                          child: Text(
-                            obj["name"],
-                            style: GoogleFonts.poppins(
-                                fontSize: 16, fontWeight: FontWeight.w700),
-                          ),
-                        ))
-                    .toList(),
-              ),
+                  color: UIColors.platinium),
+              indicatorWeight: 0,
+              labelColor: Colors.black,
+              unselectedLabelColor: lightDark.primaryColor.withOpacity(0.3),
+              tabs: tabs
+                  .map((dynamic obj) => Tab(
+                        iconMargin: const EdgeInsets.all(0),
+                        child: Text(
+                          obj["name"],
+                          style: GoogleFonts.poppins(
+                              fontSize: 15, fontWeight: FontWeight.w700),
+                        ),
+                      ))
+                  .toList(),
             ),
             const SizedBox(height: 10),
           ],

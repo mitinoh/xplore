@@ -98,8 +98,8 @@ class UIColors {
     return const Color(0xFF12161C);
   }
 
-  static Color get particularBlack {
-    return const Color(0xFF191D22);
+  static Color get xiketic {
+    return const Color(0xFF18020C);
   }
 
   static Color get violetMain {

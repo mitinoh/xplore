@@ -21,7 +21,7 @@ class followerBottomSheet extends StatelessWidget {
     return BlocProvider(
       create: (context) => FollowerBloc()..add(const FollowerGetListEvent()),
       child: Container(
-        height: mediaQuery.size.height * 0.54,
+        height: mediaQuery.size.height * 0.65,
         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
@@ -147,9 +147,7 @@ class followerBottomSheet extends StatelessWidget {
                           },
                         );
                       }
-                      return Container(
-                        child: Text("0 seguaci"),
-                      );
+                      return const Text("0 seguaci");
                     },
                   ),
                   BlocBuilder<FollowerBloc, FollowerState>(

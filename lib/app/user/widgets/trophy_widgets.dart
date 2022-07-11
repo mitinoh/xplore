@@ -5,8 +5,8 @@ import 'package:xplore/app/user/screen/trophy_screen.dart';
 import 'package:xplore/app/user/widgets/trophy_detail_bottom_sheet.dart';
 import 'package:xplore/core/UIColors.dart';
 
-class TrophyWidget extends StatelessWidget {
-  const TrophyWidget({Key? key}) : super(key: key);
+class MainTrophyWidget extends StatelessWidget {
+  const MainTrophyWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +31,11 @@ class TrophyWidget extends StatelessWidget {
                     });
               },
               child: CircleAvatar(
-                backgroundColor: UIColors.violet,
+                backgroundColor: UIColors.platinium,
                 radius: 26,
                 child: Icon(
-                  Iconsax.crown_1,
-                  color: UIColors.white,
+                  Iconsax.cup,
+                  color: UIColors.green,
                 ),
               ),
             ),
@@ -43,44 +43,44 @@ class TrophyWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 3.5),
             child: CircleAvatar(
-              backgroundColor: UIColors.violetMain,
-              radius: 26,
-              child: const Icon(
-                Iconsax.crown_1,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 3.5),
-            child: CircleAvatar(
-              backgroundColor: UIColors.purpleMountainMajesty,
-              radius: 26,
-              child: const Icon(
-                Iconsax.cup,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 3.5),
-            child: CircleAvatar(
-              backgroundColor: UIColors.orange,
+              backgroundColor: UIColors.platinium,
               radius: 26,
               child: Icon(
                 Iconsax.cup,
-                color: UIColors.white,
+                color: UIColors.green,
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 3.5),
             child: CircleAvatar(
-              backgroundColor: UIColors.orangeRed,
+              backgroundColor: UIColors.platinium,
               radius: 26,
               child: Icon(
-                Iconsax.cup,
-                color: UIColors.white,
+                Iconsax.lock,
+                color: UIColors.black,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 3.5),
+            child: CircleAvatar(
+              backgroundColor: UIColors.platinium,
+              radius: 26,
+              child: Icon(
+                Iconsax.lock,
+                color: UIColors.black,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 3.5),
+            child: CircleAvatar(
+              backgroundColor: UIColors.platinium,
+              radius: 26,
+              child: Icon(
+                Iconsax.lock,
+                color: UIColors.black,
               ),
             ),
           ),

@@ -38,8 +38,11 @@ class CounterFollowerAndTrips extends StatelessWidget {
                       },
                       child: Row(
                         children: [
-                          Icon(Iconsax.arrow_up_3,
-                              color: lightDark.primaryColor),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 4.0, left: 4),
+                            child:
+                                Icon(Iconsax.arrow_up_1, color: UIColors.blue),
+                          ),
                           Text(
                             state.followerCount.followed.toString(),
                             style: GoogleFonts.poppins(
@@ -47,8 +50,11 @@ class CounterFollowerAndTrips extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: lightDark.primaryColor),
                           ),
-                          Icon(Iconsax.arrow_down,
-                              color: lightDark.primaryColor),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 4.0, left: 4),
+                            child: Icon(Iconsax.arrow_down_2,
+                                color: UIColors.blue),
+                          ),
                           Text(
                             state.followerCount.following.toString(),
                             style: GoogleFonts.poppins(
@@ -62,7 +68,11 @@ class CounterFollowerAndTrips extends StatelessWidget {
                   }
                   return Row(
                     children: [
-                      Icon(Iconsax.arrow_up_3, color: lightDark.primaryColor),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4.0, left: 4),
+                        child: Icon(Iconsax.arrow_up_1,
+                            color: lightDark.primaryColor),
+                      ),
                       Text(
                         "0",
                         style: GoogleFonts.poppins(
@@ -70,7 +80,11 @@ class CounterFollowerAndTrips extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             color: lightDark.primaryColor),
                       ),
-                      Icon(Iconsax.arrow_down, color: lightDark.primaryColor),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4.0, left: 4),
+                        child: Icon(Iconsax.arrow_down_2,
+                            color: lightDark.primaryColor),
+                      ),
                       Text(
                         "0",
                         style: GoogleFonts.poppins(
@@ -95,12 +109,20 @@ class CounterFollowerAndTrips extends StatelessWidget {
         ),
         Column(
           children: [
-            Text(
-              "0",
-              style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: lightDark.primaryColor),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 4.0, left: 4),
+                  child: Icon(Iconsax.discover_1, color: UIColors.blue),
+                ),
+                Text(
+                  "3",
+                  style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: lightDark.primaryColor),
+                ),
+              ],
             ),
             Text(
               "in programma",

@@ -56,6 +56,7 @@ class UserInformation extends StatelessWidget {
                     ),
                   )),
               Positioned(
+                  //questo tasto sarà visibile solo quando si visuelezzarà il profilo di un altro utente
                   bottom: -15,
                   left: 50,
                   right: 0,
@@ -72,7 +73,7 @@ class UserInformation extends StatelessWidget {
                   ))
             ],
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -120,6 +121,10 @@ class UserInformation extends StatelessWidget {
               ), //da commentare ovviamente e scommentare solo quando daremo la possibilità che gli utenti interagiscano tra di loro
             ],
           ),
+          const SizedBox(height: 15),
+          const MainTrophyWidget(),
+          const SizedBox(height: 15),
+          const CounterFollowerAndTrips(),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 40.0, right: 40),
@@ -136,7 +141,8 @@ class UserInformation extends StatelessWidget {
                               textAlign: TextAlign.center,
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: snapshot.data.toString(),
+                                  text: "La tuo biografia:\n".toUpperCase() +
+                                      snapshot.data.toString(),
                                   style: GoogleFonts.poppins(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w300,
@@ -150,10 +156,6 @@ class UserInformation extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 10),
-          const CounterFollowerAndTrips(),
-          const SizedBox(height: 20),
-          const TrophyWidget()
 
           /*Row(
               mainAxisAlignment: MainAxisAlignment.center,
