@@ -306,6 +306,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           child: ConfirmButton(
             text: "Abbiamo finito",
             colors: UIColors.lightGreen,
+            colorsText: Colors.black,
           ),
         ),
       ],

@@ -301,7 +301,13 @@ class _UserScreenState extends State<UserScreen> {
                   context: context,
                   isScrollControlled: true,
                   useRootNavigator: true,
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: lightDark.backgroundColor,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
                   builder: (context) {
                     return const SettingsBottomSheet();
                   });

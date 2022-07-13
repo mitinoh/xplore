@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ConfirmButton extends StatelessWidget {
-  const ConfirmButton({Key? key, required this.text, required this.colors})
+  const ConfirmButton(
+      {Key? key,
+      required this.text,
+      required this.colors,
+      required this.colorsText})
       : super(key: key);
   final String text;
   final Color colors;
+  final Color colorsText;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class ConfirmButton extends StatelessWidget {
           Text(
             text.toString().toUpperCase(),
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500, color: Colors.black),
+                fontWeight: FontWeight.w500, color: colorsText),
           ),
         ],
       ),

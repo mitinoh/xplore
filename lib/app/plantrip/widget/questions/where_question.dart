@@ -151,6 +151,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
           child: ConfirmButton(
             text: "prossima domanda",
             colors: UIColors.lightGreen,
+            colorsText: Colors.black,
           ),
         ),
       ],

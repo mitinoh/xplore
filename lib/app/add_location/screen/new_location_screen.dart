@@ -150,7 +150,8 @@ class _NewLocationState extends State<NewLocation> {
       },
       child: ConfirmButton(
         text: "aggiungi luogo",
-        colors: UIColors.lightGreen,
+        colors: UIColors.green,
+        colorsText: Colors.black,
       ),
     );
   }

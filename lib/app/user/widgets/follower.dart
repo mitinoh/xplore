@@ -20,40 +20,35 @@ class followerBottomSheet extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => FollowerBloc()..add(const FollowerGetListEvent()),
-      child: Container(
-        height: mediaQuery.size.height * 0.65,
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-          color: lightDark.backgroundColor,
-        ),
-        child: DefaultTabController(
-          length: 2,
-          child: SafeArea(
+      child: SafeArea(
+        child: Container(
+          height: mediaQuery.size.height * 0.84,
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          child: DefaultTabController(
+            length: 2,
             child: Scaffold(
               backgroundColor: lightDark.backgroundColor,
               appBar: TabBar(
                 labelColor: lightDark.primaryColor,
-                indicatorColor: lightDark.primaryColor,
-                indicatorWeight: 1,
-                unselectedLabelColor: lightDark.primaryColor.withOpacity(0.2),
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: UIColors.platinium),
+                indicatorWeight: 0,
+                unselectedLabelColor: lightDark.primaryColor.withOpacity(0.3),
                 tabs: [
                   Tab(
-                      icon: Text(
+                      child: Text(
                     "Follower",
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.w700,
                     ),
                   )),
                   Tab(
-                      icon: Text(
+                      child: Text(
                     "Seguiti",
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.w700,
                     ),
                   )),

@@ -15,17 +15,10 @@ class SettingsBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     var lightDark = Theme.of(context);
-    return Container(
-      height: mediaQuery.size.height * 0.62,
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-        color: lightDark.backgroundColor,
-      ),
-      child: SafeArea(
+    return SafeArea(
+      child: Container(
+        height: mediaQuery.size.height * 0.84,
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         child: SingleChildScrollView(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

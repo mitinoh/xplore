@@ -51,7 +51,7 @@ class UIColors {
   }
 
   static Color get blue {
-    return const Color(0xFF3029D8);
+    return const Color(0xFF27ae60);
   }
 
   static Color get backgroundGrey {
@@ -63,11 +63,11 @@ class UIColors {
   }
 
   static Color get lightGreen {
-    return const Color(0xFF17CC8A);
+    return const Color(0xFF31D843);
   }
 
   static Color get green {
-    return const Color(0xFF31D843);
+    return const Color(0xFF27ae60);
   }
 
   static Color get ultralightgreen {

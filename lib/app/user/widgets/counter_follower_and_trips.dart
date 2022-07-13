@@ -31,7 +31,13 @@ class CounterFollowerAndTrips extends StatelessWidget {
                             context: context,
                             isScrollControlled: true,
                             useRootNavigator: true,
-                            backgroundColor: Colors.transparent,
+                            backgroundColor: lightDark.backgroundColor,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                            ),
                             builder: (context) {
                               return const followerBottomSheet();
                             });
@@ -113,7 +119,7 @@ class CounterFollowerAndTrips extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 4.0, left: 4),
-                  child: Icon(Iconsax.discover_1, color: UIColors.blue),
+                  child: Icon(Iconsax.calendar_1, color: UIColors.blue),
                 ),
                 Text(
                   "3",

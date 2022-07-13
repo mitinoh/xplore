@@ -85,7 +85,8 @@ class GoNavigationBottomSheet extends StatelessWidget {
                         },
                     child: ConfirmButton(
                       text: "Raggiungi con google maps",
-                      colors: UIColors.lightblueTile,
+                      colors: UIColors.platinium,
+                      colorsText: UIColors.green,
                     )),
               ]),
         ),
