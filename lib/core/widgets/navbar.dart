@@ -58,7 +58,7 @@ class Navbar extends StatelessWidget {
       const MapScreen(),
       const NewLocation(),
       const PlanTripScreen(),
-      const UserScreen()
+      UserScreen()
     ];
   }
 

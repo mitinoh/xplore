@@ -8,6 +8,7 @@ import 'package:xplore/app/location_category/bloc/locationcategory_bloc.dart';
 import 'package:xplore/app/search_location/bloc/search_location_bloc.dart';
 import 'package:xplore/app/search_location/widget/list_card_category_widget.dart';
 import 'package:xplore/app/search_location/widget/pt_location_grid_widget.dart';
+import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/user_model.dart';
@@ -409,64 +410,76 @@ class _SearchScreenState extends State<SearchScreen> {
       itemBuilder: (BuildContext context, int index) {
         // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta
 
-        return Container(
-          margin: const EdgeInsets.only(bottom: 10),
-          child: Theme(
-              data: ThemeData(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  unselectedWidgetColor: Colors.grey.withOpacity(0.3)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                      radius: 25,
-                      backgroundColor: UIColors.bluelight,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.cover),
+        return InkWell(
+          onTap: () {
+            print(userList[index].sId);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (ctx) => UserScreen(
+                          visualOnly: true,
+                          user: userList[index],
+                        )));
+          },
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            child: Theme(
+                data: ThemeData(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    unselectedWidgetColor: Colors.grey.withOpacity(0.3)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                        radius: 25,
+                        backgroundColor: UIColors.bluelight,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
+                            ),
+                            placeholder: (context, url) =>
+                                const LoadingIndicator(),
+                            errorWidget: (context, url, error) => Center(
+                              child: Icon(Iconsax.gallery_slash,
+                                  size: 30, color: UIColors.lightRed),
                             ),
                           ),
-                          placeholder: (context, url) =>
-                              const LoadingIndicator(),
-                          errorWidget: (context, url, error) => Center(
-                            child: Icon(Iconsax.gallery_slash,
-                                size: 30, color: UIColors.lightRed),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            userList[index].name ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: lightDark.primaryColor),
                           ),
-                        ),
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          userList[index].name ?? '',
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: lightDark.primaryColor),
-                        ),
-                        Text(
-                          "LV. 1",
-                          style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: UIColors.blue),
-                        ),
-                      ],
+                          Text(
+                            "LV. 1",
+                            style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: UIColors.blue),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                  ],
+                )),
+          ),
         );
       },
     );

@@ -11,16 +11,23 @@ import 'package:xplore/app/user/widgets/trophy_detail_bottom_sheet.dart';
 import 'package:xplore/app/user/widgets/trophy_widgets.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
+import 'package:xplore/model/user_model.dart';
 
 // ignore: must_be_immutable
 class UserInformation extends StatelessWidget {
-  UserInformation({Key? key, required this.context}) : super(key: key);
+  UserInformation({Key? key, required this.context, this.user})
+      : super(key: key);
   final BuildContext context;
+  final UserModel? user;
 
   Future<String> _userBio = UserRepository.getUserBio();
   Future<String> _userName = UserRepository.getUserName();
   @override
   Widget build(BuildContext ctx) {
+    if (user != null) {
+      _userBio = Future.value(user?.bio ?? "");
+      _userName = Future.value(user?.name ?? "");
+    }
     var lightDark = Theme.of(context);
     return BlocListener<UserBlocBloc, UserBlocState>(
       listener: (context, state) {
@@ -124,7 +131,7 @@ class UserInformation extends StatelessWidget {
           const SizedBox(height: 15),
           const MainTrophyWidget(),
           const SizedBox(height: 15),
-          const CounterFollowerAndTrips(),
+          CounterFollowerAndTrips(user: user),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 40.0, right: 40),

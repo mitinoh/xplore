@@ -4,24 +4,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth/bloc/auth_bloc.dart';
 import 'package:xplore/app/auth/screen/sign_in.dart';
-import 'package:xplore/app/user/bloc_follower_count/follower_count_bloc.dart';
 import 'package:xplore/app/user/bloc_saved_location/saved_location_bloc.dart';
 import 'package:xplore/app/user/bloc_uploaded_location/uploaded_location_bloc.dart';
 import 'package:xplore/app/user/screen/edit_screen.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/app/user/user_location_bloc/user_location_bloc.dart';
-import 'package:xplore/app/user/widgets/counter_follower_and_trips.dart';
 import 'package:xplore/app/user/widgets/empty_data.dart';
-import 'package:xplore/app/user/widgets/follower.dart';
 import 'package:xplore/app/user/widgets/image_tile.dart';
 import 'package:xplore/app/user/widgets/settings.dart';
 import 'package:xplore/app/user/widgets/user_information.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/detail_location_modal.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
+import 'package:xplore/model/user_model.dart';
 
 class UserScreen extends StatefulWidget {
-  const UserScreen({Key? key}) : super(key: key);
+  UserScreen({Key? key, this.visualOnly = false, this.user}) : super(key: key);
+  final bool visualOnly;
+  final UserModel? user;
 
   @override
   State<UserScreen> createState() => _UserScreenState();
@@ -76,9 +76,11 @@ class _UserScreenState extends State<UserScreen> {
                         return <Widget>[
                           getSliverAppBar(lightDark, context),
                           getSliverToBoxAdapter(
-                              context: context,
-                              lightDark: lightDark,
-                              tabs: tabs),
+                            context: context,
+                            lightDark: lightDark,
+                            tabs: tabs,
+                            user: widget.user,
+                          ),
                         ];
                       },
                       body: Padding(
@@ -260,64 +262,64 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 
-  SliverAppBar getSliverAppBar(ThemeData lightDark, BuildContext context) {
-    return SliverAppBar(
-      floating: true,
-      pinned: true,
-      snap: true,
-      elevation: 0,
-      centerTitle: true,
-      titleSpacing: 0,
-      automaticallyImplyLeading: false,
-      backgroundColor: lightDark.scaffoldBackgroundColor,
-      iconTheme: IconThemeData(color: lightDark.primaryColor),
-      actionsIconTheme: IconThemeData(color: lightDark.primaryColor),
-      leading: GestureDetector(
-          onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (ctz) => EditProfile(
-                            context: context,
-                          )),
-                )
-              },
-          child: const Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Icon(Iconsax.magicpen),
-          )),
-      leadingWidth: 44,
-      title: Text(
-        "artenis_molla".toLowerCase(),
-        style: GoogleFonts.poppins(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: lightDark.primaryColor),
-      ),
-      actions: [
-        InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  useRootNavigator: true,
-                  backgroundColor: lightDark.backgroundColor,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                  ),
-                  builder: (context) {
-                    return const SettingsBottomSheet();
-                  });
-            },
-            child: const Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: Icon(Iconsax.setting_2),
-            )),
-      ],
-    );
+  Widget getSliverAppBar(ThemeData lightDark, BuildContext context) {
+    return !widget.visualOnly
+        ? SliverAppBar(
+            floating: true,
+            pinned: true,
+            snap: true,
+            elevation: 0,
+            centerTitle: true,
+            titleSpacing: 0,
+            automaticallyImplyLeading: false,
+            backgroundColor: lightDark.scaffoldBackgroundColor,
+            iconTheme: IconThemeData(color: lightDark.primaryColor),
+            actionsIconTheme: IconThemeData(color: lightDark.primaryColor),
+            leading: GestureDetector(
+                onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (ctz) => EditProfile(
+                                  context: context,
+                                )),
+                      )
+                    },
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
+                  child: Icon(Iconsax.magicpen),
+                )),
+            leadingWidth: 44,
+            title: Text(
+              "Il tuo profilo",
+              style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: lightDark.primaryColor),
+            ),
+            actions: [
+              InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        useRootNavigator: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) {
+                          return const SettingsBottomSheet();
+                        });
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 20.0),
+                    child: Icon(Iconsax.setting_2),
+                  )),
+            ],
+          )
+        : SliverAppBar(
+            backgroundColor: lightDark.scaffoldBackgroundColor,
+            iconTheme: IconThemeData(color: lightDark.primaryColor),
+            actionsIconTheme: IconThemeData(color: lightDark.primaryColor),
+          );
   }
 }
 
@@ -326,12 +328,14 @@ class getSliverToBoxAdapter extends StatelessWidget {
       {Key? key,
       required this.lightDark,
       required this.tabs,
-      required this.context})
+      required this.context,
+      this.user})
       : super(key: key);
 
   final ThemeData lightDark;
   final List tabs;
   final BuildContext context;
+  final UserModel? user;
 
   @override
   Widget build(BuildContext ctx) {
@@ -344,7 +348,7 @@ class getSliverToBoxAdapter extends StatelessWidget {
             //const UserHeaderNavigation(),
             //const SizedBox(height: 10),
 
-            UserInformation(context: context),
+            UserInformation(context: context, user: user),
             //const SizedBox(height: 20),
             //const CounterFollowerAndTrips(),
             const SizedBox(height: 10),

@@ -5,9 +5,11 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/user/bloc_follower_count/follower_count_bloc.dart';
 import 'package:xplore/app/user/widgets/follower.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/model/user_model.dart';
 
 class CounterFollowerAndTrips extends StatelessWidget {
-  const CounterFollowerAndTrips({Key? key}) : super(key: key);
+  const CounterFollowerAndTrips({Key? key, this.user}) : super(key: key);
+  final UserModel? user;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,8 @@ class CounterFollowerAndTrips extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             BlocProvider(
-              create: (context) =>
-                  FollowerCountBloc()..add(FollowerGetCountListEvent()),
+              create: (context) => FollowerCountBloc()
+                ..add(FollowerGetCountListEvent(uid: user?.sId)),
               child: BlocBuilder<FollowerCountBloc, FollowerCountState>(
                 builder: (context, state) {
                   if (state is FollowerCountLoadedState) {
@@ -39,7 +41,9 @@ class CounterFollowerAndTrips extends StatelessWidget {
                               ),
                             ),
                             builder: (context) {
-                              return const followerBottomSheet();
+                              return FollowerBottomSheet(
+                                user: user,
+                              );
                             });
                       },
                       child: Row(

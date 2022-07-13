@@ -16,7 +16,7 @@ class FollowerBloc extends Bloc<FollowerEvent, FollowerState> {
     on<FollowerGetListEvent>((event, emit) async {
       try {
         final FollowerModel followerList =
-            await followerRepository.getFollower();
+            await followerRepository.getFollower(event.uid);
         emit(FollowerLoadedState(followerList));
       } catch (e, stacktrace) {
         log(stacktrace.toString());

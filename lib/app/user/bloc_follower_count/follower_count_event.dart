@@ -8,5 +8,6 @@ abstract class FollowerCountEvent extends Equatable {
 }
 
 class FollowerGetCountListEvent extends FollowerCountEvent {
-  const FollowerGetCountListEvent();
+  final String? uid;
+  const FollowerGetCountListEvent({this.uid});
 }

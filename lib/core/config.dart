@@ -62,7 +62,7 @@ class Config {
     return ip + "follower/follower/count";
   }
     String get followerColl {
-    return ip + "follower/follower/all";
+    return ip + "follower/follower/list";
   }
 
   String get locationImage {

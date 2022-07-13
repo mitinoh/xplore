@@ -6,20 +6,23 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/user/bloc_follower/follower_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
+import 'package:xplore/model/user_model.dart';
 
 // ignore: must_be_immutable, camel_case_types
-class followerBottomSheet extends StatelessWidget {
-  const followerBottomSheet({
+class FollowerBottomSheet extends StatelessWidget {
+  const FollowerBottomSheet({
     Key? key,
+    this.user
   }) : super(key: key);
 
+  final UserModel? user;
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     var lightDark = Theme.of(context);
 
     return BlocProvider(
-      create: (context) => FollowerBloc()..add(const FollowerGetListEvent()),
+      create: (context) => FollowerBloc()..add(FollowerGetListEvent(uid: user?.sId)),
       child: SafeArea(
         child: Container(
           height: mediaQuery.size.height * 0.84,
