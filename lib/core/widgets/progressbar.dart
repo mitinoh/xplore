@@ -13,7 +13,7 @@ class ProgressBar extends StatelessWidget {
         Expanded(
           child: LinearProgressIndicator(
             value: valueProgressIndicator,
-            valueColor: AlwaysStoppedAnimation<Color>(UIColors.blue),
+            valueColor: AlwaysStoppedAnimation<Color>(UIColors.mainColor),
             backgroundColor: UIColors.grey.withOpacity(0.3),
             minHeight: 2,
           ),

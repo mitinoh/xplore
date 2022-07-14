@@ -100,7 +100,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
               padding: const EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
                 Iconsax.add,
-                color: UIColors.blue,
+                color: UIColors.mainColor,
               ),
             ),
             Text(

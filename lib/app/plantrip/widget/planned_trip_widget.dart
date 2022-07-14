@@ -65,7 +65,7 @@ class PlannedTripList extends StatelessWidget {
                                       padding:
                                           const EdgeInsets.only(right: 8.0),
                                       child: CircleAvatar(
-                                        backgroundColor: UIColors.blue,
+                                        backgroundColor: UIColors.mainColor,
                                         child: Text((index + 1).toString(),
                                             style: GoogleFonts.poppins(
                                                 fontSize: 16,

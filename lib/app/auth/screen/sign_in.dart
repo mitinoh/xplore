@@ -71,7 +71,7 @@ class _SignInState extends State<SignIn> {
                           },
                           child: LoginButton(
                             text: "Google",
-                            colors: UIColors.blue,
+                            colors: UIColors.mainColor,
                           ),
                         ),
                         const SizedBox(height: 5),

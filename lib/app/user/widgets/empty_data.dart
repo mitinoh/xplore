@@ -16,7 +16,7 @@ class EmptyData extends StatelessWidget {
         const SizedBox(height: 10),
         CircleAvatar(
           radius: 50,
-          backgroundColor: UIColors.lightPurple,
+          backgroundColor: UIColors.lightblue,
           child: const Icon(
             Iconsax.coffee,
             color: Colors.white,

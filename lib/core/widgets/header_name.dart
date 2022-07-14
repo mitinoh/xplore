@@ -28,7 +28,7 @@ class HeaderName extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
-                          color: UIColors.blue)),
+                          color: UIColors.mainColor)),
                   TextSpan(text: questionMark ? '?' : ''),
                 ],
               ),

@@ -88,7 +88,7 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                                     //qui si scatena l'evento del caricamento
                                   },
                                   child: CircleAvatar(
-                                      backgroundColor: UIColors.lightblueTile,
+                                      backgroundColor: UIColors.bluelight,
                                       child: const Icon(
                                         Iconsax.add,
                                         color: Colors.black,
@@ -129,7 +129,7 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                               border: const OutlineInputBorder(),
                               prefixIcon: Icon(
                                 Iconsax.user,
-                                color: UIColors.blue,
+                                color: UIColors.mainColor,
                               ),
                             ),
                             autofocus: false,
@@ -163,7 +163,7 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                               border: const OutlineInputBorder(),
                               prefixIcon: Icon(
                                 Iconsax.brush_4,
-                                color: UIColors.blue,
+                                color: UIColors.mainColor,
                               ),
                             ),
                             autofocus: false,

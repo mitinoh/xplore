@@ -8,16 +8,16 @@ class MarkerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AvatarGlow(
-      glowColor: UIColors.blue,
+      glowColor: UIColors.mainColor,
       endRadius: 40.0,
       duration: const Duration(milliseconds: 2000),
       repeat: true,
       child: CircleAvatar(
         radius: 40,
-        backgroundColor: UIColors.blue.withOpacity(0.4),
+        backgroundColor: UIColors.mainColor.withOpacity(0.4),
         child: CircleAvatar(
           radius: 10,
-          backgroundColor: UIColors.blue,
+          backgroundColor: UIColors.mainColor,
         ),
       ),
     );

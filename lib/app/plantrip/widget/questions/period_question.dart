@@ -92,7 +92,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       padding: const EdgeInsets.only(right: 15.0, left: 15),
                       child: Icon(
                         Iconsax.calendar_add,
-                        color: UIColors.blue,
+                        color: UIColors.mainColor,
                       ),
                     ),
                     Text(
@@ -122,7 +122,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       padding: const EdgeInsets.only(right: 15.0, left: 15),
                       child: Icon(
                         Iconsax.calendar_add,
-                        color: UIColors.blue,
+                        color: UIColors.mainColor,
                       ),
                     ),
                     Text("Data di ritorno ",

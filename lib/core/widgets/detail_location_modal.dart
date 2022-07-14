@@ -102,7 +102,7 @@ class DetailLocationModal extends StatelessWidget {
                                         style: GoogleFonts.poppins(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
-                                            color: UIColors.blue))
+                                            color: UIColors.mainColor))
                                   ],
                                 ),
                               ),

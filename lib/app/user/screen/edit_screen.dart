@@ -79,7 +79,7 @@ class EditProfile extends StatelessWidget {
                         style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color: UIColors.blue)),
+                            color: UIColors.mainColor)),
                   )),
                 ],
               ),
@@ -127,7 +127,7 @@ class EditProfile extends StatelessWidget {
                                 border: const OutlineInputBorder(),
                                 prefixIcon: Icon(
                                   Iconsax.user,
-                                  color: UIColors.blue,
+                                  color: UIColors.mainColor,
                                 ),
                               ),
                               autofocus: false,
@@ -166,7 +166,7 @@ class EditProfile extends StatelessWidget {
                                 border: const OutlineInputBorder(),
                                 prefixIcon: Icon(
                                   Iconsax.brush_4,
-                                  color: UIColors.blue,
+                                  color: UIColors.mainColor,
                                 ),
                               ),
                               autofocus: false,
@@ -194,7 +194,7 @@ class EditProfile extends StatelessWidget {
                                     right: 15.0, left: 15),
                                 child: Icon(
                                   Iconsax.gallery_add,
-                                  color: UIColors.blue,
+                                  color: UIColors.mainColor,
                                 ),
                               ),
                               Text(

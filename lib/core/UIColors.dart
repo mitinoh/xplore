@@ -18,8 +18,8 @@ class UIColors {
     return const Color(0xFFD0EAFD);
   }
 
-  static Color get lightblueTile {
-    return const Color(0xFF99C1F9);
+  static Color get lightblue {
+    return const Color(0xff3498db);
   }
 
   static Color get lightRed {
@@ -50,7 +50,11 @@ class UIColors {
     return const Color(0xFFFADF91);
   }
 
-  static Color get blue {
+  //static Color get blue {
+  //  return const Color(0xFF27ae60);
+  //}
+
+  static Color get mainColor {
     return const Color(0xFF27ae60);
   }
 
