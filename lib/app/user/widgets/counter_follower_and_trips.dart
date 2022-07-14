@@ -14,20 +14,20 @@ class CounterFollowerAndTrips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var lightDark = Theme.of(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            BlocProvider(
-              create: (context) => FollowerCountBloc()
-                ..add(FollowerGetCountListEvent(uid: user?.sId)),
-              child: BlocBuilder<FollowerCountBloc, FollowerCountState>(
-                builder: (context, state) {
-                  if (state is FollowerCountLoadedState) {
-                    return InkWell(
+    return BlocProvider(
+        create: (context) =>
+            FollowerCountBloc()..add(FollowerGetCountListEvent(uid: user?.sId)),
+        child: BlocBuilder<FollowerCountBloc, FollowerCountState>(
+            builder: (context, state) {
+          if (state is FollowerCountLoadedState) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWell(
                       onTap: () {
                         showModalBottomSheet(
                             context: context,
@@ -74,76 +74,47 @@ class CounterFollowerAndTrips extends StatelessWidget {
                           ),
                         ],
                       ),
-                    );
-                  }
-                  return Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 4.0, left: 4),
-                        child:
-                            Icon(Iconsax.arrow_up_1, color: UIColors.bluelight),
-                      ),
-                      Text(
-                        "0",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: lightDark.primaryColor),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 4.0, left: 4),
-                        child: Icon(Iconsax.arrow_down_2,
-                            color: UIColors.bluelight),
-                      ),
-                      Text(
-                        "0",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: lightDark.primaryColor),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-            Text(
-              "la tua cerchia",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w300,
-                  color: lightDark.primaryColor),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 4.0, left: 4),
-                  child: Icon(Iconsax.note, color: UIColors.lightblue),
+                    ),
+                    Text(
+                      "la tua cerchia",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          color: lightDark.primaryColor),
+                    ),
+                  ],
                 ),
-                Text(
-                  "3",
-                  style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: lightDark.primaryColor),
-                ),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 4.0, left: 4),
+                          child: Icon(Iconsax.note, color: UIColors.lightblue),
+                        ),
+                        Text(
+                          state.followerCount.plannedTrip.toString(),
+                          style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: lightDark.primaryColor),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "in programma",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          color: lightDark.primaryColor),
+                    ),
+                  ],
+                )
               ],
-            ),
-            Text(
-              "in programma",
-              style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w300,
-                  color: lightDark.primaryColor),
-            ),
-          ],
-        )
-      ],
-    );
+            );
+          }
+          return Container();
+        }));
   }
 }
