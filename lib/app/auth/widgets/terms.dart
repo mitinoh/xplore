@@ -23,7 +23,8 @@ class Terms extends StatelessWidget {
                   TextSpan(
                       text: " " + "i termi delle condizioni",
                       style: TextStyle(
-                          color: UIColors.blue, fontWeight: FontWeight.w300)),
+                          color: UIColors.mainColor,
+                          fontWeight: FontWeight.w300)),
                   TextSpan(
                       text: " " + "e" + " ",
                       style: TextStyle(
@@ -32,7 +33,8 @@ class Terms extends StatelessWidget {
                   TextSpan(
                       text: "la privacy" + ".",
                       style: TextStyle(
-                          color: UIColors.blue, fontWeight: FontWeight.w300))
+                          color: UIColors.mainColor,
+                          fontWeight: FontWeight.w300))
                 ]),
           ),
         ),

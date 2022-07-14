@@ -127,7 +127,7 @@ class _NewLocationState extends State<NewLocation> {
               padding: const EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
                 Iconsax.hashtag,
-                color: UIColors.blue,
+                color: UIColors.mainColor,
               ),
             ),
             Text(
@@ -200,7 +200,7 @@ class _NewLocationState extends State<NewLocation> {
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.note,
-                color: UIColors.blue,
+                color: UIColors.mainColor,
               ),
             ),
             autofocus: false,
@@ -239,7 +239,7 @@ class _NewLocationState extends State<NewLocation> {
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.lamp_on,
-                color: UIColors.blue,
+                color: UIColors.mainColor,
               ),
             ),
             autofocus: false,
@@ -267,7 +267,7 @@ class _NewLocationState extends State<NewLocation> {
               padding: const EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
                 Iconsax.gallery_add,
-                color: UIColors.blue,
+                color: UIColors.mainColor,
               ),
             ),
             Text(
@@ -307,7 +307,7 @@ class _NewLocationState extends State<NewLocation> {
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.flag,
-                color: UIColors.blue,
+                color: UIColors.mainColor,
               ),
             ),
             autofocus: false,
@@ -341,7 +341,7 @@ class _NewLocationState extends State<NewLocation> {
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.location,
-                color: UIColors.blue,
+                color: UIColors.mainColor,
               ),
             ),
             autofocus: false,

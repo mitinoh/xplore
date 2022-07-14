@@ -240,7 +240,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CircleAvatar(
-                              backgroundColor: UIColors.blue,
+                              backgroundColor: UIColors.mainColor,
                               backgroundImage: const NetworkImage(
                                   'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
                             ),

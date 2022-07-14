@@ -96,7 +96,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                           border: const OutlineInputBorder(),
                           prefixIcon: Icon(
                             Iconsax.flag,
-                            color: UIColors.blue,
+                            color: UIColors.mainColor,
                           ),
                         ),
                         autofocus: false,
@@ -128,7 +128,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                                         TextSpan(
                                           text: _locationFound?.toString(),
                                           style: GoogleFonts.poppins(
-                                              color: UIColors.blue,
+                                              color: UIColors.mainColor,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14),
                                         )

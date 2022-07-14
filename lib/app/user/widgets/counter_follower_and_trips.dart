@@ -50,8 +50,8 @@ class CounterFollowerAndTrips extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(right: 4.0, left: 4),
-                            child:
-                                Icon(Iconsax.arrow_up_1, color: UIColors.blue),
+                            child: Icon(Iconsax.arrow_up_1,
+                                color: UIColors.lightblue),
                           ),
                           Text(
                             state.followerCount.followed.toString(),
@@ -63,7 +63,7 @@ class CounterFollowerAndTrips extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 4.0, left: 4),
                             child: Icon(Iconsax.arrow_down_2,
-                                color: UIColors.blue),
+                                color: UIColors.lightblue),
                           ),
                           Text(
                             state.followerCount.following.toString(),
@@ -80,8 +80,8 @@ class CounterFollowerAndTrips extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 4.0, left: 4),
-                        child: Icon(Iconsax.arrow_up_1,
-                            color: lightDark.primaryColor),
+                        child:
+                            Icon(Iconsax.arrow_up_1, color: UIColors.bluelight),
                       ),
                       Text(
                         "0",
@@ -93,7 +93,7 @@ class CounterFollowerAndTrips extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 4.0, left: 4),
                         child: Icon(Iconsax.arrow_down_2,
-                            color: lightDark.primaryColor),
+                            color: UIColors.bluelight),
                       ),
                       Text(
                         "0",
@@ -123,7 +123,7 @@ class CounterFollowerAndTrips extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 4.0, left: 4),
-                  child: Icon(Iconsax.calendar_1, color: UIColors.blue),
+                  child: Icon(Iconsax.note, color: UIColors.lightblue),
                 ),
                 Text(
                   "3",

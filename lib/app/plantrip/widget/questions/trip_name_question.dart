@@ -74,10 +74,10 @@ class TripNameQuestion extends StatelessWidget {
                       hintStyle: TextStyle(
                           color: lightDark.unselectedWidgetColor, fontSize: 14),
                       border: const OutlineInputBorder(),
-                      suffixIconColor: UIColors.blue,
+                      suffixIconColor: UIColors.mainColor,
                       prefixIcon: Icon(
                         Iconsax.note,
-                        color: UIColors.blue,
+                        color: UIColors.mainColor,
                       ),
                     ),
                     autofocus: false,

@@ -15,10 +15,12 @@ import 'package:xplore/model/user_model.dart';
 
 // ignore: must_be_immutable
 class UserInformation extends StatelessWidget {
-  UserInformation({Key? key, required this.context, this.user})
+  UserInformation(
+      {Key? key, required this.context, this.user, required this.visualOnly})
       : super(key: key);
   final BuildContext context;
   final UserModel? user;
+  final bool visualOnly;
 
   Future<String> _userBio = UserRepository.getUserBio();
   Future<String> _userName = UserRepository.getUserName();
@@ -62,22 +64,24 @@ class UserInformation extends StatelessWidget {
                       ),
                     ),
                   )),
-              Positioned(
-                  //questo tasto sarà visibile solo quando si visuelezzarà il profilo di un altro utente
-                  bottom: -15,
-                  left: 50,
-                  right: 0,
-                  child: InkWell(
-                    onTap: () {
-                      //qui si scatena l'evento del caricamento
-                    },
-                    child: CircleAvatar(
-                        backgroundColor: UIColors.platinium,
-                        child: Icon(
-                          Iconsax.add,
-                          color: UIColors.blue,
-                        )),
-                  ))
+              !visualOnly
+                  ? Positioned(
+                      //questo tasto sarà visibile solo quando si visuelezzarà il profilo di un altro utente
+                      bottom: -15,
+                      left: 50,
+                      right: 0,
+                      child: InkWell(
+                        onTap: () {
+                          //qui si scatena l'evento del caricamento
+                        },
+                        child: CircleAvatar(
+                            backgroundColor: UIColors.platinium,
+                            child: Icon(
+                              Iconsax.add,
+                              color: UIColors.mainColor,
+                            )),
+                      ))
+                  : const SizedBox()
             ],
           ),
           const SizedBox(height: 20),
@@ -103,29 +107,31 @@ class UserInformation extends StatelessWidget {
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
-                                    color: UIColors.blue))
+                                    color: const Color(0xff3498db)))
                           ],
                         ),
                       );
                     }
                     return const Text("-");
                   }),
-              Padding(
-                //questo tasto sarà visibile solo quando si visuelezzarà il profilo di un altro utente
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Container(
-                  padding: const EdgeInsets.only(
-                      right: 15, left: 15, top: 5, bottom: 5),
-                  decoration: BoxDecoration(
-                      color: UIColors.platinium,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Text("follow",
-                      style: GoogleFonts.poppins(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black)),
-                ),
-              ), //da commentare ovviamente e scommentare solo quando daremo la possibilità che gli utenti interagiscano tra di loro
+              visualOnly
+                  ? Padding(
+                      //questo tasto sarà visibile solo quando si visuelezzarà il profilo di un altro utente
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            right: 15, left: 15, top: 5, bottom: 5),
+                        decoration: BoxDecoration(
+                            color: UIColors.platinium,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Text("follow",
+                            style: GoogleFonts.poppins(
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black)),
+                      ),
+                    )
+                  : const SizedBox(), //da commentare ovviamente e scommentare solo quando daremo la possibilità che gli utenti interagiscano tra di loro
             ],
           ),
           const SizedBox(height: 15),

@@ -93,7 +93,7 @@ class MainTrophyWidget extends StatelessWidget {
               );
             },
             child: CircleAvatar(
-              backgroundColor: UIColors.blue,
+              backgroundColor: UIColors.mainColor,
               radius: 26,
               child: Text(
                 "+20",

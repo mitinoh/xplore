@@ -296,11 +296,11 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintStyle: GoogleFonts.poppins(
                     color: lightDark.unselectedWidgetColor, fontSize: 14),
                 border: const OutlineInputBorder(),
-                suffixIconColor: UIColors.blue,
+                suffixIconColor: UIColors.mainColor,
                 prefixIcon: IconButton(
                   icon: Icon(
                     Iconsax.search_normal,
-                    color: UIColors.blue,
+                    color: UIColors.mainColor,
                   ),
                   color: Colors.white,
                   onPressed: () {
@@ -472,7 +472,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: UIColors.blue),
+                                color: UIColors.mainColor),
                           ),
                         ],
                       ),

@@ -39,7 +39,7 @@ class ImageTile extends StatelessWidget {
                   placeholder: (context, url) => const LoadingIndicator(),
                   errorWidget: (context, url, error) => Center(
                     child: Icon(Iconsax.gallery_slash,
-                        size: 30, color: UIColors.lightRed),
+                        size: 30, color: UIColors.lightblue),
                   ),
                 )),
           ),

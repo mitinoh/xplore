@@ -80,6 +80,7 @@ class _UserScreenState extends State<UserScreen> {
                             lightDark: lightDark,
                             tabs: tabs,
                             user: widget.user,
+                            visualOnly: widget.visualOnly,
                           ),
                         ];
                       },
@@ -118,7 +119,7 @@ class _UserScreenState extends State<UserScreen> {
             if (state is SavedLocationLoadedState) {
               return RefreshIndicator(
                 color: UIColors.white,
-                backgroundColor: UIColors.blue,
+                backgroundColor: UIColors.mainColor,
                 edgeOffset: 0,
                 onRefresh: () {
                   context.read<SavedLocationBloc>().add(
@@ -201,7 +202,7 @@ class _UserScreenState extends State<UserScreen> {
             if (state is UploadedLocationLoadedState) {
               return RefreshIndicator(
                 color: UIColors.white,
-                backgroundColor: UIColors.blue,
+                backgroundColor: UIColors.mainColor,
                 edgeOffset: 0,
                 onRefresh: () {
                   context.read<UploadedLocationBloc>().add(
@@ -293,7 +294,7 @@ class _UserScreenState extends State<UserScreen> {
                 )),
             leadingWidth: 44,
             title: Text(
-              "Il tuo profilo",
+              "nomeutente",
               style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -318,9 +319,36 @@ class _UserScreenState extends State<UserScreen> {
             ],
           )
         : SliverAppBar(
+            floating: true,
+            pinned: true,
+            snap: true,
+            elevation: 0,
+            centerTitle: true,
+            titleSpacing: 0,
+            automaticallyImplyLeading: false,
             backgroundColor: lightDark.scaffoldBackgroundColor,
             iconTheme: IconThemeData(color: lightDark.primaryColor),
             actionsIconTheme: IconThemeData(color: lightDark.primaryColor),
+            leading: GestureDetector(
+                onTap: () => {Navigator.pop(context)},
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
+                  child: Icon(Iconsax.arrow_left),
+                )),
+            leadingWidth: 44,
+            title: Text(
+              "nomeutente",
+              style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: lightDark.primaryColor),
+            ),
+            actions: const [
+              Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: Icon(Iconsax.flag),
+              )
+            ],
           );
   }
 }
@@ -331,13 +359,15 @@ class getSliverToBoxAdapter extends StatelessWidget {
       required this.lightDark,
       required this.tabs,
       required this.context,
-      this.user})
+      this.user,
+      required this.visualOnly})
       : super(key: key);
 
   final ThemeData lightDark;
   final List tabs;
   final BuildContext context;
   final UserModel? user;
+  final bool visualOnly;
 
   @override
   Widget build(BuildContext ctx) {
@@ -346,11 +376,11 @@ class getSliverToBoxAdapter extends StatelessWidget {
         padding: const EdgeInsets.only(left: 20.0, right: 20),
         child: Column(
           children: [
-            //const SizedBox(height: 20),
-            //const UserHeaderNavigation(),
-            //const SizedBox(height: 10),
-
-            UserInformation(context: context, user: user),
+            UserInformation(
+              context: context,
+              user: user,
+              visualOnly: visualOnly,
+            ),
             //const SizedBox(height: 20),
             //const CounterFollowerAndTrips(),
             const SizedBox(height: 10),
