@@ -9,8 +9,10 @@ class Mongoose {
   String getUrl() {
     String url = "";
     filter?.asMap().forEach((index, f) {
-      if (index > 0) url += "&";
-      url += f.key + f.operation + f.value;
+      if(f.value != null) {
+        if (index > 0) url += "&";
+        url += f.key + f.operation + f.value!;
+      }
     });
     if (select != null && select!.isNotEmpty) {
       url += "&select=";
@@ -29,7 +31,7 @@ class Mongoose {
 class Filter {
   String key;
   String operation;
-  String value;
+  String? value;
 
   Filter({required this.key, required this.operation, required this.value});
 }

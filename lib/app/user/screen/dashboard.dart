@@ -104,8 +104,8 @@ class _UserScreenState extends State<UserScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) =>
-              SavedLocationBloc()..add(const SavedLocationInitUserListEvent()),
+          create: (_) => SavedLocationBloc()
+            ..add(SavedLocationInitUserListEvent(uid: widget.user?.sId)),
         ),
         BlocProvider(
           create: (_) => UploadedLocationBloc()
@@ -121,12 +121,13 @@ class _UserScreenState extends State<UserScreen> {
                 backgroundColor: UIColors.blue,
                 edgeOffset: 0,
                 onRefresh: () {
-                  context
-                      .read<SavedLocationBloc>()
-                      .add(SavedLocationInitUserListEvent());
+                  context.read<SavedLocationBloc>().add(
+                      SavedLocationGetUserListEvent(
+                          savedLocationList: state.savedLocationList,
+                          uid: widget.user?.sId));
                   return Future<void>.delayed(const Duration(seconds: 1));
                 },
-                child: (state.savedLocationList.length > 0)
+                child: (state.savedLocationList.isNotEmpty)
                     ? CustomScrollView(
                         // key: PageStorageKey<String>(obj["name"]),
                         slivers: [
@@ -203,9 +204,10 @@ class _UserScreenState extends State<UserScreen> {
                 backgroundColor: UIColors.blue,
                 edgeOffset: 0,
                 onRefresh: () {
-                  context
-                      .read<UploadedLocationBloc>()
-                      .add(UploadedLocationInitUserListEvent());
+                  context.read<UploadedLocationBloc>().add(
+                      UploadedLocationGetUserListEvent(
+                          uploadedLocationList: state.uploadedLocationList,
+                          uid: widget.user?.sId));
 
                   return Future<void>.delayed(const Duration(seconds: 1));
                 },

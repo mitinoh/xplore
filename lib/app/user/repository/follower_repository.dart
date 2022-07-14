@@ -11,14 +11,14 @@ class FollowerRepository {
 
   Future<FollowerCountModel> getFollowerCount(String? uid) async {
     String url = conf.followerCountColl;
-    if (uid != null) url += "/$uid";
+    if (uid != null) url += "?uid=$uid";
     Response response = await httpService.request(method: Method.GET, url: url);
     return FollowerCountModel.fromJson(response.data);
   }
 
   Future<FollowerModel> getFollower(String? uid) async {
     String url = conf.followerColl;
-    if (uid != null) url += "/$uid";
+    if (uid != null) url += "?uid=$uid";
     Response response = await httpService.request(method: Method.GET, url: url);
     return FollowerModel().toList(response);
   }

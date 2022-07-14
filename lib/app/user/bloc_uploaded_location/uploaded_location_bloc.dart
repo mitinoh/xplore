@@ -18,12 +18,13 @@ class UploadedLocationBloc
   }
 
   void _onInitUploadedLocationUserList(
-    UploadedLocationEvent event,
+    UploadedLocationInitUserListEvent event,
     Emitter<UploadedLocationState> emit,
   ) async {
     try {
       // TODO: impostare limite
-      Mongoose mng = Mongoose( select: ["-uid", "-cdate"]);
+      Mongoose mng = Mongoose( select: ["-uid", "-cdate"],
+          filter: [Filter(key: 'uid', operation: '=', value: event.uid)]);
       final newUploadedLocationList =
           await _userRepository.getUploadedLocationList(mng);
 
@@ -37,12 +38,13 @@ class UploadedLocationBloc
   }
 
   void _onGetUploadedLocationUserList(
-    UploadedLocationEvent event,
+    UploadedLocationGetUserListEvent event,
     Emitter<UploadedLocationState> emit,
   ) async {
     try {
       final state = this.state;
-      Mongoose mng = Mongoose(select: ["-uid", "-cdate"]);
+      Mongoose mng = Mongoose(select: ["-uid", "-cdate"],
+          filter: [Filter(key: 'uid', operation: '=', value: event.uid)]);
       final newUploadedLocationList =
           await _userRepository.getUploadedLocationList(mng);
 

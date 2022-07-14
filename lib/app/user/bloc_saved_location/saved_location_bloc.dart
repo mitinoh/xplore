@@ -17,12 +17,14 @@ class SavedLocationBloc extends Bloc<SavedLocationEvent, SavedLocationState> {
   }
 
   void _onInitSavedLocationUserList(
-    SavedLocationEvent event,
+    SavedLocationInitUserListEvent event,
     Emitter<SavedLocationState> emit,
   ) async {
     try {
       // TODO: impostare limite
-      Mongoose mng = Mongoose(select: ["-uid", "-cdate"]);
+      Mongoose mng = Mongoose(
+          select: ["-uid", "-cdate"],
+          filter: [Filter(key: 'uid', operation: '=', value: event.uid)]);
       final newSavedLocationList =
           await _userRepository.getSavedLocationList(mng);
 
@@ -36,12 +38,14 @@ class SavedLocationBloc extends Bloc<SavedLocationEvent, SavedLocationState> {
   }
 
   void _onGetSavedLocationUserList(
-    SavedLocationEvent event,
+    SavedLocationGetUserListEvent event,
     Emitter<SavedLocationState> emit,
   ) async {
     try {
       final state = this.state;
-      Mongoose mng = Mongoose(select: ["-uid", "-cdate"]);
+      Mongoose mng = Mongoose(
+          select: ["-uid", "-cdate"],
+          filter: [Filter(key: 'uid', operation: '=', value: event.uid)]);
       final newSavedLocationList =
           await _userRepository.getSavedLocationList(mng);
 

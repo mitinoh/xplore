@@ -9,13 +9,15 @@ abstract class UploadedLocationEvent extends Equatable {
 
 
 class UploadedLocationInitUserListEvent extends UploadedLocationEvent {
-  const UploadedLocationInitUserListEvent();
+  final String? uid;
+  const UploadedLocationInitUserListEvent({this.uid});
 }
 
 
 class UploadedLocationGetUserListEvent extends UploadedLocationEvent {
   final List<LocationModel> uploadedLocationList;
-  const UploadedLocationGetUserListEvent({required this.uploadedLocationList});
+  final String? uid;
+  const UploadedLocationGetUserListEvent({required this.uploadedLocationList, this.uid});
 
   @override
   List<Object> get props => [uploadedLocationList];
