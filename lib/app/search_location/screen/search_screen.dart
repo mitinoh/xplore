@@ -406,7 +406,10 @@ class _SearchScreenState extends State<SearchScreen> {
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      separatorBuilder: (_, __) => Divider(),
+      separatorBuilder: (_, __) => Divider(
+        height: 30,
+        color: lightDark.primaryColor.withOpacity(0.1),
+      ),
       itemCount: userList.length,
       itemBuilder: (BuildContext context, int index) {
         // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta

@@ -24,6 +24,9 @@ class UserInformation extends StatelessWidget {
 
   Future<String> _userBio = UserRepository.getUserBio();
   Future<String> _userName = UserRepository.getUserName();
+
+  bool followState = false;
+
   @override
   Widget build(BuildContext ctx) {
     if (user != null) {
@@ -114,24 +117,31 @@ class UserInformation extends StatelessWidget {
                     }
                     return const Text("-");
                   }),
-              visualOnly
-                  ? Padding(
-                      //questo tasto sarà visibile solo quando si visuelezzarà il profilo di un altro utente
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                            right: 15, left: 15, top: 5, bottom: 5),
-                        decoration: BoxDecoration(
-                            color: UIColors.platinium,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Text("follow",
-                            style: GoogleFonts.poppins(
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black)),
-                      ),
-                    )
-                  : const SizedBox(), //da commentare ovviamente e scommentare solo quando daremo la possibilità che gli utenti interagiscano tra di loro
+              if (visualOnly)
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: InkWell(
+                    onTap: () {
+                      //qui cambierà stato quando l'utente iniziare a seguire qualcuno
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          right: 15, left: 15, top: 5, bottom: 5),
+                      decoration: BoxDecoration(
+                          color: UIColors.platinium,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Text(!followState ? "follow" : "following",
+                          style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w700,
+                              color: !followState
+                                  ? Colors.black
+                                  : UIColors.green)),
+                    ),
+                  ),
+                )
+              else
+                const SizedBox(),
             ],
           ),
           const SizedBox(height: 15),
