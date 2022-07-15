@@ -17,9 +17,17 @@ class FollowerRepository {
   }
 
   Future<FollowerModel> getFollower(String? uid) async {
-    String url = conf.followerColl;
+    String url = conf.followerListColl;
     if (uid != null) url += "?uid=$uid";
     Response response = await httpService.request(method: Method.GET, url: url);
     return FollowerModel().toList(response);
+  }
+
+  Future<void> followUser(String uid, bool follow) async {
+    String url = conf.followerColl + '/';
+    url += follow ? 'follow' : 'unfollow';
+    url += '/' + uid;
+    Response response =
+        await httpService.request(method: Method.POST, url: url);
   }
 }

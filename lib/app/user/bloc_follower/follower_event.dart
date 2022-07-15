@@ -11,3 +11,12 @@ class FollowerGetListEvent extends FollowerEvent {
   final String? uid;
   const FollowerGetListEvent({this.uid});
 }
+
+class FollowerFollowUserEvent extends FollowerEvent {
+  final String uid;
+  const FollowerFollowUserEvent({required this.uid});
+}
+class FollowerUnfollowUserEvent extends FollowerEvent {
+  final String uid;
+  const FollowerUnfollowUserEvent({required this.uid});
+}

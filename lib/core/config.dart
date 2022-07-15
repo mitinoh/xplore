@@ -59,10 +59,15 @@ class Config {
   }
 
   String get followerCountColl {
-    return ip + "follower/follower/count";
+    return followerColl + "/follower/count";
   }
-    String get followerColl {
-    return ip + "follower/follower/list";
+
+  String get followerListColl {
+    return followerColl + "/follower/list";
+  }
+
+  String get followerColl {
+    return ip + "follower";
   }
 
   String get locationImage {

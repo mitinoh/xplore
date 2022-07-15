@@ -23,5 +23,14 @@ class FollowerBloc extends Bloc<FollowerEvent, FollowerState> {
         emit(FollowerError(e.toString()));
       }
     });
+
+    on<FollowerFollowUserEvent>((event, emit) async {
+      try {
+        followerRepository.followUser(event.uid, true);
+      } catch (e, stacktrace) {
+        log(stacktrace.toString());
+        emit(FollowerError(e.toString()));
+      }
+    });
   }
 }

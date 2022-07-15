@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/user/bloc_follower/follower_bloc.dart';
 import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/app/user/screen/trophy_screen.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
@@ -122,6 +123,8 @@ class UserInformation extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8.0),
                   child: InkWell(
                     onTap: () {
+                      FollowerBloc()
+                        ..add(FollowerFollowUserEvent(uid: user?.sId ?? ''));
                       //qui cambierà stato quando l'utente iniziare a seguire qualcuno
                     },
                     child: Container(
