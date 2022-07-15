@@ -29,8 +29,7 @@ class MyThemes {
     backgroundColor: const Color(0xffF3F7FA),
     primaryColor: Colors.black, //Colore generale di tutti i testi
     primaryColorDark: Colors.black,
-    cardColor:
-        UIColors.grey.withOpacity(0.3), //Colore generale di tutti i bottoni
+    cardColor: UIColors.platinium, //Colore generale di tutti i bottoni
     unselectedWidgetColor: UIColors.grey,
     hoverColor: Colors.black,
     dividerColor: UIColors.platinium,

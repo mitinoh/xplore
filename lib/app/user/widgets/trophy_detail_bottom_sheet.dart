@@ -31,7 +31,7 @@ class TrophyDetailBottomSheet extends StatelessWidget {
               const SizedBox(height: 40),
               CircleAvatar(
                 radius: 70,
-                backgroundColor: UIColors.lightPurple,
+                backgroundColor: UIColors.lightblue,
                 child: const Icon(
                   Iconsax.crown_1,
                   color: Colors.white,
