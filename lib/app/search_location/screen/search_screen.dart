@@ -110,10 +110,10 @@ class _SearchScreenState extends State<SearchScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 0),
                 searchBar(lightDark),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 //suggestedLocation(),
                 gridHeader(lightDark),
@@ -237,9 +237,9 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 10.0, top: 20, bottom: 15),
+            padding: const EdgeInsets.only(right: 10.0, top: 15, bottom: 15),
             child: Text(
-              "Posti suggeriti",
+              "Suggerimenti",
               style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -403,9 +403,10 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget userList(List<UserModel> userList) {
-    return ListView.builder(
+    return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
+      separatorBuilder: (_, __) => Divider(),
       itemCount: userList.length,
       itemBuilder: (BuildContext context, int index) {
         // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta
@@ -421,65 +422,69 @@ class _SearchScreenState extends State<SearchScreen> {
                           user: userList[index],
                         )));
           },
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            child: Theme(
-                data: ThemeData(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    unselectedWidgetColor: Colors.grey.withOpacity(0.3)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                        radius: 25,
-                        backgroundColor: UIColors.bluelight,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover),
+          child: Theme(
+              data: ThemeData(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  unselectedWidgetColor: Colors.grey.withOpacity(0.3)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                          radius: 25,
+                          backgroundColor: UIColors.bluelight,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) =>
+                                  const LoadingIndicator(),
+                              errorWidget: (context, url, error) => Center(
+                                child: Icon(Iconsax.gallery_slash,
+                                    size: 30, color: UIColors.lightRed),
                               ),
                             ),
-                            placeholder: (context, url) =>
-                                const LoadingIndicator(),
-                            errorWidget: (context, url, error) => Center(
-                              child: Icon(Iconsax.gallery_slash,
-                                  size: 30, color: UIColors.lightRed),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              userList[index].name ?? '',
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: lightDark.primaryColor),
                             ),
-                          ),
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            userList[index].name ?? '',
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: lightDark.primaryColor),
-                          ),
-                          Text(
-                            "LV. 1",
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: UIColors.mainColor),
-                          ),
-                        ],
+                            Text(
+                              "LV. 1",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: UIColors.lightblue),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                )),
-          ),
+                    ],
+                  ),
+                  const Icon(Iconsax.arrow_right_1)
+                ],
+              )),
         );
       },
     );

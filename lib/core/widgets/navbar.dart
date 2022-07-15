@@ -65,8 +65,8 @@ class Navbar extends StatelessWidget {
   List<PersistentBottomNavBarItem> _navBarsItems(lightDark) {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(Iconsax.home_1),
-        iconSize: 22,
+        icon: const Icon(Iconsax.discover),
+        iconSize: 25,
         title: ("Home"),
         activeColorPrimary: UIColors.mainColor,
         inactiveColorPrimary: lightDark.primaryColor,
@@ -74,28 +74,28 @@ class Navbar extends StatelessWidget {
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.map),
         title: ("Map"),
-        iconSize: 22,
+        iconSize: 25,
         activeColorPrimary: UIColors.mainColor,
         inactiveColorPrimary: lightDark.primaryColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.location_add),
         title: ("Add"),
-        iconSize: 22,
+        iconSize: 25,
         activeColorPrimary: UIColors.mainColor,
         inactiveColorPrimary: lightDark.primaryColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.calendar_search),
         title: ("Trip"),
-        iconSize: 22,
+        iconSize: 25,
         activeColorPrimary: UIColors.mainColor,
         inactiveColorPrimary: lightDark.primaryColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Iconsax.user),
         title: ("Profile"),
-        iconSize: 22,
+        iconSize: 25,
         activeColorPrimary: UIColors.mainColor,
         inactiveColorPrimary: lightDark.primaryColor,
       ),
