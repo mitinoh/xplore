@@ -117,4 +117,8 @@ class UIColors {
   static Color get azure {
     return const Color(0xFFA9C6E0);
   }
+
+  static Color get transparent {
+    return Color.fromARGB(0, 255, 255, 255);
+  }
 }

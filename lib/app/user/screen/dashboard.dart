@@ -118,15 +118,21 @@ class _UserScreenState extends State<UserScreen> {
           builder: (context, state) {
             if (state is SavedLocationLoadedState) {
               return RefreshIndicator(
-                color: UIColors.white,
-                backgroundColor: UIColors.mainColor,
+                color:
+                    widget.user == null ? UIColors.white : UIColors.transparent,
+                backgroundColor: widget.user == null
+                    ? UIColors.mainColor
+                    : UIColors.transparent,
                 edgeOffset: 0,
-                onRefresh: () {
-                  context.read<SavedLocationBloc>().add(
-                      SavedLocationGetUserListEvent(
-                          savedLocationList: state.savedLocationList,
-                          uid: widget.user?.sId));
-                  return Future<void>.delayed(const Duration(seconds: 1));
+                onRefresh: () async {
+                  if (widget.user == null) {
+                    context.read<SavedLocationBloc>().add(
+                        SavedLocationGetUserListEvent(
+                            savedLocationList: state.savedLocationList,
+                            uid: widget.user?.sId));
+                    return Future<void>.delayed(const Duration(seconds: 1));
+                  } else
+                    return;
                 },
                 child: (state.savedLocationList.isNotEmpty)
                     ? CustomScrollView(
@@ -201,16 +207,23 @@ class _UserScreenState extends State<UserScreen> {
           builder: (context, state) {
             if (state is UploadedLocationLoadedState) {
               return RefreshIndicator(
-                color: UIColors.white,
-                backgroundColor: UIColors.mainColor,
+                color:
+                    widget.user == null ? UIColors.white : UIColors.transparent,
+                backgroundColor: widget.user == null
+                    ? UIColors.mainColor
+                    : UIColors.transparent,
                 edgeOffset: 0,
-                onRefresh: () {
-                  context.read<UploadedLocationBloc>().add(
-                      UploadedLocationGetUserListEvent(
-                          uploadedLocationList: state.uploadedLocationList,
-                          uid: widget.user?.sId));
+                onRefresh: () async {
+                  if (widget.user == null) {
+                    context.read<UploadedLocationBloc>().add(
+                        UploadedLocationGetUserListEvent(
+                            uploadedLocationList: state.uploadedLocationList,
+                            uid: widget.user?.sId));
 
-                  return Future<void>.delayed(const Duration(seconds: 1));
+                    return Future<void>.delayed(const Duration(seconds: 1));
+                  } else {
+                    return;
+                  }
                 },
                 child: (state.uploadedLocationList.length > 0)
                     ? CustomScrollView(
