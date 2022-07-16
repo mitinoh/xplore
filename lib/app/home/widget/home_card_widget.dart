@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/home/bloc/home_bloc.dart';
 import 'package:xplore/app/home/repository/home_repository.dart';
 import 'package:xplore/app/home/widget/pinned_menu_widget.dart';
+import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/config.dart';
 import 'package:xplore/model/location_model.dart';
@@ -131,7 +132,7 @@ class _BuildMainCardState extends State<BuildMainCard> {
     );
   }
 
-  Positioned header(MediaQueryData mediaQuery, lightDark) {
+  Widget header(MediaQueryData mediaQuery, lightDark) {
     return Positioned(
         top: mediaQuery.size.height * 0.1,
         left: 20,
@@ -139,17 +140,30 @@ class _BuildMainCardState extends State<BuildMainCard> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: lightDark.scaffoldBackgroundColor.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(20)),
-              child: Text(
-                  widget.model[_indexLocation].insertUid?.name ?? '@xplore',
-                  style: GoogleFonts.poppins(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: lightDark.primaryColor)),
+            InkWell(
+              onTap: () {
+                if (widget.model[_indexLocation].insertUid != null) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => UserScreen(
+                                visualOnly: true,
+                                user: widget.model[_indexLocation].insertUid,
+                              )));
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: lightDark.scaffoldBackgroundColor.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Text(
+                    widget.model[_indexLocation].insertUid?.name ?? '@xplore',
+                    style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: lightDark.primaryColor)),
+              ),
             ),
           ],
         ));

@@ -6,17 +6,17 @@ class UserModel {
   String? sId;
   String? name;
   String? bio;
-  bool? following;
+ // bool? following;
   List<LocationCategoryModel>? locationCategory;
 
   UserModel(
-      {this.sId, this.name, this.bio, this.locationCategory, this.following});
+      {this.sId, this.name, this.bio, this.locationCategory});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['username'];
     bio = json['bio'];
-    following = json['following'];
+   // following = json['following'];
     if (json['locationcategory'] != null) {
       locationCategory = <LocationCategoryModel>[];
       json['locationcategory'].forEach((v) {
@@ -30,7 +30,7 @@ class UserModel {
     data['_id'] = this.sId;
     data['username'] = this.name;
     data['bio'] = this.bio;
-    data['following'] = this.following;
+    //data['following'] = this.following;
     if (this.locationCategory != null) {
       data['locationcategory'] =
           this.locationCategory!.map((v) => v.toJson()).toList();

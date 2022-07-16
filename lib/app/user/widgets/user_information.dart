@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/user/bloc_follower/follower_bloc.dart';
+import 'package:xplore/app/user/repository/follower_repository.dart';
 import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/app/user/screen/trophy_screen.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
@@ -30,15 +31,24 @@ class UserInformation extends StatefulWidget {
 class _UserInformationState extends State<UserInformation> {
   Future<String> _userBio = UserRepository.getUserBio();
   Future<String> _userName = UserRepository.getUserName();
+  FollowerRepository _followerRepository = FollowerRepository();
 
   bool followState = false;
+
+  isFollwing() async {
+    bool following =
+        await _followerRepository.isFollowing(widget.user?.sId ?? '');
+    setState(() {
+      followState = following;
+    });
+  }
 
   @override
   void initState() {
     if (widget.user != null) {
       _userBio = Future.value(widget.user?.bio ?? "");
       _userName = Future.value(widget.user?.name ?? "");
-      followState = widget.user?.following ?? false;
+      isFollwing();
     }
     super.initState();
   }

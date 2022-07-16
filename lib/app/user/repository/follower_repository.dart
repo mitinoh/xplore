@@ -30,4 +30,11 @@ class FollowerRepository {
     Response response =
         await httpService.request(method: Method.POST, url: url);
   }
+
+  Future<bool> isFollowing(String uid) async {
+    String url = conf.followerColl + '/isfollowing';
+    url += '?uid=$uid';
+    Response response = await httpService.request(method: Method.GET, url: url);
+    return response.data == "true";
+  }
 }

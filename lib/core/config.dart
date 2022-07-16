@@ -59,11 +59,11 @@ class Config {
   }
 
   String get followerCountColl {
-    return followerColl + "/follower/count";
+    return followerColl + "/count";
   }
 
   String get followerListColl {
-    return followerColl + "/follower/list";
+    return followerColl + "/list";
   }
 
   String get followerColl {

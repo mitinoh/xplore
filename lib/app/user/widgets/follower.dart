@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/user/bloc_follower/follower_bloc.dart';
+import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/user_model.dart';
@@ -121,21 +122,39 @@ class FollowerBottomSheet extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        right: 20, left: 20, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                        // color: UIColors.platinium,
-                                        border: Border.all(
-                                            width: 1,
-                                            color:
-                                                Colors.grey.withOpacity(0.3)),
-                                        borderRadius: BorderRadius.circular(0)),
-                                    child: Text("visulizza profilo",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w600,
-                                            color: lightDark.primaryColor)),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (ctx) => UserScreen(
+                                                    visualOnly: true,
+                                                    user: state
+                                                        .followerList
+                                                        .followed?[index]
+                                                        .followed,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 20,
+                                          left: 20,
+                                          top: 5,
+                                          bottom: 5),
+                                      decoration: BoxDecoration(
+                                          // color: UIColors.platinium,
+                                          border: Border.all(
+                                              width: 1,
+                                              color:
+                                                  Colors.grey.withOpacity(0.3)),
+                                          borderRadius:
+                                              BorderRadius.circular(0)),
+                                      child: Text("visulizza profilo",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                              color: lightDark.primaryColor)),
+                                    ),
                                   )
                                 ],
                               ),
@@ -210,21 +229,39 @@ class FollowerBottomSheet extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        right: 20, left: 20, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                        // color: UIColors.platinium,
-                                        border: Border.all(
-                                            width: 1,
-                                            color:
-                                                Colors.grey.withOpacity(0.3)),
-                                        borderRadius: BorderRadius.circular(0)),
-                                    child: Text("visulizza profilo",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w600,
-                                            color: lightDark.primaryColor)),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (ctx) => UserScreen(
+                                                    visualOnly: true,
+                                                    user: state
+                                                        .followerList
+                                                        .following?[index]
+                                                        .followed,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 20,
+                                          left: 20,
+                                          top: 5,
+                                          bottom: 5),
+                                      decoration: BoxDecoration(
+                                          // color: UIColors.platinium,
+                                          border: Border.all(
+                                              width: 1,
+                                              color:
+                                                  Colors.grey.withOpacity(0.3)),
+                                          borderRadius:
+                                              BorderRadius.circular(0)),
+                                      child: Text("visulizza profilo",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                              color: lightDark.primaryColor)),
+                                    ),
                                   )
                                 ],
                               ),

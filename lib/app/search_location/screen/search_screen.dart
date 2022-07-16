@@ -416,7 +416,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
         return InkWell(
           onTap: () {
-            print(userList[index].sId);
             Navigator.push(
                 context,
                 MaterialPageRoute(
