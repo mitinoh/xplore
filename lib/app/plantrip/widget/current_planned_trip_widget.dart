@@ -87,9 +87,13 @@ class CurrentPlannedTripList extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
+            pTrip;
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TripDetailScreen()),
+              MaterialPageRoute(
+                  builder: (context) => TripDetailScreen(
+                        planTrip: pTrip,
+                      )),
             );
           },
           child: Align(

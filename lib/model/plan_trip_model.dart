@@ -1,44 +1,46 @@
 import 'package:dio/dio.dart';
 import 'package:xplore/model/coordinate_model.dart';
 import 'package:xplore/model/location_model.dart';
+import 'package:xplore/model/user_model.dart';
 
 class PlanTripModel {
   String? iId;
-  String? fid;
+  UserModel? uid;
   List<Trip>? trip;
   DateTime? returnDate;
   GeometryModel? geometry;
   int? distance;
-  int? periodAvaiable;
-  int? totDay;
+  //int? periodAvaiable;
+  //int? totDay;
   List<Object>? avoidCategory;
-  List<int>? dayAvaiable;
+  //List<int>? dayAvaiable;
   DateTime? goneDate;
   DateTime? cdate;
   String? tripName;
 
   PlanTripModel(
       {this.iId,
-      this.fid,
+      this.uid,
       this.trip,
       this.returnDate,
       this.geometry,
       this.distance,
-      this.periodAvaiable,
-      this.totDay,
+      //this.periodAvaiable,
+      //this.totDay,
       this.avoidCategory,
-      this.dayAvaiable,
+      //this.dayAvaiable,
       this.goneDate,
       this.cdate,
       this.tripName});
 
   PlanTripModel.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];
-    fid = json['fid'];
+    uid = UserModel.fromJson(json['uid']);
     tripName = json['tripName'];
-    if (json['trip'] != null) {
+
+    if (json['plannedLocation'] != null) {
       trip = <Trip>[];
-      json['trip'].forEach((v) {
+      json['plannedLocation'].forEach((v) {
         trip!.add(Trip.fromJson(v));
       });
     }
@@ -53,8 +55,8 @@ class PlanTripModel {
         ? GeometryModel.fromJson(json['geometry'])
         : null;
     distance = json['distance'].toInt();
-    periodAvaiable = json['periodAvaiable'];
-    totDay = json['totDay'];
+    //  periodAvaiable = json['periodAvaiable'];
+    //  totDay = json['totDay'];
 
     if (json['avoidCategory'] != null) {
       avoidCategory = <Object>[]; // FIXME: Creare model apposito
@@ -76,7 +78,7 @@ class PlanTripModel {
     if (iId != null) {
       data['_id'] = iId;
     }
-    data['fid'] = fid;
+    data['fid'] = uid;
     data['tripName'] = tripName;
     if (trip != null) {
       data['trip'] = trip!.map((v) => v.toJson()).toList();
@@ -88,14 +90,14 @@ class PlanTripModel {
       data['geometry'] = geometry!.toJson();
     }
     data['distance'] = distance;
-    data['periodAvaiable'] = periodAvaiable;
-    data['totDay'] = totDay;
+    //data['periodAvaiable'] = periodAvaiable;
+    //data['totDay'] = totDay;
     if (avoidCategory != null) {
       data['avoidCategory'] = avoidCategory!.map((v) => v).toList();
     }
-    if (dayAvaiable != null) {
-      data['dayAvaiable'] = dayAvaiable!.map((v) => v).toList();
-    }
+    //if (dayAvaiable != null) {
+    //  data['dayAvaiable'] = dayAvaiable!.map((v) => v).toList();
+    //}
     if (goneDate != null) {
       data['goneDate'] = goneDate!;
     }
@@ -161,15 +163,15 @@ class Date {
 }
 
 class Trip {
-  Date? date;
-  String? locationId;
+  DateTime? date;
+  //String? locationId;
   LocationModel? location;
 
-  Trip({this.date, this.locationId, this.location});
+  Trip({this.date, this.location});
 
   Trip.fromJson(Map<String, dynamic> json) {
-    date = json['date'] != null ? Date.fromJson(json['date']) : null;
-    locationId = json['locationId'];
+    date = json['date'] != null ? DateTime.parse(json['date']) : null;
+    //   locationId = json['locationId'];
     location = json['location'] != null
         ? LocationModel.fromJson(json['location'])
         : null;
@@ -178,10 +180,7 @@ class Trip {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (date != null) {
-      data['date'] = date!.toJson();
-    }
-    if (locationId != null) {
-      data['locationId'] = locationId!;
+      data['date'] = date;
     }
     if (location != null) {
       data['location'] = location!.toJson();

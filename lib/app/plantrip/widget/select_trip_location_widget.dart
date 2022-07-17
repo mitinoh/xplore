@@ -102,6 +102,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
         context.read<PlantripBloc>().planTripQuestionsMap["returnDate"];
     if (context.read<PlantripBloc>().planTripQuestionsMap["avoidCategory"] !=
         null) {
+      print(context.read<PlantripBloc>().planTripQuestionsMap["avoidCategory"]);
       avoidCategory = context
           .read<PlantripBloc>()
           .planTripQuestionsMap["avoidCategory"]

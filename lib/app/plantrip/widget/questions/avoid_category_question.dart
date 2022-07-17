@@ -92,11 +92,10 @@ class AvoidCategoryQuestion extends StatelessWidget {
   }
 
   void setCategoryToAvoid() {
-    if (CategoryPreference.catSelected.isNotEmpty) {
-      context.read<PlantripBloc>().planTripQuestionsMap["avoidCategory"] =
-          CategoryPreference.catSelected.join(',').toString();
-      // mng.filter?.putIfAbsent("locationcategory",  () => 'nin:' + CategoryPreference.catSelected.join(','));
-    }
+    print(CategoryPreference.catSelected.join(',').toString());
+    context.read<PlantripBloc>().planTripQuestionsMap["avoidCategory"] =
+        CategoryPreference.catSelected.join(',').toString();
+    // mng.filter?.putIfAbsent("locationcategory",  () => 'nin:' + CategoryPreference.catSelected.join(','));
 
     context
         .read<PlantripBloc>()

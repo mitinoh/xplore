@@ -2,15 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
+import 'package:xplore/model/plan_trip_model.dart';
 
 class TripDetailScreen extends StatelessWidget {
-  const TripDetailScreen({Key? key}) : super(key: key);
+  TripDetailScreen({Key? key, required this.planTrip}) : super(key: key);
 
+  PlanTripModel planTrip;
+
+  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  var lightDark;
   @override
   Widget build(BuildContext context) {
-    var lightDark = Theme.of(context);
+    lightDark = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -31,7 +37,7 @@ class TripDetailScreen extends StatelessWidget {
                         color: lightDark.primaryColor)),
                 leadingWidth: 23,
                 title: Text(
-                  "nome vacanza",
+                  planTrip.tripName ?? '',
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -68,10 +74,10 @@ class TripDetailScreen extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     return tripWidget(
-                      dayNumber: index,
+                      index,
                     );
                   },
-                  childCount: 12,
+                  childCount: planTrip.trip?.length,
                 ),
               ),
             ],
@@ -80,12 +86,117 @@ class TripDetailScreen extends StatelessWidget {
       ),
     );
   }
-}
 
+  Widget tripWidget(int tripIdx) {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: lightDark.dividerColor),
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                    Color(0xff9fccfa), //f0ebc0
+                    Color(0xff0974f1), //9dddf4
+                    //e93a28
+                  ]),
+                  shape: BoxShape.circle),
+              child: Padding(
+                padding: const EdgeInsets.all(2),
+                child: CircleAvatar(
+                  radius: 53,
+                  backgroundColor: lightDark.scaffoldBackgroundColor,
+                  child: CircleAvatar(
+                      radius: 50,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://images.unsplash.com/photo-1528744598421-b7b93e12df15?ixlib=rb-1.2.1&ixid=&auto=format&fit=crop&w=928&q=80',
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover),
+                            ),
+                          ),
+                          placeholder: (context, url) =>
+                              const LoadingIndicator(),
+                          errorWidget: (context, url, error) => Center(
+                            child: Icon(Iconsax.gallery_slash,
+                                size: 30, color: UIColors.lightRed),
+                          ),
+                        ),
+                      )),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    child: Text(planTrip.trip?[tripIdx].location?.name ?? '',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: lightDark.primaryColor)),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                    formatter
+                        .format(planTrip.trip?[tripIdx].date ?? DateTime.now()),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: lightDark.primaryColor)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 7.0),
+                  child: Icon(
+                    Iconsax.sun_1,
+                    size: 20,
+                    color: lightDark.primaryColor,
+                  ),
+                ),
+                Text("23°C",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: lightDark.primaryColor)),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
 // ignore: camel_case_types
+/*
 class tripWidget extends StatelessWidget {
-  const tripWidget({Key? key, required this.dayNumber}) : super(key: key);
-  final int dayNumber;
+  const tripWidget({Key? key, required this.tripIdx, }) : super(key: key);
+  final int tripIdx;
   @override
   Widget build(BuildContext context) {
     var lightDark = Theme.of(context);
@@ -144,7 +255,7 @@ class tripWidget extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5, right: 5),
-                    child: Text("Barcellona location nome",
+                    child: Text(planTr,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
@@ -162,7 +273,7 @@ class tripWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                    dayNumber == 1
+                    tripIdx == 1
                         ? "👉23 giugno".toLowerCase()
                         : "23 giugno".toLowerCase(),
                     textAlign: TextAlign.center,
@@ -174,7 +285,7 @@ class tripWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 7.0),
                   child: Text(
-                      (dayNumber + 1).toString() + "° giorno".toLowerCase(),
+                      (tripIdx + 1).toString() + "° giorno".toLowerCase(),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.poppins(
@@ -205,3 +316,4 @@ class tripWidget extends StatelessWidget {
     );
   }
 }
+*/
