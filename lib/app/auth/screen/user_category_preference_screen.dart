@@ -115,6 +115,7 @@ class UserCategoryPreferenceScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20)),
                           child: TextField(
                             controller: _usernameController,
+                            maxLength: 90,
                             textAlign: TextAlign.start,
                             style: TextStyle(
                                 color: lightDark.hoverColor, fontSize: 14),

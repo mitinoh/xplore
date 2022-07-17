@@ -15,6 +15,7 @@ import 'package:xplore/app/user/widgets/settings.dart';
 import 'package:xplore/app/user/widgets/user_information.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:xplore/core/widgets/detail_location_modal.dart';
+import 'package:xplore/core/widgets/report_bottom_sheet.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/user_model.dart';
 
@@ -362,10 +363,27 @@ class _UserScreenState extends State<UserScreen> {
                   fontWeight: FontWeight.w600,
                   color: lightDark.primaryColor),
             ),
-            actions: const [
+            actions: [
               Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: Icon(Iconsax.flag),
+                padding: const EdgeInsets.only(right: 20.0),
+                child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          useRootNavigator: true,
+                          backgroundColor: lightDark.backgroundColor,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                            ),
+                          ),
+                          builder: (context) {
+                            return const ReportBottomSheet();
+                          });
+                    },
+                    child: Icon(Iconsax.flag)),
               )
             ],
           );

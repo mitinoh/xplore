@@ -50,6 +50,21 @@ class LockTripBottomSheet extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: lightDark.primaryColor),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          right: 15, left: 15, top: 5, bottom: 5),
+                      decoration: BoxDecoration(
+                          color: UIColors.platinium,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Text("in corso...",
+                          style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w700,
+                              color: UIColors.green)),
+                    ),
+                  )
                 ],
               ),
               Padding(
