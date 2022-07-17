@@ -23,7 +23,7 @@ class UserRepository {
   Future<List<LocationModel>> getUploadedLocationList(Mongoose mng) async {
     String url = conf.uploadedLocationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
-    return LocationModel().toUploadedLocationList(response);
+    return LocationModel().toList(response);
   }
 
   Future<List<UserModel>> getUserList(Mongoose mng) async {

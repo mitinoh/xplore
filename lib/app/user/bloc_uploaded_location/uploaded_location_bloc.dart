@@ -47,7 +47,7 @@ class UploadedLocationBloc
       List<String> exludeId = [];
 
       event.uploadedLocationList.forEach((location) {
-        exludeId.add(location.savedId ?? '');
+        exludeId.add(location.iId ?? '');
       });
 
       Mongoose mng = Mongoose(select: [
