@@ -11,8 +11,7 @@ class PlanTripRepository {
   Config conf = Config();
   HttpService httpService = HttpService();
 
-  Future<List<LocationModel>> getLocationList(
-      {required Mongoose mng}) async {
+  Future<List<LocationModel>> getLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
     return LocationModel().toList(response);
@@ -31,13 +30,32 @@ class PlanTripRepository {
   }
 
   Future<List<PlanTripModel>> getPlannedTripList() async {
-    String url = conf.planTripColl + '?future=true';
+    Mongoose mng = Mongoose(filter: [
+      Filter(
+        key: 'goneDate',
+        operation: '>',
+        value: DateTime.now().toIso8601String(),
+      )
+    ]);
+    String url = conf.planTripColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
     return PlanTripModel().toList(response);
   }
 
   Future<List<PlanTripModel>> getCurrentPlannedTripList() async {
-    String url = conf.planTripColl + '?current=true';
+    Mongoose mng = Mongoose(filter: [
+      Filter(
+        key: 'returnDate',
+        operation: '>',
+        value: DateTime.now().toIso8601String(),
+      ),
+      Filter(
+        key: 'goneDate',
+        operation: '<',
+        value: DateTime.now().toIso8601String(),
+      )
+    ]);
+    String url = conf.planTripColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
     return PlanTripModel().toList(response);
   }
