@@ -43,9 +43,19 @@ class SavedLocationBloc extends Bloc<SavedLocationEvent, SavedLocationState> {
   ) async {
     try {
       final state = this.state;
-      Mongoose mng = Mongoose(
-          select: ["-uid", "-cdate"],
-          filter: [Filter(key: 'uid', operation: '=', value: event.uid)]);
+      List<String> exludeId = [];
+
+      event.savedLocationList.forEach((location) {
+        exludeId.add(location.savedId ?? '');
+      });
+
+      Mongoose mng = Mongoose(select: [
+        "-uid",
+        "-cdate"
+      ], filter: [
+        Filter(key: 'uid', operation: '=', value: event.uid),
+        Filter(key: '_id', operation: '!=', value: exludeId.join(','))
+      ]);
       final newSavedLocationList =
           await _userRepository.getSavedLocationList(mng);
 

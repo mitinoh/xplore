@@ -23,13 +23,15 @@ class UploadedLocationBloc
   ) async {
     try {
       // TODO: impostare limite
-      Mongoose mng = Mongoose( select: ["-uid", "-cdate"],
+      Mongoose mng = Mongoose(
+          select: ["-uid", "-cdate"],
           filter: [Filter(key: 'uid', operation: '=', value: event.uid)]);
       final newUploadedLocationList =
           await _userRepository.getUploadedLocationList(mng);
 
       emit(
-        UploadedLocationLoadedState(uploadedLocationList: newUploadedLocationList),
+        UploadedLocationLoadedState(
+            uploadedLocationList: newUploadedLocationList),
       );
     } catch (e, stacktrace) {
       log(stacktrace.toString());
@@ -42,9 +44,21 @@ class UploadedLocationBloc
     Emitter<UploadedLocationState> emit,
   ) async {
     try {
+      List<String> exludeId = [];
+
+      event.uploadedLocationList.forEach((location) {
+        exludeId.add(location.savedId ?? '');
+      });
+
+      Mongoose mng = Mongoose(select: [
+        "-uid",
+        "-cdate"
+      ], filter: [
+        Filter(key: 'uid', operation: '=', value: event.uid),
+        Filter(key: '_id', operation: '!=', value: exludeId.join(','))
+      ]);
+
       final state = this.state;
-      Mongoose mng = Mongoose(select: ["-uid", "-cdate"],
-          filter: [Filter(key: 'uid', operation: '=', value: event.uid)]);
       final newUploadedLocationList =
           await _userRepository.getUploadedLocationList(mng);
 
