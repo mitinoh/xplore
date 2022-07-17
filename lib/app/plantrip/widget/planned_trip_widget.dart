@@ -91,7 +91,11 @@ class PlannedTripList extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                const Divider(height: 30),
+                                Divider(
+                                  height: 30,
+                                  color:
+                                      lightDark.primaryColor.withOpacity(0.1),
+                                ),
                               ],
                             ),
                           );

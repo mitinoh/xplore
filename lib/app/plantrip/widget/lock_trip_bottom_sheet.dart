@@ -14,7 +14,7 @@ class LockTripBottomSheet extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     var lightDark = Theme.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.45,
+      height: mediaQuery.size.height * 0.65,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
@@ -28,7 +28,7 @@ class LockTripBottomSheet extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               CircleAvatar(
                 radius: 70,
                 backgroundColor: UIColors.lightPurple,
@@ -39,25 +39,134 @@ class LockTripBottomSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Text(
-                "vacanza non pronta",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: lightDark.primaryColor),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Nome vacanza",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: lightDark.primaryColor),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20, top: 5),
-                child: Text(
-                  "Questa vacanza è stata programmata, sarà disponibile quando è in corso",
+                child: RichText(
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                      color: lightDark.primaryColor),
+                  text: TextSpan(
+                      text: "Il giorno ",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          color: lightDark.primaryColor),
+                      children: <TextSpan>[
+                        const TextSpan(
+                            text: "21-07-2022",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              //decoration: TextDecoration.underline,
+                            )),
+                        TextSpan(
+                            text: " hai pianificato una vacanza di ",
+                            style: TextStyle(
+                              color: lightDark.primaryColor,
+                            )),
+                        const TextSpan(
+                          text: "n",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            //decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        TextSpan(
+                            text: " giorni a ",
+                            style: TextStyle(
+                              color: lightDark.primaryColor,
+                            )),
+                        const TextSpan(
+                          text: "Barcellona",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            //decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ]),
                 ),
               ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                          "Questa vacanza è stata programmata, sarà disponibile quando sarà in corso.",
+                          overflow: TextOverflow.visible,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.grey)),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.only(top: 20, bottom: 20),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: UIColors.platinium),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.edit),
+                        ),
+                        Text(
+                          "Modifica",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                              fontSize: 14.5,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      height: 30,
+                      thickness: 2,
+                      color: lightDark.scaffoldBackgroundColor,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Icon(
+                            Icons.cancel,
+                            color: UIColors.accentRed,
+                          ),
+                        ),
+                        Text(
+                          "Cancella",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                              fontSize: 14.5,
+                              fontWeight: FontWeight.w600,
+                              color: UIColors.accentRed),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),

@@ -145,13 +145,11 @@ class _UserInformationState extends State<UserInformation> {
                   child: InkWell(
                     onTap: () {
                       if (followState) {
-                        FollowerBloc()
-                          ..add(FollowerUnfollowUserEvent(
-                              uid: widget.user?.sId ?? ''));
+                        FollowerBloc().add(FollowerUnfollowUserEvent(
+                            uid: widget.user?.sId ?? ''));
                       } else {
-                        FollowerBloc()
-                          ..add(FollowerFollowUserEvent(
-                              uid: widget.user?.sId ?? ''));
+                        FollowerBloc().add(FollowerFollowUserEvent(
+                            uid: widget.user?.sId ?? ''));
                       }
                       setState(() {
                         // TODO : fare questo con un event handler in base a cosa ritorna backend

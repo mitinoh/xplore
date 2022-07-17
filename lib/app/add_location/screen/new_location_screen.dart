@@ -48,10 +48,10 @@ class _NewLocationState extends State<NewLocation> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(left: 20.0, right: 20),
             child: Column(
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 headerTitle(),
                 const SizedBox(
                   height: 20,
@@ -93,6 +93,9 @@ class _NewLocationState extends State<NewLocation> {
                   height: 20,
                 ),
                 addLocationBtn(),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),
@@ -148,10 +151,32 @@ class _NewLocationState extends State<NewLocation> {
       onTap: () {
         _createNewLocation();
       },
-      child: ConfirmButton(
-        text: "raccomanda luogo",
-        colors: UIColors.green,
-        colorsText: Colors.black,
+      child: Container(
+        padding:
+            const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: UIColors.mainColor,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(right: 15.0, left: 15),
+              child: Icon(
+                Iconsax.tick_circle,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              "Raccomanda destinazione!",
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -295,9 +320,11 @@ class _NewLocationState extends State<NewLocation> {
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
             controller: _nameController,
+            maxLength: 90,
             textAlign: TextAlign.start,
             style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
             decoration: InputDecoration(
+              counterStyle: TextStyle(color: lightDark.unselectedWidgetColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -335,7 +362,7 @@ class _NewLocationState extends State<NewLocation> {
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: "Indirizzo",
+              hintText: "Indirizzo luogo",
               hintStyle: GoogleFonts.poppins(
                   color: lightDark.unselectedWidgetColor, fontSize: 14),
               border: const OutlineInputBorder(),

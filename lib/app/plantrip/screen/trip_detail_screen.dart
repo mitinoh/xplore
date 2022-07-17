@@ -171,6 +171,17 @@ class TripDetailScreen extends StatelessWidget {
                         color: lightDark.primaryColor)),
                 Padding(
                   padding: const EdgeInsets.only(left: 7.0),
+                  child: Text(
+                      (tripIdx + 1).toString() + "° giorno".toLowerCase(),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: lightDark.primaryColor)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 7.0),
                   child: Icon(
                     Iconsax.sun_1,
                     size: 20,
