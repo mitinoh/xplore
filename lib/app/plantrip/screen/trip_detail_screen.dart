@@ -172,7 +172,8 @@ class TripDetailScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 7.0),
                   child: Text(
-                      (tripIdx + 1).toString() + "° giorno".toLowerCase(),
+                      (getTripVisitDay(tripIdx)).toString() +
+                          "° giorno".toLowerCase(),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.poppins(
@@ -201,6 +202,12 @@ class TripDetailScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  int getTripVisitDay(int tripIdx) {
+    DateTime? tripDate = planTrip.trip?[tripIdx].date;
+    int? differenceDays = tripDate?.difference(planTrip.goneDate ?? tripDate).inDays;
+    return differenceDays ?? 0;
   }
 }
 // ignore: camel_case_types
