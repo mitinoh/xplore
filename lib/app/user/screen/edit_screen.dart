@@ -105,7 +105,7 @@ class EditProfile extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20)),
                             child: TextField(
                               controller: _usernameController,
-                              maxLength: 18,
+                              maxLength: 16,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                   color: lightDark.hoverColor, fontSize: 14),

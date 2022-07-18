@@ -134,26 +134,26 @@ class _UserInformationState extends State<UserInformation> {
                   future: _userName,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return Expanded(
-                        child: RichText(
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: snapshot.data.toString(),
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: lightDark.primaryColor)),
-                              TextSpan(
-                                  text: ' LV. 1',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: const Color(0xff3498db)))
-                            ],
-                          ),
+                      return RichText(
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.end,
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: snapshot.data.toString().length > 16
+                                    ? '${snapshot.data.toString().substring(0, 16)}..'
+                                    : snapshot.data.toString(),
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: lightDark.primaryColor)),
+                            TextSpan(
+                                text: ' LV. 100',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: const Color(0xff3498db)))
+                          ],
                         ),
                       );
                     }
