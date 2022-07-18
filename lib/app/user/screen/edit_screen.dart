@@ -10,6 +10,7 @@ import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/core/UIColors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xplore/core/widgets/subtitle.dart';
 
 class EditProfile extends StatelessWidget {
   EditProfile({Key? key, required this.context}) : super(key: key);
@@ -88,19 +89,10 @@ class EditProfile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                                "lorem ipsum is simply dummy text of the printing and typesetting industry.",
-                                overflow: TextOverflow.visible,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.grey)),
-                          )
-                        ],
-                      ),
+                      const Subtitle(
+                          text:
+                              "Qui puoi cambiare il tuo username e personalizzare in base al tuo stile o alla tua personalità la tua biografia.",
+                          colors: Colors.grey),
                       const SizedBox(height: 20),
                       Row(
                         children: [
@@ -113,6 +105,7 @@ class EditProfile extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20)),
                             child: TextField(
                               controller: _usernameController,
+                              maxLength: 18,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                   color: lightDark.hoverColor, fontSize: 14),
@@ -174,7 +167,7 @@ class EditProfile extends StatelessWidget {
                           ))
                         ],
                       ),
-                      const SizedBox(height: 5),
+                      /*const SizedBox(height: 5),
                       Container(
                         padding: const EdgeInsets.only(
                             left: 15, top: 20, right: 20, bottom: 20),
@@ -207,7 +200,7 @@ class EditProfile extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ),
+                      ),*/
                     ]),
               ),
             ],

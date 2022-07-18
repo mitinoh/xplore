@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:xplore/app/user/bloc_follower/follower_bloc.dart';
 import 'package:xplore/app/user/repository/follower_repository.dart';
 import 'package:xplore/app/user/repository/user_repository.dart';
@@ -53,6 +54,21 @@ class _UserInformationState extends State<UserInformation> {
     super.initState();
   }
 
+  XFile? image;
+  final ImagePicker _picker = ImagePicker();
+
+  _getFromGallery() async {
+    // _picker.pickImage(source: ImageSource.gallery);
+    image = await _picker.pickImage(source: ImageSource.gallery);
+    /*
+    String base64Image = "";
+    if (image != null) {
+      final bytes = File(image!.path).readAsBytesSync();
+      base64Image = "data:image/png;base64," + base64Encode(bytes);
+      log(base64Image.toString());
+    }*/
+  }
+
   @override
   Widget build(BuildContext ctx) {
     var lightDark = Theme.of(context);
@@ -97,6 +113,7 @@ class _UserInformationState extends State<UserInformation> {
                       right: 0,
                       child: InkWell(
                         onTap: () {
+                          _getFromGallery();
                           //qui si scatena l'evento del caricamento
                         },
                         child: CircleAvatar(
@@ -117,23 +134,26 @@ class _UserInformationState extends State<UserInformation> {
                   future: _userName,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: snapshot.data.toString(),
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: lightDark.primaryColor)),
-                            TextSpan(
-                                text: ' LV. 1',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: const Color(0xff3498db)))
-                          ],
+                      return Expanded(
+                        child: RichText(
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: snapshot.data.toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: lightDark.primaryColor)),
+                              TextSpan(
+                                  text: ' LV. 1',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: const Color(0xff3498db)))
+                            ],
+                          ),
                         ),
                       );
                     }

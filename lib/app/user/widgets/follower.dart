@@ -69,58 +69,54 @@ class FollowerBottomSheet extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                   top: 20.0, left: 0, right: 10),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 8.0),
-                                          child: CircleAvatar(
-                                              radius: 22,
-                                              backgroundColor:
-                                                  UIColors.bluelight,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(22),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      'https://www.nickiswift.com/img/gallery/what-you-dont-know-about-madison-beers-virtual-idol-career/intro-1606938484.jpg',
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
+                                  Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: CircleAvatar(
+                                          radius: 22,
+                                          backgroundColor: UIColors.bluelight,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(22),
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  'https://www.nickiswift.com/img/gallery/what-you-dont-know-about-madison-beers-virtual-idol-career/intro-1606938484.jpg',
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
                                                       Container(
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: imageProvider,
-                                                          fit: BoxFit.cover),
-                                                    ),
-                                                  ),
-                                                  placeholder: (context, url) =>
-                                                      const LoadingIndicator(),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Center(
-                                                    child: Icon(
-                                                        Iconsax.gallery_slash,
-                                                        size: 30,
-                                                        color:
-                                                            UIColors.lightRed),
-                                                  ),
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover),
                                                 ),
-                                              ))),
-                                      Text(
-                                        state.followerList.followed?[index]
-                                                .followed?.name ??
-                                            "",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                            color: lightDark.primaryColor),
-                                      )
-                                    ],
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  const LoadingIndicator(),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Center(
+                                                child: Icon(
+                                                    Iconsax.gallery_slash,
+                                                    size: 30,
+                                                    color: UIColors.lightRed),
+                                              ),
+                                            ),
+                                          ))),
+                                  Expanded(
+                                    child: Text(
+                                      state.followerList.followed?[index]
+                                              .followed?.name ??
+                                          "",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: lightDark.primaryColor),
+                                    ),
                                   ),
                                   InkWell(
                                     onTap: () {
@@ -176,58 +172,54 @@ class FollowerBottomSheet extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                   top: 20.0, left: 0, right: 10),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 8.0),
-                                          child: CircleAvatar(
-                                              radius: 22,
-                                              backgroundColor:
-                                                  UIColors.bluelight,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(22),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      'https://www.nickiswift.com/img/gallery/what-you-dont-know-about-madison-beers-virtual-idol-career/intro-1606938484.jpg',
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
+                                  Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: CircleAvatar(
+                                          radius: 22,
+                                          backgroundColor: UIColors.bluelight,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(22),
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  'https://www.nickiswift.com/img/gallery/what-you-dont-know-about-madison-beers-virtual-idol-career/intro-1606938484.jpg',
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
                                                       Container(
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: imageProvider,
-                                                          fit: BoxFit.cover),
-                                                    ),
-                                                  ),
-                                                  placeholder: (context, url) =>
-                                                      const LoadingIndicator(),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Center(
-                                                    child: Icon(
-                                                        Iconsax.gallery_slash,
-                                                        size: 30,
-                                                        color:
-                                                            UIColors.lightRed),
-                                                  ),
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover),
                                                 ),
-                                              ))),
-                                      Text(
-                                        state.followerList.following?[index]
-                                                .followed?.name ??
-                                            "",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                            color: lightDark.primaryColor),
-                                      )
-                                    ],
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  const LoadingIndicator(),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Center(
+                                                child: Icon(
+                                                    Iconsax.gallery_slash,
+                                                    size: 30,
+                                                    color: UIColors.lightRed),
+                                              ),
+                                            ),
+                                          ))),
+                                  Expanded(
+                                    child: Text(
+                                      state.followerList.following?[index]
+                                              .followed?.name ??
+                                          "",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: lightDark.primaryColor),
+                                    ),
                                   ),
                                   InkWell(
                                     onTap: () {
