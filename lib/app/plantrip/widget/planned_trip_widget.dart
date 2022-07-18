@@ -121,8 +121,7 @@ class PlannedTripList extends StatelessWidget {
         pt.geometry?.coordinates?[0] ?? 0.0,
         pt.geometry?.coordinates?[1] ?? 0.0);*/
     //Placemark place = placemarks[0];
-    return pt.tripName!
-            .replaceFirst(pt.tripName![0], pt.tripName![0].toUpperCase()) +
+    return pt.tripName!.replaceFirst(pt.tripName![0], pt.tripName![0].toUpperCase()) +
         ', ' +
         formatter.format(pt.goneDate!.toUtc());
   }

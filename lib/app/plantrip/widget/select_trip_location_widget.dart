@@ -325,8 +325,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     }
 
     Map<String, dynamic> planQuery = {};
-    planQuery["goneDate"] = goneDate.toIso8601String();
-    planQuery["returnDate"] = returnDate.toIso8601String();
+    planQuery["goneDate"] = DateUtils.dateOnly(goneDate).toIso8601String();
+    planQuery["returnDate"] = DateUtils.dateOnly(returnDate).toIso8601String();
     planQuery["plannedLocation"] = planList;
     planQuery["tripName"] = tripName;
     planQuery["distance"] = distance;
