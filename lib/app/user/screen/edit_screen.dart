@@ -110,6 +110,8 @@ class EditProfile extends StatelessWidget {
                               style: TextStyle(
                                   color: lightDark.hoverColor, fontSize: 14),
                               decoration: InputDecoration(
+                                counterStyle: TextStyle(
+                                    color: lightDark.unselectedWidgetColor),
                                 contentPadding: const EdgeInsets.all(15.0),
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,

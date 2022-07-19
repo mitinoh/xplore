@@ -7,6 +7,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/plantrip/bloc/plantrip_bloc.dart';
 import 'package:xplore/app/plantrip/screen/trip_detail_screen.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widgets/snackbar_message.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/plan_trip_model.dart';
@@ -82,6 +83,7 @@ class CurrentPlannedTripList extends StatelessWidget {
   }
 
   Column currentTripCard(PlanTripModel pTrip, context, lightDarkt) {
+    Config conf = Config();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -117,7 +119,7 @@ class CurrentPlannedTripList extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50),
                         child: CachedNetworkImage(
                           imageUrl:
-                              'https://images.unsplash.com/photo-1528744598421-b7b93e12df15?ixlib=rb-1.2.1&ixid=&auto=format&fit=crop&w=928&q=80',
+                              conf.getLocationImageUrl(pTrip.uid!.sId ?? ''),
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
@@ -128,7 +130,7 @@ class CurrentPlannedTripList extends StatelessWidget {
                               const LoadingIndicator(),
                           errorWidget: (context, url, error) => Center(
                             child: Icon(Iconsax.gallery_slash,
-                                size: 30, color: UIColors.lightRed),
+                                size: 30, color: UIColors.bluelight),
                           ),
                         ),
                       )),

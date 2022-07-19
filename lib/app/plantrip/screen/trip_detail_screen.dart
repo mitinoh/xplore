@@ -4,8 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/widgets/detail_location_modal.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/plan_trip_model.dart';
+
+import '../../../core/config.dart';
 
 class TripDetailScreen extends StatelessWidget {
   TripDetailScreen({Key? key, required this.planTrip}) : super(key: key);
@@ -14,6 +17,7 @@ class TripDetailScreen extends StatelessWidget {
 
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
   var lightDark;
+  Config conf = Config();
   @override
   Widget build(BuildContext context) {
     lightDark = Theme.of(context);
@@ -73,8 +77,12 @@ class TripDetailScreen extends StatelessWidget {
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return tripWidget(
-                      index,
+                    return InkWell(
+                      onTap: () {},
+                      child: tripWidget(
+                        context,
+                        index,
+                      ),
                     );
                   },
                   childCount: planTrip.trip?.length,
@@ -87,9 +95,12 @@ class TripDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget tripWidget(int tripIdx) {
+  Widget tripWidget(BuildContext context, int tripIdx) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        DetailLocationModal(loc: planTrip.trip![tripIdx].location!)
+            .show(context);
+      },
       child: Container(
         decoration: BoxDecoration(
           border: Border(
@@ -117,8 +128,8 @@ class TripDetailScreen extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: CachedNetworkImage(
-                          imageUrl:
-                              'https://images.unsplash.com/photo-1528744598421-b7b93e12df15?ixlib=rb-1.2.1&ixid=&auto=format&fit=crop&w=928&q=80',
+                          imageUrl: conf.getLocationImageUrl(
+                              planTrip.trip?[tripIdx].location?.iId ?? ''),
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
@@ -129,7 +140,7 @@ class TripDetailScreen extends StatelessWidget {
                               const LoadingIndicator(),
                           errorWidget: (context, url, error) => Center(
                             child: Icon(Iconsax.gallery_slash,
-                                size: 30, color: UIColors.lightRed),
+                                size: 30, color: UIColors.bluelight),
                           ),
                         ),
                       )),
@@ -206,8 +217,9 @@ class TripDetailScreen extends StatelessWidget {
 
   int getTripVisitDay(int tripIdx) {
     DateTime? tripDate = planTrip.trip?[tripIdx].date;
-    int? differenceDays = tripDate?.difference(planTrip.goneDate ?? tripDate).inDays;
-    return differenceDays ?? 0;
+    int? differenceDays =
+        tripDate?.difference(planTrip.goneDate ?? tripDate).inDays;
+    return (differenceDays ?? 0) + 1;
   }
 }
 // ignore: camel_case_types
