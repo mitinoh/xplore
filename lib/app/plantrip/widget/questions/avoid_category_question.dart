@@ -84,7 +84,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
             },
             child: ConfirmButton(
               text: "prossima domanda",
-              colors: UIColors.lightGreen,
+              colors: UIColors.mainColor,
               colorsText: Colors.black,
             )),
       ],

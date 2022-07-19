@@ -62,7 +62,7 @@ class TripNameQuestion extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: lightDark.cardColor,
                       borderRadius: BorderRadius.circular(20)),
-                  child: TextFormField(
+                  child: TextField(
                     controller: _nameController,
                     textAlign: TextAlign.start,
                     style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
@@ -71,10 +71,9 @@ class TripNameQuestion extends StatelessWidget {
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       hintText: "Nome vacanza",
-                      hintStyle: TextStyle(
+                      hintStyle: GoogleFonts.poppins(
                           color: lightDark.unselectedWidgetColor, fontSize: 14),
                       border: const OutlineInputBorder(),
-                      suffixIconColor: UIColors.mainColor,
                       prefixIcon: Icon(
                         Iconsax.note,
                         color: UIColors.mainColor,
@@ -84,7 +83,7 @@ class TripNameQuestion extends StatelessWidget {
                   ),
                 ))
               ],
-            ),
+            )
           ],
         ),
         InkWell(
@@ -112,7 +111,7 @@ class TripNameQuestion extends StatelessWidget {
           },
           child: ConfirmButton(
             text: "prossima domanda",
-            colors: UIColors.lightGreen,
+            colors: UIColors.mainColor,
             colorsText: Colors.black,
           ),
         ),

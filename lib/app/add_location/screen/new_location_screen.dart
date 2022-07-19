@@ -165,15 +165,15 @@ class _NewLocationState extends State<NewLocation> {
               padding: EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
                 Iconsax.tick_circle,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
             Text(
-              "Raccomanda destinazione!",
+              "Raccomanda destinazione",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   fontSize: 14,
-                  color: Colors.white),
+                  color: Colors.black),
             ),
           ],
         ),

@@ -148,7 +148,7 @@ class _UserInformationState extends State<UserInformation> {
                                     fontWeight: FontWeight.w700,
                                     color: lightDark.primaryColor)),
                             TextSpan(
-                                text: ' LV. 100',
+                                text: ' LV. 1',
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,

@@ -202,7 +202,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
           },
           child: ConfirmButton(
             text: "prossima domanda",
-            colors: UIColors.lightGreen,
+            colors: UIColors.mainColor,
             colorsText: Colors.black,
           ),
         ),

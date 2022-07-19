@@ -38,8 +38,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       DateTime.now().add(const Duration(hours: 1)); //DateUtils.dateOnly(
 
   int questNum = 0;
-  double valueProgressIndicator = 0;
-  double _currentSliderValue = 20;
+  double valueProgressIndicator = 0.166;
+  //double _currentSliderValue = 20;
   Map<String, dynamic> planQuery = {};
   Mongoose mng = Mongoose(select: [], sort: {});
 
