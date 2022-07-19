@@ -7,12 +7,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:xplore/app/user/bloc_follower/follower_bloc.dart';
 import 'package:xplore/app/user/repository/follower_repository.dart';
 import 'package:xplore/app/user/repository/user_repository.dart';
-import 'package:xplore/app/user/screen/trophy_screen.dart';
 import 'package:xplore/app/user/user_bloc/user_bloc_bloc.dart';
 import 'package:xplore/app/user/widgets/counter_follower_and_trips.dart';
-import 'package:xplore/app/user/widgets/trophy_detail_bottom_sheet.dart';
 import 'package:xplore/app/user/widgets/trophy_widgets.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/user_model.dart';
 
@@ -69,6 +68,8 @@ class _UserInformationState extends State<UserInformation> {
     }*/
   }
 
+  Config conf = Config();
+
   @override
   Widget build(BuildContext ctx) {
     var lightDark = Theme.of(context);
@@ -91,7 +92,7 @@ class _UserInformationState extends State<UserInformation> {
                     borderRadius: BorderRadius.circular(50),
                     child: CachedNetworkImage(
                       imageUrl:
-                          'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
+                          conf.getLocationImageUrl(widget.user?.sId ?? ''),
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -100,8 +101,8 @@ class _UserInformationState extends State<UserInformation> {
                       ),
                       placeholder: (context, url) => const LoadingIndicator(),
                       errorWidget: (context, url, error) => Center(
-                        child: Icon(Iconsax.gallery_slash,
-                            size: 30, color: UIColors.lightRed),
+                        child: Icon(Iconsax.user,
+                            size: 30, color: UIColors.lightblue),
                       ),
                     ),
                   )),

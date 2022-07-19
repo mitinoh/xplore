@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/user/bloc_follower/follower_bloc.dart';
 import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/user_model.dart';
 
@@ -18,7 +19,7 @@ class FollowerBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     var lightDark = Theme.of(context);
-
+    Config conf = Config();
     return BlocProvider(
       create: (context) =>
           FollowerBloc()..add(FollowerGetListEvent(uid: user?.sId)),
@@ -82,7 +83,12 @@ class FollowerBottomSheet extends StatelessWidget {
                                                 BorderRadius.circular(22),
                                             child: CachedNetworkImage(
                                               imageUrl:
-                                                  'https://www.nickiswift.com/img/gallery/what-you-dont-know-about-madison-beers-virtual-idol-career/intro-1606938484.jpg',
+                                                  conf.getLocationImageUrl(state
+                                                          .followerList
+                                                          .followed?[index]
+                                                          .followed
+                                                          ?.sId ??
+                                                      ''),
                                               imageBuilder:
                                                   (context, imageProvider) =>
                                                       Container(
@@ -99,8 +105,8 @@ class FollowerBottomSheet extends StatelessWidget {
                                                       Center(
                                                 child: Icon(
                                                     Iconsax.gallery_slash,
-                                                    size: 30,
-                                                    color: UIColors.lightRed),
+                                                    size: 20,
+                                                    color: UIColors.lightblue),
                                               ),
                                             ),
                                           ))),
@@ -185,7 +191,12 @@ class FollowerBottomSheet extends StatelessWidget {
                                                 BorderRadius.circular(22),
                                             child: CachedNetworkImage(
                                               imageUrl:
-                                                  'https://www.nickiswift.com/img/gallery/what-you-dont-know-about-madison-beers-virtual-idol-career/intro-1606938484.jpg',
+                                                  conf.getLocationImageUrl(state
+                                                          .followerList
+                                                          .following?[index]
+                                                          .followed
+                                                          ?.sId ??
+                                                      ''),
                                               imageBuilder:
                                                   (context, imageProvider) =>
                                                       Container(
@@ -202,8 +213,8 @@ class FollowerBottomSheet extends StatelessWidget {
                                                       Center(
                                                 child: Icon(
                                                     Iconsax.gallery_slash,
-                                                    size: 30,
-                                                    color: UIColors.lightRed),
+                                                    size: 20,
+                                                    color: UIColors.lightblue),
                                               ),
                                             ),
                                           ))),

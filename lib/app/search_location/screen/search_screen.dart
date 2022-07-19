@@ -10,6 +10,7 @@ import 'package:xplore/app/search_location/widget/list_card_category_widget.dart
 import 'package:xplore/app/search_location/widget/pt_location_grid_widget.dart';
 import 'package:xplore/app/user/screen/dashboard.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/core/config.dart';
 import 'package:xplore/core/widgets/widget_core.dart';
 import 'package:xplore/model/user_model.dart';
 
@@ -403,6 +404,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget userList(List<UserModel> userList) {
+    Config conf = Config();
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -441,8 +443,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
                             child: CachedNetworkImage(
-                              imageUrl:
-                                  'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
+                              imageUrl: conf.getLocationImageUrl(
+                                  userList[index].sId ?? ''),
                               imageBuilder: (context, imageProvider) =>
                                   Container(
                                 decoration: BoxDecoration(
@@ -454,7 +456,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   const LoadingIndicator(),
                               errorWidget: (context, url, error) => Center(
                                 child: Icon(Iconsax.gallery_slash,
-                                    size: 30, color: UIColors.lightRed),
+                                    size: 20, color: UIColors.lightblue),
                               ),
                             ),
                           )),
