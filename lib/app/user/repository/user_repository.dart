@@ -31,6 +31,13 @@ class UserRepository {
     Response response = await httpService.request(method: Method.GET, url: url);
     return UserModel().toList(response);
   }
+  
+  Future<void> reportUser({required Map<String, dynamic> map}) async {
+    Response response = await httpService.request(
+        method: Method.POST,
+        url: conf.userReportColl,
+        params: json.encode(map));
+  }
 
   void updateUserInfo(Map<String, dynamic> map) async {
     String url = conf.userColl;

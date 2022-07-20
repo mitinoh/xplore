@@ -73,4 +73,8 @@ class Config {
   String get locationImage {
     return urlFolderImages + "location/";
   }
+
+  String get userReportColl {
+    return ip + "user-report";
+  }
 }

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/user/repository/user_repository.dart';
 import 'package:xplore/core/UIColors.dart';
+import 'package:xplore/model/user_model.dart';
 
 // ignore: must_be_immutable
 class ReportBottomSheet extends StatefulWidget {
-  const ReportBottomSheet({
-    Key? key,
-  }) : super(key: key);
+  const ReportBottomSheet({Key? key, required this.user}) : super(key: key);
 
+  final UserModel user;
   @override
   State<ReportBottomSheet> createState() => _ReportBottomSheetState();
 }
@@ -110,6 +111,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                     return InkWell(
                       onTap: () {
                         setState(() {
+                          print(index);
                           _pageReportIndex = 1;
                           _reportTypeIndex = index;
                         });
@@ -197,6 +199,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
   }
 
   Visibility secondStep(ThemeData lightDark) {
+    UserRepository _userRepository = UserRepository();
     return Visibility(
         visible: _pageReportIndex == 1 ? true : false,
         child: Column(
@@ -214,6 +217,11 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                 InkWell(
                   onTap: () {
                     setState(() {
+                      _userRepository.reportUser(map: {
+                        "reported": widget.user.sId,
+                        "causal": _reportTypeIndex,
+                        "desc": "",
+                      });
                       _pageReportIndex = 2;
                     });
                   },

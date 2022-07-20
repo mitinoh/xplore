@@ -380,7 +380,9 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                           ),
                           builder: (context) {
-                            return const ReportBottomSheet();
+                            return ReportBottomSheet(
+                              user: widget.user ?? UserModel(),
+                            );
                           });
                     },
                     child: Icon(Iconsax.flag)),
