@@ -25,6 +25,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
     "Bullismo o intimidazioni",
     "Altro"
   ];
+  final _desc = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -220,7 +221,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                       _userRepository.reportUser(map: {
                         "reported": widget.user.sId,
                         "causal": _reportTypeIndex,
-                        "desc": "",
+                        "desc": _desc.toString(),
                       });
                       _pageReportIndex = 2;
                     });
@@ -269,6 +270,40 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding:
+                  const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+              decoration: BoxDecoration(
+                  color: lightDark.cardColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextField(
+                controller: _desc,
+                maxLength: 144,
+                minLines: 6,
+                maxLines: 10,
+                textAlign: TextAlign.start,
+                style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
+                decoration: InputDecoration(
+                  counterStyle:
+                      TextStyle(color: lightDark.unselectedWidgetColor),
+                  contentPadding: const EdgeInsets.all(15.0),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  hintText: "Motiva la segnalazione",
+                  hintStyle: GoogleFonts.poppins(
+                      color: lightDark.unselectedWidgetColor, fontSize: 14),
+                  border: const OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Iconsax.flag,
+                    color: UIColors.mainColor,
+                  ),
+                ),
+                autofocus: false,
+              ),
+            )
           ],
         ));
   }
