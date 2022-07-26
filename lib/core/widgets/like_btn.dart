@@ -59,10 +59,11 @@ class _LikeButtonState extends State<LikeButton> {
   bool isSaved = false;
   @override
   void initState() {
-    isSaved =
-        widget.locationList[widget.indexLocation].saved == false || widget.liked
-            ? false
-            : true;
+    if (widget.locationList.isNotEmpty)
+      isSaved = widget.locationList[widget.indexLocation].saved == false ||
+              widget.liked
+          ? false
+          : true;
     /*
     if (widget.locationList[widget.indexLocation].saved == true ||
         widget.liked) {
@@ -96,7 +97,9 @@ class _LikeButtonState extends State<LikeButton> {
                 : true));
       },
       child: Icon(Iconsax.heart,
-          color: (widget.locationList[widget.indexLocation].saved == true)
+          color: (widget.locationList.isNotEmpty
+                  ? widget.locationList[widget.indexLocation].saved == true
+                  : false)
               ? UIColors.lightRed
               : lightDark.primaryColor),
     );

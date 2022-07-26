@@ -49,5 +49,8 @@ class PlantripBloc extends Bloc<PlantripEvent, PlantripState> {
         emit(PlanTripPreviousQuestion());
       }
     });
+    on<PlanTripNewPlanNotAvaiableEvent>((event, emit) async {
+      emit(PlanTripNewPlanNotAvaiableState());
+    });
   }
 }

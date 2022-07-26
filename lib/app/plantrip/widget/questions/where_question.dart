@@ -39,7 +39,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     var lightDark = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,8 +128,10 @@ class _WhereQuestionState extends State<WhereQuestion> {
                                 topRight: Radius.circular(30),
                               ),
                             ),
-                            builder: (context) {
-                              return const MapsBottomSheet();
+                            builder: (ct) {
+                              return MapsBottomSheet(
+                                context: context,
+                              );
                             });
                       },
                       child: Container(

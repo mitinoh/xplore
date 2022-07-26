@@ -1,7 +1,7 @@
 class Config {
   /// localhost for ios emulator
   /// 10.0.0.2 for android emulator
-  String address = "localhost";
+  String address = "localhost"; //107.174.186.223.nip.io
   String port = "3000";
   String appName = "api";
   String imageFolder = "asset";

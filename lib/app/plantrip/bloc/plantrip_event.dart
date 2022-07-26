@@ -34,4 +34,10 @@ class PlanTripChangeQuestionEvent extends PlantripEvent {
   PlanTripChangeQuestionEvent({required this.increment});
 }
 
+class PlanTripNewPlanNotAvaiableEvent extends PlantripEvent {
+  
+  PlanTripNewPlanNotAvaiableEvent();
+}
+
+
 class PlanTripEndQuestion extends PlantripEvent {}

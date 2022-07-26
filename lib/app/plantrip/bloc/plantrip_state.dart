@@ -41,3 +41,5 @@ class PlanTripPreviousQuestion extends PlantripState {}
 class PlanTripQuestion extends PlantripState {}
 
 class PlanTripQuestionCompleted extends PlantripState {}
+
+class PlanTripNewPlanNotAvaiableState extends PlantripState {}

@@ -78,6 +78,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             } else {
               Navigator.pop(context);
             }
+          } else if (state is PlantripLoadedPlannedTrip) {
+            if (state.currentPlanTripModel.isNotEmpty) {
+              _planTripBloc.add(PlanTripChangeQuestionEvent(increment: false));
+            }
           }
         },
         child: BlocBuilder<PlantripBloc, PlantripState>(
@@ -94,7 +98,10 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                       "Abbiamo pianificato la tua vacanza, buona fortuna e altre stronzate da radical chic.",
                 ),
               );
+            } else if (state is PlanTripNewPlanNotAvaiableState) {
+              return Text("Per pianificare + viaggi devi pagare stronzo");
             }
+            print(state);
             // if (state is PlanTripQuestion) {print(context
             Widget questionWidget;
             switch (questNum) {

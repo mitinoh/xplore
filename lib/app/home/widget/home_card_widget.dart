@@ -82,7 +82,9 @@ class _BuildMainCardState extends State<BuildMainCard> {
                 child: RichText(
                   textScaleFactor: 1,
                   text: TextSpan(
-                      text: widget.model[_indexLocation].name.toString(),
+                      text: widget.model.isNotEmpty
+                          ? widget.model[_indexLocation].name
+                          : '',
                       style: GoogleFonts.poppins(
                           fontSize: 12.5,
                           fontWeight: FontWeight.w500,
@@ -90,7 +92,9 @@ class _BuildMainCardState extends State<BuildMainCard> {
                       children: [
                         TextSpan(
                             text: ", " +
-                                widget.model[_indexLocation].desc
+                                (widget.model.isNotEmpty
+                                        ? widget.model[_indexLocation].desc
+                                        : '')
                                     .toString()
                                     .toLowerCase(),
                             style: GoogleFonts.poppins(
@@ -158,7 +162,10 @@ class _BuildMainCardState extends State<BuildMainCard> {
                     color: lightDark.scaffoldBackgroundColor.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(20)),
                 child: Text(
-                    widget.model[_indexLocation].insertUid?.name ?? '@xplore',
+                    widget.model.isNotEmpty
+                        ? widget.model[_indexLocation].insertUid?.name ??
+                            '@xplore'
+                        : '@xplore',
                     style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
