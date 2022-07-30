@@ -9,8 +9,6 @@ class ImageImported extends StatelessWidget {
   final String path;
   @override
   Widget build(BuildContext context) {
-    log("path1:");
-    log(path);
     var mediaQuery = MediaQuery.of(context);
     return Stack(
       children: [

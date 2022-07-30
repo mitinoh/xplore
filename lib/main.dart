@@ -24,8 +24,6 @@ void main() async {
           Position userLocation = await Geolocator.getCurrentPosition(
               desiredAccuracy: LocationAccuracy.high);
 
-          log("fetchBackground" + userLocation.toString());
-
           noti.Notification notification = new noti.Notification();
           notification.showNotificationWithoutSound(userLocation);
           break;
@@ -85,7 +83,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          // scaffoldMessengerKey: snackbarKey, // REVIEW:
+          navigatorKey: navigatorKey,
+          scaffoldMessengerKey: snackbarKey, // REVIEW:
           /* localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -101,7 +100,7 @@ class MyApp extends StatelessWidget {
           routes: {
             // When navigating to the "/" route, build the FirstScreen widget.
             '/home': (context) => const HomePage(),
-            '/app': (context) => Navbar()
+            '/app': (context) => Navbar(),
           },
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.system,
@@ -113,7 +112,7 @@ class MyApp extends StatelessWidget {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
 
                 // return Text(AppLocalizations.of(context)!.helloWorld);
-                
+
                 if ((state.hasData)) {
                   if (BlocProvider.of<AuthBloc>(context).state
                       is! NewUserAuthenticated) return Navbar();

@@ -436,13 +436,10 @@ class _NewLocationState extends State<NewLocation> {
   }
 
   bool validateField(field) {
-    // log(field);
     if (field != Null && field != null) {
       if (field is List) {
-        log("list");
         return field.isNotEmpty;
       }
-      //log(field?.trim());
       return field?.trim()?.length > 6;
     }
     return false;

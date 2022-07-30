@@ -101,7 +101,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       try {
         _mapRepository.openMap(event.lat, event.lng);
       } catch (e) {
-        log(e.toString());
         emit(const MapError("Failed to fetch data. is your device online?"));
       }
     });
@@ -111,7 +110,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       try {
         emit(UserLocLoading());
         final userLoc = await _mapRepository.getUserPosition();
-        log(userLoc);
         emit(UserLocLoaded(userLoc));
       } catch (e) {
         emit(const MapError("Failed to fetch data. is your device online?"));

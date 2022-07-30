@@ -64,7 +64,6 @@ class _UserInformationState extends State<UserInformation> {
     if (image != null) {
       final bytes = File(image!.path).readAsBytesSync();
       base64Image = "data:image/png;base64," + base64Encode(bytes);
-      log(base64Image.toString());
     }*/
   }
 

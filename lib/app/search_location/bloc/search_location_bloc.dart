@@ -28,7 +28,6 @@ class SearchHomeBloc extends Bloc<SearchLocationEvent, SearchLocationState> {
 
         emit(SearchLocationLoaded(mList, event.add));
       } catch (e) {
-        log(e.toString());
         emit(const SearchLocationError(
             "Failed to fetch data. is your device online?"));
       }
@@ -48,7 +47,6 @@ class SearchHomeBloc extends Bloc<SearchLocationEvent, SearchLocationState> {
 
         emit(SearchUserLoaded(mList));
       } catch (e) {
-        log(e.toString());
         emit(const SearchLocationError(
             "Failed to fetch data. is your device online?"));
       }

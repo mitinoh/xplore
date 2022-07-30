@@ -20,3 +20,8 @@ class LocationError extends LocationState {
   final String? message;
   const LocationError(this.message);
 }
+
+class NearbyLocationFound extends LocationState {
+  final List<LocationModel> locations;
+  const NearbyLocationFound(this.locations);
+}

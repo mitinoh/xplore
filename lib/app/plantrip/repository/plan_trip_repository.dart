@@ -12,7 +12,9 @@ class PlanTripRepository {
   Config conf = Config();
   HttpService httpService = HttpService();
   DateTime now = DateUtils.dateOnly(DateTime.now());
+
   Future<List<LocationModel>> getLocationList({required Mongoose mng}) async {
+    log(StackTrace.current.toString());
     String url = conf.locationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
     return LocationModel().toList(response);

@@ -23,3 +23,12 @@ class SaveUserLocation extends LocationEvent {
   final bool? save; // true per aggiungere al db
   const SaveUserLocation({required this.locationId, this.save});
 }
+
+class VerifyIfLocationsNearby extends LocationEvent {
+  const VerifyIfLocationsNearby();
+}
+
+class VerifyIfOnLocation extends LocationEvent {
+  final String locationId;
+  const VerifyIfOnLocation({required this.locationId});
+}

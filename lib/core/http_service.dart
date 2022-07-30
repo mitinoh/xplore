@@ -72,7 +72,6 @@ class HttpService {
       } else if (method == Method.PATCH) {
         response = await _dio.patch(url, data: params);
       } else {
-        log(url);
         response = await _dio.get(url /*, queryParameters: params*/);
       }
 

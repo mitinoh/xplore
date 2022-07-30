@@ -18,7 +18,7 @@ class HomeRepository {
   Future<List<LocationModel>> getLocationList({required Mongoose mng}) async {
     String url = conf.locationColl + mng.getUrl();
     Response response = await httpService.request(method: Method.GET, url: url);
-    log(response.data.length.toString());
+
     return LocationModel().toList(response);
   }
 
@@ -26,6 +26,13 @@ class HomeRepository {
     Response response = await httpService.request(
         method: Method.POST,
         url: conf.newLocationColl,
+        params: json.encode(map));
+  }
+
+  Future<void> visitedLocationPost({required Map<String, dynamic> map}) async {
+    Response response = await httpService.request(
+        method: Method.POST,
+        url: conf.visitedLocationColl,
         params: json.encode(map));
   }
 

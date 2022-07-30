@@ -28,6 +28,8 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
           if (state is LocationError) {
             SnackBarMessage.show(context, state.message ?? '');
           }
+          if (state is NearbyLocationFound) {
+          }
         },
         child: BlocBuilder<HomeBloc, LocationState>(
           builder: (context, state) {

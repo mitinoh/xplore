@@ -65,7 +65,7 @@ class UserRepository {
     prefs.setString("userBio", bio);
   }
 
-  getUserPosition() async {
+  Future<Position> getUserPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 

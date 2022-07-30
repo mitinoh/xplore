@@ -102,7 +102,6 @@ class AuthRepository {
 
       Response response = await httpService.request(
           method: Method.POST, url: conf.userColl, params: json.encode(map));
-      log(response.data.toString());
     } catch (e) {
       throw Exception(e);
     }
