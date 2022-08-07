@@ -13,7 +13,7 @@ void main() {
       appName: "FindSeat Dev",
       debugTag: true,
       flavorName: "dev",
-      initialRoute: AppRouter.BOOK_SEAT_SLOT,
+      initialRoute: AppRouter.SPLASH,
       child: App.runWidget(),
     ),
   );

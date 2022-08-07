@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
+import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/model/location_model.dart';
 
 @immutable
@@ -11,8 +12,8 @@ abstract class HomeEvent extends Equatable {
 }
 
 class GetLocationList extends HomeEvent {
-  final String? searchName;
-  const GetLocationList({this.searchName});
+  final Mongoose? mongoose;
+  const GetLocationList({ this.mongoose});
 }
 
 class ToggleLikeLocation extends HomeEvent {

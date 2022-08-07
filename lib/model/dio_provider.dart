@@ -12,7 +12,7 @@ class DioProvider {
 //    dio.interceptors.add(AuthInterceptor());
     dio.interceptors.add(HttpLogInterceptor());
     dio.options.headers['content-Type'] = 'application/json';
-    dio.options.headers["authorization"] = await _userRepository.getUserToken();
+    dio.options.headers["auth"] = await _userRepository.getUserToken();
 
     return dio;
   }

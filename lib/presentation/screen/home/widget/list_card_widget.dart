@@ -16,7 +16,7 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: BlocProvider.of<HomeBloc>(context),
+      value: context.read<HomeBloc>(),
       child: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeError) {

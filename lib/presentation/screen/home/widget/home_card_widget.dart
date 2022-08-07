@@ -19,7 +19,6 @@ class HomeMainCard extends StatefulWidget {
 
 class _HomeMainCardState extends State<HomeMainCard> {
   final PageController pageController = PageController();
-  late BuildContext _blocContext;
   late MediaQueryData mediaQuery;
   late ThemeData lightDark;
 
@@ -42,7 +41,6 @@ class _HomeMainCardState extends State<HomeMainCard> {
   Widget build(BuildContext context) {
     mediaQuery = MediaQuery.of(context);
     lightDark = Theme.of(context);
-    _blocContext = context;
     return Stack(
       children: [
         _listPageView(),

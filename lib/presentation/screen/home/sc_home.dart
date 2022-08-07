@@ -22,11 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(child: Stack(children: [BuildListCardHome()])));
-    /*return MultiBlocProvider(
-      providers: [
-        
-      ],
+    return MultiBlocProvider(
+      providers: [],
       child: BuildListCardHome(),
-    );*/
+    );
   }
 }

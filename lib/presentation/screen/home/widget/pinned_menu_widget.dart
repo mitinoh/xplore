@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/go_navigation_widget.dart';
 import 'package:xplore/presentation/common_widgets/like_button.dart';
+import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 
 class PinnedMenu extends StatefulWidget {
@@ -18,12 +19,10 @@ class PinnedMenu extends StatefulWidget {
 class _PinnedMenuState extends State<PinnedMenu> {
   late MediaQueryData mediaQuery;
   late ThemeData lightDark;
-  late BuildContext _blocContext;
   @override
   Widget build(BuildContext context) {
     mediaQuery = MediaQuery.of(context);
     lightDark = Theme.of(context);
-    _blocContext = context;
 
     return Positioned(
         bottom: mediaQuery.size.height * 0.25,
@@ -73,13 +72,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
 
   InkWell _searchButton() {
     return InkWell(
-        onTap: () => {
-              /*
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SearchScreen()),
-              )*/
-            },
+        onTap: () => {Navigator.pushNamed(context, AppRouter.SEARCH)},
         child: Icon(Iconsax.search_normal, color: lightDark.primaryColor));
   }
 }

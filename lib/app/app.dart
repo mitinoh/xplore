@@ -10,6 +10,7 @@ import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
+import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';
 
@@ -70,6 +71,8 @@ class App extends StatelessWidget {
             providers: [
               RepositoryProvider<UserRepository>(
                   create: (context) => userRepository),
+              RepositoryProvider<HomeRepository>(
+                  create: (context) => homeRepository),
             ],
             child: MultiBlocProvider(
               providers: [
@@ -80,7 +83,11 @@ class App extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (context) => HomeBloc(homeRepository: homeRepository),
-                )
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      SearchLocationBloc(homeRepository: homeRepository),
+                ),
               ],
               child: App(),
             ),

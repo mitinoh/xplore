@@ -9,23 +9,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class GoNavigationBottomSheet extends StatelessWidget {
   GoNavigationBottomSheet({Key? key, required this.location}) : super(key: key);
   final LocationModel location;
-  late MediaQueryData mediaQuery;
-  late ThemeData lightDark;
+  late MediaQueryData _mediaQuery;
+  late ThemeData _lightDark;
 
   @override
   Widget build(BuildContext context) {
-    mediaQuery = MediaQuery.of(context);
-    lightDark = Theme.of(context);
-
+    _mediaQuery = MediaQuery.of(context);
+    _lightDark = Theme.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.45,
+      height: _mediaQuery.size.height * 0.45,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
-        color: lightDark.backgroundColor,
+        color: _lightDark.backgroundColor,
       ),
       child: SafeArea(
         child: SingleChildScrollView(
@@ -45,7 +44,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: lightDark.primaryColor),
+                              color: _lightDark.primaryColor),
                         ),
                       ),
                     ),
@@ -82,7 +81,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                 const SizedBox(height: 20),
                 InkWell(
                     onTap: () => {
-                          BlocProvider.of<HomeBloc>(context).add(
+                          context.read<HomeBloc>().add(
                               NavigateToLocation(
                                   latitude:
                                       location.geometry?.coordinates?[1] ?? 0.0,

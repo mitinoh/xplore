@@ -6,15 +6,14 @@ import 'package:xplore/utils/const/COLOR_CONST.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WidgetBtnGoogle extends StatelessWidget {
-  late BuildContext _blocContext;
   @override
   Widget build(BuildContext context) {
-    _blocContext = context;
     return Expanded(
       child: InkWell(
         onTap: () {
-          BlocProvider.of<AuthenticationBloc>(_blocContext)
+          BlocProvider.of<AuthenticationBloc>(context)
               .add(GoogleSignInRequested(context: context));
+          // _blocContext.read<AuthenticationBloc>() .add(GoogleSignInRequested(context: context));
         },
         child: Container(
           height: 40,

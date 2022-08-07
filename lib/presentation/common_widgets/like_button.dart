@@ -30,7 +30,8 @@ class _LikeButtonState extends State<LikeButton> {
         setState(() {
           //widget.locationList.saved = !widget.locationList.saved!;
 
-          BlocProvider.of<HomeBloc>(context)
+          context
+              .read<HomeBloc>()
               .add(ToggleLikeLocation(location: widget.locationList));
           /*
           widget.locationList[widget.indexLocation].saved =
