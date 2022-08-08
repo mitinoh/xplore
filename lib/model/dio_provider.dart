@@ -2,17 +2,17 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:xplore/model/repository/user_repository.dart';
+import 'package:xplore/model/repository/auth_repository.dart';
 
 class DioProvider {
   static Future<Dio> instance() async {
-    UserRepository _userRepository = UserRepository();
+    AuthRepository _authRepository = AuthRepository();
     final dio = Dio();
 
 //    dio.interceptors.add(AuthInterceptor());
     dio.interceptors.add(HttpLogInterceptor());
     dio.options.headers['content-Type'] = 'application/json';
-    dio.options.headers["auth"] = await _userRepository.getUserToken();
+    dio.options.headers["auth"] = await _authRepository.getUserToken();
 
     return dio;
   }
