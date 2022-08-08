@@ -3,24 +3,27 @@ import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/search/sc_search.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
+import 'package:xplore/presentation/screen/user/sc_user.dart';
 
 class AppRouter {
   static const String HOME = '/home';
   static const String SPLASH = '/splash';
   static const String LOGIN = '/login';
   static const String SEARCH = '/search';
-
+  static const String USER = '/user';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Navigator.pushNamed(context, AppRouter.LOGIN);
     switch (settings.name) {
       case HOME:
-        return MaterialPageRoute(builder: (_) => SearchScreen());
+        return MaterialPageRoute(builder: (_) => HomeScreen());
       case SPLASH:
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case LOGIN:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case SEARCH:
         return MaterialPageRoute(builder: (_) => SearchScreen());
+      case USER:
+        return MaterialPageRoute(builder: (_) => UserScreen());
 
       default:
         return MaterialPageRoute(

@@ -72,7 +72,8 @@ class _PinnedMenuState extends State<PinnedMenu> {
 
   InkWell _searchButton() {
     return InkWell(
-        onTap: () => {Navigator.pushNamed(context, AppRouter.SEARCH)},
+        onTap: () =>
+            {print("pushed"), Navigator.pushNamed(context, AppRouter.SEARCH)},
         child: Icon(Iconsax.search_normal, color: lightDark.primaryColor));
   }
 }
