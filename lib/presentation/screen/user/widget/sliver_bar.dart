@@ -40,13 +40,11 @@ class SliverBarWidget extends StatelessWidget {
               child: Icon(Iconsax.user_edit),
             )),
         leadingWidth: 44,
-        title: Text(
-          "nomeutente",
-          style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: _lightDark.primaryColor),
-        ),
+        title: Text(user?.username ?? ' ... ',
+            style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: _lightDark.primaryColor)),
         actions: [
           InkWell(
             onTap: () {

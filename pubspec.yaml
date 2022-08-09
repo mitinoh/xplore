@@ -41,6 +41,7 @@ dev_dependencies:
   masonry_grid: ^1.0.0
   #Util
   url_launcher: ^6.0.20
+  image_picker: ^0.8.5+3
 
 
 

@@ -4,30 +4,29 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/presentation/screen/user/widget/user_information_widget.dart';
 
 class SliverBoxAdapterWidget extends StatelessWidget {
-  SliverBoxAdapterWidget({Key? key,    required this.tabs,
-    this.user}) : super(key: key);
+  SliverBoxAdapterWidget({Key? key, required this.tabs, required this.user})
+      : super(key: key);
 
   final List tabs;
-  final UserModel? user;
+  final UserModel user;
   late ThemeData _lightDark;
-  
+
   @override
   Widget build(BuildContext context) {
-     _lightDark = Theme.of(context);
+    _lightDark = Theme.of(context);
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.only(left: 20.0, right: 20),
         child: Column(
           children: [
-            Text("user information"),
-            /*UserInformation(
-              context: context,
+            UserInformationWidget(
+              visualOnly: false,
               user: user,
-              visualOnly: visualOnly,
-            ),*/
-            //const SizedBox(height: 20),
+            ),
+            const SizedBox(height: 20),
             //const CounterFollowerAndTrips(),
             const SizedBox(height: 10),
             TabBar(
