@@ -1,0 +1,73 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
+
+class ImageTile extends StatelessWidget {
+  ImageTile({Key? key, required this.location}) : super(key: key);
+  LocationModel location;
+
+  @override
+  Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+    return Padding(
+      padding: const EdgeInsets.all(2.5),
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                borderRadius: BorderRadius.circular(20)),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: CachedNetworkImage(
+                  height: mediaQuery.size.height * 1,
+                  width: mediaQuery.size.height * 1,
+                  imageUrl:
+                      "https://107.174.186.223.nip.io/img/location/${location.id}.jpg",
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
+                    ),
+                  ),
+                  placeholder: (context, url) => const LoadingIndicator(),
+                  errorWidget: (context, url, error) => Center(
+                    child: Icon(Iconsax.gallery_slash,
+                        size: 30, color: Colors.lightBlue),
+                  ),
+                )),
+          ),
+          Positioned(
+            bottom: 5,
+            left: 20,
+            right: 20,
+            child: Container(
+              padding:
+                  const EdgeInsets.only(top: 5, bottom: 5, left: 15, right: 15),
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      location.name!.toLowerCase(),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w700, fontSize: 12),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

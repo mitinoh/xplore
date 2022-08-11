@@ -6,10 +6,11 @@ import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
-import 'package:xplore/presentation/screen/user/bloc/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 
 class UserInformationWidget extends StatefulWidget {
-  UserInformationWidget({Key? key, required this.user, required this.visualOnly})
+  UserInformationWidget(
+      {Key? key, required this.user, required this.visualOnly})
       : super(key: key);
   final UserModel user;
   final bool visualOnly;
@@ -125,7 +126,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
           borderRadius: BorderRadius.circular(50),
           child: CachedNetworkImage(
             imageUrl:
-                "http://localhost:3000/asset/location/626c2b109d815e3a289b7060.jpg",
+                "https://107.174.186.223.nip.io/img/user/62f4ba41bb478cf097896970.jpg",
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
                 image: DecorationImage(image: imageProvider, fit: BoxFit.cover),

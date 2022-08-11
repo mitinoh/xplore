@@ -25,7 +25,7 @@ class HttpLogInterceptor extends InterceptorsWrapper {
     log("onRequest: ${options.uri}\n"
         "data=${options.data}\n"
         "method=${options.method}\n"
-        // "headers=${options.headers}\n"
+        "headers=${options.headers}\n"
         "queryParameters=${options.queryParameters}");
     handler.next(options);
   }

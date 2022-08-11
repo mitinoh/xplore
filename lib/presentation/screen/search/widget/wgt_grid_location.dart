@@ -47,7 +47,7 @@ class LocationGridWidget extends StatelessWidget {
                       height: getRndSize(),
                       width: mediaQuery.size.height * 1,
                       imageUrl:
-                          "http://localhost:3000/asset/location/${el.id}.jpg",
+                          "https://107.174.186.223.nip.io/img/location/${el.id}.jpg",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(

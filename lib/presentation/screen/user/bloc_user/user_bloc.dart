@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
-import 'package:xplore/presentation/screen/user/bloc/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository userRepository;

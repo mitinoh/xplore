@@ -124,7 +124,7 @@ class _HomeMainCardState extends State<HomeMainCard> {
       cards.add(
         CachedNetworkImage(
           imageUrl:
-              "http://localhost:3000/asset/location/${el.id}.jpg", //conf.getLocationImageUrl(el.iId ?? ''),
+              "https://107.174.186.223.nip.io/img/location/${el.id}.jpg", //conf.getLocationImageUrl(el.iId ?? ''),
           imageBuilder: (context, imageProvider) => Container(
             decoration: BoxDecoration(
               image: DecorationImage(

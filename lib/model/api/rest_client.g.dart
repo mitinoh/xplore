@@ -10,7 +10,7 @@ part of 'rest_client.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhost:3000/api';
+    baseUrl ??= 'https://107.174.186.223.nip.io/api';
   }
 
   final Dio _dio;
@@ -68,6 +68,28 @@ class _RestClient implements RestClient {
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<List<LocationModel>> getUserSavedLocation(query) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<LocationModel>>(Options(
+                method: 'GET',
+                headers: _headers,
+                extra: _extra,
+                responseType: ResponseType.plain)
+            .compose(_dio.options, '/save-location?_=${query}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => LocationModel.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

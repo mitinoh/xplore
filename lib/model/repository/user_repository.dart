@@ -1,6 +1,7 @@
 import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/api/rest_client.dart';
 import 'package:xplore/model/dio_provider.dart';
+import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/model/user_model.dart';
 
 class UserRepository {
@@ -12,5 +13,10 @@ class UserRepository {
   Future<UserModel> getUserData(String fid) async {
     final client = RestClient(await dio);
     return await client.getFidUserData(fid);
+  }
+
+  Future<List<LocationModel>> getUserSavedLocation(Mongoose mng) async {
+    final client = RestClient(await dio);
+    return await client.getUserSavedLocation(mng.getUrl());
   }
 }

@@ -7,17 +7,19 @@ import 'package:xplore/app_config.dart';
 import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
+import 'package:xplore/presentation/common_widgets/navbar.dart';
 import 'package:xplore/presentation/common_widgets/navigation_bar.dart';
 import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
-import 'package:xplore/presentation/screen/user/bloc/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';
 
 import '../presentation/screen/home/bloc/bloc.dart';
+import '../presentation/screen/user/bloc_saved_location/bloc.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -66,7 +68,7 @@ class App extends StatefulWidget {
                         SearchLocationBloc(homeRepository: homeRepository)),
                 BlocProvider(
                     create: (context) =>
-                        UserBloc(userRepository: userRepository)),
+                        UserBloc(userRepository: userRepository))
               ],
               child: App(),
             ),
@@ -85,48 +87,29 @@ class _AppState extends State<App> {
     final config = AppConfig.of(context)!;
 
     return MaterialApp(
-      debugShowCheckedModeBanner: config.debugTag,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        //primaryColor: COLOR_CONST.DEFAULT,
-        //hoverColor: COLOR_CONST.GREEN,
-        fontFamily: 'Poppins',
-      ),
-      onGenerateRoute: AppRouter.generateRoute,
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is Uninitialized) {
-            return SplashScreen();
-          } else if (state is Unauthenticated) {
-            return LoginScreen();
-          } else if (state is Authenticated) {
-            return Scaffold(
-                bottomNavigationBar: NavigationBarWidget(
-                    indexChange: (index) => changeIndex(index)),
-                body: SafeArea(child: _routeOptions.elementAt(selectedIndex)));
-            //   return HomeScreen();
-          }
+        debugShowCheckedModeBanner: config.debugTag,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          //primaryColor: COLOR_CONST.DEFAULT,
+          //hoverColor: COLOR_CONST.GREEN,
+          fontFamily: 'Poppins',
+        ),
+        onGenerateRoute: AppRouter.generateRoute,
+        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state is Uninitialized) {
+              return SplashScreen();
+            } else if (state is Unauthenticated) {
+              return LoginScreen();
+            } else if (state is Authenticated) {
+              return Scaffold(body: Navbar());
+              //   return HomeScreen();
+            }
 
-          return Container(
-            child: Center(child: Text('Unhandle State $state')),
-          );
-        },
-      ),
-    );
+            return Container(
+              child: Center(child: Text('Unhandle State $state')),
+            );
+          },
+        ));
   }
-
-  int selectedIndex = 0;
-
-  changeIndex(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-  static List<Widget> _routeOptions = <Widget>[
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
-    UserScreen()
-  ];
 }

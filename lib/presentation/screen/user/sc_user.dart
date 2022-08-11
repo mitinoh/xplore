@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/model/user_model.dart';
@@ -5,9 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
-import 'package:xplore/presentation/screen/user/bloc/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
+import 'package:xplore/presentation/screen/user/widget/saved_location_tabbar_widget.dart';
 import 'package:xplore/presentation/screen/user/widget/sliver_bar.dart';
 import 'package:xplore/presentation/screen/user/widget/sliver_box_adapter.dart';
+
+import 'bloc_saved_location/saved_location_bloc.dart';
 
 class UserScreen extends StatefulWidget {
   UserScreen({Key? key, this.user}) : super(key: key);
@@ -56,7 +62,20 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   Widget getTabBarView(UserModel user) {
-    return TabBarView(children: [Text("data 1 "), Text("data 2 ")]);
+
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => SavedLocationBloc()
+              ..add(GetUserSavedLocationList(savedLocationList: [])),
+          ),
+        ],
+        child: TabBarView(children: [
+          SavedLocationTabBarWidget(user: user),
+          SavedLocationTabBarWidget(user: user)
+        ]));
+
+    //return TabBarView(children: [Text("data 1 "), Text("data 2 ")]);
   }
 
   Widget _getSliverBar(UserModel user) {

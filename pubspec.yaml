@@ -39,6 +39,7 @@ dev_dependencies:
   iconsax: ^0.0.8
   cached_network_image: ^3.2.1
   masonry_grid: ^1.0.0
+  persistent_bottom_nav_bar_v2: ^4.2.4
   #Util
   url_launcher: ^6.0.20
   image_picker: ^0.8.5+3
