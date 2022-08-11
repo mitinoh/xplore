@@ -8,12 +8,15 @@ import 'package:xplore/model/repository/auth_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/presentation/screen/user/widget/saved_location_tabbar_widget.dart';
 import 'package:xplore/presentation/screen/user/widget/sliver_bar.dart';
 import 'package:xplore/presentation/screen/user/widget/sliver_box_adapter.dart';
+import 'package:xplore/presentation/screen/user/widget/uploaded_location_tabbar_widget.dart';
 
 import 'bloc_saved_location/saved_location_bloc.dart';
+import 'bloc_uploaded_location/uploaded_location_bloc.dart';
 
 class UserScreen extends StatefulWidget {
   UserScreen({Key? key, this.user}) : super(key: key);
@@ -69,13 +72,16 @@ class _UserScreenState extends State<UserScreen> {
             create: (context) => SavedLocationBloc()
               ..add(GetUserSavedLocationList(savedLocationList: [])),
           ),
+          BlocProvider(
+            create: (context) => UploadedLocationBloc()
+              ..add(GetUserUploadedLocationList(uploadedLocationList: [])),
+          )
         ],
         child: TabBarView(children: [
           SavedLocationTabBarWidget(user: user),
-          SavedLocationTabBarWidget(user: user)
+          UploadedLocationTabBarWidget(user: user)
         ]));
 
-    //return TabBarView(children: [Text("data 1 "), Text("data 2 ")]);
   }
 
   Widget _getSliverBar(UserModel user) {
