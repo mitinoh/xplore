@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/presentation/common_widgets/empty_data.dart';
 import 'package:xplore/presentation/common_widgets/image_tile.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,7 +101,7 @@ class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWid
                     )
                   : Center(
                       child: ListView(
-                        children: const [Text("EmptyData()")],
+                        children: const [EmptyData()],
                       ),
                     ),
             );
