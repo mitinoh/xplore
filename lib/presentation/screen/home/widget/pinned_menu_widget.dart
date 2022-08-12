@@ -7,6 +7,7 @@ import 'package:xplore/presentation/common_widgets/go_navigation_widget.dart';
 import 'package:xplore/presentation/common_widgets/like_button.dart';
 import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
+import 'package:xplore/presentation/screen/search/sc_search.dart';
 
 class PinnedMenu extends StatefulWidget {
   const PinnedMenu({Key? key, required this.locationList}) : super(key: key);
@@ -72,8 +73,10 @@ class _PinnedMenuState extends State<PinnedMenu> {
 
   InkWell _searchButton() {
     return InkWell(
-        onTap: () =>
-            {print("pushed"), Navigator.pushNamed(context, AppRouter.SEARCH)},
+        onTap: () => {
+              Navigator.of(context, rootNavigator: true)
+                  .pushNamed(AppRouter.SEARCH)
+            },
         child: Icon(Iconsax.search_normal, color: lightDark.primaryColor));
   }
 }

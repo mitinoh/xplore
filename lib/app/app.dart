@@ -13,6 +13,7 @@ import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart';
+import 'package:xplore/presentation/screen/search/sc_search.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
