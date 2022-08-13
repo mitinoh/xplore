@@ -1,7 +1,5 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
 
 class DioProvider {
@@ -23,9 +21,9 @@ class HttpLogInterceptor extends InterceptorsWrapper {
   Future onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     log("onRequest: ${options.uri}\n"
-        "data=${options.data}\n"
+        //"data=${options.data}\n"
         "method=${options.method}\n"
-        "headers=${options.headers}\n"
+        // "headers=${options.headers}\n"
         "queryParameters=${options.queryParameters}");
     handler.next(options);
   }

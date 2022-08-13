@@ -19,8 +19,14 @@ class UserRepository {
     final client = RestClient(await dio);
     return await client.getUserSavedLocation(mng.getUrl());
   }
+
   Future<List<LocationModel>> getUserUploadedLocation(Mongoose mng) async {
     final client = RestClient(await dio);
     return await client.getUserUploadedLocation(mng.getUrl());
+  }
+
+  Future<dynamic> updateUserData(UserModel userData) async {
+    final client = RestClient(await dio);
+    return await client.updateUserData(userData);
   }
 }

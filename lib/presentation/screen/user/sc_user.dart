@@ -5,7 +5,6 @@ import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
-import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
@@ -15,12 +14,9 @@ import 'package:xplore/presentation/screen/user/widget/sliver_bar.dart';
 import 'package:xplore/presentation/screen/user/widget/sliver_box_adapter.dart';
 import 'package:xplore/presentation/screen/user/widget/uploaded_location_tabbar_widget.dart';
 
-import 'bloc_saved_location/saved_location_bloc.dart';
-import 'bloc_uploaded_location/uploaded_location_bloc.dart';
-
 class UserScreen extends StatefulWidget {
-  UserScreen({Key? key, this.user}) : super(key: key);
-  UserModel? user;
+  UserScreen({Key? key, this.userRef}) : super(key: key);
+  UserModel? userRef;
 
   @override
   State<UserScreen> createState() => _UserScreenState();
@@ -65,7 +61,6 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   Widget getTabBarView(UserModel user) {
-
     return MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -81,7 +76,6 @@ class _UserScreenState extends State<UserScreen> {
           SavedLocationTabBarWidget(user: user),
           UploadedLocationTabBarWidget(user: user)
         ]));
-
   }
 
   Widget _getSliverBar(UserModel user) {
@@ -99,7 +93,7 @@ class _UserScreenState extends State<UserScreen> {
           //backgroundColor: const Color(0xffF3F7FA),
           body: SafeArea(
             child: NestedScrollView(
-              headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) {
+              headerSliverBuilder: (context, bool innerBoxIsScrolled) {
                 // These are the slivers that show up in the "outer" scroll view.
                 return <Widget>[_getSliverBar(user), _sliverBoxAdapter(user)];
               },
@@ -116,12 +110,13 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   void setUserData() async {
-    // Considerare la possibiilità di fare questa cosa in app.dart
-    if (widget.user == null) {
+    String? fid;
+    if (widget.userRef == null) {
       AuthRepository authRepository =
           RepositoryProvider.of<AuthRepository>(_blocContext);
-      String fid = await authRepository.getUserFid();
-      BlocProvider.of<UserBloc>(_blocContext)..add(GetUserData(fid: fid));
+      fid = await authRepository.getUserFid();
     }
+    BlocProvider.of<UserBloc>(_blocContext)
+      ..add(GetUserData(fid: fid, user: widget.userRef));
   }
 }

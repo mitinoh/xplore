@@ -4,10 +4,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/presentation/router.dart';
 
 class SliverBarWidget extends StatelessWidget {
   SliverBarWidget({Key? key, this.user}) : super(key: key);
-  final UserModel? user;
+  UserModel? user;
   late ThemeData _lightDark;
 
   @override
@@ -26,14 +27,8 @@ class SliverBarWidget extends StatelessWidget {
         actionsIconTheme: IconThemeData(color: _lightDark.primaryColor),
         leading: GestureDetector(
             onTap: () => {
-                  /*
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (ctz) => EditProfile(
-                                  context: context,
-                                )),
-                      )*/
+                  Navigator.of(context, rootNavigator: true)
+                      .pushNamed(AppRouter.EDITUSER, arguments: {"user": user})
                 },
             child: const Padding(
               padding: EdgeInsets.only(left: 20.0),

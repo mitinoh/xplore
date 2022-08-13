@@ -3,6 +3,7 @@ import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/search/sc_search.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
+import 'package:xplore/presentation/screen/user/sc_edit_profile.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
 
 class AppRouter {
@@ -11,7 +12,9 @@ class AppRouter {
   static const String LOGIN = '/login';
   static const String SEARCH = '/search';
   static const String USER = '/user';
+  static const String EDITUSER = '/edituser';
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    final arguments = (settings.arguments ?? <String, dynamic>{}) as Map;
     // Navigator.pushNamed(context, AppRouter.LOGIN);
     switch (settings.name) {
       case HOME:
@@ -24,6 +27,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SearchScreen());
       case USER:
         return MaterialPageRoute(builder: (_) => UserScreen());
+      case EDITUSER:
+        return MaterialPageRoute(
+            builder: (_) => EditProfileScreen(userData: arguments["user"]));
 
       default:
         return MaterialPageRoute(

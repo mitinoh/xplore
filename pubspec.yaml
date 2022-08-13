@@ -15,8 +15,10 @@ dependencies:
     sdk: flutter
   
   shared_preferences: ^2.0.15
+  copy_with_extension: ^4.0.3
   freezed: ^2.1.0+1
   intl: any
+  copy_with_extension_gen: ^4.0.3
 
 dev_dependencies:
   flutter_test:

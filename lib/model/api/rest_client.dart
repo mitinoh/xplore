@@ -2,6 +2,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
 
 part 'rest_client.g.dart';
 
@@ -30,4 +31,9 @@ abstract class RestClient {
   @DioResponseType(ResponseType.plain)
   Future<List<LocationModel>> getUserUploadedLocation(
       @Path("query") String? query);
+
+  @PATCH("/user")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> updateUserData(@Body() UserModel map);
+
 }

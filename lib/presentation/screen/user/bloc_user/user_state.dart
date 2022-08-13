@@ -20,7 +20,9 @@ class UpdatedUserInfo extends UserState {
 class UserDataLoaded extends UserState {
   final UserModel userData;
   const UserDataLoaded({required this.userData});
-  
+
+  @override
+  List<Object> get props => [userData];
 }
 
 class UserError extends UserState {

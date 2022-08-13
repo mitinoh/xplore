@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
+import 'package:xplore/utils/pref.dart';
 
 class UserInformationWidget extends StatefulWidget {
   UserInformationWidget(
@@ -14,7 +15,6 @@ class UserInformationWidget extends StatefulWidget {
       : super(key: key);
   final UserModel user;
   final bool visualOnly;
-
   @override
   State<UserInformationWidget> createState() => _UserInformationWidgetState();
 }
@@ -59,26 +59,18 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   @override
   Widget build(BuildContext ctx) {
     _lightDark = Theme.of(context);
-    return BlocListener<UserBloc, UserState>(
-      listener: (context, state) {
-        if (state is UpdatedUserInfo) {
-          // _userBio = UserRepository.getUserBio();
-          // _userName = UserRepository.getUserName();
-        }
-      },
-      child: Column(
-        children: [
-          _userImagePreview(),
-          const SizedBox(height: 20),
-          _userDataPreview(),
-          const SizedBox(height: 15),
-          //const MainTrophyWidget(),
-          const SizedBox(height: 15),
-          //CounterFollowerAndTrips(user: widget.user),
-          const SizedBox(height: 10),
-          _userBioBox(),
-        ],
-      ),
+    return Column(
+      children: [
+        _userImagePreview(),
+        const SizedBox(height: 20),
+        _userDataPreview(),
+        // const SizedBox(height: 15),
+        //const MainTrophyWidget(),
+        //const SizedBox(height: 15),
+        //CounterFollowerAndTrips(user: widget.user),
+        const SizedBox(height: 10),
+        _userBioBox(),
+      ],
     );
   }
 
@@ -177,51 +169,19 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   }
 
   Widget _userBioBox() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 40.0, right: 40),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-              child: RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(children: [
-              TextSpan(
-                text: "La tuo biografia:\n".toUpperCase() +
-                    widget.user.bio.toString(),
-                style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey),
-              ),
-            ]),
-          ))
-        ],
-      ),
-    );
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(children: [
+          TextSpan(
+            text: "La tua biografia:\n".toUpperCase() +
+                widget.user.bio.toString(),
+            style: GoogleFonts.poppins(
+                fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
+          ),
+        ]));
   }
 
   Widget _userLevelIndicator() {
-    return RichText(
-      overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.end,
-      text: TextSpan(
-        children: <TextSpan>[
-          TextSpan(
-              text: widget.user.username,
-              style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: _lightDark.primaryColor)),
-          /*TextSpan(
-              text: ' LV. 1',
-              style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xff3498db)))*/
-        ],
-      ),
-    );
+    return Text(widget.user.username.toString());
   }
 }
