@@ -3,6 +3,7 @@ import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
+import 'package:xplore/utils/logger.dart';
 
 class SearchLocationBloc
     extends Bloc<SearchLocationEvent, SearchLocationState> {
@@ -21,9 +22,9 @@ class SearchLocationBloc
       List<LocationModel> locationsFound =
           await homeRepository.getHomeData(mng);
       emit(SearchLocationLoaded(locationsFound));
-    } catch (e) {
-      emit(const SearchLocationError(
-          "Failed to fetch data. is your device online?"));
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit( SearchLocationError(e.toString()));
     }
   }
 
@@ -40,9 +41,9 @@ class SearchLocationBloc
 
         emit(SearchUserLoaded(mList));
         */
-    } catch (e) {
-      emit(const SearchLocationError(
-          "Failed to fetch data. is your device online?"));
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit(SearchLocationError(e.toString()));
     }
   }
 }

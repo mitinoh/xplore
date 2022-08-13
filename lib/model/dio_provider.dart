@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/utils/logger.dart';
 
 class DioProvider {
   static Future<Dio> instance() async {
@@ -36,7 +37,7 @@ class HttpLogInterceptor extends InterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    log("onError: $err\n"
+    Logger.error("onError: $err\n"
         "Response: ${err.response}");
     super.onError(err, handler);
   }

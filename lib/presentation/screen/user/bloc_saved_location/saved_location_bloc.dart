@@ -6,7 +6,7 @@ import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
-
+import 'package:xplore/utils/logger.dart';
 
 class SavedLocationBloc extends Bloc<SavedLocationEvent, SavedLocationState> {
   final UserRepository _userRepository = UserRepository();
@@ -19,7 +19,6 @@ class SavedLocationBloc extends Bloc<SavedLocationEvent, SavedLocationState> {
     Emitter<SavedLocationState> emit,
   ) async {
     try {
-      //final state = this.state;
       List<String> exlcudeId = [];
 
       event.savedLocationList
@@ -39,7 +38,7 @@ class SavedLocationBloc extends Bloc<SavedLocationEvent, SavedLocationState> {
         ]),
       );
     } catch (e, stacktrace) {
-      log(stacktrace.toString());
+      Logger.error(stacktrace.toString());
       emit(SavedLocationError(e.toString()));
     }
   }

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
+import 'package:xplore/utils/logger.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRepository homeRepository;
@@ -18,7 +19,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       Mongoose mng = event.mongoose != null ? event.mongoose! : Mongoose();
       final response = await homeRepository.getHomeData(mng);
       emit(HomeLoaded(homeList: response));
-    } catch (_) {}
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit(HomeError(e.toString()));
+    }
   }
 
   void _toggleLikeLocation(
@@ -26,7 +30,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       event.location.saved = !event.location.saved!;
       await homeRepository.toggleLocationLike(event.location);
-    } catch (e) {}
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit(HomeError(e.toString()));
+    }
   }
 
   void _navigateToLocation(

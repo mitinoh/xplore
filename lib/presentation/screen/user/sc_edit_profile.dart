@@ -31,7 +31,6 @@ class EditProfileScreen extends StatelessWidget {
     if (image != null) {
       final bytes = File(image!.path).readAsBytesSync();
       base64Image = "data:image/png;base64," + base64Encode(bytes);
-      log(base64Image.toString());
     }*/
   }
 

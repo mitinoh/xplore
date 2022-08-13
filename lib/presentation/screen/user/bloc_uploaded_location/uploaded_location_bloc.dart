@@ -6,6 +6,7 @@ import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
+import 'package:xplore/utils/logger.dart';
 
 
 class UploadedLocationBloc extends Bloc<UploadedLocationEvent, UploadedLocationState> {
@@ -19,7 +20,6 @@ class UploadedLocationBloc extends Bloc<UploadedLocationEvent, UploadedLocationS
     Emitter<UploadedLocationState> emit,
   ) async {
     try {
-      //final state = this.state;
       List<String> exlcudeId = [];
 
       event.uploadedLocationList
@@ -39,7 +39,7 @@ class UploadedLocationBloc extends Bloc<UploadedLocationEvent, UploadedLocationS
         ]),
       );
     } catch (e, stacktrace) {
-      log(stacktrace.toString());
+      Logger.error(stacktrace.toString());
       emit(UploadedLocationError(e.toString()));
     }
   }

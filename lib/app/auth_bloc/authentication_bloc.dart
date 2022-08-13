@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:xplore/utils/logger.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -25,7 +26,8 @@ class AuthenticationBloc
       } else {
         emit(Unauthenticated());
       }
-    } catch (_) {
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
       emit(Unauthenticated());
     }
   }

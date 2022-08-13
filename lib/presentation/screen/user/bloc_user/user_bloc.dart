@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:xplore/model/model/user_model.dart';
-import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/utils/logger.dart';
@@ -16,7 +13,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   void _updateUserInfo(UpdateUserInfo event, Emitter<UserState> emit) async {
-    try {} catch (_) {}
+    try {} catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit(UserError(e.toString()));
+    }
   }
 
   void _getUserData(GetUserData event, Emitter<UserState> emit) async {
@@ -30,8 +30,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }
         emit(UserDataLoaded(userData: userData));
       }
-    } catch (e) {
-      Logger.logError(e.toString());
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit(UserError(e.toString()));
     }
   }
 
@@ -49,8 +50,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
         emit(UserDataLoaded(userData: updatedUserData));
       }
-    } catch (e) {
-      Logger.logError(e.toString());
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit(UserError(e.toString()));
     }
   }
 }
