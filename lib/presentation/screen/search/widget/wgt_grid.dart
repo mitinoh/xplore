@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/model/repository/home_repository.dart';
-import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/search/widget/wgt_grid_location.dart';
 import 'package:xplore/presentation/screen/search/widget/wgt_grid_user.dart';
+import 'package:xplore/presentation/screen/search/widget/wgt_search_bar.dart';
 
 class GridWidget extends StatelessWidget {
   GridWidget({Key? key}) : super(key: key);
@@ -17,7 +18,8 @@ class GridWidget extends StatelessWidget {
         visible: true,
         child: BlocProvider(
           create: (_) => SearchLocationBloc(
-              homeRepository: RepositoryProvider.of<HomeRepository>(context))
+              homeRepository: RepositoryProvider.of<HomeRepository>(context),
+              userRepository: RepositoryProvider.of<UserRepository>(context))
             ..add(GetSearchLocationList()),
           child: BlocListener<SearchLocationBloc, SearchLocationState>(
             listener: (context, state) {
@@ -29,24 +31,29 @@ class GridWidget extends StatelessWidget {
                 );
               }
             },
-            child: BlocBuilder<SearchLocationBloc, SearchLocationState>(
-              builder: (context, state) {
-                if (state is SearchLocationInitial ||
-                    state is SearchUserLoading) {
-                  return const LoadingIndicator();
-                } else if (state is SearchLocationLoaded) {
-                  return _locationGrid(state.props);
-                } else if (state is SearchUserLoaded) {
-                  return _userGrid(state.props);
-                } else if (state is SearchLocationError) {
-                  return const Text("error 1");
-                } else {
-                  return const LoadingIndicator();
-                }
-              },
+            child: Column(
+              children: [_searchBar(), _searchBuilder()],
             ),
           ),
         ));
+  }
+
+  BlocBuilder<SearchLocationBloc, SearchLocationState> _searchBuilder() {
+    return BlocBuilder<SearchLocationBloc, SearchLocationState>(
+      builder: (context, state) {
+        if (state is SearchLocationInitial || state is SearchUserLoading) {
+          return const LoadingIndicator();
+        } else if (state is SearchLocationLoaded) {
+          return _locationGrid(state.props);
+        } else if (state is SearchUserLoaded) {
+          return _userGrid(state.props);
+        } else if (state is SearchLocationError) {
+          return const Text("error 1");
+        } else {
+          return const LoadingIndicator();
+        }
+      },
+    );
   }
 
   _userGrid(List<UserModel> _userList) {
@@ -55,5 +62,9 @@ class GridWidget extends StatelessWidget {
 
   _locationGrid(List<LocationModel> _locationList) {
     return LocationGridWidget(locationsList: _locationList);
+  }
+
+  Widget _searchBar() {
+    return SearchBarWidget();
   }
 }

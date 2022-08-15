@@ -4,7 +4,7 @@ import 'package:xplore/model/dio_provider.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/model/user_model.dart';
 
-class UserRepository {
+class FollowerRepository {
   //static int lastSkipIndex = 0;
   //static var skip = 0;
   //static var limit = 15;
@@ -35,14 +35,16 @@ class UserRepository {
     return await client.updateUserData(userData);
   }
 
-  Mongoose getMongoose({String? searchName}) {
-    Mongoose mng = Mongoose(filter: []);
+  Future<bool> isFollowing(String uid) async {
+    final client = RestClient(await dio);
+    return (await client.isFollowing(uid) == "true");
+  }
 
-    mng.filter?.add(Filter(
-        key: "username",
-        operation: "=",
-        value: '/${searchName?.substring(1) ?? ""}/'));
-
-    return mng;
+  Future<dynamic> toggleFollow(String uid, bool following) async {
+    final client = RestClient(await dio);
+    if (following)
+      return (await client.unfollowUser(uid));
+    else
+      return (await client.followUser(uid));
   }
 }

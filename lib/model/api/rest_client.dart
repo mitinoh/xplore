@@ -36,4 +36,18 @@ abstract class RestClient {
   @DioResponseType(ResponseType.plain)
   Future<dynamic> updateUserData(@Body() UserModel map);
 
+  @GET("/user?_={query}")
+  Future<List<UserModel>> getUserList(@Path("query") String? query);
+
+  @GET("/follower/isfollowing?uid={uid}")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> isFollowing(@Path("uid") String uid);
+
+  @POST("/follower/follow/{uid}")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> followUser(@Path("uid") String uid);
+
+  @POST("/follower/unfollow/{uid}")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> unfollowUser(@Path("uid") String uid);
 }

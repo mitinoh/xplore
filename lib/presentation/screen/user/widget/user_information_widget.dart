@@ -5,7 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/model/repository/follower_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
+import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/utils/pref.dart';
 
@@ -22,14 +24,16 @@ class UserInformationWidget extends StatefulWidget {
 class _UserInformationWidgetState extends State<UserInformationWidget> {
   //FollowerRepository _followerRepository = FollowerRepository();
 
-  bool followState = false;
+  // bool followState = false;
 
   isFollwing() async {
-    bool following = true;
-    // await _followerRepository.isFollowing(widget.user?.sId ?? '');
+    /*
+    bool following =
+        await _followerRepository.isFollowing(widget.user.id ?? '');
     setState(() {
       followState = following;
     });
+    */
   }
 
   @override
@@ -77,7 +81,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   Widget _userDataPreview() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [_userLevelIndicator(), _followButton()],
+      children: [_userLevelIndicator(), _followBuilder()],
     );
   }
 
@@ -132,40 +136,52 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
         ));
   }
 
-  Widget _followButton() {
+  Widget _followBuilder() {
     return (widget.visualOnly)
-        ? Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: InkWell(
-              onTap: () {
-                /*
-                      if (followState) {
-                        FollowerBloc().add(FollowerUnfollowUserEvent(
-                            uid: widget.user?.sId ?? ''));
-                      } else {
-                        FollowerBloc().add(FollowerFollowUserEvent(
-                            uid: widget.user?.sId ?? ''));
-                      }
-                      setState(() {
-                        // TODO : fare questo con un event handler in base a cosa ritorna backend
-                        followState = !followState;
-                      });*/
+        ? BlocProvider(
+            create: (context) => BlocProvider.of<FollowerBloc>(context)
+              ..add(IsFollowingUser(
+                  uid: widget.user.id ??
+                      '')), //UserBloc(userRepository: RepositoryProvider.of<UserRepository>(context)),
+            child: BlocBuilder<FollowerBloc, FollowerState>(
+              builder: (context, state) {
+                return _followButton(
+                    state.props.isNotEmpty ? state.props[0] as bool : false);
               },
-              child: Container(
-                padding: const EdgeInsets.only(
-                    right: 15, left: 15, top: 5, bottom: 5),
-                decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Text(!followState ? "follow" : "following",
-                    style: GoogleFonts.poppins(
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w700,
-                        color: !followState ? Colors.black : Colors.green)),
-              ),
             ),
           )
         : const SizedBox();
+  }
+  /*
+  
+  
+
+
+  
+  
+   */
+
+  Widget _followButton(bool followState) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: InkWell(
+        onTap: () {
+          BlocProvider.of<FollowerBloc>(context).add(
+              ToggleFollow(uid: widget.user.id ?? '', following: followState));
+        },
+        child: Container(
+          padding:
+              const EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
+          decoration: BoxDecoration(
+              color: Colors.amber, borderRadius: BorderRadius.circular(20)),
+          child: Text(!followState ? "follow" : "following",
+              style: GoogleFonts.poppins(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w700,
+                  color: !followState ? Colors.black : Colors.green)),
+        ),
+      ),
+    );
   }
 
   Widget _userBioBox() {

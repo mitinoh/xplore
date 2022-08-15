@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
 import 'package:xplore/app_config.dart';
+import 'package:xplore/model/repository/follower_repository.dart';
 import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
@@ -15,6 +16,7 @@ import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart';
 import 'package:xplore/presentation/screen/search/sc_search.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
+import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';
@@ -46,6 +48,7 @@ class App extends StatefulWidget {
           final AuthRepository authRepository = AuthRepository();
           final UserRepository userRepository = UserRepository();
           final HomeRepository homeRepository = HomeRepository();
+          final FollowerRepository followerRepository = FollowerRepository();
           return MultiRepositoryProvider(
             providers: [
               RepositoryProvider<AuthRepository>(
@@ -54,6 +57,8 @@ class App extends StatefulWidget {
                   create: (context) => homeRepository),
               RepositoryProvider<UserRepository>(
                   create: (context) => userRepository),
+              RepositoryProvider<FollowerRepository>(
+                  create: (context) => followerRepository),
             ],
             child: MultiBlocProvider(
               providers: [
@@ -65,11 +70,15 @@ class App extends StatefulWidget {
                     create: (context) =>
                         HomeBloc(homeRepository: homeRepository)),
                 BlocProvider(
-                    create: (context) =>
-                        SearchLocationBloc(homeRepository: homeRepository)),
+                    create: (context) => SearchLocationBloc(
+                        homeRepository: homeRepository,
+                        userRepository: userRepository)),
                 BlocProvider(
                     create: (context) =>
-                        UserBloc(userRepository: userRepository))
+                        UserBloc(userRepository: userRepository)),
+                                        BlocProvider(
+                    create: (context) =>
+                        FollowerBloc(followerRepository: followerRepository))
               ],
               child: App(),
             ),

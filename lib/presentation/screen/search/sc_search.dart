@@ -7,7 +7,6 @@ class SearchScreen extends StatelessWidget {
   SearchScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: Scaffold(
             body: SafeArea(
@@ -19,11 +18,6 @@ class SearchScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 0),
-                _searchBar(),
-                const SizedBox(
-                  height: 15,
-                ),
                 //suggestedLocation(),
                 _gridHeader(),
                 _grid()
@@ -39,9 +33,6 @@ class SearchScreen extends StatelessWidget {
     return GridHeaderWidget();
   }
 
-  Widget _searchBar() {
-    return SearchBarWidget();
-  }
 
   Widget _grid() {
     return GridWidget();

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/model/model/user_model.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
+import 'package:xplore/presentation/screen/user/sc_user.dart';
+
 class UserGridWidget extends StatelessWidget {
   UserGridWidget({Key? key, required this.userList}) : super(key: key);
   final List<UserModel> userList;
+  late ThemeData _lightDark;
 
   @override
   Widget build(BuildContext context) {
-    return Text("user list");
-    //  Config conf = Config();
-    /*
+    _lightDark = Theme.of(context);
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -26,10 +31,7 @@ class UserGridWidget extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (ctx) => UserScreen(
-                          visualOnly: true,
-                          user: userList[index],
-                        )));
+                    builder: (ctx) => UserScreen(userRef: userList[index], visualOnly: true,)));
           },
           child: Theme(
               data: ThemeData(
@@ -44,12 +46,12 @@ class UserGridWidget extends StatelessWidget {
                     children: [
                       CircleAvatar(
                           radius: 25,
-                          backgroundColor: UIColors.bluelight,
+                          backgroundColor: Colors.lightBlue,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
                             child: CachedNetworkImage(
-                              imageUrl: conf.getLocationImageUrl(
-                                  userList[index].sId ?? ''),
+                              imageUrl:
+                                  "https://107.174.186.223.nip.io/img/user/62f4ba41bb478cf097896970.jpg",
                               imageBuilder: (context, imageProvider) =>
                                   Container(
                                 decoration: BoxDecoration(
@@ -61,7 +63,7 @@ class UserGridWidget extends StatelessWidget {
                                   const LoadingIndicator(),
                               errorWidget: (context, url, error) => Center(
                                 child: Icon(Iconsax.gallery_slash,
-                                    size: 20, color: UIColors.lightblue),
+                                    size: 20, color: Colors.lightBlue),
                               ),
                             ),
                           )),
@@ -72,7 +74,7 @@ class UserGridWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              userList[index].name ?? '',
+                              userList[index].username ?? '',
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
@@ -84,7 +86,7 @@ class UserGridWidget extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: UIColors.lightblue),
+                                  color: Colors.lightBlue),
                             ),
                           ],
                         ),
@@ -97,6 +99,5 @@ class UserGridWidget extends StatelessWidget {
         );
       },
     );
-    */
   }
 }

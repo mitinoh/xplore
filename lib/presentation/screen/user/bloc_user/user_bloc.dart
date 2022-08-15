@@ -22,14 +22,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _getUserData(GetUserData event, Emitter<UserState> emit) async {
     try {
       late UserModel userData;
-      if (event.user == null) {
-        if (event.fid != null) {
-          userData = await userRepository.getUserData(event.fid!);
-        } else {
-          userData = event.user!;
-        }
-        emit(UserDataLoaded(userData: userData));
+      if (event.fid != null) {
+        userData = await userRepository.getUserData(event.fid!);
+      } else {
+        userData = event.user!;
       }
+      emit(UserDataLoaded(userData: userData));
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());
       emit(UserError(e.toString()));

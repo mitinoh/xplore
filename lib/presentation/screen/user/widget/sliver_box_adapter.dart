@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:xplore/presentation/screen/user/widget/user_information_widget.dart';
 
 class SliverBoxAdapterWidget extends StatelessWidget {
-  SliverBoxAdapterWidget({Key? key, required this.tabs, required this.user})
+  SliverBoxAdapterWidget(
+      {Key? key,
+      required this.tabs,
+      required this.user,
+      this.visualOnly = false})
       : super(key: key);
 
   final List tabs;
   final UserModel user;
+  final bool visualOnly;
   late ThemeData _lightDark;
 
   @override
@@ -23,7 +25,7 @@ class SliverBoxAdapterWidget extends StatelessWidget {
         child: Column(
           children: [
             UserInformationWidget(
-              visualOnly: false,
+              visualOnly: visualOnly,
               user: user,
             ),
             const SizedBox(height: 20),

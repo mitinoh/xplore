@@ -15,8 +15,9 @@ import 'package:xplore/presentation/screen/user/widget/sliver_box_adapter.dart';
 import 'package:xplore/presentation/screen/user/widget/uploaded_location_tabbar_widget.dart';
 
 class UserScreen extends StatefulWidget {
-  UserScreen({Key? key, this.userRef}) : super(key: key);
-  UserModel? userRef;
+  UserScreen({Key? key, this.userRef, this.visualOnly = false}) : super(key: key);
+  final UserModel? userRef;
+  final bool visualOnly;
 
   @override
   State<UserScreen> createState() => _UserScreenState();
@@ -65,7 +66,8 @@ class _UserScreenState extends State<UserScreen> {
         providers: [
           BlocProvider(
             create: (context) => SavedLocationBloc()
-              ..add(GetUserSavedLocationList(savedLocationList: [])),
+              ..add(GetUserSavedLocationList(
+                  savedLocationList: [], uid: user.id ?? '')),
           ),
           BlocProvider(
             create: (context) => UploadedLocationBloc()
@@ -83,7 +85,11 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   Widget _sliverBoxAdapter(UserModel user) {
-    return SliverBoxAdapterWidget(tabs: tabs, user: user);
+    return SliverBoxAdapterWidget(
+      tabs: tabs,
+      user: user,
+      visualOnly: widget.visualOnly,
+    );
   }
 
   Widget _defaultTabController(UserModel user) {

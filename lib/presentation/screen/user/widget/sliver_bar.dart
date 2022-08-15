@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/presentation/router.dart';
+import 'package:xplore/presentation/screen/user/widget/settings.dart';
 
 class SliverBarWidget extends StatelessWidget {
   SliverBarWidget({Key? key, this.user}) : super(key: key);
@@ -55,10 +56,7 @@ class SliverBarWidget extends StatelessWidget {
                     ),
                   ),
                   builder: (context) {
-                    return user == null
-                        ? Text("setting bottom sheet")
-                        : Text("report bottom sheet");
-                    //return const SettingsBottomSheet();
+                    return const SettingsBottomSheet();
                   });
             },
             child: Padding(
