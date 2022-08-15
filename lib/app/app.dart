@@ -7,6 +7,7 @@ import 'package:xplore/app_config.dart';
 import 'package:xplore/model/repository/follower_repository.dart';
 import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/model/repository/report_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/navbar.dart';
 import 'package:xplore/presentation/common_widgets/navigation_bar.dart';
@@ -17,6 +18,7 @@ import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart
 import 'package:xplore/presentation/screen/search/sc_search.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';
@@ -49,6 +51,7 @@ class App extends StatefulWidget {
           final UserRepository userRepository = UserRepository();
           final HomeRepository homeRepository = HomeRepository();
           final FollowerRepository followerRepository = FollowerRepository();
+          final ReportRepository reportRepository = ReportRepository();
           return MultiRepositoryProvider(
             providers: [
               RepositoryProvider<AuthRepository>(
@@ -59,6 +62,8 @@ class App extends StatefulWidget {
                   create: (context) => userRepository),
               RepositoryProvider<FollowerRepository>(
                   create: (context) => followerRepository),
+              RepositoryProvider<ReportRepository>(
+                  create: (context) => reportRepository),
             ],
             child: MultiBlocProvider(
               providers: [
@@ -75,7 +80,10 @@ class App extends StatefulWidget {
                         userRepository: userRepository)),
                 BlocProvider(
                     create: (context) =>
-                        FollowerBloc(followerRepository: followerRepository))
+                        FollowerBloc(followerRepository: followerRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        ReportBloc(reportRepository: reportRepository))
               ],
               child: App(),
             ),

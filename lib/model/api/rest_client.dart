@@ -1,6 +1,7 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/model/model/report_model.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
 
@@ -50,4 +51,9 @@ abstract class RestClient {
   @POST("/follower/unfollow/{uid}")
   @DioResponseType(ResponseType.plain)
   Future<dynamic> unfollowUser(@Path("uid") String uid);
+
+  @POST("/user-report")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> reportUser(@Body() ReportModel map);
+
 }

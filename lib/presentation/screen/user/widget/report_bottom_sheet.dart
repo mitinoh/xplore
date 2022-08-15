@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/model/model/report_model.dart';
 import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc_user/user_bloc.dart';
 
 // ignore: must_be_immutable
 class ReportBottomSheet extends StatefulWidget {
@@ -93,8 +99,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
           Container(
             padding: const EdgeInsets.only(top: 20, bottom: 20),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.orange),
+                borderRadius: BorderRadius.circular(20), color: Colors.orange),
             child: Column(
               children: [
                 ListView.separated(
@@ -216,12 +221,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      /*
-                      _userRepository.reportUser(map: {
-                        "reported": widget.user.id,
-                        "causal": _reportTypeIndex,
-                        "desc": _desc.toString(),
-                      });*/
+                      _reportUser();
                       _pageReportIndex = 2;
                     });
                   },
@@ -305,5 +305,13 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
             )
           ],
         ));
+  }
+
+  _reportUser() {
+    ReportModel reportData = ReportModel(
+        reported: widget.user.id ?? '',
+        causal: _reportTypeIndex,
+        desc: _desc.toString());
+    BlocProvider.of<ReportBloc>(context).add(ReportUser(reportData: reportData));
   }
 }

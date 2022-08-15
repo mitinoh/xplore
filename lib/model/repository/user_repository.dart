@@ -2,6 +2,7 @@ import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/api/rest_client.dart';
 import 'package:xplore/model/dio_provider.dart';
 import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/model/model/report_model.dart';
 import 'package:xplore/model/model/user_model.dart';
 
 class UserRepository {
@@ -34,6 +35,7 @@ class UserRepository {
     final client = RestClient(await dio);
     return await client.updateUserData(userData);
   }
+
 
   Mongoose getMongoose({String? searchName}) {
     Mongoose mng = Mongoose(filter: []);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/model/api/mongoose.dart';
+import 'package:xplore/model/model/report_model.dart';
 import 'package:xplore/model/model/user_model.dart';
 
 @immutable
@@ -21,6 +22,8 @@ class GetUserData extends UserEvent {
   final UserModel? user;
   const GetUserData({this.fid, this.user});
 }
+
+
 
 class UpdateUserData extends UserEvent {
   final UserModel newUserData;
