@@ -137,29 +137,19 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   }
 
   Widget _followBuilder() {
-    return (widget.visualOnly)
-        ? BlocProvider(
-            create: (context) => BlocProvider.of<FollowerBloc>(context)
-              ..add(IsFollowingUser(
-                  uid: widget.user.id ??
-                      '')), //UserBloc(userRepository: RepositoryProvider.of<UserRepository>(context)),
-            child: BlocBuilder<FollowerBloc, FollowerState>(
-              builder: (context, state) {
-                return _followButton(
-                    state.props.isNotEmpty ? state.props[0] as bool : false);
-              },
-            ),
-          )
-        : const SizedBox();
+    if (widget.visualOnly) {
+      BlocProvider.of<FollowerBloc>(context)
+        ..add(IsFollowingUser(uid: widget.user.id ?? ''));
+      return BlocBuilder<FollowerBloc, FollowerState>(
+        builder: (context, state) {
+          return _followButton(
+              state.props.isNotEmpty ? state.props[0] as bool : false);
+        },
+      );
+    }
+
+    return const SizedBox();
   }
-  /*
-  
-  
-
-
-  
-  
-   */
 
   Widget _followButton(bool followState) {
     return Padding(

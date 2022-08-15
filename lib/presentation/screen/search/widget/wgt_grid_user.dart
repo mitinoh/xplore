@@ -31,7 +31,8 @@ class UserGridWidget extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (ctx) => UserScreen(userRef: userList[index], visualOnly: true,)));
+                    builder: (context) => UserScreen(
+                        userRef: userList[index], visualOnly: true)));
           },
           child: Theme(
               data: ThemeData(

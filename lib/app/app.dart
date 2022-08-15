@@ -75,9 +75,6 @@ class App extends StatefulWidget {
                         userRepository: userRepository)),
                 BlocProvider(
                     create: (context) =>
-                        UserBloc(userRepository: userRepository)),
-                                        BlocProvider(
-                    create: (context) =>
                         FollowerBloc(followerRepository: followerRepository))
               ],
               child: App(),

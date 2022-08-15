@@ -5,11 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/presentation/router.dart';
+import 'package:xplore/presentation/screen/user/widget/report_bottom_sheet.dart';
 import 'package:xplore/presentation/screen/user/widget/settings.dart';
 
 class SliverBarWidget extends StatelessWidget {
-  SliverBarWidget({Key? key, this.user}) : super(key: key);
-  UserModel? user;
+  SliverBarWidget({Key? key, required this.user, required this.visualOnly})
+      : super(key: key);
+  final UserModel user;
+  final bool visualOnly;
   late ThemeData _lightDark;
 
   @override
@@ -36,7 +39,7 @@ class SliverBarWidget extends StatelessWidget {
               child: Icon(Iconsax.user_edit),
             )),
         leadingWidth: 44,
-        title: Text(user?.username ?? ' ... ',
+        title: Text(user.username ?? ' ... ',
             style: GoogleFonts.poppins(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -56,14 +59,14 @@ class SliverBarWidget extends StatelessWidget {
                     ),
                   ),
                   builder: (context) {
-                    return const SettingsBottomSheet();
+                    return visualOnly
+                        ? ReportBottomSheet(user: user)
+                        : const SettingsBottomSheet();
                   });
             },
             child: Padding(
                 padding: EdgeInsets.only(right: 20.0),
-                child: user == null
-                    ? Icon(Iconsax.setting_2)
-                    : Icon(Iconsax.flag)),
+                child: visualOnly ? Icon(Iconsax.flag) : Icon(Iconsax.setting)),
           )
         ]);
   }

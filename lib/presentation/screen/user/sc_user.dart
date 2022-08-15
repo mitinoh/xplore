@@ -5,6 +5,7 @@ import 'package:xplore/model/api/mongoose.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
@@ -15,7 +16,8 @@ import 'package:xplore/presentation/screen/user/widget/sliver_box_adapter.dart';
 import 'package:xplore/presentation/screen/user/widget/uploaded_location_tabbar_widget.dart';
 
 class UserScreen extends StatefulWidget {
-  UserScreen({Key? key, this.userRef, this.visualOnly = false}) : super(key: key);
+  UserScreen({Key? key, this.userRef, this.visualOnly = false})
+      : super(key: key);
   final UserModel? userRef;
   final bool visualOnly;
 
@@ -40,12 +42,13 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     _lightDark = Theme.of(context);
-    _blocContext = context;
     return BlocProvider(
-      create: (context) => BlocProvider.of<UserBloc>(
-          context), //UserBloc(userRepository: RepositoryProvider.of<UserRepository>(context)),
+      create: (context) => UserBloc(
+          userRepository: RepositoryProvider.of<UserRepository>(
+              context)), //UserBloc(userRepository: RepositoryProvider.of<UserRepository>(context)),
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
+          _blocContext = context;
           if (state is UserInitial) {
             setUserData();
             return LoadingIndicator();
@@ -81,7 +84,7 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   Widget _getSliverBar(UserModel user) {
-    return SliverBarWidget(user: user);
+    return SliverBarWidget(user: user, visualOnly: widget.visualOnly);
   }
 
   Widget _sliverBoxAdapter(UserModel user) {
