@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
@@ -14,9 +10,12 @@ import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
 import 'package:xplore/utils/pref.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  EditProfileScreen({Key? key, required this.userData}) : super(key: key);
+  EditProfileScreen(
+      {Key? key, required this.userData, required this.blocContext})
+      : super(key: key);
 
   final UserModel userData;
+  final BuildContext blocContext;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _userBioController = TextEditingController();
   XFile? image;
@@ -39,10 +38,10 @@ class EditProfileScreen extends StatelessWidget {
     _userBioController.text = userData.bio ?? '';
   }
 
-  late BuildContext _blocContext;
+  late BuildContext _context;
   @override
   Widget build(BuildContext context) {
-    _blocContext = context;
+    _context = context;
     initState();
     var lightDark = Theme.of(context);
     return Scaffold(
@@ -194,9 +193,9 @@ class EditProfileScreen extends StatelessWidget {
     }
     */
 
-    BlocProvider.of<UserBloc>(_blocContext)
-      ..add(UpdateUserData(newUserData: userData));
+    blocContext.read<UserBloc>().add(UpdateUserData(newUserData: userData));
+    //BlocProvider.of<UserBloc>(_blocContext)..add(UpdateUserData(newUserData: userData));
 
-    Navigator.pop(_blocContext);
+    Navigator.pop(_context);
   }
 }

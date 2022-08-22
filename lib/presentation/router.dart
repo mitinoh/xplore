@@ -29,7 +29,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => UserScreen());
       case EDITUSER:
         return MaterialPageRoute(
-            builder: (_) => EditProfileScreen(userData: arguments["user"]));
+            builder: (_) => EditProfileScreen(
+                userData: arguments["user"],
+                blocContext: arguments["context"]));
 
       default:
         return MaterialPageRoute(

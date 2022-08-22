@@ -32,7 +32,7 @@ class SliverBarWidget extends StatelessWidget {
         leading: GestureDetector(
             onTap: () => {
                   Navigator.of(context, rootNavigator: true)
-                      .pushNamed(AppRouter.EDITUSER, arguments: {"user": user})
+                      .pushNamed(AppRouter.EDITUSER, arguments: {"user": user, "context": context})
                 },
             child: const Padding(
               padding: EdgeInsets.only(left: 20.0),
