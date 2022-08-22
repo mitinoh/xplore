@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/presentation/screen/home/sc_home.dart';
+import 'package:xplore/presentation/screen/planner/sc_planner.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
@@ -50,9 +51,8 @@ class Navbar extends StatelessWidget {
       const HomeScreen(),
       const HomeScreen(),
       const HomeScreen(),
-      const HomeScreen(),
-       UserScreen(),
-      
+      PlannerScreen(),
+      UserScreen(),
     ];
   }
 

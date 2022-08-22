@@ -46,19 +46,19 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
     super.initState();
   }
 
-  //XFile? image;
-  //final ImagePicker _picker = ImagePicker();
+  XFile? image;
+  final ImagePicker _picker = ImagePicker();
 
   _getFromGallery() async {
-    // _picker.pickImage(source: ImageSource.gallery);
-    // image = await _picker.pickImage(source: ImageSource.gallery);
-    /*
+    image = await _picker.pickImage(source: ImageSource.gallery);
     String base64Image = "";
+    /*
     if (image != null) {
       final bytes = File(image!.path).readAsBytesSync();
       base64Image = "data:image/png;base64," + base64Encode(bytes);
     }*/
   }
+
   late ThemeData _lightDark;
   @override
   Widget build(BuildContext ctx) {

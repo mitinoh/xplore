@@ -7,24 +7,22 @@ import 'package:xplore/app_config.dart';
 import 'package:xplore/model/repository/follower_repository.dart';
 import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/model/repository/planner_repository.dart';
 import 'package:xplore/model/repository/report_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/navbar.dart';
-import 'package:xplore/presentation/common_widgets/navigation_bar.dart';
 import 'package:xplore/presentation/router.dart';
-import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
+import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
+import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
 import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart';
-import 'package:xplore/presentation/screen/search/sc_search.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
-import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
-import 'package:xplore/presentation/screen/user/sc_user.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';
 
 import '../presentation/screen/home/bloc/bloc.dart';
-import '../presentation/screen/user/bloc_saved_location/bloc.dart';
+import '../presentation/screen/planner/bloc_current_trip/bloc.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -52,6 +50,7 @@ class App extends StatefulWidget {
           final HomeRepository homeRepository = HomeRepository();
           final FollowerRepository followerRepository = FollowerRepository();
           final ReportRepository reportRepository = ReportRepository();
+          final PlannerRepository plannerRepository = PlannerRepository();
           return MultiRepositoryProvider(
             providers: [
               RepositoryProvider<AuthRepository>(
@@ -64,6 +63,8 @@ class App extends StatefulWidget {
                   create: (context) => followerRepository),
               RepositoryProvider<ReportRepository>(
                   create: (context) => reportRepository),
+              RepositoryProvider<PlannerRepository>(
+                  create: (context) => plannerRepository),
             ],
             child: MultiBlocProvider(
               providers: [
@@ -83,7 +84,16 @@ class App extends StatefulWidget {
                         FollowerBloc(followerRepository: followerRepository)),
                 BlocProvider(
                     create: (context) =>
-                        ReportBloc(reportRepository: reportRepository))
+                        ReportBloc(reportRepository: reportRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        PlannerBloc(plannerRepository: plannerRepository)),
+                BlocProvider(
+                    create: (context) => CurrentPlannerBloc(
+                        plannerRepository: plannerRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        FuturePlannerBloc(plannerRepository: plannerRepository))
               ],
               child: App(),
             ),

@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:xplore/model/api/mongoose.dart';
+import 'package:xplore/model/api/rest_client.dart';
+import 'package:xplore/model/dio_provider.dart';
+import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/model/model/planner_model.dart';
+
+class PlannerRepository {
+  final dio = DioProvider.instance();
+  final DateTime now = DateUtils.dateOnly(DateTime.now());
+
+  Future<List<LocationModel>> getUserUploadedLocation(Mongoose mng) async {
+    final client = RestClient(await dio);
+    return await client.getUserUploadedLocation(mng.getUrl());
+  }
+
+  Future<List<PlannerModel>> getPlannedTripList(Mongoose mng) async {
+    final client = RestClient(await dio);
+    return await client.getPlannedTrip(mng.getUrl());
+  }
+
+  Mongoose get getInProgressTripMng {
+    return Mongoose(filter: [
+      Filter(
+        key: 'returnDate',
+        operation: '>=',
+        value: now.toIso8601String(),
+      ),
+      Filter(
+        key: 'goneDate',
+        operation: '<=',
+        value: now.toIso8601String(),
+      )
+    ]);
+  }
+
+  Mongoose get getFutureTripMng {
+    return Mongoose(filter: [
+      Filter(
+        key: 'goneDate',
+        operation: '>',
+        value: now.toIso8601String(),
+      )
+    ]);
+  }
+}

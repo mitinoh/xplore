@@ -18,12 +18,10 @@ class PinnedMenu extends StatefulWidget {
 }
 
 class _PinnedMenuState extends State<PinnedMenu> {
-  late MediaQueryData mediaQuery;
-  late ThemeData lightDark;
+  late MediaQueryData mediaQuery = MediaQuery.of(context);
+  late ThemeData lightDark = Theme.of(context);
   @override
   Widget build(BuildContext context) {
-    mediaQuery = MediaQuery.of(context);
-    lightDark = Theme.of(context);
 
     return Positioned(
         bottom: mediaQuery.size.height * 0.25,

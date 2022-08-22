@@ -22,16 +22,7 @@ class EditProfileScreen extends StatelessWidget {
   final ImagePicker _picker = ImagePicker();
   Pref pref = Pref();
 
-  _getFromGallery() async {
-    // _picker.pickImage(source: ImageSource.gallery);
-    image = await _picker.pickImage(source: ImageSource.gallery);
-    /*
-    String base64Image = "";
-    if (image != null) {
-      final bytes = File(image!.path).readAsBytesSync();
-      base64Image = "data:image/png;base64," + base64Encode(bytes);
-    }*/
-  }
+
 
   void initState() async {
     _usernameController.text = userData.username ?? '';

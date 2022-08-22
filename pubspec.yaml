@@ -45,6 +45,7 @@ dev_dependencies:
   #Util
   url_launcher: ^6.0.20
   image_picker: ^0.8.5+3
+  geocoding: ^2.0.4
 
 
 

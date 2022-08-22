@@ -1,6 +1,7 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/model/model/planner_model.dart';
 import 'package:xplore/model/model/report_model.dart';
 import 'package:xplore/model/model/user_model.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
@@ -56,4 +57,7 @@ abstract class RestClient {
   @DioResponseType(ResponseType.plain)
   Future<dynamic> reportUser(@Body() ReportModel map);
 
+  @GET("/plan-trip?_={query}")
+  @DioResponseType(ResponseType.plain)
+  Future<List<PlannerModel>> getPlannedTrip(@Path("query") String? query);
 }
