@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/presentation/screen/planner/widget/current_planned_trip_widget.dart';
 import 'package:xplore/presentation/screen/planner/widget/future_planned_trip_widget.dart';
+import 'package:xplore/presentation/screen/planner/widget/plan_new_trip_screen.dart';
 
 class PlannerScreen extends StatefulWidget {
   const PlannerScreen({Key? key}) : super(key: key);
@@ -34,7 +35,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-              
                 const SizedBox(height: 20),
                 headerTitle(),
                 const SizedBox(height: 20),
@@ -44,12 +44,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
                 //topMenuPlanner(),
                 //headerPlanner(),
                 const SizedBox(height: 20),
-                CurrentPlannedTripList(
-                ),
+                CurrentPlannedTripList(),
                 const SizedBox(height: 20),
-                FuturePlannedTripList(
-                ),
-                
+                FuturePlannedTripList(),
               ],
             ),
           ),
@@ -85,7 +82,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
   InkWell locationImage(lightDark) {
     return InkWell(
       onTap: () {
-        // planNewTrip();
+        planNewTrip();
       },
       child: Container(
         padding:
@@ -114,6 +111,18 @@ class _PlannerScreenState extends State<PlannerScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void planNewTrip() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (ctx) => PlanNewTrip(
+                callback: () {
+                  //   BlocProvider.of<(context).add(GetPlannedTrip());
+                },
+              )),
     );
   }
 }

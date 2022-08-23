@@ -1,5 +1,6 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
+import 'package:xplore/model/model/location_category_model.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/model/planner_model.dart';
 import 'package:xplore/model/model/report_model.dart';
@@ -60,4 +61,9 @@ abstract class RestClient {
   @GET("/plan-trip?_={query}")
   @DioResponseType(ResponseType.plain)
   Future<List<PlannerModel>> getPlannedTrip(@Path("query") String? query);
+
+
+  @GET("/location-category")
+  Future<List<LocationCategoryModel>> getLocationCategories();
+
 }

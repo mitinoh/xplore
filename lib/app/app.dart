@@ -7,14 +7,17 @@ import 'package:xplore/app_config.dart';
 import 'package:xplore/model/repository/follower_repository.dart';
 import 'package:xplore/model/repository/home_repository.dart';
 import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/model/repository/location_category_repository.dart';
 import 'package:xplore/model/repository/planner_repository.dart';
 import 'package:xplore/model/repository/report_repository.dart';
 import 'package:xplore/model/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/navbar.dart';
 import 'package:xplore/presentation/router.dart';
+import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
+import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
@@ -51,6 +54,8 @@ class App extends StatefulWidget {
           final FollowerRepository followerRepository = FollowerRepository();
           final ReportRepository reportRepository = ReportRepository();
           final PlannerRepository plannerRepository = PlannerRepository();
+         final LocationCategoryRepository locationCategoryRepository = LocationCategoryRepository();
+        
           return MultiRepositoryProvider(
             providers: [
               RepositoryProvider<AuthRepository>(
@@ -65,6 +70,10 @@ class App extends StatefulWidget {
                   create: (context) => reportRepository),
               RepositoryProvider<PlannerRepository>(
                   create: (context) => plannerRepository),
+              RepositoryProvider<LocationCategoryRepository>(
+                  create: (context) => locationCategoryRepository),
+
+                  
             ],
             child: MultiBlocProvider(
               providers: [
@@ -93,7 +102,13 @@ class App extends StatefulWidget {
                         plannerRepository: plannerRepository)),
                 BlocProvider(
                     create: (context) =>
-                        FuturePlannerBloc(plannerRepository: plannerRepository))
+                        FuturePlannerBloc(plannerRepository: plannerRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        PlannerQuestionBloc(plannerRepository: plannerRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        LocationCategoryBloc(locationCategroyRepository: locationCategoryRepository))
               ],
               child: App(),
             ),
