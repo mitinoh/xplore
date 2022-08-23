@@ -11,6 +11,7 @@ import 'package:xplore/presentation/screen/planner/widget/planner_header_command
 import 'package:xplore/presentation/screen/planner/widget/questions/avoid_category_question.dart';
 import 'package:xplore/presentation/screen/planner/widget/questions/distance_question.dart';
 import 'package:xplore/presentation/screen/planner/widget/questions/period_question.dart';
+import 'package:xplore/presentation/screen/planner/widget/questions/select_trip_location_widget.dart';
 import 'package:xplore/presentation/screen/planner/widget/questions/trip_name_question.dart';
 import 'package:xplore/presentation/screen/planner/widget/questions/where_question.dart';
 
@@ -108,7 +109,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 questionWidget = TripNameQuestion();
                 break;
               case 5:
-                questionWidget = Text("to fix");
+                questionWidget = SelectTripLocation();
                 // questionWidget = SelectTripLocation( );
                 break;
               default:
@@ -130,17 +131,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
                 ProgressBar(valueProgressIndicator: valueProgressIndicator),
                 const SizedBox(height: 30),
                 Expanded(child: questionWidget),
-                InkWell(
-                  onTap: () => {
-                    BlocProvider.of<PlannerQuestionBloc>(context)
-                        .add(PlannerChangeQuestion())
-                  },
-                  child: ConfirmButton(
-                    text: "prossima domanda",
-                    colors: Colors.blue,
-                    colorsText: Colors.black,
-                  ),
-                )
               ],
             );
             /* } else */

@@ -13,11 +13,22 @@ abstract class PlannerQuestionEvent {
 
 class PlannerChangeQuestion extends PlannerQuestionEvent {
   final bool increment;
-  PlannerChangeQuestion({ this.increment =  true});
+  PlannerChangeQuestion({this.increment = true});
 }
 
+class PlannerGetLocation extends PlannerQuestionEvent {
+  final Mongoose mng;
+  PlannerGetLocation({required this.mng});
+}
 
 class PlannerQuestionErrorEvent extends PlannerQuestionEvent {
   final String message;
   PlannerQuestionErrorEvent({required this.message});
 }
+
+class SaveTrip extends PlannerQuestionEvent {
+  Map<String, dynamic> body;
+  SaveTrip({required this.body});
+}
+
+class PlannerEndQuestion extends PlannerQuestionEvent {}

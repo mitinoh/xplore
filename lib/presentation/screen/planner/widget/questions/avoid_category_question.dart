@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xplore/model/repository/location_category_repository.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
@@ -19,7 +20,9 @@ class AvoidCategoryQuestion extends StatelessWidget {
     var lightDark = Theme.of(context);
     _context = context;
     return BlocProvider(
-      create: (_) => BlocProvider.of<LocationCategoryBloc>(context)
+      create: (_) => LocationCategoryBloc(
+          locationCategroyRepository:
+              RepositoryProvider.of<LocationCategoryRepository>(context))
         ..add(GetLocationCategoryList()),
       child: BlocListener<LocationCategoryBloc, LocationCategoryState>(
         listener: (context, state) {
@@ -93,7 +96,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
   void setCategoryToAvoid() {
     BlocProvider.of<PlannerQuestionBloc>(_context)
         .planTripQuestionsMap["avoidCategory"] = [];
-   // CategoryPreference.catSelected.join(',').toString();
+    // CategoryPreference.catSelected.join(',').toString();
     // mng.filter?.putIfAbsent("locationcategory",  () => 'nin:' + CategoryPreference.catSelected.join(','));
 
     BlocProvider.of<PlannerQuestionBloc>(_context).add(PlannerChangeQuestion());

@@ -10,7 +10,7 @@ class HomeRepository {
   //static var limit = 15;
 
   final dio = DioProvider.instance();
-  Future<List<LocationModel>> getHomeData(Mongoose mng) async {
+  Future<List<LocationModel>> getHomeData(Mongoose mng) async { // TODO: rinominare metodo
     final client = RestClient(await dio);
     return await client.getHomeData(mng.getUrl());
   }

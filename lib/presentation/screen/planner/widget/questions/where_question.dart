@@ -202,7 +202,6 @@ class _WhereQuestionState extends State<WhereQuestion> {
             ),
           ],
         ),
-        /*
         InkWell(
           onTap: () => {
             getCoordinate(_locationController.text.toString()),
@@ -212,7 +211,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
             colors: Colors.blue,
             colorsText: Colors.black,
           ),
-        ),*/
+        ),
       ],
     );
   }
@@ -220,26 +219,23 @@ class _WhereQuestionState extends State<WhereQuestion> {
   void getCoordinate(String location) async {
     try {
       List<Location> locations = await locationFromAddress(location);
-       BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["latitude"] =
-          locations[0].latitude;
-       BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["longitude"] =
-          locations[0].longitude;
-       BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["locationNam"] =
-          location;
+      BlocProvider.of<PlannerQuestionBloc>(context)
+          .planTripQuestionsMap["latitude"] = locations[0].latitude;
+      BlocProvider.of<PlannerQuestionBloc>(context)
+          .planTripQuestionsMap["longitude"] = locations[0].longitude;
+      BlocProvider.of<PlannerQuestionBloc>(context)
+          .planTripQuestionsMap["locationNam"] = location;
 
-
-           BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion());
+      BlocProvider.of<PlannerQuestionBloc>(context)
+          .add(PlannerChangeQuestion());
       //locLatitude = locations[0].latitude;
       //locLongitude = locations[0].longitude;
 
       //incrementQuest();
     } catch (e) {
-
-           BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerQuestionErrorEvent(message: "asd"));
-     // context.read<PlannerQuestionBloc>().add(PlanTripErrorEvent(message: 'mess111'));
+      BlocProvider.of<PlannerQuestionBloc>(context)
+          .add(PlannerQuestionErrorEvent(message: "nessun posto trovato"));
+      // context.read<PlannerQuestionBloc>().add(PlanTripErrorEvent(message: 'mess111'));
       // _planTripBloc.add(PlanTripErrorEvent(message: 'mess111'));
     }
   }
@@ -279,10 +275,12 @@ class _WhereQuestionState extends State<WhereQuestion> {
   }
 
   setLocationIfExist() {
-    double lat =
-       BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["latitude"] ?? 0;
-    double lng =
-        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["longitude"] ?? 0;
+    double lat = BlocProvider.of<PlannerQuestionBloc>(context)
+            .planTripQuestionsMap["latitude"] ??
+        0;
+    double lng = BlocProvider.of<PlannerQuestionBloc>(context)
+            .planTripQuestionsMap["longitude"] ??
+        0;
     setLocationName(lat: lat, lng: lng);
   }
 }

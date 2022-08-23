@@ -15,10 +15,7 @@ class PlannerModel {
   DateTime? returnDate;
   GeometryModel? geometry;
   int? distance;
-  //int? periodAvaiable;
-  //int? totDay;
   List<Object>? avoidCategory;
-  //List<int>? dayAvaiable;
   DateTime? goneDate;
   DateTime? cdate;
   String? tripName;
@@ -30,10 +27,7 @@ class PlannerModel {
       this.returnDate,
       this.geometry,
       this.distance,
-      //this.periodAvaiable,
-      //this.totDay,
       this.avoidCategory,
-      //this.dayAvaiable,
       this.goneDate,
       this.cdate,
       this.tripName

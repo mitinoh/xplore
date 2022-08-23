@@ -42,6 +42,7 @@ dev_dependencies:
   cached_network_image: ^3.2.1
   masonry_grid: ^1.0.0
   persistent_bottom_nav_bar_v2: ^4.2.4
+  drag_and_drop_lists: ^0.3.3
   #Util
   url_launcher: ^6.0.20
   image_picker: ^0.8.5+3
