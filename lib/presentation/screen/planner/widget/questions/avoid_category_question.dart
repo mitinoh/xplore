@@ -2,19 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xplore/model/model/location_category_model.dart';
 import 'package:xplore/model/repository/location_category_repository.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
+import 'package:xplore/presentation/common_widgets/gridView_category_preference.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
+import 'package:xplore/utils/logger.dart';
 
 import '../../bloc_question/question_bloc.dart';
 
 class AvoidCategoryQuestion extends StatelessWidget {
-  AvoidCategoryQuestion({Key? key}) : super(key: key);
+  AvoidCategoryQuestion({
+    Key? key,
+  }) : super(key: key);
+
   late BuildContext _context;
+  List<LocationCategoryModel> selectedCategories = [];
   @override
   Widget build(context) {
     var lightDark = Theme.of(context);
@@ -77,20 +84,29 @@ class AvoidCategoryQuestion extends StatelessWidget {
               padding: const EdgeInsets.only(left: 0.0, right: 0),
               children: const <Widget>[CategoryPreference()],
             ),*/
-            // const GridViewCategoryPreference()
+            GridViewCategoryPreference(
+              selectedCategories: selectedCategories,
+              update: _incrementCounter,
+            )
           ],
         ),
         InkWell(
             onTap: () {
               setCategoryToAvoid();
+              print("1");
+              print(selectedCategories);
             },
             child: ConfirmButton(
-              text: "prossima domanda",
+              text: "prossimaaaaa domanda",
               colors: Colors.blue,
               colorsText: Colors.black,
             )),
       ],
     );
+  }
+
+  void _incrementCounter(List<LocationCategoryModel> asd) {
+    Logger.info(asd.join());
   }
 
   void setCategoryToAvoid() {

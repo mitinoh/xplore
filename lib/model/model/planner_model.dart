@@ -10,15 +10,15 @@ part 'planner_model.g.dart';
 class PlannerModel {
   @JsonKey(name: '_id')
   String id;
-  UserModel? uid;
-  List<TripModel>? trip;
-  DateTime? returnDate;
-  GeometryModel? geometry;
+  String? tripName;
   int? distance;
+  GeometryModel? geometry;
   List<Object>? avoidCategory;
+  List<TripModel>? trip;
+  UserModel? uid;
+  DateTime? returnDate;
   DateTime? goneDate;
   DateTime? cdate;
-  String? tripName;
 
   PlannerModel({
     required this.id,
