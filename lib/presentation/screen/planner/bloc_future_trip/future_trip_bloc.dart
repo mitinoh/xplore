@@ -21,7 +21,7 @@ class FuturePlannerBloc extends Bloc<FuturePlannerEvent, FuturePlannerState> {
           .getPlannedTripList(plannerRepository.getFutureTripMng);
       emit(FuturePlannerTripLoaded(futureTrip: futurePlannedTrip));
     } catch (e, stacktrace) {
-      Logger.error(stacktrace.toString());
+      Logger.error(e.toString());
       emit(FuturePlannerError(e.toString()));
     }
   }

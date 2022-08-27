@@ -8,6 +8,7 @@ import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
+import 'package:xplore/presentation/screen/planner/widget/trip_detail_screen.dart';
 
 class CurrentPlannedTripList extends StatelessWidget {
   CurrentPlannedTripList({
@@ -32,29 +33,27 @@ class CurrentPlannedTripList extends StatelessWidget {
             if (state is PlannerInitial || state is CurrentPlannerLoading) {
               return const LoadingIndicator();
             } else if (state is CurrentPlantripLoadedTrip) {
-              return Text("Loaded");
-              /*
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3, mainAxisExtent: 175),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: state.currentPlanTripModel.length,
+                itemCount: state.props.length,
                 itemBuilder: (BuildContext context, int index) {
                   return FutureBuilder<String>(
                       future:
-                          getUserLocation(state.currentPlanTripModel[index]),
+                          getUserLocation(state.props[index] as PlannerModel),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return currentTripCard(
-                              state.currentPlanTripModel[index],
+                              state.props[index] as PlannerModel,
                               context,
                               lightDark);
                         }
                         return const LoadingIndicator();
                       });
                 },
-              );*/
+              );
             } else if (state is CurrentPlannerError) {
               return Text("err");
             } else {
@@ -87,7 +86,7 @@ class CurrentPlannedTripList extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            /*
+            
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -95,7 +94,7 @@ class CurrentPlannedTripList extends StatelessWidget {
                         planTrip: pTrip,
                       )),
             );
-            */
+            
           },
           child: Align(
             alignment: Alignment.center,

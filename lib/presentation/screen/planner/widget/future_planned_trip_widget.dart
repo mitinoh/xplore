@@ -7,6 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:xplore/model/model/planner_model.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
+import 'package:xplore/presentation/screen/planner/widget/current_planned_trip_widget.dart';
+import 'package:xplore/presentation/screen/planner/widget/lock_trip_bottom_sheet.dart';
+import 'package:xplore/presentation/screen/planner/widget/trip_detail_screen.dart';
 
 class FuturePlannedTripList extends StatelessWidget {
   const FuturePlannedTripList({Key? key}) : super(key: key);
@@ -24,32 +27,37 @@ class FuturePlannedTripList extends StatelessWidget {
         },
         child: BlocBuilder<FuturePlannerBloc, FuturePlannerState>(
           builder: (context, state) {
-            if (state is FuturePlannerInitial || state is FuturePlannerLoading) {
+            if (state is FuturePlannerInitial ||
+                state is FuturePlannerLoading) {
               return const LoadingIndicator();
             } else if (state is FuturePlannerTripLoaded) {
-              return Text("loaded");
-              /*
+              // return Text("loaded");
+
               return ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: state.planTripModel.length,
+                itemCount: state.props.length,
                 itemBuilder: (BuildContext context, int index) {
                   return FutureBuilder<String>(
-                      future: getUserLocation(state.planTripModel[index]),
+                      future:
+                          getUserLocation(state.props[index] as PlannerModel),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return InkWell(
                             onTap: () {
-                              
                               showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
                                   useRootNavigator: true,
                                   backgroundColor: Colors.transparent,
                                   builder: (context) {
-                                    return const LockTripBottomSheet();
+                                    //return Text("LockTripBottomSheet");
+                                    //  return const LockTripBottomSheet();
+                                    return TripDetailScreen(
+                                      planTrip:
+                                          state.props[index] as PlannerModel,
+                                    );
                                   });
-                                  
                             },
                             child: Column(
                               children: [
@@ -61,7 +69,7 @@ class FuturePlannedTripList extends StatelessWidget {
                                       padding:
                                           const EdgeInsets.only(right: 8.0),
                                       child: CircleAvatar(
-                                        backgroundColor: UIColors.mainColor,
+                                        backgroundColor: Colors.blue,
                                         child: Text((index + 1).toString(),
                                             style: GoogleFonts.poppins(
                                                 fontSize: 16,
@@ -100,7 +108,6 @@ class FuturePlannedTripList extends StatelessWidget {
                       });
                 },
               );
-       */
             } else if (state is FuturePlannerError) {
               return Container();
             } else {

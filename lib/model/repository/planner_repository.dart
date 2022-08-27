@@ -4,6 +4,7 @@ import 'package:xplore/model/api/rest_client.dart';
 import 'package:xplore/model/dio_provider.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/model/planner_model.dart';
+import 'package:xplore/utils/logger.dart';
 
 class PlannerRepository {
   final dio = DioProvider.instance();
@@ -16,6 +17,7 @@ class PlannerRepository {
 
   Future<List<PlannerModel>> getPlannedTripList(Mongoose mng) async {
     final client = RestClient(await dio);
+    Logger.info(mng.getUrl());
     return await client.getPlannedTrip(mng.getUrl());
   }
 
