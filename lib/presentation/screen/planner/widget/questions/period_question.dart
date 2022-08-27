@@ -32,10 +32,10 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
   @override
   void initState() {
     DateTime? goneContext =
-         BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["goneDate"];
+         BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.goneDate;
 
     DateTime? returnContext =
-         BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["returnDate"];
+         BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.returnDate;
     setState(() {
       if (goneContext != null) goneDate = goneContext;
 
@@ -191,9 +191,9 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
             planQuery["dayAvaiable"] = dayAvaiable;
             */
 
-              BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["goneDate"] =
+              BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.goneDate =
                   goneDate;
-              BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["returnDate"] =
+              BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.returnDate =
                   returnDate;
 
                BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion( ));

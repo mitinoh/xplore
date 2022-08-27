@@ -6,7 +6,7 @@ part 'geometry_model.g.dart';
 class GeometryModel {
 
 
-  String? type;
+  String? type; // TODO: creare un enum
   List<double>? coordinates;
 
   GeometryModel({required this.type, this.coordinates});

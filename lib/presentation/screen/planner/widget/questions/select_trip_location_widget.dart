@@ -6,9 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:xplore/model/api/mongoose.dart';
 
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
+import 'package:xplore/model/model/location_category_model.dart';
 import 'package:xplore/model/model/location_model.dart';
 import 'package:xplore/model/model/move_planner_model.dart';
 import 'package:xplore/model/model/planner_model.dart';
+import 'package:xplore/model/model/trip_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
@@ -48,7 +50,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   double longitude = 0;
   double distance = 0;
   bool firstLoad = true;
-  List<String> avoidCategory = [];
+  List<LocationCategoryModel> avoidCategory = [];
 
   DateTime goneDate = DateTime.now();
   DateTime returnDate = DateTime.now();
@@ -92,30 +94,42 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   Mongoose getQuery() {
     Mongoose mng = Mongoose(filter: []);
     latitude = BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["latitude"];
+            .planTripQuestions
+            .geometry
+            ?.coordinates?[1] ??
+        0;
     longitude = BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["longitude"];
+            .planTripQuestions
+            .geometry
+            ?.coordinates?[0] ??
+        0;
     distance = BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["distance"];
+            .planTripQuestions
+            .distance ??
+        0;
     tripName = BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["tripName"];
+            .planTripQuestions
+            .tripName ??
+        '';
     goneDate = BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["goneDate"];
+            .planTripQuestions
+            .goneDate ??
+        DateTime.now();
     returnDate =
-        context.read<PlannerQuestionBloc>().planTripQuestionsMap["returnDate"];
-    if (context
+        context.read<PlannerQuestionBloc>().planTripQuestions.returnDate ??
+            DateTime.now();
+/*    if (context
             .read<PlannerQuestionBloc>()
             .planTripQuestionsMap["avoidCategory"] !=
         null) {
       print(context
           .read<PlannerQuestionBloc>()
           .planTripQuestionsMap["avoidCategory"]);
-      /*
-      avoidCategory = context
-          .read<PlannerQuestionBloc>()
-          .planTripQuestionsMap["avoidCategory"]
-          .split(',');*/
-    }
+  */
+
+    avoidCategory =
+        context.read<PlannerQuestionBloc>().planTripQuestions.avoidCategory ??
+            [];
 
     mng.filter?.add(
         Filter(key: "latitude", operation: "=", value: latitude.toString()));
@@ -321,15 +335,17 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   }
 
   saveTripPlan() {
-    List planList = [];
+    List<TripModel> planList = [];
     for (List fl in _plan) {
       for (MovePlannerModel el in fl) {
         // salvo solamente i gg in cui c'è un attivita
-
-        planList.add(el.toJson());
+        TripModel tm = TripModel(
+            date: el.date, location: LocationModel(id: el.locationId ?? ''));
+        planList.add(tm);
       }
     }
 
+/*
     Map<String, dynamic> planQuery = {};
     planQuery["goneDate"] = DateUtils.dateOnly(goneDate).toIso8601String();
     planQuery["returnDate"] = DateUtils.dateOnly(returnDate).toIso8601String();
@@ -338,8 +354,12 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     planQuery["distance"] = distance;
     planQuery["coordinate"] = {"lat": latitude, "lng": longitude, "alt": 0};
     planQuery["avoidCategory"] = avoidCategory;
-    BlocProvider.of<PlannerQuestionBloc>(context)
-        .add(SaveTrip(body: planQuery));
+    */
+
+    BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.plannedLocation = planList;
+    BlocProvider.of<PlannerQuestionBloc>(context).add(SaveTrip(
+        newTrip:
+            BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions));
 /*
     widget.planQuery
         .putIfAbsent("goneDate", () => widget.goneDate.toIso8601String());

@@ -3,15 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/model/model/geometry_model.dart';
+import 'package:xplore/model/model/location_category_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
 import 'package:xplore/presentation/screen/planner/bloc/plan_state.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/question_bloc.dart';
+import 'package:xplore/presentation/screen/planner/widget/plan_new_trip_widget.dart';
+import 'package:xplore/utils/logger.dart';
 
 class WhereQuestion extends StatefulWidget {
-  WhereQuestion({Key? key}) : super(key: key);
+  WhereQuestion({
+    Key? key,
+  }) : super(key: key);
+
+  //final ValueChanged<void> callback;
 
   @override
   State<WhereQuestion> createState() => _WhereQuestionState();
@@ -26,7 +34,8 @@ class _WhereQuestionState extends State<WhereQuestion> {
   @override
   void initState() {
     String? contextName = BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestionsMap["locationName"];
+        .planTripQuestions
+        .destinationName;
 
     if (contextName != null) {
       setState(() {
@@ -34,12 +43,14 @@ class _WhereQuestionState extends State<WhereQuestion> {
       });
       setLocationIfExist();
     }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext ctx) {
     var lightDark = Theme.of(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,7 +218,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
             getCoordinate(_locationController.text.toString()),
           },
           child: ConfirmButton(
-            text: "prossima domanda",
+            text: "prossimllla domanda",
             colors: Colors.blue,
             colorsText: Colors.black,
           ),
@@ -219,6 +230,16 @@ class _WhereQuestionState extends State<WhereQuestion> {
   void getCoordinate(String location) async {
     try {
       List<Location> locations = await locationFromAddress(location);
+      GeometryModel geo = GeometryModel(
+          type: "Point",
+          coordinates: [locations[0].longitude, locations[0].latitude]);
+
+      BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.geometry =
+          geo;
+      BlocProvider.of<PlannerQuestionBloc>(context)
+          .planTripQuestions
+          .destinationName = location;
+/*
       BlocProvider.of<PlannerQuestionBloc>(context)
           .planTripQuestionsMap["latitude"] = locations[0].latitude;
       BlocProvider.of<PlannerQuestionBloc>(context)
@@ -226,6 +247,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
       BlocProvider.of<PlannerQuestionBloc>(context)
           .planTripQuestionsMap["locationNam"] = location;
 
+*/
       BlocProvider.of<PlannerQuestionBloc>(context)
           .add(PlannerChangeQuestion());
       //locLatitude = locations[0].latitude;
@@ -259,12 +281,9 @@ class _WhereQuestionState extends State<WhereQuestion> {
 
       setState(() {
         _hasFoundLocation = true;
-        _locationFound = place.locality! +
-            ', ' +
-            place.postalCode! +
-            ', ' +
-            place.country! +
-            ', ';
+
+        _locationFound =
+            '${place.locality}, ${place.postalCode}, ${place.country}';
       });
     } catch (e) {
       setState(() {
@@ -276,10 +295,14 @@ class _WhereQuestionState extends State<WhereQuestion> {
 
   setLocationIfExist() {
     double lat = BlocProvider.of<PlannerQuestionBloc>(context)
-            .planTripQuestionsMap["latitude"] ??
+            .planTripQuestions
+            .geometry
+            ?.coordinates?[1] ??
         0;
     double lng = BlocProvider.of<PlannerQuestionBloc>(context)
-            .planTripQuestionsMap["longitude"] ??
+            .planTripQuestions
+            .geometry
+            ?.coordinates?[0] ??
         0;
     setLocationName(lat: lat, lng: lng);
   }

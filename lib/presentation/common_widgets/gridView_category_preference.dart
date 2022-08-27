@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/model/model/location_category_model.dart';
+import 'package:xplore/model/repository/location_category_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/location_category_bloc.dart';
 
 class GridViewCategoryPreference extends StatefulWidget {
   GridViewCategoryPreference(
-      {Key? key, required this.selectedCategories, required this.update})
+      {Key? key,
+      required this.selectedCategories,
+      required this.updateSelectedCategories})
       : super(key: key);
 
   List<LocationCategoryModel> selectedCategories;
-  final ValueChanged<List<LocationCategoryModel>> update;
+  final ValueChanged<List<LocationCategoryModel>> updateSelectedCategories;
   @override
   State<GridViewCategoryPreference> createState() =>
       _GridViewCategoryPreference();
@@ -29,7 +32,9 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
     var lightDark = Theme.of(context);
     var mediaQuery = MediaQuery.of(context);
     return BlocProvider(
-      create: (_) => BlocProvider.of<LocationCategoryBloc>(context)
+      create: (_) => LocationCategoryBloc(
+          locationCategroyRepository:
+              RepositoryProvider.of<LocationCategoryRepository>(context))
         ..add(GetLocationCategoryList()),
       child: BlocListener<LocationCategoryBloc, LocationCategoryState>(
         listener: (context, state) {
@@ -92,7 +97,8 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                               else
                                 widget.selectedCategories.add(category);
 
-                              widget.update(widget.selectedCategories);
+                              widget.updateSelectedCategories(
+                                  widget.selectedCategories);
                             });
                           },
                           title: Text(

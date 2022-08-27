@@ -16,7 +16,7 @@ class TripNameQuestion extends StatelessWidget {
 
   initState(BuildContext context) {
     String? contextName =
-       BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["tripName"];
+       BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName;
     if (contextName != null) _nameController.text = contextName;
   }
 
@@ -91,7 +91,7 @@ class TripNameQuestion extends StatelessWidget {
             if (_nameController.text != null &&
                 _nameController.text.trim() != "")
               {
-               BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["tripName"] =
+               BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName =
                     _nameController.text,
                 BlocProvider.of<PlannerQuestionBloc>(context)
                     .add(PlannerChangeQuestion())

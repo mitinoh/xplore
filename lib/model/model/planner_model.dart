@@ -9,29 +9,30 @@ part 'planner_model.g.dart';
 @JsonSerializable()
 class PlannerModel {
   @JsonKey(name: '_id')
-  String id;
+  String ?id;
   String? tripName;
-  int? distance;
+  String? destinationName;
+  double? distance;
   GeometryModel? geometry;
-  List<Object>? avoidCategory;
-  List<TripModel>? trip;
+  List<LocationCategoryModel>? avoidCategory;
+  List<TripModel>? plannedLocation;
   UserModel? uid;
   DateTime? returnDate;
   DateTime? goneDate;
   DateTime? cdate;
 
-  PlannerModel({
-    required this.id,
+  PlannerModel(
+      { this.id,
       this.uid,
-      this.trip,
+      this.plannedLocation,
+      this.destinationName,
       this.returnDate,
       this.geometry,
       this.distance,
       this.avoidCategory,
       this.goneDate,
       this.cdate,
-      this.tripName
-  });
+      this.tripName});
 
   factory PlannerModel.fromJson(Map<String, dynamic> json) =>
       _$PlannerModelFromJson(json);

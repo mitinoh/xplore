@@ -26,6 +26,8 @@ class AvoidCategoryQuestion extends StatelessWidget {
   Widget build(context) {
     var lightDark = Theme.of(context);
     _context = context;
+    return categoryToAvoidWidget(lightDark);
+    /*
     return BlocProvider(
       create: (_) => LocationCategoryBloc(
           locationCategroyRepository:
@@ -56,6 +58,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
         ),
       ),
     );
+  */
   }
 
   Column categoryToAvoidWidget(lightDark) {
@@ -86,7 +89,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
             ),*/
             GridViewCategoryPreference(
               selectedCategories: selectedCategories,
-              update: _incrementCounter,
+              updateSelectedCategories: _setSelectedCategories,
             )
           ],
         ),
@@ -105,13 +108,16 @@ class AvoidCategoryQuestion extends StatelessWidget {
     );
   }
 
-  void _incrementCounter(List<LocationCategoryModel> asd) {
-    Logger.info(asd.join());
+  void _setSelectedCategories(List<LocationCategoryModel> asd) {
+    BlocProvider.of<PlannerQuestionBloc>(_context)
+        .planTripQuestions
+        .avoidCategory = [];
   }
 
   void setCategoryToAvoid() {
     BlocProvider.of<PlannerQuestionBloc>(_context)
-        .planTripQuestionsMap["avoidCategory"] = [];
+        .planTripQuestions
+        .avoidCategory = [];
     // CategoryPreference.catSelected.join(',').toString();
     // mng.filter?.putIfAbsent("locationcategory",  () => 'nin:' + CategoryPreference.catSelected.join(','));
 

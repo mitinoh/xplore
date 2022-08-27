@@ -20,7 +20,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
   @override
   void initState() {
     double? contextDistance =
-        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["distance"];
+        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.distance;
     if (contextDistance != null) {
       setState(() {
         _currentSliderValue = contextDistance / 1000;
@@ -140,7 +140,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
 */
     // planQuery["distance"] = _currentSliderValue;
 
-   BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestionsMap["distance"] =
+   BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.distance=
         _currentSliderValue * 1000;
     BlocProvider.of<PlannerQuestionBloc>(context)
         .add(PlannerChangeQuestion());

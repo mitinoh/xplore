@@ -19,6 +19,11 @@ class PlannerRepository {
     return await client.getPlannedTrip(mng.getUrl());
   }
 
+  Future<void> savePlannedTrip(PlannerModel plannedTrip) async {
+    final client = RestClient(await dio);
+    return await client.savePlannedTrip(plannedTrip);
+  }
+
   Mongoose get getInProgressTripMng {
     return Mongoose(filter: [
       Filter(

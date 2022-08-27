@@ -13,7 +13,7 @@ class PlannerQuestionBloc
     extends Bloc<PlannerQuestionEvent, PlannerQuestionState> {
   final PlannerRepository plannerRepository;
   final HomeRepository homeRepository = HomeRepository();
-  Map<String, dynamic> planTripQuestionsMap = {};
+  PlannerModel planTripQuestions = PlannerModel();
 
   PlannerQuestionBloc({required this.plannerRepository})
       : super(PlannerQuestionInitial()) {
@@ -62,6 +62,7 @@ class PlannerQuestionBloc
   void _plannerQuestionSaveTrip(
       SaveTrip event, Emitter<PlannerQuestionState> emit) async {
     try {
+      plannerRepository.savePlannedTrip(event.newTrip);
       emit(PlannerQuestionCompleted());
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());

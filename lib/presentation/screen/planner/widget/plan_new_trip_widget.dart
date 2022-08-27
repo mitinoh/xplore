@@ -16,9 +16,12 @@ import 'package:xplore/presentation/screen/planner/widget/questions/trip_name_qu
 import 'package:xplore/presentation/screen/planner/widget/questions/where_question.dart';
 
 class NetTripQuestion extends StatefulWidget {
-  const NetTripQuestion({Key? key, required this.callback}) : super(key: key);
+  NetTripQuestion({Key? key, required this.callback}) : super(key: key);
   final VoidCallback? callback;
   // https://pub.dev/packages/drag_and_drop_lists
+
+   GlobalKey<_NetTripQuestionState> netTripQuestionState =
+      GlobalKey<_NetTripQuestionState>();
 
   @override
   State<NetTripQuestion> createState() => _NetTripQuestionState();
@@ -63,6 +66,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             setState(() {
               valueProgressIndicator += 0.166;
               questNum++;
+
             });
           } else if (state is PlannerPreviousQuestion) {
             if (questNum != 0) {

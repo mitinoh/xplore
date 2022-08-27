@@ -66,4 +66,9 @@ abstract class RestClient {
   @GET("/location-category")
   Future<List<LocationCategoryModel>> getLocationCategories();
 
+
+  @POST("/plan-trip")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> savePlannedTrip(@Body() PlannerModel map);
+
 }
