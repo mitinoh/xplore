@@ -7,7 +7,7 @@ import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_text.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
-import 'package:xplore/presentation/screen/planner/widget/sc_trip_detail.dart';
+import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
 
 class FuturePlannedTripList extends StatelessWidget {
   FuturePlannedTripList({Key? key}) : super(key: key);

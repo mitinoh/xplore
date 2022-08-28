@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:xplore/data/api/mongoose.dart';
 import 'package:xplore/data/model/planner_model.dart';
-import 'package:xplore/data/repository/home_repository.dart';
 import 'package:xplore/data/repository/planner_repository.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
 import 'package:xplore/utils/logger.dart';
@@ -21,7 +19,7 @@ class FuturePlannerBloc extends Bloc<FuturePlannerEvent, FuturePlannerState> {
           .getPlannedTripList(plannerRepository.getFutureTripMng);
       emit(FuturePlannerTripLoaded(futureTrip: futurePlannedTrip));
     } catch (e, stacktrace) {
-      Logger.error(e.toString());
+      Logger.error(stacktrace.toString());
       emit(FuturePlannerError(e.toString()));
     }
   }

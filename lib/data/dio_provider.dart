@@ -8,7 +8,7 @@ class DioProvider {
     AuthRepository _authRepository = AuthRepository();
     final dio = Dio();
 
-//    dio.interceptors.add(AuthInterceptor());
+    //dio.interceptors.add(AuthInterceptor());
     dio.interceptors.add(HttpLogInterceptor());
     dio.options.headers['content-Type'] = 'application/json';
     dio.options.headers["auth"] = await _authRepository.getUserToken();
@@ -19,8 +19,7 @@ class DioProvider {
 
 class HttpLogInterceptor extends InterceptorsWrapper {
   @override
-  Future onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     log("onRequest: ${options.uri}\n"
         //"data=${options.data}\n"
         "method=${options.method}\n"
@@ -31,7 +30,7 @@ class HttpLogInterceptor extends InterceptorsWrapper {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    // log("statusCode=${response.statusCode}\n" "responseBody=${response.data}");
+    // Logger.info("statusCode=${response.statusCode}\n" "responseBody=${response.data}");
     super.onResponse(response, handler);
   }
 

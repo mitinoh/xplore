@@ -7,7 +7,7 @@ import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/widget/wg_current_planned_trip.dart';
 import 'package:xplore/presentation/screen/planner/widget/wg_future_planned_trip.dart';
-import 'package:xplore/presentation/screen/planner/widget/sc_plan_new_trip.dart';
+import 'package:xplore/presentation/screen/planner/sc_plan_new_trip.dart';
 
 class PlannerScreen extends StatefulWidget {
   const PlannerScreen({Key? key}) : super(key: key);

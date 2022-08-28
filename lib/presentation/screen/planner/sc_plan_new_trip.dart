@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/presentation/screen/planner/widget/plan_new_trip_widget.dart';
+import 'package:xplore/presentation/screen/planner/widget/wg_plan_new_trip.dart';
 class PlanNewTripScreen extends StatefulWidget {
   const PlanNewTripScreen({Key? key, required this.callback}) : super(key: key);
   final VoidCallback? callback;

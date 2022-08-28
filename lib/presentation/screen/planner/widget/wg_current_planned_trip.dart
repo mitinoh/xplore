@@ -7,7 +7,7 @@ import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
-import 'package:xplore/presentation/screen/planner/widget/sc_trip_detail.dart';
+import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
 
 class CurrentPlannedTripList extends StatelessWidget {
   CurrentPlannedTripList({

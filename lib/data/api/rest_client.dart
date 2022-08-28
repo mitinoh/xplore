@@ -5,7 +5,6 @@ import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/data/model/report_model.dart';
 import 'package:xplore/data/model/user_model.dart';
-import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
 
 part 'rest_client.g.dart';
 
@@ -16,34 +15,51 @@ abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @GET("/location?_={query}")
+  @DioResponseType(ResponseType.json)
   Future<List<LocationModel>> getLocationList(@Path("query") String? query);
 
-  @GET("/user/fid/{fid}")
-  Future<UserModel> getFidUserData(@Path("fid") String? fid);
+  @GET("/location/uploaded?_={query}")
+  @DioResponseType(ResponseType.json)
+  Future<List<LocationModel>> getUserUploadedLocation(@Path("query") String? query);
+
+  @GET("/location-category")
+  @DioResponseType(ResponseType.json)
+  Future<List<LocationCategoryModel>> getLocationCategories();
+
+  @GET("/save-location?_={query}")
+  @DioResponseType(ResponseType.json)
+  Future<List<LocationModel>> getUserSavedLocation(@Path("query") String? query);
 
   @PATCH("/save-location/{id}")
   @DioResponseType(ResponseType.plain)
   Future<dynamic> toggleLocationLike(@Path() String id);
 
-  @GET("/save-location?_={query}")
-  @DioResponseType(ResponseType.plain)
-  Future<List<LocationModel>> getUserSavedLocation(
-      @Path("query") String? query);
+  @GET("/plan-trip?_={query}")
+  @DioResponseType(ResponseType.json)
+  Future<List<PlannerModel>> getPlannedTrip(@Path("query") String? query);
 
-  @GET("/location/uploaded?_={query}")
+  @POST("/plan-trip")
   @DioResponseType(ResponseType.plain)
-  Future<List<LocationModel>> getUserUploadedLocation(
-      @Path("query") String? query);
+  Future<dynamic> savePlannedTrip(@Body() PlannerModel map);
+
+  @GET("/user?_={query}")
+  @DioResponseType(ResponseType.json)
+  Future<List<UserModel>> getUserList(@Path("query") String? query);
+
+  @GET("/user/fid/{fid}")
+  @DioResponseType(ResponseType.json)
+  Future<UserModel> getFidUserData(@Path("fid") String? fid);
 
   @PATCH("/user")
   @DioResponseType(ResponseType.plain)
   Future<dynamic> updateUserData(@Body() UserModel map);
 
-  @GET("/user?_={query}")
-  Future<List<UserModel>> getUserList(@Path("query") String? query);
+  @POST("/user-report")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> reportUser(@Body() ReportModel map);
 
   @GET("/follower/isfollowing?uid={uid}")
-  @DioResponseType(ResponseType.plain)
+  @DioResponseType(ResponseType.json)
   Future<dynamic> isFollowing(@Path("uid") String uid);
 
   @POST("/follower/follow/{uid}")
@@ -53,19 +69,4 @@ abstract class RestClient {
   @POST("/follower/unfollow/{uid}")
   @DioResponseType(ResponseType.plain)
   Future<dynamic> unfollowUser(@Path("uid") String uid);
-
-  @POST("/user-report")
-  @DioResponseType(ResponseType.plain)
-  Future<dynamic> reportUser(@Body() ReportModel map);
-
-  @GET("/plan-trip?_={query}")
-  @DioResponseType(ResponseType.plain)
-  Future<List<PlannerModel>> getPlannedTrip(@Path("query") String? query);
-
-  @GET("/location-category")
-  Future<List<LocationCategoryModel>> getLocationCategories();
-
-  @POST("/plan-trip")
-  @DioResponseType(ResponseType.plain)
-  Future<dynamic> savePlannedTrip(@Body() PlannerModel map);
 }

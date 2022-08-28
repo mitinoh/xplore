@@ -1,14 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:xplore/data/repository/planner_repository.dart';
-import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/progressbar.dart';
 import 'package:xplore/presentation/common_widgets/success_screen.dart';
-import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/planner/widget/wg_planner_header_commands.dart';
 import 'package:xplore/presentation/screen/planner/widget/questions/avoid_category_question.dart';
@@ -80,24 +74,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
     return ProgressBar(valueProgressIndicator: valueProgressIndicator);
   }
 
-  void _blocListener(PlannerQuestionState state) {
-    if (state is PlannerNextQuestion) {
-      setState(() {
-        valueProgressIndicator += 0.166;
-        questNum++;
-      });
-    } else if (state is PlannerPreviousQuestion) {
-      if (questNum != 0) {
-        setState(() {
-          valueProgressIndicator -= 0.166;
-          questNum--;
-        });
-      } else {
-        Navigator.pop(context);
-      }
-    }
-  }
-
   Widget _blocBuilder(PlannerQuestionState state) {
     if (state is PlannerQuestionCompleted) {
       return InkWell(
@@ -127,6 +103,24 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           Expanded(child: questionWidget),
         ],
       );
+    }
+  }
+
+  void _blocListener(PlannerQuestionState state) {
+    if (state is PlannerNextQuestion) {
+      setState(() {
+        valueProgressIndicator += 0.166;
+        questNum++;
+      });
+    } else if (state is PlannerPreviousQuestion) {
+      if (questNum != 0) {
+        setState(() {
+          valueProgressIndicator -= 0.166;
+          questNum--;
+        });
+      } else {
+        Navigator.pop(context);
+      }
     }
   }
 

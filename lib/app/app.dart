@@ -17,7 +17,6 @@ import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart
 import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
@@ -35,10 +34,7 @@ class App extends StatefulWidget {
 
   static void initSystemDefault() {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: COLOR_CONST.STATUS_BAR,
-      ),
-    );
+        SystemUiOverlayStyle(statusBarColor: COLOR_CONST.STATUS_BAR));
   }
 
   static Widget runWidget() {
@@ -59,16 +55,12 @@ class App extends StatefulWidget {
 
           return MultiRepositoryProvider(
             providers: [
-              RepositoryProvider<AuthRepository>(
-                  create: (context) => authRepository),
-              RepositoryProvider<HomeRepository>(
-                  create: (context) => homeRepository),
-              RepositoryProvider<UserRepository>(
-                  create: (context) => userRepository),
+              RepositoryProvider<AuthRepository>(create: (context) => authRepository),
+              RepositoryProvider<HomeRepository>(create: (context) => homeRepository),
+              RepositoryProvider<UserRepository>(create: (context) => userRepository),
               RepositoryProvider<FollowerRepository>(
                   create: (context) => followerRepository),
-              RepositoryProvider<ReportRepository>(
-                  create: (context) => reportRepository),
+              RepositoryProvider<ReportRepository>(create: (context) => reportRepository),
               RepositoryProvider<PlannerRepository>(
                   create: (context) => plannerRepository),
               RepositoryProvider<LocationCategoryRepository>(
@@ -81,28 +73,25 @@ class App extends StatefulWidget {
                         AuthenticationBloc(authRepository: authRepository)
                           ..add(AppStarted())),
                 BlocProvider(
-                    create: (context) =>
-                        HomeBloc(homeRepository: homeRepository)),
+                    create: (context) => HomeBloc(homeRepository: homeRepository)),
                 BlocProvider(
                     create: (context) => SearchLocationBloc(
-                        homeRepository: homeRepository,
-                        userRepository: userRepository)),
+                        homeRepository: homeRepository, userRepository: userRepository)),
                 BlocProvider(
                     create: (context) =>
                         FollowerBloc(followerRepository: followerRepository)),
                 BlocProvider(
-                    create: (context) =>
-                        ReportBloc(reportRepository: reportRepository)),
+                    create: (context) => ReportBloc(reportRepository: reportRepository)),
                 BlocProvider(
                     create: (context) =>
                         PlannerBloc(plannerRepository: plannerRepository)),
                 BlocProvider(
-                    create: (context) => CurrentPlannerBloc(
-                        plannerRepository: plannerRepository)),
+                    create: (context) =>
+                        CurrentPlannerBloc(plannerRepository: plannerRepository)),
                 BlocProvider(
-                    create: (context) => FuturePlannerBloc(
-                        plannerRepository: plannerRepository)),
-               /* BlocProvider(
+                    create: (context) =>
+                        FuturePlannerBloc(plannerRepository: plannerRepository)),
+                /* BlocProvider(
                     create: (context) => PlannerQuestionBloc(
                         plannerRepository: plannerRepository)),
                         */

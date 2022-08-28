@@ -12,7 +12,7 @@ import 'package:xplore/presentation/common_widgets/subtitle.dart';
 import 'package:xplore/presentation/screen/planner/bloc/plan_state.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/question_bloc.dart';
-import 'package:xplore/presentation/screen/planner/widget/plan_new_trip_widget.dart';
+import 'package:xplore/presentation/screen/planner/widget/wg_plan_new_trip.dart';
 import 'package:xplore/utils/logger.dart';
 
 class WhereQuestion extends StatefulWidget {
