@@ -5,10 +5,6 @@ import 'package:xplore/data/model/location_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeRepository {
-  //static int lastSkipIndex = 0;
-  //static var skip = 0;
-  //static var limit = 15;
-
   final dio = DioProvider.instance();
   Future<List<LocationModel>> getLocationList(Mongoose mng) async {
     final client = RestClient(await dio);

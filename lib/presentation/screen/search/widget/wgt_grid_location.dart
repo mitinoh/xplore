@@ -3,9 +3,11 @@ import 'package:masonry_grid/masonry_grid.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/presentation/common_widgets/wg_image.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:xplore/utils/imager.dart';
 
 class LocationGridWidget extends StatelessWidget {
   LocationGridWidget({Key? key, required this.locationsList}) : super(key: key);
@@ -28,8 +30,7 @@ class LocationGridWidget extends StatelessWidget {
 
   List<Widget> getLocationCnt(context) {
     List<Widget> locCnt = [];
-    var mediaQuery = MediaQuery.of(context);
-    for (var el in locationsList) {
+    for (LocationModel location in locationsList) {
       {
         locCnt.add(InkWell(
           onTap: () {
@@ -37,45 +38,30 @@ class LocationGridWidget extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.lightBlue,
-                borderRadius: BorderRadius.circular(20)),
+                color: Colors.lightBlue, borderRadius: BorderRadius.circular(20)),
             child: Stack(
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
+                    child: ImageWidget(
+                      imageUrl: Img.getLocationUrl(location),
                       height: getRndSize(),
-                      width: mediaQuery.size.height * 1,
-                      imageUrl:
-                          "https://107.174.186.223.nip.io/img/location/${el.id}.jpg",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: imageProvider, fit: BoxFit.cover),
-                        ),
-                      ),
-                      placeholder: (context, url) => const LoadingIndicator(),
-                      errorWidget: (context, url, error) => Center(
-                        child: Icon(Iconsax.gallery_slash,
-                            size: 30, color: Colors.red),
-                      ),
                     )),
                 Positioned(
                   bottom: 5,
                   left: 20,
                   right: 20,
                   child: Container(
-                    padding: const EdgeInsets.only(
-                        top: 5, bottom: 5, left: 15, right: 15),
+                    padding:
+                        const EdgeInsets.only(top: 5, bottom: 5, left: 15, right: 15),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
+                        color: Colors.white, borderRadius: BorderRadius.circular(10)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
                           child: Text(
-                            el.name ?? '',
+                            location.name ?? '',
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.poppins(

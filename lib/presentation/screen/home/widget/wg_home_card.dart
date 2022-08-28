@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:xplore/presentation/screen/home/widget/detail_menu_widget.dart';
-import 'package:xplore/presentation/screen/home/widget/pinned_menu_widget.dart';
+import 'package:xplore/presentation/common_widgets/wg_image.dart';
+import 'package:xplore/presentation/screen/home/widget/wg_detail_menu.dart';
+import 'package:xplore/presentation/screen/home/widget/wg_pinned_menu.dart';
+import 'package:xplore/utils/imager.dart';
 
 class HomeMainCard extends StatefulWidget {
   const HomeMainCard({
@@ -26,10 +26,6 @@ class _HomeMainCardState extends State<HomeMainCard> {
   int _lastIndexLocation = 0;
   int _indexLocation = 0;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   toggleDetail() {
     setState(() {
@@ -102,8 +98,8 @@ class _HomeMainCardState extends State<HomeMainCard> {
     return Visibility(
       visible: _showPinnedMenu,
       child: PinnedMenu(
-        locationList: widget.locationsList[_indexLocation],
-      ),
+        locationList: widget.locationsList[_indexLocation]
+      )
     );
   }
 
@@ -113,41 +109,22 @@ class _HomeMainCardState extends State<HomeMainCard> {
       controller: pageController,
       children: _getCardsImages(),
       onPageChanged: (i) => {
-        changeIndexLocation(i),
+        _changeIndexLocation(i)
       },
     );
   }
 
   List<Widget> _getCardsImages() {
     List<Widget> cards = [];
-    for (LocationModel el in widget.locationsList) {
+    for (LocationModel location in widget.locationsList) {
       cards.add(
-        CachedNetworkImage(
-          imageUrl:
-              "https://107.174.186.223.nip.io/img/location/${el.id}.jpg", //conf.getLocationImageUrl(el.iId ?? ''),
-          imageBuilder: (context, imageProvider) => Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) =>
-              const Icon(Iconsax.gallery_remove),
-        ),
-        /*DecorationImage(
-                image: NetworkImage(conf.getLocationImageUrl(el.iId ?? '')),
-                fit: BoxFit.cover,
-                onError: (obj, stackTrace) => {})*/
+        ImageWidget(imageUrl: Img.getLocationUrl(location))
       );
     }
     return cards;
   }
 
-  changeIndexLocation(int i) {
+  _changeIndexLocation(int i) {
     setState(() {
       _indexLocation = i;
     });

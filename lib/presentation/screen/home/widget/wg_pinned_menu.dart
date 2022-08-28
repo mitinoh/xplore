@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/go_navigation_widget.dart';
 import 'package:xplore/presentation/common_widgets/like_button.dart';
 import 'package:xplore/presentation/router.dart';
-import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
-import 'package:xplore/presentation/screen/search/sc_search.dart';
 
 class PinnedMenu extends StatefulWidget {
   const PinnedMenu({Key? key, required this.locationList}) : super(key: key);

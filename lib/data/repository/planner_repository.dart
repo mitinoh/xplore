@@ -42,12 +42,7 @@ class PlannerRepository {
   }
 
   Mongoose get getFutureTripMng {
-    return Mongoose(filter: [
-      Filter(
-        key: 'goneDate',
-        operation: '>',
-        value: now.toIso8601String(),
-      )
-    ]);
+    return Mongoose(
+        filter: [Filter(key: 'goneDate', operation: '>', value: now.toIso8601String())]);
   }
 }

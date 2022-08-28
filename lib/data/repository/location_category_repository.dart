@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:xplore/data/api/mongoose.dart';
 import 'package:xplore/data/api/rest_client.dart';
 import 'package:xplore/data/dio_provider.dart';
 import 'package:xplore/data/model/location_category_model.dart';

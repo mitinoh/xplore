@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/data/model/location_category_model.dart';
-import 'package:xplore/data/model/location_model.dart';
-import 'package:xplore/data/model/planner_model.dart';
 
 @immutable
 abstract class LocationCategoryState extends Equatable {

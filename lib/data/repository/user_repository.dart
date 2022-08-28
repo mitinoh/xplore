@@ -2,14 +2,9 @@ import 'package:xplore/data/api/mongoose.dart';
 import 'package:xplore/data/api/rest_client.dart';
 import 'package:xplore/data/dio_provider.dart';
 import 'package:xplore/data/model/location_model.dart';
-import 'package:xplore/data/model/report_model.dart';
 import 'package:xplore/data/model/user_model.dart';
 
 class UserRepository {
-  //static int lastSkipIndex = 0;
-  //static var skip = 0;
-  //static var limit = 15;
-
   final dio = DioProvider.instance();
   Future<UserModel> getUserData(String fid) async {
     final client = RestClient(await dio);
@@ -40,9 +35,10 @@ class UserRepository {
     Mongoose mng = Mongoose(filter: []);
 
     mng.filter?.add(Filter(
-        key: "username",
-        operation: "=",
-        value: '/${searchName?.substring(1) ?? ""}/'));
+      key: "username",
+      operation: "=",
+      value: '/${searchName?.substring(1) ?? ""}/',
+    ));
 
     return mng;
   }

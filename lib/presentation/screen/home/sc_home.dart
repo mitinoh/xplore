@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/presentation/common_widgets/navigation_bar.dart';
 import 'package:xplore/presentation/screen/home/bloc/home_bloc.dart';
 import 'package:xplore/presentation/screen/home/bloc/home_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/presentation/screen/home/widget/list_card_widget.dart';
+import 'package:xplore/presentation/screen/home/widget/wg_list_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Stack(children: [BuildListCardHome()]));
-
-    /*return MultiBlocProvider(providers: [],child: BuildListCardHome(),);*/
+    /*return MultiBlocProvider(providers: [],child: BuildListCardHome());*/
   }
 }

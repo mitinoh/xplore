@@ -6,14 +6,15 @@ import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/data/repository/follower_repository.dart';
+import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
+import 'package:xplore/utils/imager.dart';
 import 'package:xplore/utils/pref.dart';
 
 class UserInformationWidget extends StatefulWidget {
-  UserInformationWidget(
-      {Key? key, required this.user, required this.visualOnly})
+  UserInformationWidget({Key? key, required this.user, required this.visualOnly})
       : super(key: key);
   final UserModel user;
   final bool visualOnly;
@@ -115,25 +116,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   }
 
   Widget _userAvatar() {
-    return CircleAvatar(
-        radius: 50,
-        backgroundColor: Colors.blueAccent,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(50),
-          child: CachedNetworkImage(
-            imageUrl:
-                "https://107.174.186.223.nip.io/img/user/62f4ba41bb478cf097896970.jpg",
-            imageBuilder: (context, imageProvider) => Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-              ),
-            ),
-            placeholder: (context, url) => const LoadingIndicator(),
-            errorWidget: (context, url, error) => Center(
-              child: Icon(Iconsax.user, size: 30, color: Colors.lightBlue),
-            ),
-          ),
-        ));
+    return CircleImageWidget(imageUrl: Img.getUserUrl(widget.user));
   }
 
   Widget _followBuilder() {
@@ -142,8 +125,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
         ..add(IsFollowingUser(uid: widget.user.id ?? ''));
       return BlocBuilder<FollowerBloc, FollowerState>(
         builder: (context, state) {
-          return _followButton(
-              state.props.isNotEmpty ? state.props[0] as bool : false);
+          return _followButton(state.props.isNotEmpty ? state.props[0] as bool : false);
         },
       );
     }
@@ -156,14 +138,13 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
       padding: const EdgeInsets.only(left: 8.0),
       child: InkWell(
         onTap: () {
-          BlocProvider.of<FollowerBloc>(context).add(
-              ToggleFollow(uid: widget.user.id ?? '', following: followState));
+          BlocProvider.of<FollowerBloc>(context)
+              .add(ToggleFollow(uid: widget.user.id ?? '', following: followState));
         },
         child: Container(
-          padding:
-              const EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
-          decoration: BoxDecoration(
-              color: Colors.amber, borderRadius: BorderRadius.circular(20)),
+          padding: const EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
+          decoration:
+              BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.circular(20)),
           child: Text(!followState ? "follow" : "following",
               style: GoogleFonts.poppins(
                   fontSize: 12.5,
@@ -179,8 +160,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           TextSpan(
-            text: "La tua biografia:\n".toUpperCase() +
-                widget.user.bio.toString(),
+            text: "La tua biografia:\n".toUpperCase() + widget.user.bio.toString(),
             style: GoogleFonts.poppins(
                 fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
           ),

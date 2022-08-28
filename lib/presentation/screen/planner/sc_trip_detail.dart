@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/data/model/trip_model.dart';
+import 'package:xplore/presentation/common_widgets/wg_image.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
+import 'package:xplore/utils/imager.dart';
 
 class TripDetailScreen extends StatelessWidget {
   TripDetailScreen({Key? key, required this.planTrip}) : super(key: key);
@@ -112,21 +115,7 @@ class TripDetailScreen extends StatelessWidget {
                       radius: 50,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              "https://107.174.186.223.nip.io/img/location/${pTrip?.location?.id}.jpg",
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.cover),
-                            ),
-                          ),
-                          placeholder: (context, url) => const LoadingIndicator(),
-                          errorWidget: (context, url, error) => Center(
-                            child: Icon(Iconsax.gallery_slash,
-                                size: 30, color: Colors.lightBlue),
-                          ),
-                        ),
+                        child: ImageWidget(imageUrl: Img.getLocationUrl(pTrip!.location! ))
                       )),
                 ),
               ),
@@ -138,7 +127,7 @@ class TripDetailScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5, right: 5),
-                    child: Text(pTrip?.location?.name ?? '',
+                    child: Text(pTrip.location?.name ?? '',
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,

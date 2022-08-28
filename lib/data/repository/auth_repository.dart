@@ -17,7 +17,6 @@ class AuthRepository {
         idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 
     return await _firebaseAuth.signInWithCredential(credential);
-    //return Future.value(_firebaseAuth.currentUser);
   }
 
   Future signOut() async {

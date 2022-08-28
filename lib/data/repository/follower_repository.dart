@@ -5,10 +5,6 @@ import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/user_model.dart';
 
 class FollowerRepository {
-  //static int lastSkipIndex = 0;
-  //static var skip = 0;
-  //static var limit = 15;
-
   final dio = DioProvider.instance();
   Future<UserModel> getUserData(String fid) async {
     final client = RestClient(await dio);

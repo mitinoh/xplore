@@ -4,8 +4,10 @@ import 'package:xplore/data/model/user_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:xplore/presentation/common_widgets/wg_image.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
+import 'package:xplore/utils/imager.dart';
 
 class UserGridWidget extends StatelessWidget {
   UserGridWidget({Key? key, required this.userList}) : super(key: key);
@@ -29,8 +31,8 @@ class UserGridWidget extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => UserScreen(
-                        userRef: userList[index], visualOnly: true)));
+                    builder: (context) =>
+                        UserScreen(userRef: userList[index], visualOnly: true)));
           },
           child: Theme(
               data: ThemeData(
@@ -47,25 +49,10 @@ class UserGridWidget extends StatelessWidget {
                           radius: 25,
                           backgroundColor: Colors.lightBlue,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  "https://107.174.186.223.nip.io/img/user/62f4ba41bb478cf097896970.jpg",
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.cover),
-                                ),
-                              ),
-                              placeholder: (context, url) =>
-                                  const LoadingIndicator(),
-                              errorWidget: (context, url, error) => Center(
-                                child: Icon(Iconsax.gallery_slash,
-                                    size: 20, color: Colors.lightBlue),
-                              ),
-                            ),
-                          )),
+                              borderRadius: BorderRadius.circular(50),
+                              child: ImageWidget(
+                                imageUrl: Img.getUserUrl(userList[index]),
+                              ))),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Column(

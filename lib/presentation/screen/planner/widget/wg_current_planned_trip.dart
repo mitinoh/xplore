@@ -8,6 +8,7 @@ import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
+import 'package:xplore/utils/imager.dart';
 
 class CurrentPlannedTripList extends StatelessWidget {
   CurrentPlannedTripList({
@@ -118,7 +119,7 @@ class CurrentPlannedTripList extends StatelessWidget {
 
   Widget _tripImage(PlannerModel pTrip) {
     return CircleImageWidget(
-        imageUrl: "https://107.174.186.223.nip.io/img/location/${pTrip.id}.jpg");
+        imageUrl: Img.getplannedTripUrl(pTrip));
   }
 
   Future<String> _getUserLocation(PlannerModel pt) async {

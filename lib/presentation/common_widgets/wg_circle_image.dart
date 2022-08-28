@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:xplore/presentation/common_widgets/wg_image.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -27,18 +28,7 @@ class CircleImageWidget extends StatelessWidget {
           radius: 50,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                ),
-              ),
-              placeholder: (context, url) => const LoadingIndicator(),
-              errorWidget: (context, url, error) => Center(
-                child: Icon(Iconsax.gallery_slash, size: 30, color: Colors.lightBlue),
-              ),
-            ),
+            child: ImageWidget(imageUrl: imageUrl)
           )),
     );
   }

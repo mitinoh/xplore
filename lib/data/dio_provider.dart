@@ -20,7 +20,7 @@ class DioProvider {
 class HttpLogInterceptor extends InterceptorsWrapper {
   @override
   Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    log("onRequest: ${options.uri}\n"
+    Logger.info("onRequest: ${options.uri}\n"
         //"data=${options.data}\n"
         "method=${options.method}\n"
         // "headers=${options.headers}\n"

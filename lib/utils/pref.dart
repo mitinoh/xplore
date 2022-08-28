@@ -1,5 +1,4 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:xplore/data/model/user_model.dart';
 
 class Pref {
   Future<bool> setString(String key, String value) async {
