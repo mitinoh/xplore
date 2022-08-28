@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
-class PlannerHeaderCommand extends StatelessWidget {
-  const PlannerHeaderCommand({
+class PlannerHeaderCommandWidget extends StatelessWidget {
+  const PlannerHeaderCommandWidget({
     Key? key,
-    required this.onCountSelected,
+    required this.onQuestionChange,
   }) : super(key: key);
-  final VoidCallback onCountSelected;
+  final VoidCallback onQuestionChange;
   @override
   Widget build(BuildContext context) {
     var lightDark = Theme.of(context);
@@ -18,7 +18,7 @@ class PlannerHeaderCommand extends StatelessWidget {
           children: [
             InkWell(
                 onTap: () {
-                  onCountSelected();
+                  onQuestionChange();
                 },
                 child: Icon(
                   Iconsax.arrow_left,

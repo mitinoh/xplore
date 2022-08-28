@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
-// ignore: must_be_immutable
 class LockTripBottomSheet extends StatelessWidget {
   const LockTripBottomSheet({
     Key? key,

@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
-import 'package:xplore/presentation/common_widgets/navigation_bar.dart';
-import 'package:xplore/presentation/screen/home/bloc/home_bloc.dart';
-import 'package:xplore/presentation/screen/home/bloc/home_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/presentation/screen/home/widget/list_card_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
-import 'package:xplore/presentation/screen/planner/widget/current_planned_trip_widget.dart';
-import 'package:xplore/presentation/screen/planner/widget/future_planned_trip_widget.dart';
-import 'package:xplore/presentation/screen/planner/widget/plan_new_trip_screen.dart';
+import 'package:xplore/presentation/screen/planner/widget/wg_current_planned_trip.dart';
+import 'package:xplore/presentation/screen/planner/widget/wg_future_planned_trip.dart';
+import 'package:xplore/presentation/screen/planner/widget/sc_plan_new_trip.dart';
 
 class PlannerScreen extends StatefulWidget {
   const PlannerScreen({Key? key}) : super(key: key);
@@ -21,10 +17,6 @@ class PlannerScreen extends StatefulWidget {
 }
 
 class _PlannerScreenState extends State<PlannerScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   late ThemeData lightDark = Theme.of(context);
 
@@ -38,17 +30,17 @@ class _PlannerScreenState extends State<PlannerScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                headerTitle(),
+                _headerTitle(),
                 const SizedBox(height: 20),
-                headerDesc(),
+                _headerDesc(),
                 const SizedBox(height: 20),
-                locationImage(lightDark),
+                _locationImage(),
                 //topMenuPlanner(),
                 //headerPlanner(),
                 const SizedBox(height: 20),
-                CurrentPlannedTripList(),
+                _currentPlannedTrip(),
                 const SizedBox(height: 20),
-                FuturePlannedTripList(),
+                _futurePlannedTrip(),
               ],
             ),
           ),
@@ -57,7 +49,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
     );
   }
 
-  Row headerTitle() {
+  Widget _headerTitle() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +57,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
     );
   }
 
-  Row headerDesc() {
+  Widget _headerDesc() {
     return Row(
       children: [
         Expanded(
@@ -81,10 +73,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
     );
   }
 
-  InkWell locationImage(lightDark) {
+  Widget _locationImage() {
     return InkWell(
       onTap: () {
-        planNewTrip();
+        _planNewTrip();
       },
       child: Container(
         padding:
@@ -116,19 +108,24 @@ class _PlannerScreenState extends State<PlannerScreen> {
     );
   }
 
-  void planNewTrip() {
+  Widget _currentPlannedTrip() {
+    return CurrentPlannedTripList();
+  }
+
+  Widget _futurePlannedTrip() {
+    return FuturePlannedTripList();
+  }
+
+  void _planNewTrip() {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (ctx) => PlanNewTrip(
+          builder: (ctx) => PlanNewTripScreen(
                 callback: () {
                   BlocProvider.of<FuturePlannerBloc>(context)
                       .add(GetFuturePlannedTrip());
-
                   BlocProvider.of<CurrentPlannerBloc>(context)
                       .add(GetCurrentPlannedTrip());
-
-                  //   BlocProvider.of<(context).add(GetPlannedTrip());
                 },
               )),
     );
