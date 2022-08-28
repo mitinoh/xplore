@@ -17,10 +17,21 @@ class PlannerQuestionBloc
 
   PlannerQuestionBloc({required this.plannerRepository})
       : super(PlannerQuestionInitial()) {
+    on<PlannerInitQuestion>(_plannerInitQuestion);
     on<PlannerChangeQuestion>(_plannerChangeQuestion);
     on<PlannerGetLocation>(_plannerGetMatchedLocations);
     on<PlannerEndQuestion>(_plannerQuestionComplete);
     on<SaveTrip>(_plannerQuestionSaveTrip);
+  }
+
+  void _plannerInitQuestion(
+      PlannerInitQuestion event, Emitter<PlannerQuestionState> emit) async {
+    try {
+      emit(PlannerQuestionInitial());
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit(PlannerQuestionError(message: e.toString()));
+    }
   }
 
   void _plannerChangeQuestion(

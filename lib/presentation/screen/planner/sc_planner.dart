@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/presentation/screen/home/widget/list_card_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
+import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/widget/current_planned_trip_widget.dart';
 import 'package:xplore/presentation/screen/planner/widget/future_planned_trip_widget.dart';
 import 'package:xplore/presentation/screen/planner/widget/plan_new_trip_screen.dart';
@@ -120,6 +122,12 @@ class _PlannerScreenState extends State<PlannerScreen> {
       MaterialPageRoute(
           builder: (ctx) => PlanNewTrip(
                 callback: () {
+                  BlocProvider.of<FuturePlannerBloc>(context)
+                      .add(GetFuturePlannedTrip());
+
+                  BlocProvider.of<CurrentPlannerBloc>(context)
+                      .add(GetCurrentPlannedTrip());
+
                   //   BlocProvider.of<(context).add(GetPlannedTrip());
                 },
               )),

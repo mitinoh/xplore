@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:xplore/data/repository/planner_repository.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/progressbar.dart';
 import 'package:xplore/presentation/common_widgets/success_screen.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
+import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
+import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/planner/widget/planner_header_commands.dart';
 import 'package:xplore/presentation/screen/planner/widget/questions/avoid_category_question.dart';
@@ -20,7 +23,7 @@ class NetTripQuestion extends StatefulWidget {
   final VoidCallback? callback;
   // https://pub.dev/packages/drag_and_drop_lists
 
-   GlobalKey<_NetTripQuestionState> netTripQuestionState =
+  GlobalKey<_NetTripQuestionState> netTripQuestionState =
       GlobalKey<_NetTripQuestionState>();
 
   @override
@@ -53,7 +56,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => BlocProvider.of<PlannerQuestionBloc>(context),
+      create: (_) => PlannerQuestionBloc(
+          plannerRepository: RepositoryProvider.of<PlannerRepository>(context)),
       child: BlocListener<PlannerQuestionBloc, PlannerQuestionState>(
         listener: (context, state) {
           if (state is PlannerQuestionError) {
@@ -66,7 +70,6 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
             setState(() {
               valueProgressIndicator += 0.166;
               questNum++;
-
             });
           } else if (state is PlannerPreviousQuestion) {
             if (questNum != 0) {

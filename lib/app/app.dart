@@ -102,9 +102,10 @@ class App extends StatefulWidget {
                 BlocProvider(
                     create: (context) => FuturePlannerBloc(
                         plannerRepository: plannerRepository)),
-                BlocProvider(
+               /* BlocProvider(
                     create: (context) => PlannerQuestionBloc(
                         plannerRepository: plannerRepository)),
+                        */
                 BlocProvider(
                     create: (context) => LocationCategoryBloc(
                         locationCategroyRepository: locationCategoryRepository))

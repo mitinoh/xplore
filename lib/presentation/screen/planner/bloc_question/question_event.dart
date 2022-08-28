@@ -12,6 +12,10 @@ abstract class PlannerQuestionEvent {
   List<Object> get props => [];
 }
 
+
+class PlannerInitQuestion extends PlannerQuestionEvent {
+}
+
 class PlannerChangeQuestion extends PlannerQuestionEvent {
   final bool increment;
   PlannerChangeQuestion({this.increment = true});
