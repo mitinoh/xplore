@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:xplore/model/api/mongoose.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/api/mongoose.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/model/repository/auth_repository.dart';
-import 'package:xplore/model/repository/user_repository.dart';
+import 'package:xplore/data/repository/auth_repository.dart';
+import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';

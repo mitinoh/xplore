@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
-import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/data/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:xplore/utils/logger.dart';
 

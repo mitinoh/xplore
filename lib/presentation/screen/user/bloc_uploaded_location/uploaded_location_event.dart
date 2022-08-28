@@ -1,4 +1,4 @@
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UploadedLocationEvent extends Equatable {
@@ -7,7 +7,6 @@ abstract class UploadedLocationEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-
 
 class GetUserUploadedLocationList extends UploadedLocationEvent {
   final List<LocationModel> uploadedLocationList;

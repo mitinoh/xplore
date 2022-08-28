@@ -1,15 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xplore/model/model/geometry_model.dart';
-import 'package:xplore/model/model/location_category_model.dart';
-import 'package:xplore/model/model/trip_model.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/geometry_model.dart';
+import 'package:xplore/data/model/location_category_model.dart';
+import 'package:xplore/data/model/trip_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 
 part 'planner_model.g.dart';
 
 @JsonSerializable()
 class PlannerModel {
   @JsonKey(name: '_id')
-  String ?id;
+  String? id;
   String? tripName;
   String? destinationName;
   double? distance;
@@ -22,7 +22,7 @@ class PlannerModel {
   DateTime? cdate;
 
   PlannerModel(
-      { this.id,
+      {this.id,
       this.uid,
       this.plannedLocation,
       this.destinationName,

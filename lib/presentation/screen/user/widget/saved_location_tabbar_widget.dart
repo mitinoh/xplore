@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/empty_data.dart';
 import 'package:xplore/presentation/common_widgets/image_tile.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
@@ -18,12 +18,6 @@ class SavedLocationTabBarWidget extends StatefulWidget {
 }
 
 class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -101,7 +95,7 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
                     )
                   : Center(
                       child: ListView(
-                        children: const [ EmptyData()],
+                        children: const [EmptyData()],
                       ),
                     ),
             );

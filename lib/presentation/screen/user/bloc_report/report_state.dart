@@ -1,6 +1,5 @@
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:equatable/equatable.dart';
-
 
 abstract class ReportState extends Equatable {
   const ReportState();
@@ -9,10 +8,9 @@ abstract class ReportState extends Equatable {
   List<Object> get props => [];
 }
 
+class ReportInitState extends ReportState {}
 
-class ReportInitState extends ReportState{}
-
-class UserReported extends ReportState{}
+class UserReported extends ReportState {}
 
 class ReportError extends ReportState {
   final String? message;

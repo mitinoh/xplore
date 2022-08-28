@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/model/model/report_model.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/report_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
 
@@ -312,6 +312,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
         reported: widget.user.id ?? '',
         causal: _reportTypeIndex,
         desc: _desc.toString());
-    BlocProvider.of<ReportBloc>(context).add(ReportUser(reportData: reportData));
+    BlocProvider.of<ReportBloc>(context)
+        .add(ReportUser(reportData: reportData));
   }
 }

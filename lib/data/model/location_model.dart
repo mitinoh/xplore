@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xplore/model/model/geometry_model.dart';
-import 'package:xplore/model/model/location_category_model.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/geometry_model.dart';
+import 'package:xplore/data/model/location_category_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 
 part 'location_model.g.dart';
 

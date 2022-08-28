@@ -1,10 +1,10 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-import 'package:xplore/model/model/location_category_model.dart';
-import 'package:xplore/model/model/location_model.dart';
-import 'package:xplore/model/model/planner_model.dart';
-import 'package:xplore/model/model/report_model.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/location_category_model.dart';
+import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/data/model/planner_model.dart';
+import 'package:xplore/data/model/report_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
 
 part 'rest_client.g.dart';
@@ -16,7 +16,7 @@ abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @GET("/location?_={query}")
-  Future<List<LocationModel>> getHomeData(@Path("query") String? query);
+  Future<List<LocationModel>> getLocationList(@Path("query") String? query);
 
   @GET("/user/fid/{fid}")
   Future<UserModel> getFidUserData(@Path("fid") String? fid);

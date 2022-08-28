@@ -1,5 +1,5 @@
-import 'package:xplore/model/model/location_model.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class SearchLocationState extends Equatable {

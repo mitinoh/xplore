@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/model/model/geometry_model.dart';
-import 'package:xplore/model/model/location_category_model.dart';
+import 'package:xplore/data/enum/geo_json_type.dart';
+import 'package:xplore/data/model/geometry_model.dart';
+import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
@@ -231,7 +232,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
     try {
       List<Location> locations = await locationFromAddress(location);
       GeometryModel geo = GeometryModel(
-          type: "Point",
+          type: GeoJSONType.Point,
           coordinates: [locations[0].longitude, locations[0].latitude]);
 
       BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.geometry =

@@ -1,15 +1,11 @@
-
 import 'package:bloc/bloc.dart';
-import 'package:xplore/model/repository/report_repository.dart';
+import 'package:xplore/data/repository/report_repository.dart';
 import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
 import 'package:xplore/utils/logger.dart';
 
-
-
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
   final ReportRepository reportRepository;
-  ReportBloc({required this.reportRepository})
-      : super(ReportInitState()) {
+  ReportBloc({required this.reportRepository}) : super(ReportInitState()) {
     on<ReportUser>(_reportUser);
   }
 

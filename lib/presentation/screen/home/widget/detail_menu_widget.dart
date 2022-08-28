@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
 class DetailMenuWidget extends StatelessWidget {
   const DetailMenuWidget(
-      {Key? key, required this.expanded, required this.location, required this.toggle})
+      {Key? key,
+      required this.expanded,
+      required this.location,
+      required this.toggle})
       : super(key: key);
   final bool expanded;
   final LocationModel location;
@@ -66,7 +69,7 @@ class DetailMenuWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 25.0),
               child: InkWell(
-                onTap: () => { toggle() },
+                onTap: () => {toggle()},
                 child: expanded
                     ? Icon(Icons.close, color: lightDark.primaryColor)
                     : Icon(Iconsax.maximize_4, color: lightDark.primaryColor),

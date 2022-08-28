@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/model/api/mongoose.dart';
-import 'package:xplore/model/api/rest_client.dart';
-import 'package:xplore/model/dio_provider.dart';
-import 'package:xplore/model/model/location_model.dart';
-import 'package:xplore/model/model/planner_model.dart';
+import 'package:xplore/data/api/mongoose.dart';
+import 'package:xplore/data/api/rest_client.dart';
+import 'package:xplore/data/dio_provider.dart';
+import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/utils/logger.dart';
 
 class PlannerRepository {

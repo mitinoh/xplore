@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 
 @immutable
 abstract class UserState extends Equatable {

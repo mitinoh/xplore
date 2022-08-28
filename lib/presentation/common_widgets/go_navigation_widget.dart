@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,13 +81,11 @@ class GoNavigationBottomSheet extends StatelessWidget {
                 const SizedBox(height: 20),
                 InkWell(
                     onTap: () => {
-                          context.read<HomeBloc>().add(
-                              NavigateToLocation(
-                                  latitude:
-                                      location.geometry?.coordinates?[1] ?? 0.0,
-                                  longitude:
-                                      location.geometry?.coordinates?[0] ??
-                                          0.0))
+                          context.read<HomeBloc>().add(NavigateToLocation(
+                              latitude:
+                                  location.geometry?.coordinates?[1] ?? 0.0,
+                              longitude:
+                                  location.geometry?.coordinates?[0] ?? 0.0))
                         },
                     child: ConfirmButton(
                       text: "Raggiungi con google maps",

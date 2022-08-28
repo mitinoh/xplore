@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:xplore/model/model/location_model.dart';
-import 'package:xplore/model/model/planner_model.dart';
+import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/data/model/planner_model.dart';
 
 @immutable
 abstract class PlannerState extends Equatable {
@@ -23,9 +23,7 @@ class PlantripLoadedTrip extends PlannerState {
       this.inProgressTrip = const <PlannerModel>[]});
 
   @override
-  List<Object> get props => [
-        futureTrip, inProgressTrip
-      ];
+  List<Object> get props => [futureTrip, inProgressTrip];
 }
 
 class PlannerError extends PlannerState {

@@ -1,6 +1,5 @@
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:equatable/equatable.dart';
-
 
 abstract class FollowerState extends Equatable {
   const FollowerState();
@@ -9,11 +8,11 @@ abstract class FollowerState extends Equatable {
   List<Object> get props => [];
 }
 
-class FollowerLoadingState extends FollowerState{}
+class FollowerLoadingState extends FollowerState {}
 
 class FollowingUser extends FollowerState {
   final bool following;
-  const FollowingUser({this.following =  false});
+  const FollowingUser({this.following = false});
 
   @override
   List<Object> get props => [following];

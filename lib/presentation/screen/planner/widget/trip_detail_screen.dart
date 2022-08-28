@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:xplore/model/model/planner_model.dart';
+import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 
 class TripDetailScreen extends StatelessWidget {

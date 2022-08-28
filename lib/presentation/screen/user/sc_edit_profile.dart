@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
@@ -21,8 +21,6 @@ class EditProfileScreen extends StatelessWidget {
   XFile? image;
   final ImagePicker _picker = ImagePicker();
   Pref pref = Pref();
-
-
 
   void initState() async {
     _usernameController.text = userData.username ?? '';

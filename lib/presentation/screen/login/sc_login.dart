@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/data/repository/auth_repository.dart';
 import 'package:xplore/presentation/screen/login/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/login/widget_login_form.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';

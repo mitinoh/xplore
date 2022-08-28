@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/home/widget/home_card_widget.dart';
@@ -50,8 +50,6 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
 
   HomeMainCard getCards(List<LocationModel> homeModel) {
     // TODO: controllare che modelLoc.length > 0
-    return HomeMainCard(
-      locationsList: homeModel
-    );
+    return HomeMainCard(locationsList: homeModel);
   }
 }

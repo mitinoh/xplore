@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:xplore/model/model/location_category_model.dart';
-import 'package:xplore/model/repository/location_category_repository.dart';
+import 'package:xplore/data/model/location_category_model.dart';
+import 'package:xplore/data/repository/location_category_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/location_category_bloc.dart';

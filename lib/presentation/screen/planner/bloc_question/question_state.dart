@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 
 @immutable
 abstract class PlannerQuestionState {
@@ -19,11 +19,9 @@ class PlannerQuestionInitial extends PlannerQuestionState {}
 class PlannerQuestionCompleted extends PlannerQuestionState {}
 
 class PlannerQuestionLocationsLoaded extends PlannerQuestionState {
-
-    final List<LocationModel> locations;
+  final List<LocationModel> locations;
   const PlannerQuestionLocationsLoaded(
-      {
-      this.locations = const <LocationModel>[]});
+      {this.locations = const <LocationModel>[]});
 
   @override
   List<Object> get props => locations;

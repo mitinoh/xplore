@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:xplore/model/api/mongoose.dart';
-import 'package:xplore/model/repository/home_repository.dart';
+import 'package:xplore/data/api/mongoose.dart';
+import 'package:xplore/data/repository/home_repository.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:xplore/utils/logger.dart';
 
@@ -17,7 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       GetLocationList event, Emitter<HomeState> emit) async {
     try {
       Mongoose mng = event.mongoose != null ? event.mongoose! : Mongoose();
-      final response = await homeRepository.getHomeData(mng);
+      final response = await homeRepository.getLocationList(mng);
       emit(HomeLoaded(homeList: response));
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/go_navigation_widget.dart';
 import 'package:xplore/presentation/common_widgets/like_button.dart';
 import 'package:xplore/presentation/router.dart';
@@ -22,7 +22,6 @@ class _PinnedMenuState extends State<PinnedMenu> {
   late ThemeData lightDark = Theme.of(context);
   @override
   Widget build(BuildContext context) {
-
     return Positioned(
         bottom: mediaQuery.size.height * 0.25,
         right: 20,

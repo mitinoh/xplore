@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -24,8 +24,6 @@ class UserGridWidget extends StatelessWidget {
       ),
       itemCount: userList.length,
       itemBuilder: (BuildContext context, int index) {
-        // TODO: da rifare con un metodo che ritorna tutto questo e non uno alla volta
-
         return InkWell(
           onTap: () {
             Navigator.push(

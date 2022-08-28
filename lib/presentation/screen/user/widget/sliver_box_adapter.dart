@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/presentation/screen/user/widget/user_information_widget.dart';
 

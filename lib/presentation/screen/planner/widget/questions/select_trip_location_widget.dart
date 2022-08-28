@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:xplore/model/api/mongoose.dart';
+import 'package:xplore/data/api/mongoose.dart';
 
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:xplore/model/model/location_category_model.dart';
-import 'package:xplore/model/model/location_model.dart';
-import 'package:xplore/model/model/move_planner_model.dart';
-import 'package:xplore/model/model/planner_model.dart';
-import 'package:xplore/model/model/trip_model.dart';
+import 'package:xplore/data/model/location_category_model.dart';
+import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/data/model/move_planner_model.dart';
+import 'package:xplore/data/model/planner_model.dart';
+import 'package:xplore/data/model/trip_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
@@ -356,7 +356,9 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     planQuery["avoidCategory"] = avoidCategory;
     */
 
-    BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.plannedLocation = planList;
+    BlocProvider.of<PlannerQuestionBloc>(context)
+        .planTripQuestions
+        .plannedLocation = planList;
     BlocProvider.of<PlannerQuestionBloc>(context).add(SaveTrip(
         newTrip:
             BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions));

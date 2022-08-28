@@ -3,7 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/user/widget/report_bottom_sheet.dart';
 import 'package:xplore/presentation/screen/user/widget/settings.dart';
@@ -31,8 +31,9 @@ class SliverBarWidget extends StatelessWidget {
         actionsIconTheme: IconThemeData(color: _lightDark.primaryColor),
         leading: GestureDetector(
             onTap: () => {
-                  Navigator.of(context, rootNavigator: true)
-                      .pushNamed(AppRouter.EDITUSER, arguments: {"user": user, "context": context})
+                  Navigator.of(context, rootNavigator: true).pushNamed(
+                      AppRouter.EDITUSER,
+                      arguments: {"user": user, "context": context})
                 },
             child: const Padding(
               padding: EdgeInsets.only(left: 20.0),

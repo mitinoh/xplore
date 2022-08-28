@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:xplore/model/api/mongoose.dart';
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/api/mongoose.dart';
+import 'package:xplore/data/model/location_model.dart';
 
 @immutable
 abstract class FuturePlannerEvent extends Equatable {
@@ -10,7 +10,6 @@ abstract class FuturePlannerEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-
 
 class GetFuturePlannedTrip extends FuturePlannerEvent {
   const GetFuturePlannedTrip();

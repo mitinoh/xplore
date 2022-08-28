@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:xplore/model/api/mongoose.dart';
-import 'package:xplore/model/model/location_model.dart';
-import 'package:xplore/model/repository/follower_repository.dart';
-import 'package:xplore/model/repository/user_repository.dart';
+import 'package:xplore/data/api/mongoose.dart';
+import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/data/repository/follower_repository.dart';
+import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:xplore/utils/logger.dart';
@@ -36,8 +36,8 @@ class FollowerBloc extends Bloc<FollowerEvent, FollowerState> {
     Emitter<FollowerState> emit,
   ) async {
     try {
-          await followerRepository.toggleFollow(event.uid, event.following);
-      
+      await followerRepository.toggleFollow(event.uid, event.following);
+
       emit(FollowingUser(following: !event.following));
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());

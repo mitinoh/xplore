@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:xplore/model/repository/auth_repository.dart';
+import 'package:xplore/data/repository/auth_repository.dart';
 import 'package:xplore/utils/logger.dart';
 
 class DioProvider {

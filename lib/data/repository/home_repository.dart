@@ -1,7 +1,7 @@
-import 'package:xplore/model/api/mongoose.dart';
-import 'package:xplore/model/api/rest_client.dart';
-import 'package:xplore/model/dio_provider.dart';
-import 'package:xplore/model/model/location_model.dart';
+import 'package:xplore/data/api/mongoose.dart';
+import 'package:xplore/data/api/rest_client.dart';
+import 'package:xplore/data/dio_provider.dart';
+import 'package:xplore/data/model/location_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeRepository {
@@ -10,9 +10,9 @@ class HomeRepository {
   //static var limit = 15;
 
   final dio = DioProvider.instance();
-  Future<List<LocationModel>> getHomeData(Mongoose mng) async { // TODO: rinominare metodo
+  Future<List<LocationModel>> getLocationList(Mongoose mng) async {
     final client = RestClient(await dio);
-    return await client.getHomeData(mng.getUrl());
+    return await client.getLocationList(mng.getUrl());
   }
 
   Future<dynamic> toggleLocationLike(LocationModel location) async {

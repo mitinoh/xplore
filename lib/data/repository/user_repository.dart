@@ -1,10 +1,11 @@
-import 'package:xplore/model/api/mongoose.dart';
-import 'package:xplore/model/api/rest_client.dart';
-import 'package:xplore/model/dio_provider.dart';
-import 'package:xplore/model/model/location_model.dart';
-import 'package:xplore/model/model/user_model.dart';
+import 'package:xplore/data/api/mongoose.dart';
+import 'package:xplore/data/api/rest_client.dart';
+import 'package:xplore/data/dio_provider.dart';
+import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/data/model/report_model.dart';
+import 'package:xplore/data/model/user_model.dart';
 
-class FollowerRepository {
+class UserRepository {
   //static int lastSkipIndex = 0;
   //static var skip = 0;
   //static var limit = 15;
@@ -35,16 +36,14 @@ class FollowerRepository {
     return await client.updateUserData(userData);
   }
 
-  Future<bool> isFollowing(String uid) async {
-    final client = RestClient(await dio);
-    return (await client.isFollowing(uid) == "true");
-  }
+  Mongoose getMongoose({String? searchName}) {
+    Mongoose mng = Mongoose(filter: []);
 
-  Future<dynamic> toggleFollow(String uid, bool following) async {
-    final client = RestClient(await dio);
-    if (following)
-      return (await client.unfollowUser(uid));
-    else
-      return (await client.followUser(uid));
+    mng.filter?.add(Filter(
+        key: "username",
+        operation: "=",
+        value: '/${searchName?.substring(1) ?? ""}/'));
+
+    return mng;
   }
 }

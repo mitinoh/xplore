@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/model/model/location_model.dart';
-import 'package:xplore/model/model/user_model.dart';
-import 'package:xplore/model/repository/home_repository.dart';
-import 'package:xplore/model/repository/user_repository.dart';
+import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/data/model/user_model.dart';
+import 'package:xplore/data/repository/home_repository.dart';
+import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/search/widget/wgt_grid_location.dart';

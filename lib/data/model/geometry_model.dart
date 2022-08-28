@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:xplore/data/enum/geo_json_type.dart';
 
 part 'geometry_model.g.dart';
 
@@ -6,7 +7,7 @@ part 'geometry_model.g.dart';
 class GeometryModel {
 
 
-  String? type; // TODO: creare un enum
+  GeoJSONType? type; // TODO: creare un enum
   List<double>? coordinates;
 
   GeometryModel({required this.type, this.coordinates});
