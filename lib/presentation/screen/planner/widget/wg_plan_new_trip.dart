@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/data/repository/planner_repository.dart';
 import 'package:xplore/presentation/common_widgets/progressbar.dart';
 import 'package:xplore/presentation/common_widgets/success_screen.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
@@ -27,8 +26,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => PlannerQuestionBloc(
-            plannerRepository: RepositoryProvider.of<PlannerRepository>(context)),
+        create: (_) => BlocProvider.of<PlannerQuestionBloc>(
+            context), 
         child: BlocListener<PlannerQuestionBloc, PlannerQuestionState>(
             listener: (context, state) {
           _blocListener(state);

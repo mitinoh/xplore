@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
+import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
+import 'package:xplore/presentation/screen/planner/bloc_question/question_bloc.dart';
 import 'package:xplore/presentation/screen/planner/widget/wg_current_planned_trip.dart';
 import 'package:xplore/presentation/screen/planner/widget/wg_future_planned_trip.dart';
 import 'package:xplore/presentation/screen/planner/sc_plan_new_trip.dart';
@@ -17,7 +19,6 @@ class PlannerScreen extends StatefulWidget {
 }
 
 class _PlannerScreenState extends State<PlannerScreen> {
-
   late ThemeData lightDark = Theme.of(context);
 
   @override
@@ -65,9 +66,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
               "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
               overflow: TextOverflow.visible,
               style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.grey)),
+                  fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
         )
       ],
     );
@@ -79,8 +78,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
         _planNewTrip();
       },
       child: Container(
-        padding:
-            const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
+        padding: const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: lightDark.cardColor,
@@ -122,8 +120,8 @@ class _PlannerScreenState extends State<PlannerScreen> {
       MaterialPageRoute(
           builder: (ctx) => PlanNewTripScreen(
                 callback: () {
-                  BlocProvider.of<FuturePlannerBloc>(context)
-                      .add(GetFuturePlannedTrip());
+              //    BlocProvider.of<PlannerQuestionBloc>(context) .add(PlannerInitQuestion());
+                  BlocProvider.of<FuturePlannerBloc>(context).add(GetFuturePlannedTrip());
                   BlocProvider.of<CurrentPlannerBloc>(context)
                       .add(GetCurrentPlannedTrip());
                 },

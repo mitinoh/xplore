@@ -84,7 +84,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
               children: [
                 Expanded(
                   child: Text(
-                      "Segnala questa account allo staff di XPLORE, nel caso in qui questo utente non rispetta le norme della community.",
+                      "Segnala questa account allo staff di xplore, nel caso in qui questo utente non rispetta le norme della community.",
                       overflow: TextOverflow.visible,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
@@ -187,7 +187,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                 children: [
                   Expanded(
                     child: Text(
-                        "Ti ringraziamo per aver contribuito a rendere XPLORE un posto migliore. :)",
+                        "Ti ringraziamo per aver contribuito a rendere xplore un posto migliore. :)",
                         overflow: TextOverflow.visible,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(

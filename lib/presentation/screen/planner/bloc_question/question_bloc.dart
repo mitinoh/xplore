@@ -6,8 +6,7 @@ import 'package:xplore/data/repository/planner_repository.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/utils/logger.dart';
 
-class PlannerQuestionBloc
-    extends Bloc<PlannerQuestionEvent, PlannerQuestionState> {
+class PlannerQuestionBloc extends Bloc<PlannerQuestionEvent, PlannerQuestionState> {
   final PlannerRepository plannerRepository;
   final HomeRepository homeRepository = HomeRepository();
   PlannerModel planTripQuestions = PlannerModel();

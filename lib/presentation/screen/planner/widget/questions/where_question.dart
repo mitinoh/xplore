@@ -9,6 +9,7 @@ import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
+import 'package:xplore/presentation/screen/map/widget/maps_bottom_sheet.dart';
 import 'package:xplore/presentation/screen/planner/bloc/plan_state.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/question_bloc.dart';
@@ -34,9 +35,8 @@ class _WhereQuestionState extends State<WhereQuestion> {
 
   @override
   void initState() {
-    String? contextName = BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestions
-        .destinationName;
+    String? contextName =
+        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.destinationName;
 
     if (contextName != null) {
       setState(() {
@@ -84,8 +84,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                     child: Column(
                   children: [
                     const Subtitle(
-                      text:
-                          "es. Roma, Milano, Venezia, Firenze, Napoli Torino...",
+                      text: "es. Roma, Milano, Venezia, Firenze, Napoli Torino...",
                       colors: Colors.grey,
                     ),
                     const SizedBox(height: 20),
@@ -104,16 +103,14 @@ class _WhereQuestionState extends State<WhereQuestion> {
                             },
                             controller: _locationController,
                             textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: lightDark.hoverColor, fontSize: 14),
+                            style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(15.0),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               hintText: "Desitanazione",
                               hintStyle: GoogleFonts.poppins(
-                                  color: lightDark.unselectedWidgetColor,
-                                  fontSize: 14),
+                                  color: lightDark.unselectedWidgetColor, fontSize: 14),
                               border: const OutlineInputBorder(),
                               prefixIcon: Icon(
                                 Iconsax.location,
@@ -140,13 +137,9 @@ class _WhereQuestionState extends State<WhereQuestion> {
                               ),
                             ),
                             builder: (ct) {
-                              return Text("MapsBottomSheet");
-                              /*
-
                               return MapsBottomSheet(
                                 context: context,
                               );
-                              */
                             });
                       },
                       child: Container(
@@ -159,8 +152,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 15.0, left: 15),
+                              padding: const EdgeInsets.only(right: 15.0, left: 15),
                               child: Icon(
                                 Iconsax.map,
                                 color: Colors.blue,
@@ -235,11 +227,9 @@ class _WhereQuestionState extends State<WhereQuestion> {
           type: GeoJSONType.Point,
           coordinates: [locations[0].longitude, locations[0].latitude]);
 
-      BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.geometry =
-          geo;
-      BlocProvider.of<PlannerQuestionBloc>(context)
-          .planTripQuestions
-          .destinationName = location;
+      BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.geometry = geo;
+      BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.destinationName =
+          location;
 /*
       BlocProvider.of<PlannerQuestionBloc>(context)
           .planTripQuestionsMap["latitude"] = locations[0].latitude;
@@ -249,8 +239,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
           .planTripQuestionsMap["locationNam"] = location;
 
 */
-      BlocProvider.of<PlannerQuestionBloc>(context)
-          .add(PlannerChangeQuestion());
+      BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion());
       //locLatitude = locations[0].latitude;
       //locLongitude = locations[0].longitude;
 
@@ -268,23 +257,20 @@ class _WhereQuestionState extends State<WhereQuestion> {
       double latitude = 0;
       double longitude = 0;
       if (lat == null || lng == null) {
-        List<Location> locations =
-            await locationFromAddress(_locationController.text);
+        List<Location> locations = await locationFromAddress(_locationController.text);
         latitude = locations[0].latitude;
         longitude = locations[0].longitude;
       } else {
         latitude = lat;
         longitude = lng;
       }
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(latitude, longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
       Placemark place = placemarks[0];
 
       setState(() {
         _hasFoundLocation = true;
 
-        _locationFound =
-            '${place.locality}, ${place.postalCode}, ${place.country}';
+        _locationFound = '${place.locality}, ${place.postalCode}, ${place.country}';
       });
     } catch (e) {
       setState(() {

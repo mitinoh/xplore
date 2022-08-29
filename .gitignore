@@ -77,3 +77,9 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+pubspec.lock
+pubspec.lock
+pubspec.lock
+.gitignore
+windows/flutter/generated_plugin_registrant.cc
+.gitignore
