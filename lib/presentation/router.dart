@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
+import 'package:xplore/presentation/screen/new_location/new_location_screen.dart';
 import 'package:xplore/presentation/screen/planner/sc_planner.dart';
 import 'package:xplore/presentation/screen/search/sc_search.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
@@ -14,7 +15,8 @@ class AppRouter {
   static const String SEARCH = '/search';
   static const String USER = '/user';
   static const String EDITUSER = '/edituser';
-    static const String PLANNER = '/planner';
+  static const String PLANNER = '/planner';
+  static const String NEWLOCATION = '/newlocation';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final arguments = (settings.arguments ?? <String, dynamic>{}) as Map;
     // Navigator.pushNamed(context, AppRouter.LOGIN);
@@ -34,8 +36,9 @@ class AppRouter {
       case EDITUSER:
         return MaterialPageRoute(
             builder: (_) => EditProfileScreen(
-                userData: arguments["user"],
-                blocContext: arguments["context"]));
+                userData: arguments["user"], blocContext: arguments["context"]));
+      case NEWLOCATION:
+        return MaterialPageRoute(builder: (_) => NewLocation());
 
       default:
         return MaterialPageRoute(

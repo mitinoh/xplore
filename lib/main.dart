@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/app/simple_bloc_observer.dart';
 import 'package:xplore/app_config.dart';

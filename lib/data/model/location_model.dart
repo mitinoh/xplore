@@ -16,6 +16,7 @@ class LocationModel {
   String? indication;
   bool? saved;
   UserModel? insertUid;
+  String? base64;
 
   LocationModel({
     required this.id,
@@ -26,6 +27,7 @@ class LocationModel {
     this.indication,
     this.saved,
     this.insertUid,
+    this.base64
   });
 
   factory LocationModel.fromJson(Map<String, dynamic> json) =>

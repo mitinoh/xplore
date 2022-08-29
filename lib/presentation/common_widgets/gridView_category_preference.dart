@@ -6,6 +6,7 @@ import 'package:xplore/data/repository/location_category_repository.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/location_category_bloc.dart';
+import 'package:xplore/utils/logger.dart';
 
 class GridViewCategoryPreference extends StatefulWidget {
   GridViewCategoryPreference(
@@ -17,8 +18,7 @@ class GridViewCategoryPreference extends StatefulWidget {
   List<LocationCategoryModel> selectedCategories;
   final ValueChanged<List<LocationCategoryModel>> updateSelectedCategories;
   @override
-  State<GridViewCategoryPreference> createState() =>
-      _GridViewCategoryPreference();
+  State<GridViewCategoryPreference> createState() => _GridViewCategoryPreference();
 }
 
 class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
@@ -73,8 +73,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                         data: ThemeData(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            unselectedWidgetColor:
-                                lightDark.unselectedWidgetColor),
+                            unselectedWidgetColor: lightDark.unselectedWidgetColor),
                         child: CheckboxListTile(
                           checkColor: Colors.lightGreen,
                           activeColor: Colors.lightGreen,
@@ -92,24 +91,23 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                               // } else {
                               //   CategoryPreference.catSelected.add(value);
                               // }
+
                               if (widget.selectedCategories.contains(category))
                                 widget.selectedCategories.remove(category);
                               else
                                 widget.selectedCategories.add(category);
 
-                              widget.updateSelectedCategories(
-                                  widget.selectedCategories);
+                              widget.updateSelectedCategories(widget.selectedCategories);
                             });
                           },
-                          title: Text(
-                              state.locationCategoryList[index].name ?? '',
+                          title: Text(state.locationCategoryList[index].name ?? '',
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 13,
                                   color: lightDark.primaryColor)),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 0),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                         ),
                       ),
                     );
@@ -125,5 +123,13 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
         ),
       ),
     );
+  }
+
+  bool getValue(LocationCategoryLoaded state, int index) {
+    List<String> selectedId = [];
+
+    LocationCategoryModel category = state.locationCategoryList[index];
+    widget.selectedCategories.forEach((sc) => selectedId.add(sc.id ?? ''));
+    return selectedId.contains(category.id ?? '');
   }
 }

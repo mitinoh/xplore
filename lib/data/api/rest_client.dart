@@ -34,6 +34,10 @@ abstract class RestClient {
   @DioResponseType(ResponseType.plain)
   Future<dynamic> toggleLocationLike(@Path() String id);
 
+  @POST("/new-location")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> createNewUserLocation(@Body() LocationModel map);
+
   @GET("/plan-trip?_={query}")
   @DioResponseType(ResponseType.json)
   Future<List<PlannerModel>> getPlannedTrip(@Path("query") String? query);

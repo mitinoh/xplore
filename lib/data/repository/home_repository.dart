@@ -3,9 +3,9 @@ import 'package:xplore/data/api/rest_client.dart';
 import 'package:xplore/data/dio_provider.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 class HomeRepository {
   final dio = DioProvider.instance();
+
   Future<List<LocationModel>> getLocationList(Mongoose mng) async {
     final client = RestClient(await dio);
     return await client.getLocationList(mng.getUrl());
@@ -14,6 +14,11 @@ class HomeRepository {
   Future<dynamic> toggleLocationLike(LocationModel location) async {
     final client = RestClient(await dio);
     return await client.toggleLocationLike(location.id);
+  }
+
+  Future<dynamic> createNewLocation(LocationModel location) async {
+    final client = RestClient(await dio);
+    return await client.createNewUserLocation(location);
   }
 
   void navigateToLocation(double latitude, double longitude) async {

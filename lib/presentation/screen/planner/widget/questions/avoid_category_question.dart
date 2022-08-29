@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/data/model/location_category_model.dart';
-import 'package:xplore/data/repository/location_category_repository.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/gridView_category_preference.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
-import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
-import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
-import 'package:xplore/utils/logger.dart';
-
-import '../../bloc_question/question_bloc.dart';
 
 class AvoidCategoryQuestion extends StatelessWidget {
   AvoidCategoryQuestion({
@@ -111,13 +103,13 @@ class AvoidCategoryQuestion extends StatelessWidget {
   void _setSelectedCategories(List<LocationCategoryModel> asd) {
     BlocProvider.of<PlannerQuestionBloc>(_context)
         .planTripQuestions
-        .avoidCategory = [];
+        .avoidCategory = asd;
   }
 
   void setCategoryToAvoid() {
     BlocProvider.of<PlannerQuestionBloc>(_context)
         .planTripQuestions
-        .avoidCategory = [];
+        .avoidCategory = selectedCategories;
     // CategoryPreference.catSelected.join(',').toString();
     // mng.filter?.putIfAbsent("locationcategory",  () => 'nin:' + CategoryPreference.catSelected.join(','));
 

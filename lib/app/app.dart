@@ -16,9 +16,9 @@ import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/map/bloc_user_position/bloc.dart';
+import 'package:xplore/presentation/screen/new_location/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart';
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
@@ -96,6 +96,9 @@ class App extends StatefulWidget {
                 BlocProvider(
                     create: (context) =>
                         UserPositionBloc(userRepository: userRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        NewLocationBloc(locationRepository: homeRepository)),
 
                 /*  BlocProvider(
                     create: (context) =>
