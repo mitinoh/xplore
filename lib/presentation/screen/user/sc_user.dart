@@ -8,8 +8,8 @@ import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/presentation/screen/user/widget/tb_saved_location.dart';
-import 'package:xplore/presentation/screen/user/widget/sliver_bar.dart';
-import 'package:xplore/presentation/screen/user/widget/sliver_box_adapter.dart';
+import 'package:xplore/presentation/screen/user/widget/wg_sliver_bar.dart';
+import 'package:xplore/presentation/screen/user/widget/wg_sliver_box_adapter.dart';
 import 'package:xplore/presentation/screen/user/widget/tb_uploaded_location.dart';
 
 class UserScreen extends StatefulWidget {

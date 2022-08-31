@@ -5,7 +5,6 @@ import 'package:xplore/presentation/common_widgets/empty_data.dart';
 import 'package:xplore/presentation/common_widgets/image_tile.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
 
 class UploadedLocationTabBarWidget extends StatefulWidget {
@@ -60,18 +59,7 @@ class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWid
               return state.uploadedLocationList[index].saved == true
                   ? InkWell(
                       onTap: () {
-                        DetailLocationModal(
-                          loc: state.uploadedLocationList[index],
-                          fromLikedSection: true,
-                          callback: () {
-                            setState(() {
-                              state.uploadedLocationList[index].saved =
-                                  state.uploadedLocationList[index].saved != true
-                                      ? false
-                                      : true;
-                            });
-                          },
-                        ).show(context);
+                        _showDetailLocationModal(state, index).show(context);
                       },
                       child: ImageTile(location: state.uploadedLocationList[index]),
                     )
@@ -81,6 +69,20 @@ class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWid
           ),
         )
       ],
+    );
+  }
+
+  DetailLocationModal _showDetailLocationModal(
+      UploadedLocationLoadedState state, int index) {
+    return DetailLocationModal(
+      loc: state.uploadedLocationList[index],
+      fromLikedSection: true,
+      callback: () {
+        setState(() {
+          state.uploadedLocationList[index].saved =
+              state.uploadedLocationList[index].saved != true ? false : true;
+        });
+      },
     );
   }
 

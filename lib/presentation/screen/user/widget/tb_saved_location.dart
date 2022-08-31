@@ -18,74 +18,23 @@ class SavedLocationTabBarWidget extends StatefulWidget {
 
 class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: BlocProvider.of<SavedLocationBloc>(context),
       child: BlocBuilder<SavedLocationBloc, SavedLocationState>(
         builder: (context, state) {
           if (state is SavedLocationLoadedState) {
             return RefreshIndicator(
-              color: widget.user == null ? Colors.white : Colors.transparent,
-              backgroundColor: widget.user == null ? Colors.blue : Colors.transparent,
+              color: Colors.white,
+              backgroundColor: Colors.blue,
               edgeOffset: 0,
-              onRefresh: () async {
-                
+              onRefresh: () {
                 _onRefresh(state);
-                    return Future<void>.delayed(const Duration(seconds: 1));
-      
+                return Future<void>.delayed(const Duration(seconds: 1));
               },
               child: (state.savedLocationList.isNotEmpty)
-                  ? CustomScrollView(
-                      // key: PageStorageKey<String>(obj["name"]),
-                      slivers: [
-                        SliverGrid(
-                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200.0,
-                            mainAxisSpacing: 0,
-                            crossAxisSpacing: 0,
-                            childAspectRatio: 1.0,
-                          ),
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              // commento
-                              return state.savedLocationList[index].saved == true
-                                  ? InkWell(
-                                      onTap: () {
-                                        
-                                              DetailLocationModal(
-                                                loc: state.savedLocationList[index],
-                                                fromLikedSection: true,
-                                                callback: () {
-                                                  setState(() {
-                                                    state.savedLocationList[index]
-                                                        .saved = state
-                                                                .savedLocationList[
-                                                                    index]
-                                                                .saved !=
-                                                            true
-                                                        ? false
-                                                        : true;
-                                                  });
-                                                },
-                                              ).show(context);
-                                   
-                                      },
-                                      child: ImageTile(
-                                          location: state.savedLocationList[index]),
-                                    )
-                                  : const SizedBox();
-                            },
-                            childCount:
-                                state.savedLocationList.map((e) => e.saved).length,
-                          ),
-                        )
-                      ],
-                    )
-                  : Center(
-                      child: ListView(
-                        children: const [EmptyData()],
-                      ),
-                    ),
+                  ? _locationListView(state)
+                  : _emptyList(),
             );
           } else {
             return const LoadingIndicator();
@@ -95,7 +44,58 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
     );
   }
 
-   void _onRefresh(SavedLocationLoadedState state) async {
+  CustomScrollView _locationListView(SavedLocationLoadedState state) {
+    return CustomScrollView(
+      // key: PageStorageKey<String>(obj["name"]),
+      slivers: [
+        SliverGrid(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200.0,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            childAspectRatio: 1.0,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return state.savedLocationList[index].saved == true
+                  ? InkWell(
+                      onTap: () {
+                        _showDetailLocationModal(state, index).show(context);
+                      },
+                      child: ImageTile(location: state.savedLocationList[index]),
+                    )
+                  : const SizedBox();
+            },
+            childCount: state.savedLocationList.map((e) => e.saved).length,
+          ),
+        )
+      ],
+    );
+  }
+
+  DetailLocationModal _showDetailLocationModal(
+      SavedLocationLoadedState state, int index) {
+    return DetailLocationModal(
+      loc: state.savedLocationList[index],
+      fromLikedSection: true,
+      callback: () {
+        setState(() {
+          state.savedLocationList[index].saved =
+              state.savedLocationList[index].saved != true ? false : true;
+        });
+      },
+    );
+  }
+
+  Center _emptyList() {
+    return Center(
+      child: ListView(
+        children: const [EmptyData()],
+      ),
+    );
+  }
+
+  void _onRefresh(SavedLocationLoadedState state) async {
     context.read<SavedLocationBloc>().add(GetUserSavedLocationList(
         savedLocationList: state.savedLocationList, uid: widget.user.id));
   }
@@ -103,5 +103,6 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
   UserModel get user {
     return widget.user;
   }
+
 
 }
