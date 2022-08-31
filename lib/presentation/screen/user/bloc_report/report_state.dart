@@ -1,4 +1,3 @@
-import 'package:xplore/data/model/location_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ReportState extends Equatable {

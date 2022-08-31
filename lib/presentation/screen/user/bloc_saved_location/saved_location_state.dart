@@ -12,8 +12,7 @@ class SavedLocationLoadingState extends SavedLocationState {}
 
 class SavedLocationLoadedState extends SavedLocationState {
   final List<LocationModel> savedLocationList;
-  const SavedLocationLoadedState(
-      {this.savedLocationList = const <LocationModel>[]});
+  const SavedLocationLoadedState({this.savedLocationList = const <LocationModel>[]});
 
   @override
   List<Object> get props => [savedLocationList];

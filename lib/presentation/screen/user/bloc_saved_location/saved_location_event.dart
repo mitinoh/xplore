@@ -8,17 +8,13 @@ abstract class SavedLocationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-/*
-class SavedLocationInitUserListEvent extends SavedLocationEvent {
-  final String? uid;
-  const SavedLocationInitUserListEvent({this.uid});
-}
-*/
 class GetUserSavedLocationList extends SavedLocationEvent {
   final List<LocationModel> savedLocationList;
   final String uid;
-  const GetUserSavedLocationList(
-      {required this.savedLocationList, required this.uid});
+  const GetUserSavedLocationList({
+    this.savedLocationList = const <LocationModel>[],
+    this.uid = "",
+  });
 
   @override
   List<Object> get props => [savedLocationList];

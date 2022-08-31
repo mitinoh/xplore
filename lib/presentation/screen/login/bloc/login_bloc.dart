@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:xplore/data/repository/auth_repository.dart';
 import 'package:xplore/presentation/screen/login/bloc/bloc.dart';
 

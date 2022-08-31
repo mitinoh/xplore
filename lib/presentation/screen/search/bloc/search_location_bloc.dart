@@ -7,12 +7,10 @@ import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
 import 'package:xplore/utils/logger.dart';
 
-class SearchLocationBloc
-    extends Bloc<SearchLocationEvent, SearchLocationState> {
+class SearchLocationBloc extends Bloc<SearchLocationEvent, SearchLocationState> {
   final HomeRepository homeRepository;
   final UserRepository userRepository;
-  SearchLocationBloc(
-      {required this.homeRepository, required this.userRepository})
+  SearchLocationBloc({required this.homeRepository, required this.userRepository})
       : super(SearchLocationInitial()) {
     //on<SearchLocationEvent>((event, emit) {});
     on<GetSearchLocationList>(_searchLocationList);
@@ -23,8 +21,7 @@ class SearchLocationBloc
       GetSearchLocationList event, Emitter<SearchLocationState> emit) async {
     try {
       Mongoose mng = homeRepository.getMongoose(searchName: event.searchName);
-      List<LocationModel> locationsFound =
-          await homeRepository.getLocationList(mng);
+      List<LocationModel> locationsFound = await homeRepository.getLocationList(mng);
       emit(SearchLocationLoaded(locationsFound));
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());
@@ -35,8 +32,7 @@ class SearchLocationBloc
   void _searchUserList(
       GetSearchUsersList event, Emitter<SearchLocationState> emit) async {
     try {
-      Mongoose mng = userRepository.getMongoose(searchName: event.searchName);
-
+      Mongoose mng = userRepository.getMongooseSingleUser(searchName: event.searchName);
       List<UserModel> usersFound = await userRepository.getUserList(mng);
 
       emit(SearchUserLoaded(usersFound));

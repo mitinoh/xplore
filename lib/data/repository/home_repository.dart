@@ -3,6 +3,7 @@ import 'package:xplore/data/api/rest_client.dart';
 import 'package:xplore/data/dio_provider.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class HomeRepository {
   final dio = DioProvider.instance();
 
@@ -22,8 +23,8 @@ class HomeRepository {
   }
 
   void navigateToLocation(double latitude, double longitude) async {
-    final Uri _url = Uri.parse(
-        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
+    final Uri _url =
+        Uri.parse('https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
 
     if (await canLaunchUrl(_url)) {
       await launchUrl(_url);
@@ -38,15 +39,19 @@ class HomeRepository {
     mng.filter = [];
 
     if (searchName != null && searchName.trim() != "") {
-      mng.filter
-          ?.add(Filter(key: "searchDoc", operation: "=", value: searchName));
+      mng.filter?.add(Filter(
+        key: "searchDoc",
+        operation: "=",
+        value: searchName,
+      ));
     }
 
     if (categoryList != null && categoryList.isNotEmpty) {
       mng.filter?.add(Filter(
-          key: "locationCategory",
-          operation: "=",
-          value: categoryList.join(',')));
+        key: "locationCategory",
+        operation: "=",
+        value: categoryList.join(','),
+      ));
     }
 
     return mng;

@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:xplore/data/api/mongoose.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/repository/user_repository.dart';
@@ -19,22 +16,14 @@ class SavedLocationBloc extends Bloc<SavedLocationEvent, SavedLocationState> {
     Emitter<SavedLocationState> emit,
   ) async {
     try {
-      List<String> exlcudeId = [];
-
-      event.savedLocationList
-          .map((location) => exlcudeId.add(location.id.toString()));
-
-      Mongoose mng = Mongoose(filter: [
-        Filter(key: 'uid', operation: '=', value: event.uid),
-        Filter(key: '_id', operation: '!=', value: exlcudeId.join(','))
-      ]);
+      Mongoose mng = _userRepository.getMongooseSavedLocation(event: event);
       final List<LocationModel> newSavedLocationList =
           await _userRepository.getUserSavedLocation(mng);
 
       emit(
         SavedLocationLoadedState(savedLocationList: [
           ...event.savedLocationList,
-          ...newSavedLocationList
+          ...newSavedLocationList,
         ]),
       );
     } catch (e, stacktrace) {

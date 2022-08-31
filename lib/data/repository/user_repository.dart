@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:xplore/data/api/mongoose.dart';
 import 'package:xplore/data/api/rest_client.dart';
 import 'package:xplore/data/dio_provider.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/user_model.dart';
-import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xplore/presentation/screen/user/bloc_saved_location/saved_location_event.dart';
+import 'package:xplore/presentation/screen/user/bloc_uploaded_location/uploaded_location_event.dart';
 
 class UserRepository {
   final dio = DioProvider.instance();
@@ -34,17 +35,12 @@ class UserRepository {
     return await client.updateUserData(userData);
   }
 
-
   Future<Position> getUserPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
-    // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
       return Future.error('Location services are disabled.');
     }
 
@@ -52,29 +48,19 @@ class UserRepository {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
         return Future.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    // return userLocation;
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
-
-  Mongoose getMongoose({String? searchName}) {
+  Mongoose getMongooseSingleUser({String? searchName}) {
     Mongoose mng = Mongoose(filter: []);
 
     mng.filter?.add(Filter(
@@ -84,5 +70,25 @@ class UserRepository {
     ));
 
     return mng;
+  }
+
+   Mongoose getMongooseSavedLocation({required GetUserSavedLocationList event}) {
+    List<String> excludeId =
+        event.savedLocationList.map((location) => location.id).toList();
+    return _getMongoseSULocation(uid: event.uid, excludeId: excludeId);
+  }
+
+  Mongoose getMongooseUploadedLocation({required GetUserUploadedLocationList event}) {
+    List<String> excludeId =
+        event.uploadedLocationList.map((location) => location.id).toList();
+    return _getMongoseSULocation(uid: event.uid, excludeId: excludeId);
+  }
+
+
+  _getMongoseSULocation({String uid = "", List<String> excludeId = const []}) {
+    return  Mongoose(filter: [
+      Filter(key: 'uid', operation: '=', value: uid),
+      Filter(key: '_id', operation: '!=', value: excludeId.join(','))
+    ]);
   }
 }
