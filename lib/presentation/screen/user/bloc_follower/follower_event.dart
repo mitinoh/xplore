@@ -9,11 +9,11 @@ abstract class FollowerEvent extends Equatable {
 
 class IsFollowingUser extends FollowerEvent {
   final String uid;
-  IsFollowingUser({required this.uid});
+  IsFollowingUser({this.uid = ""});
 }
 
 class ToggleFollow extends FollowerEvent {
   final String uid;
   final bool following;
-  ToggleFollow({required this.uid, required this.following});
+  ToggleFollow({this.uid = "", this.following = false});
 }

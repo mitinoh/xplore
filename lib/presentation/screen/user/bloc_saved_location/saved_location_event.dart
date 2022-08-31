@@ -10,7 +10,7 @@ abstract class SavedLocationEvent extends Equatable {
 
 class GetUserSavedLocationList extends SavedLocationEvent {
   final List<LocationModel> savedLocationList;
-  final String uid;
+  final String? uid;
   const GetUserSavedLocationList({
     this.savedLocationList = const <LocationModel>[],
     this.uid = "",

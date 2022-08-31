@@ -1,17 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xplore/data/model/user_model.dart';
-import 'package:xplore/data/repository/follower_repository.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
-import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
-import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/utils/imager.dart';
-import 'package:xplore/utils/pref.dart';
 
 class UserInformationWidget extends StatefulWidget {
   UserInformationWidget({Key? key, required this.user, required this.visualOnly})
@@ -23,30 +18,6 @@ class UserInformationWidget extends StatefulWidget {
 }
 
 class _UserInformationWidgetState extends State<UserInformationWidget> {
-  //FollowerRepository _followerRepository = FollowerRepository();
-
-  // bool followState = false;
-
-  isFollwing() async {
-    /*
-    bool following =
-        await _followerRepository.isFollowing(widget.user.id ?? '');
-    setState(() {
-      followState = following;
-    });
-    */
-  }
-
-  @override
-  void initState() {
-    if (widget.user != null) {
-      //_userBio = Future.value(widget.user?.bio ?? "");
-      //_userName = Future.value(widget.user?.name ?? "");
-      isFollwing();
-    }
-    super.initState();
-  }
-
   XFile? image;
   final ImagePicker _picker = ImagePicker();
 
@@ -60,10 +31,8 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
     }*/
   }
 
-  late ThemeData _lightDark;
   @override
-  Widget build(BuildContext ctx) {
-    _lightDark = Theme.of(context);
+  Widget build(BuildContext context) {
     return Column(
       children: [
         _userImagePreview(),
@@ -72,7 +41,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
         // const SizedBox(height: 15),
         //const MainTrophyWidget(),
         //const SizedBox(height: 15),
-        //CounterFollowerAndTrips(user: widget.user),
+        //CounterFollowerAndTrips(user: user),
         const SizedBox(height: 10),
         _userBioBox(),
       ],
@@ -94,16 +63,14 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   }
 
   Widget _changeUserAvatar() {
-    return !widget.visualOnly
+    return !visualOnly
         ? Positioned(
-            //!questo tasto sarà visibile solo quando si visuelezzarà il profilo di un altro utente
             bottom: -15,
             left: 50,
             right: 0,
             child: InkWell(
               onTap: () {
                 _getFromGallery();
-                //qui si scatena l'evento del caricamento
               },
               child: CircleAvatar(
                   backgroundColor: Colors.amber,
@@ -116,20 +83,18 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   }
 
   Widget _userAvatar() {
-    return CircleImageWidget(imageUrl: Img.getUserUrl(widget.user));
+    return CircleImageWidget(imageUrl: Img.getUserUrl(user));
   }
 
   Widget _followBuilder() {
-    if (widget.visualOnly) {
-      BlocProvider.of<FollowerBloc>(context)
-        ..add(IsFollowingUser(uid: widget.user.id ?? ''));
+    if (visualOnly) {
+      BlocProvider.of<FollowerBloc>(context)..add(IsFollowingUser(uid: user.id ?? ''));
       return BlocBuilder<FollowerBloc, FollowerState>(
         builder: (context, state) {
-          return _followButton(state.props.isNotEmpty ? state.props[0] as bool : false);
+          return _followButton(_isFollowing(state));
         },
       );
     }
-
     return const SizedBox();
   }
 
@@ -139,7 +104,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
       child: InkWell(
         onTap: () {
           BlocProvider.of<FollowerBloc>(context)
-              .add(ToggleFollow(uid: widget.user.id ?? '', following: followState));
+              .add(ToggleFollow(uid: user.id ?? '', following: followState));
         },
         child: Container(
           padding: const EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
@@ -160,7 +125,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           TextSpan(
-            text: "La tua biografia:\n".toUpperCase() + widget.user.bio.toString(),
+            text: "La tua biografia:\n".toUpperCase() + user.bio.toString(),
             style: GoogleFonts.poppins(
                 fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
           ),
@@ -168,6 +133,18 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   }
 
   Widget _userLevelIndicator() {
-    return Text(widget.user.username.toString());
+    return Text(user.username.toString());
+  }
+
+  bool _isFollowing(FollowerState state) {
+    return state.props.isNotEmpty ? state.props[0] as bool : false;
+  }
+
+  bool get visualOnly {
+    return widget.visualOnly;
+  }
+
+  UserModel get user {
+    return widget.user;
   }
 }

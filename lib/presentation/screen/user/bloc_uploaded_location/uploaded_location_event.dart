@@ -10,7 +10,7 @@ abstract class UploadedLocationEvent extends Equatable {
 
 class GetUserUploadedLocationList extends UploadedLocationEvent {
   final List<LocationModel> uploadedLocationList;
-  final String uid;
+  final String? uid;
   const GetUserUploadedLocationList({
     this.uploadedLocationList = const <LocationModel>[],
     this.uid = "",

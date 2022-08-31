@@ -85,7 +85,7 @@ class UserRepository {
   }
 
 
-  _getMongoseSULocation({String uid = "", List<String> excludeId = const []}) {
+  _getMongoseSULocation({String? uid = "", List<String> excludeId = const []}) {
     return  Mongoose(filter: [
       Filter(key: 'uid', operation: '=', value: uid),
       Filter(key: '_id', operation: '!=', value: excludeId.join(','))

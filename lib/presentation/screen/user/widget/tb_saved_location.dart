@@ -2,54 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:xplore/data/model/user_model.dart';
+import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
 import 'package:xplore/presentation/common_widgets/empty_data.dart';
 import 'package:xplore/presentation/common_widgets/image_tile.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
+import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
 
-class UploadedLocationTabBarWidget extends StatefulWidget {
-  const UploadedLocationTabBarWidget({Key? key, required this.user})
-      : super(key: key);
+class SavedLocationTabBarWidget extends StatefulWidget {
+  const SavedLocationTabBarWidget({Key? key, required this.user}) : super(key: key);
   final UserModel user;
   @override
-  State<UploadedLocationTabBarWidget> createState() =>
-      _UploadedLocationTabBarWidgetState();
+  State<SavedLocationTabBarWidget> createState() => _SavedLocationTabBarWidgetState();
 }
 
-class _UploadedLocationTabBarWidgetState
-    extends State<UploadedLocationTabBarWidget> {
+class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: BlocProvider.of<UploadedLocationBloc>(context),
-      child: BlocBuilder<UploadedLocationBloc, UploadedLocationState>(
+      value: BlocProvider.of<SavedLocationBloc>(context),
+      child: BlocBuilder<SavedLocationBloc, SavedLocationState>(
         builder: (context, state) {
-          if (state is UploadedLocationLoadedState) {
+          if (state is SavedLocationLoadedState) {
             return RefreshIndicator(
               color: widget.user == null ? Colors.white : Colors.transparent,
-              backgroundColor:
-                  widget.user == null ? Colors.blue : Colors.transparent,
+              backgroundColor: widget.user == null ? Colors.blue : Colors.transparent,
               edgeOffset: 0,
               onRefresh: () async {
-                /*
-                  if (widget.user == null) {
-                    context.read<SavedLocationBloc>().add(
-                        SavedLocationGetUserListEvent(
-                            savedLocationList: state.savedLocationList,
-                            uid: widget.user?.sId));
+                
+                _onRefresh(state);
                     return Future<void>.delayed(const Duration(seconds: 1));
-                  } else
-                    return;
-                    */
+      
               },
-              child: (state.uploadedLocationList.isNotEmpty)
+              child: (state.savedLocationList.isNotEmpty)
                   ? CustomScrollView(
                       // key: PageStorageKey<String>(obj["name"]),
                       slivers: [
                         SliverGrid(
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 200.0,
                             mainAxisSpacing: 0,
                             crossAxisSpacing: 0,
@@ -58,11 +48,10 @@ class _UploadedLocationTabBarWidgetState
                           delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
                               // commento
-                              return state.uploadedLocationList[index].saved ==
-                                      true
+                              return state.savedLocationList[index].saved == true
                                   ? InkWell(
                                       onTap: () {
-                                        /*
+                                        
                                               DetailLocationModal(
                                                 loc: state.savedLocationList[index],
                                                 fromLikedSection: true,
@@ -79,17 +68,15 @@ class _UploadedLocationTabBarWidgetState
                                                   });
                                                 },
                                               ).show(context);
-                                   */
+                                   
                                       },
                                       child: ImageTile(
-                                          location: state
-                                              .uploadedLocationList[index]),
+                                          location: state.savedLocationList[index]),
                                     )
                                   : const SizedBox();
                             },
-                            childCount: state.uploadedLocationList
-                                .map((e) => e.saved)
-                                .length,
+                            childCount:
+                                state.savedLocationList.map((e) => e.saved).length,
                           ),
                         )
                       ],
@@ -107,4 +94,14 @@ class _UploadedLocationTabBarWidgetState
       ),
     );
   }
+
+   void _onRefresh(SavedLocationLoadedState state) async {
+    context.read<SavedLocationBloc>().add(GetUserSavedLocationList(
+        savedLocationList: state.savedLocationList, uid: widget.user.id));
+  }
+
+  UserModel get user {
+    return widget.user;
+  }
+
 }
