@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
@@ -9,9 +10,9 @@ import 'package:xplore/utils/imager.dart';
 class HomeMainCard extends StatefulWidget {
   const HomeMainCard({
     Key? key,
-    required this.locationsList,
+    required this.locationList,
   }) : super(key: key);
-  final List<LocationModel> locationsList;
+  final List<LocationModel> locationList;
 
   @override
   State<HomeMainCard> createState() => _HomeMainCardState();
@@ -19,24 +20,19 @@ class HomeMainCard extends StatefulWidget {
 
 class _HomeMainCardState extends State<HomeMainCard> {
   final PageController pageController = PageController();
-  late MediaQueryData mediaQuery;
-  late ThemeData lightDark;
 
-  bool _showPinnedMenu = true;
-  int _lastIndexLocation = 0;
-  int _indexLocation = 0;
-
+  bool _pinnedMenuVisible = true;
+  int _lastIdxLocation = 0;
+  int _currentIdx = 0;
 
   toggleDetail() {
     setState(() {
-      _showPinnedMenu = !_showPinnedMenu;
+      _pinnedMenuVisible = !_pinnedMenuVisible;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    mediaQuery = MediaQuery.of(context);
-    lightDark = Theme.of(context);
     return Stack(
       children: [
         _listPageView(),
@@ -49,14 +45,14 @@ class _HomeMainCardState extends State<HomeMainCard> {
 
   Widget _detailMenu() {
     return DetailMenuWidget(
-        expanded: !_showPinnedMenu,
-        location: widget.locationsList[_indexLocation],
-        toggle: toggleDetail);
+        expanded: !_pinnedMenuVisible,
+        location: location,
+        toggleDetailMenu: toggleDetail);
   }
 
   Widget _header() {
     return Positioned(
-        top: mediaQuery.size.height * 0.1,
+        top: App.mediaQueryX.size.height * 0.1,
         left: 20,
         right: 20,
         child: Row(
@@ -64,6 +60,7 @@ class _HomeMainCardState extends State<HomeMainCard> {
           children: [
             InkWell(
               onTap: () {
+                // TODO: fare redirect
                 /* if (widget.model[_indexLocation].insertUid != null) {
                   Navigator.push(
                       context,
@@ -77,17 +74,15 @@ class _HomeMainCardState extends State<HomeMainCard> {
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    color: lightDark.scaffoldBackgroundColor.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Text(
-                    widget.locationsList.isNotEmpty
-                        ? //widget.model[_indexLocation].insertUid?.name ??
-                        '@xplore'
-                        : '@xplore',
+                  color: App.themex.scaffoldBackgroundColor.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(locationName,
                     style: GoogleFonts.poppins(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: lightDark.primaryColor)),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: App.themex.primaryColor,
+                    )),
               ),
             ),
           ],
@@ -96,11 +91,10 @@ class _HomeMainCardState extends State<HomeMainCard> {
 
   Widget _pinnedMenu() {
     return Visibility(
-      visible: _showPinnedMenu,
-      child: PinnedMenu(
-        locationList: widget.locationsList[_indexLocation]
-      )
-    );
+        visible: _pinnedMenuVisible,
+        child: PinnedMenu(
+          location: location,
+        ));
   }
 
   PageView _listPageView() {
@@ -108,34 +102,38 @@ class _HomeMainCardState extends State<HomeMainCard> {
       scrollDirection: Axis.vertical,
       controller: pageController,
       children: _getCardsImages(),
-      onPageChanged: (i) => {
-        _changeIndexLocation(i)
-      },
+      onPageChanged: (i) => {_changeIndexLocation(i)},
     );
   }
 
   List<Widget> _getCardsImages() {
     List<Widget> cards = [];
-    for (LocationModel location in widget.locationsList) {
-      cards.add(
-        ImageWidget(imageUrl: Img.getLocationUrl(location))
-      );
+    for (LocationModel location in widget.locationList) {
+      cards.add(ImageWidget(imageUrl: Img.getLocationUrl(location)));
     }
     return cards;
   }
 
-  _changeIndexLocation(int i) {
+  void _changeIndexLocation(int i) {
     setState(() {
-      _indexLocation = i;
+      _currentIdx = i;
     });
 
-    if (_indexLocation > _lastIndexLocation && i % 15 == 0) {
+    if (_currentIdx > _lastIdxLocation && i % 15 == 0) {
       // HomeRepository.skip += 15; // TODO: cambiare 15 in modo dyn
       //widget.locationBloc.add(const GetLocationList());
     }
 
-    if (_indexLocation > _lastIndexLocation) {
-      _lastIndexLocation = _indexLocation;
+    if (_currentIdx > _lastIdxLocation) {
+      _lastIdxLocation = _currentIdx;
     }
+  }
+
+  LocationModel get location {
+    return widget.locationList[_currentIdx];
+  }
+
+  String get locationName {
+    return widget.locationList[_currentIdx].insertUid?.username ?? '@xplore';
   }
 }

@@ -35,6 +35,9 @@ class App extends StatefulWidget {
   @override
   State<App> createState() => _AppState();
 
+  static late ThemeData themex;
+  static late MediaQueryData mediaQueryX;
+
   static void initSystemDefault() {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: COLOR_CONST.STATUS_BAR));
@@ -42,7 +45,6 @@ class App extends StatefulWidget {
 
   static Widget runWidget() {
     WidgetsFlutterBinding.ensureInitialized();
-
     return FutureBuilder(
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
@@ -125,7 +127,6 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     final config = AppConfig.of(context)!;
-
     return MaterialApp(
         debugShowCheckedModeBanner: config.debugTag,
         theme: ThemeData(
@@ -137,6 +138,8 @@ class _AppState extends State<App> {
         onGenerateRoute: AppRouter.generateRoute,
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
+            App.themex = Theme.of(context);
+            App.mediaQueryX = MediaQuery.of(context);
             if (state is Uninitialized) {
               return SplashScreen();
             } else if (state is Unauthenticated) {

@@ -32,6 +32,6 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
 
   HomeMainCard getCards(List<LocationModel> homeModel) {
     // TODO: controllare che modelLoc.length > 0
-    return HomeMainCard(locationsList: homeModel);
+    return HomeMainCard(locationList: homeModel);
   }
 }

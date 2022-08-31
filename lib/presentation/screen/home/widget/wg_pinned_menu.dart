@@ -6,8 +6,8 @@ import 'package:xplore/presentation/common_widgets/like_button.dart';
 import 'package:xplore/presentation/router.dart';
 
 class PinnedMenu extends StatefulWidget {
-  const PinnedMenu({Key? key, required this.locationList}) : super(key: key);
-  final LocationModel locationList;
+  const PinnedMenu({Key? key, required this.location}) : super(key: key);
+  final LocationModel location;
 
   @override
   State<PinnedMenu> createState() => _PinnedMenuState();
@@ -51,8 +51,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
                   useRootNavigator: true,
                   backgroundColor: Colors.transparent,
                   builder: (context) {
-                    return GoNavigationBottomSheet(
-                        location: widget.locationList);
+                    return GoNavigationBottomSheet(location: widget.location);
                   })
             },
         child: Icon(Iconsax.discover_1, color: lightDark.primaryColor));
@@ -60,16 +59,14 @@ class _PinnedMenuState extends State<PinnedMenu> {
 
   Widget _likeButton() {
     return LikeButton(
-      locationList: widget.locationList,
+      locationList: widget.location,
     );
   }
 
   InkWell _searchButton() {
     return InkWell(
-        onTap: () => {
-              Navigator.of(context, rootNavigator: true)
-                  .pushNamed(AppRouter.SEARCH)
-            },
+        onTap: () =>
+            {Navigator.of(context, rootNavigator: true).pushNamed(AppRouter.SEARCH)},
         child: Icon(Iconsax.search_normal, color: lightDark.primaryColor));
   }
 }
