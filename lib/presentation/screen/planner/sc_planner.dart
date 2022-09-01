@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/question_bloc.dart';
 import 'package:xplore/presentation/screen/planner/widget/wg_current_planned_trip.dart';
 import 'package:xplore/presentation/screen/planner/widget/wg_future_planned_trip.dart';
 import 'package:xplore/presentation/screen/planner/sc_plan_new_trip.dart';
@@ -19,7 +18,7 @@ class PlannerScreen extends StatefulWidget {
 }
 
 class _PlannerScreenState extends State<PlannerScreen> {
-  late ThemeData lightDark = Theme.of(context);
+  final ThemeData themex = App.themex;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +80,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
         padding: const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: lightDark.cardColor,
+          color: themex.cardColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -98,7 +97,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
-                  color: lightDark.primaryColor),
+                  color: themex.primaryColor),
             ),
           ],
         ),
@@ -120,7 +119,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
       MaterialPageRoute(
           builder: (ctx) => PlanNewTripScreen(
                 callback: () {
-              //    BlocProvider.of<PlannerQuestionBloc>(context) .add(PlannerInitQuestion());
                   BlocProvider.of<FuturePlannerBloc>(context).add(GetFuturePlannedTrip());
                   BlocProvider.of<CurrentPlannerBloc>(context)
                       .add(GetCurrentPlannedTrip());

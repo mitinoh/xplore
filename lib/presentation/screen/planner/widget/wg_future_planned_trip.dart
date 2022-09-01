@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_text.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
@@ -12,11 +13,10 @@ import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
 class FuturePlannedTripList extends StatelessWidget {
   FuturePlannedTripList({Key? key}) : super(key: key);
 
-  late ThemeData _lightDark;
+  final ThemeData themex  = App.themex;
   late BuildContext _blocContext;
   @override
   Widget build(BuildContext context) {
-    _lightDark = Theme.of(context);
     _blocContext = context;
     return BlocProvider(
         create: (_) =>
@@ -54,7 +54,7 @@ class FuturePlannedTripList extends StatelessWidget {
                             children: _tripInfo(index, snapshot.data ?? '')),
                         Divider(
                           height: 30,
-                          color: _lightDark.primaryColor.withOpacity(0.1),
+                          color: themex.primaryColor.withOpacity(0.1),
                         ),
                       ],
                     ),
@@ -77,13 +77,13 @@ class FuturePlannedTripList extends StatelessWidget {
             style: GoogleFonts.poppins(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: _lightDark.primaryColor)),
+                color: themex.primaryColor)),
       ),
       Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Icon(
             Iconsax.arrow_right_1,
-            color: _lightDark.primaryColor,
+            color: themex.primaryColor,
           ))
     ];
   }

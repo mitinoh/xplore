@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/presentation/screen/search/widget/wgt_grid_header.dart';
 import 'package:xplore/presentation/screen/search/widget/wgt_grid.dart';
-import 'package:xplore/presentation/screen/search/widget/wgt_search_bar.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({Key? key}) : super(key: key);

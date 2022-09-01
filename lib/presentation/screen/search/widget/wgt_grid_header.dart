@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:xplore/app/app.dart';
 
 class GridHeaderWidget extends StatelessWidget {
   GridHeaderWidget({Key? key}) : super(key: key);
-  late ThemeData _lightDark;
+  final ThemeData themex = App.themex;
   @override
   Widget build(BuildContext context) {
-    _lightDark = Theme.of(context);
     return Visibility(
       visible: true,
       child: Row(
@@ -18,7 +18,7 @@ class GridHeaderWidget extends StatelessWidget {
               style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: _lightDark.primaryColor),
+                  color: themex.primaryColor),
             ),
           ),
         ],

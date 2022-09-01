@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:masonry_grid/masonry_grid.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
-import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'dart:math';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:xplore/utils/imager.dart';
 
 class LocationGridWidget extends StatelessWidget {
   LocationGridWidget({Key? key, required this.locationsList}) : super(key: key);
 
   final List<LocationModel> locationsList;
-  late MediaQueryData _mediaQuery;
-  late ThemeData _lightDark;
   @override
   Widget build(BuildContext context) {
-    _mediaQuery = MediaQuery.of(context);
-    _lightDark = Theme.of(context);
     return SizedBox(
       child: MasonryGrid(
           mainAxisSpacing: 5,

@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/app.dart';
 
 class LockTripBottomSheet extends StatelessWidget {
-  const LockTripBottomSheet({
+  LockTripBottomSheet({
     Key? key,
   }) : super(key: key);
 
+  final ThemeData themex = App.themex;
+  final MediaQueryData mediaQueryX = App.mediaQueryX;
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    var lightDark = Theme.of(context);
     return Container(
-      height: mediaQuery.size.height * 0.65,
+      height: mediaQueryX.size.height * 0.65,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
-        color: lightDark.backgroundColor,
+        color: themex.backgroundColor,
       ),
       child: SafeArea(
         child: SingleChildScrollView(
@@ -46,16 +47,15 @@ class LockTripBottomSheet extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: lightDark.primaryColor),
+                        color: themex.primaryColor),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Container(
-                      padding: const EdgeInsets.only(
-                          right: 15, left: 15, top: 5, bottom: 5),
+                      padding:
+                          const EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
                       decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.circular(20)),
+                          color: Colors.yellow, borderRadius: BorderRadius.circular(20)),
                       child: Text("in corso...",
                           style: GoogleFonts.poppins(
                               fontSize: 12.5,
@@ -74,7 +74,7 @@ class LockTripBottomSheet extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w300,
-                          color: lightDark.primaryColor),
+                          color: themex.primaryColor),
                       children: <TextSpan>[
                         const TextSpan(
                             text: "21-07-2022",
@@ -85,7 +85,7 @@ class LockTripBottomSheet extends StatelessWidget {
                         TextSpan(
                             text: " hai pianificato una vacanza di ",
                             style: TextStyle(
-                              color: lightDark.primaryColor,
+                              color: themex.primaryColor,
                             )),
                         const TextSpan(
                           text: "n",
@@ -97,7 +97,7 @@ class LockTripBottomSheet extends StatelessWidget {
                         TextSpan(
                             text: " giorni a ",
                             style: TextStyle(
-                              color: lightDark.primaryColor,
+                              color: themex.primaryColor,
                             )),
                         const TextSpan(
                           text: "Barcellona",
@@ -131,8 +131,7 @@ class LockTripBottomSheet extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(top: 20, bottom: 20),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.yellow),
+                    borderRadius: BorderRadius.circular(20), color: Colors.yellow),
                 child: Column(
                   children: [
                     Row(
@@ -155,7 +154,7 @@ class LockTripBottomSheet extends StatelessWidget {
                     Divider(
                       height: 30,
                       thickness: 2,
-                      color: lightDark.scaffoldBackgroundColor,
+                      color: themex.scaffoldBackgroundColor,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

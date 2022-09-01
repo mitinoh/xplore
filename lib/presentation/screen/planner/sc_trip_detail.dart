@@ -1,32 +1,34 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/data/model/trip_model.dart';
+import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
-import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/utils/imager.dart';
 
 class TripDetailScreen extends StatelessWidget {
   TripDetailScreen({Key? key, required this.planTrip}) : super(key: key);
 
   final PlannerModel planTrip;
-  late ThemeData _lightDark;
+  final ThemeData themex = App.themex;
   late BuildContext _blocContext;
 
   @override
   Widget build(BuildContext context) {
-    _lightDark = Theme.of(context);
     _blocContext = context;
     return Scaffold(
         body: SafeArea(
             child: Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20),
-                child: CustomScrollView(
-                    slivers: <Widget>[_tripName(), _subHeader(), _locationInfo()]))));
+                child: CustomScrollView(slivers: <Widget>[
+                  _tripName(),
+                  _subHeader(),
+                  _locationInfo(),
+                ]))));
   }
 
   Widget _locationInfo() {
@@ -45,18 +47,16 @@ class TripDetailScreen extends StatelessWidget {
         pinned: true,
         snap: true,
         elevation: 0,
-        backgroundColor: _lightDark.scaffoldBackgroundColor,
+        backgroundColor: themex.scaffoldBackgroundColor,
         iconTheme: const IconThemeData(color: Colors.black),
         actionsIconTheme: const IconThemeData(color: Colors.black),
         leading: GestureDetector(
             onTap: () => {Navigator.pop(_blocContext)},
-            child: Icon(Iconsax.arrow_left, color: _lightDark.primaryColor)),
+            child: Icon(Iconsax.arrow_left, color: themex.primaryColor)),
         leadingWidth: 23,
         title: Text(planTrip.tripName ?? '',
             style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: _lightDark.primaryColor)));
+                fontSize: 16, fontWeight: FontWeight.w600, color: themex.primaryColor)));
   }
 
   Widget _subHeader() {
@@ -84,15 +84,13 @@ class TripDetailScreen extends StatelessWidget {
   Widget _tripWidget(TripModel? pTrip) {
     return InkWell(
       onTap: () {
-        /*
-        DetailLocationModal(loc: planTrip.trip![tripIdx].location!)
-            .show(context);
-            */
+        DetailLocationModal(loc: pTrip?.location ?? LocationModel(id: "_"))
+            .show(_blocContext);
       },
       child: Container(
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: _lightDark.dividerColor),
+            bottom: BorderSide(color: themex.dividerColor),
           ),
         ),
         child: Column(
@@ -110,13 +108,13 @@ class TripDetailScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(2),
                 child: CircleAvatar(
                   radius: 53,
-                  backgroundColor: _lightDark.scaffoldBackgroundColor,
+                  backgroundColor: themex.scaffoldBackgroundColor,
                   child: CircleAvatar(
                       radius: 50,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: ImageWidget(imageUrl: Img.getLocationUrl(pTrip!.location! ))
-                      )),
+                          borderRadius: BorderRadius.circular(50),
+                          child: ImageWidget(
+                              imageUrl: Img.getLocationUrl(pTrip!.location!)))),
                 ),
               ),
             ),
@@ -134,7 +132,7 @@ class TripDetailScreen extends StatelessWidget {
                         style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: _lightDark.primaryColor)),
+                            color: themex.primaryColor)),
                   ),
                 ),
               ],
@@ -156,34 +154,28 @@ class TripDetailScreen extends StatelessWidget {
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.w300,
-                color: _lightDark.primaryColor)),
+                fontSize: 12, fontWeight: FontWeight.w300, color: themex.primaryColor)),
         Padding(
           padding: const EdgeInsets.only(left: 7.0),
           child: Text((_getTripVisitDay(pTrip)).toString() + "° giorno".toLowerCase(),
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w300,
-                  color: _lightDark.primaryColor)),
+                  fontSize: 12, fontWeight: FontWeight.w300, color: themex.primaryColor)),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 7.0),
           child: Icon(
             Iconsax.sun_1,
             size: 20,
-            color: _lightDark.primaryColor,
+            color: themex.primaryColor,
           ),
         ),
         Text("23°C",
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.w300,
-                color: _lightDark.primaryColor)),
+                fontSize: 12, fontWeight: FontWeight.w300, color: themex.primaryColor)),
       ],
     );
   }

@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/user_model.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
-import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
 import 'package:xplore/utils/imager.dart';
 
 class UserGridWidget extends StatelessWidget {
   UserGridWidget({Key? key, required this.userList}) : super(key: key);
   final List<UserModel> userList;
-  late ThemeData _lightDark;
+  final ThemeData themex = App.themex;
 
   @override
   Widget build(BuildContext context) {
-    _lightDark = Theme.of(context);
+    
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       separatorBuilder: (_, __) => Divider(
         height: 30,
-        color: _lightDark.primaryColor.withOpacity(0.1),
+        color: themex.primaryColor.withOpacity(0.1),
       ),
       itemCount: userList.length,
       itemBuilder: (BuildContext context, int index) {
@@ -65,7 +63,7 @@ class UserGridWidget extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: _lightDark.primaryColor),
+                                  color: themex.primaryColor),
                             ),
                             Text(
                               "LV. 1",

@@ -5,23 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/data/enum/geo_json_type.dart';
 import 'package:xplore/data/model/geometry_model.dart';
-import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
 import 'package:xplore/presentation/screen/map/widget/maps_bottom_sheet.dart';
-import 'package:xplore/presentation/screen/planner/bloc/plan_state.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/question_bloc.dart';
-import 'package:xplore/presentation/screen/planner/widget/wg_plan_new_trip.dart';
-import 'package:xplore/utils/logger.dart';
 
 class WhereQuestion extends StatefulWidget {
   WhereQuestion({
     Key? key,
   }) : super(key: key);
-
-  //final ValueChanged<void> callback;
 
   @override
   State<WhereQuestion> createState() => _WhereQuestionState();

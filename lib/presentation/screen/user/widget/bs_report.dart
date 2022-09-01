@@ -21,10 +21,9 @@ class ReportBottomSheet extends StatefulWidget {
 class _ReportBottomSheetState extends State<ReportBottomSheet> {
   late int _pageReportIndex = 0;
   late int _reportTypeIndex = 0;
-  final List<String> _reportTypeList = [
-    describeEnum(ReportUserType.BULLYING),
-    describeEnum(ReportUserType.SPAM)
-  ];
+  final List<String> _reportTypeList =
+      ReportUserType.values.map((val) => val.description).toList();
+
   final _desc = TextEditingController();
 
   MediaQueryData mediaQuery = App.mediaQueryX;
@@ -211,102 +210,98 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
 
   Widget _secondStep() {
     //UserRepository _userRepository = UserRepository();
-    return  Column(
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                    onTap: () {
-                      setState(() {
-                        _pageReportIndex = 0;
-                      });
-                    },
-                    child: const Icon(Iconsax.arrow_left)),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      _reportUser();
-                      _pageReportIndex = 2;
-                    });
-                  },
-                  child: Text("invia",
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.lightBlue)),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                        "Secondo passo. Stai segnalato questo utente per la seguente voce:",
-                        overflow: TextOverflow.visible,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey)),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  _reportTypeList[_reportTypeIndex].toString(),
-                  textAlign: TextAlign.center,
+            InkWell(
+                onTap: () {
+                  setState(() {
+                    _pageReportIndex = 0;
+                  });
+                },
+                child: const Icon(Iconsax.arrow_left)),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  _reportUser();
+                  _pageReportIndex = 2;
+                });
+              },
+              child: Text("invia",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: themex.primaryColor),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
-              decoration: BoxDecoration(
-                  color: themex.cardColor, borderRadius: BorderRadius.circular(20)),
-              child: TextField(
-                controller: _desc,
-                maxLength: 144,
-                minLines: 6,
-                maxLines: 10,
-                textAlign: TextAlign.start,
-                style: TextStyle(color: themex.hoverColor, fontSize: 14),
-                decoration: InputDecoration(
-                  counterStyle: TextStyle(color: themex.unselectedWidgetColor),
-                  contentPadding: const EdgeInsets.all(15.0),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintText: "Motiva la segnalazione",
-                  hintStyle: GoogleFonts.poppins(
-                      color: themex.unselectedWidgetColor, fontSize: 14),
-                  border: const OutlineInputBorder(),
-                  prefixIcon: Icon(
-                    Iconsax.flag,
-                    color: Colors.blue,
-                  ),
-                ),
-                autofocus: false,
-              ),
+                      fontWeight: FontWeight.w700,
+                      color: Colors.lightBlue)),
             )
           ],
-        );
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                    "Secondo passo. Stai segnalato questo utente per la seguente voce:",
+                    overflow: TextOverflow.visible,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                        fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
+              )
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              _reportTypeList[_reportTypeIndex].toString(),
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  fontSize: 16, fontWeight: FontWeight.w600, color: themex.primaryColor),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+          decoration: BoxDecoration(
+              color: themex.cardColor, borderRadius: BorderRadius.circular(20)),
+          child: TextField(
+            controller: _desc,
+            maxLength: 144,
+            minLines: 6,
+            maxLines: 10,
+            textAlign: TextAlign.start,
+            style: TextStyle(color: themex.hoverColor, fontSize: 14),
+            decoration: InputDecoration(
+              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
+              contentPadding: const EdgeInsets.all(15.0),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              hintText: "Motiva la segnalazione",
+              hintStyle:
+                  GoogleFonts.poppins(color: themex.unselectedWidgetColor, fontSize: 14),
+              border: const OutlineInputBorder(),
+              prefixIcon: Icon(
+                Iconsax.flag,
+                color: Colors.blue,
+              ),
+            ),
+            autofocus: false,
+          ),
+        )
+      ],
+    );
   }
 
   _reportUser() {

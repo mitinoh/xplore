@@ -12,7 +12,6 @@ class SearchLocationBloc extends Bloc<SearchLocationEvent, SearchLocationState> 
   final UserRepository userRepository;
   SearchLocationBloc({required this.homeRepository, required this.userRepository})
       : super(SearchLocationInitial()) {
-    //on<SearchLocationEvent>((event, emit) {});
     on<GetSearchLocationList>(_searchLocationList);
     on<GetSearchUsersList>(_searchUserList);
   }

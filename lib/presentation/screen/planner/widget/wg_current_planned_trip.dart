@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
@@ -15,11 +16,10 @@ class CurrentPlannedTripList extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  late ThemeData lightDark;
+  final ThemeData themex = App.themex;
 
   @override
   Widget build(BuildContext context) {
-    lightDark = Theme.of(context);
     return BlocProvider(
       create: (_) =>
           BlocProvider.of<CurrentPlannerBloc>(context)..add(GetCurrentPlannedTrip()),
@@ -49,7 +49,7 @@ class CurrentPlannedTripList extends StatelessWidget {
             future: _getUserLocation(pTripList[index]),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return _currentTripCard(pTripList[index], context, lightDark);
+                return _currentTripCard(pTripList[index], context, themex);
               }
               return const LoadingIndicator();
             });

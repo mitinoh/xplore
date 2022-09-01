@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/app.dart';
 
 class PlannerHeaderCommandWidget extends StatelessWidget {
-  const PlannerHeaderCommandWidget({
+  PlannerHeaderCommandWidget({
     Key? key,
     required this.onQuestionChange,
   }) : super(key: key);
+
   final VoidCallback onQuestionChange;
+  final ThemeData themex = App.themex;
+
   @override
   Widget build(BuildContext context) {
-    var lightDark = Theme.of(context);
     return Column(
       children: [
         Row(
@@ -22,7 +25,7 @@ class PlannerHeaderCommandWidget extends StatelessWidget {
                 },
                 child: Icon(
                   Iconsax.arrow_left,
-                  color: lightDark.primaryColor,
+                  color: themex.primaryColor,
                 )),
             RichText(
               text: TextSpan(
@@ -30,7 +33,7 @@ class PlannerHeaderCommandWidget extends StatelessWidget {
                 style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: lightDark.primaryColor),
+                    color: themex.primaryColor),
               ),
             ),
             InkWell(
@@ -39,7 +42,7 @@ class PlannerHeaderCommandWidget extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.close,
-                  color: lightDark.primaryColor,
+                  color: themex.primaryColor,
                 )),
           ],
         ),
