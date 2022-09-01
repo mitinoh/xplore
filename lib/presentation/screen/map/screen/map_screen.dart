@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/screen/map/bloc_user_position/bloc.dart';
 import 'package:xplore/presentation/screen/map/widget/map_container_widget.dart';
 
@@ -14,8 +15,6 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   late Position position;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,24 +22,25 @@ class _MapScreenState extends State<MapScreen> {
           top: false,
           bottom: false,
           child: BlocProvider(
-            create: (_) => BlocProvider.of<UserPositionBloc>(context)..add(GetUserPosition()),
+            create: (_) =>
+                BlocProvider.of<UserPositionBloc>(context)..add(GetUserPosition()),
             child: BlocBuilder<UserPositionBloc, UserPositionState>(
-                builder: (context, state) {
-                  if (state is UserPositionLoaded) {
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: MapContainer(
-                              userPosition: state.userPosition
-                              ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return const Text("error");
-                  }
-                },
-              ),
+              builder: (context, state) {
+                if (state is UserPositionLoaded) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: MapContainer(userPosition: state.userPosition),
+                      ),
+                    ],
+                  );
+                } else if (state is UserPositionError) {
+                  return ErrorScreen(state: state, message: state.message);
+                } else {
+                  return ErrorScreen(state: state);
+                }
+              },
+            ),
           )),
     );
   }

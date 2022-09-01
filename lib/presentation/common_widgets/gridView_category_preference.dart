@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/data/repository/location_category_repository.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
-import 'package:xplore/presentation/screen/home/bloc_location_category/location_category_bloc.dart';
-import 'package:xplore/utils/logger.dart';
 
 class GridViewCategoryPreference extends StatefulWidget {
   GridViewCategoryPreference(
@@ -85,12 +84,6 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                             LocationCategoryModel category =
                                 state.locationCategoryList[index];
                             setState(() {
-                              // if (CategoryPreference.catSelected
-                              //     .contains(value)) {
-                              //   CategoryPreference.catSelected.remove(value);
-                              // } else {
-                              //   CategoryPreference.catSelected.add(value);
-                              // }
 
                               if (widget.selectedCategories.contains(category))
                                 widget.selectedCategories.remove(category);
@@ -115,9 +108,9 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                 ),
               );
             } else if (state is LocationCategoryError) {
-              return Container();
+              return ErrorScreen(state: state, message: state.message);
             } else {
-              return Container();
+              return ErrorScreen(state: state);
             }
           },
         ),
@@ -126,10 +119,8 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
   }
 
   bool getValue(LocationCategoryLoaded state, int index) {
-    List<String> selectedId = [];
-
     LocationCategoryModel category = state.locationCategoryList[index];
-    widget.selectedCategories.forEach((sc) => selectedId.add(sc.id ?? ''));
+    List<String?> selectedId = widget.selectedCategories.map((sc) => sc.id).toList();
     return selectedId.contains(category.id ?? '');
   }
 }

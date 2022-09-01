@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// ignore: must_be_immutable
 class GoNavigationBottomSheet extends StatelessWidget {
   GoNavigationBottomSheet({Key? key, required this.location}) : super(key: key);
   final LocationModel location;
-  late MediaQueryData _mediaQuery;
-  late ThemeData _lightDark;
+  final MediaQueryData mediaQueryX = App.mediaQueryX;
+  final ThemeData themex = App.themex;
 
   @override
   Widget build(BuildContext context) {
-    _mediaQuery = MediaQuery.of(context);
-    _lightDark = Theme.of(context);
     return Container(
-      height: _mediaQuery.size.height * 0.45,
+      height: mediaQueryX.size.height * 0.45,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
-        color: _lightDark.backgroundColor,
+        color: themex.backgroundColor,
       ),
       child: SafeArea(
         child: SingleChildScrollView(
@@ -44,7 +42,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: _lightDark.primaryColor),
+                              color: themex.primaryColor),
                         ),
                       ),
                     ),
@@ -82,10 +80,8 @@ class GoNavigationBottomSheet extends StatelessWidget {
                 InkWell(
                     onTap: () => {
                           context.read<HomeBloc>().add(NavigateToLocation(
-                              latitude:
-                                  location.geometry?.coordinates?[1] ?? 0.0,
-                              longitude:
-                                  location.geometry?.coordinates?[0] ?? 0.0))
+                              latitude: location.geometry?.coordinates?[1] ?? 0.0,
+                              longitude: location.geometry?.coordinates?[0] ?? 0.0))
                         },
                     child: ConfirmButton(
                       text: "Raggiungi con google maps",

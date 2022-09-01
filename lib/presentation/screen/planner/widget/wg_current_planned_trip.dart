@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:geocoding/geocoding.dart';
@@ -25,12 +26,14 @@ class CurrentPlannedTripList extends StatelessWidget {
           BlocProvider.of<CurrentPlannerBloc>(context)..add(GetCurrentPlannedTrip()),
       child: BlocBuilder<CurrentPlannerBloc, CurrentPlannerState>(
         builder: (context, state) {
-          if (state is PlannerInitial || state is CurrentPlannerLoading) {
+          if (state is CurrentPlannerInitial || state is CurrentPlannerLoading) {
             return const LoadingIndicator();
           } else if (state is CurrentPlantripLoadedTrip) {
             return _gridList(state.props as List<PlannerModel>);
+          } else if (state is CurrentPlannerError) {
+            return ErrorScreen(state: state, message: state.message);
           } else {
-            return Text("not handled");
+            return ErrorScreen(state: state);
           }
         },
       ),
@@ -118,8 +121,7 @@ class CurrentPlannedTripList extends StatelessWidget {
   }
 
   Widget _tripImage(PlannerModel pTrip) {
-    return CircleImageWidget(
-        imageUrl: Img.getplannedTripUrl(pTrip));
+    return CircleImageWidget(imageUrl: Img.getplannedTripUrl(pTrip));
   }
 
   Future<String> _getUserLocation(PlannerModel pt) async {

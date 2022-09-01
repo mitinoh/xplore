@@ -17,10 +17,6 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +24,10 @@ class _LikeButtonState extends State<LikeButton> {
     return InkWell(
       onTap: () {
         setState(() {
-          //widget.locationList.saved = !widget.locationList.saved!;
-
           context
               .read<HomeBloc>()
               .add(ToggleLikeLocation(location: widget.locationList));
-          /*
-          widget.locationList[widget.indexLocation].saved =
-              widget.locationList[widget.indexLocation].saved == true ||
-                      widget.liked
-                  ? false
-                  : true;
-          if (widget.callback != null) {
-            widget.callback!();
-          }*/
+
         });
       },
       child: Icon(Iconsax.heart,

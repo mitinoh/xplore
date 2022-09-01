@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/screen/map/bloc_user_position/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
@@ -94,8 +95,10 @@ class MapsBottomSheet extends StatelessWidget {
                               ),
                             ],
                           );
+                        } else if (state is UserPositionError) {
+                          return ErrorScreen(state: state, message: state.message);
                         } else {
-                          return const Text("error");
+                          return ErrorScreen(state: state);
                         }
                       },
                     ),

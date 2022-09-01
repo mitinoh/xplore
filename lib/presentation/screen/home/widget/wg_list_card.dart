@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/home/widget/wg_home_card.dart';
@@ -23,8 +24,10 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
               return const LoadingIndicator();
             } else if (state is HomeLoaded) {
               return getCards(state.homeList);
+            } else if (state is HomeError) {
+              return ErrorScreen(state: state, message: state.message);
             } else {
-              return Expanded(child: Center(child: Text('Error')));
+              return ErrorScreen(state: state);
             }
           },
         ));

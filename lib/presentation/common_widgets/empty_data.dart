@@ -6,7 +6,7 @@ class EmptyData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var lightDark = Theme.of(context);
+    ThemeData lightDark = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

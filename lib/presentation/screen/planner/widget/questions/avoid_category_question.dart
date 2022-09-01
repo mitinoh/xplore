@@ -19,38 +19,6 @@ class AvoidCategoryQuestion extends StatelessWidget {
     var lightDark = Theme.of(context);
     _context = context;
     return categoryToAvoidWidget(lightDark);
-    /*
-    return BlocProvider(
-      create: (_) => LocationCategoryBloc(
-          locationCategroyRepository:
-              RepositoryProvider.of<LocationCategoryRepository>(context))
-        ..add(GetLocationCategoryList()),
-      child: BlocListener<LocationCategoryBloc, LocationCategoryState>(
-        listener: (context, state) {
-          if (state is LocationCategoryError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("error"),
-              ),
-            );
-          }
-        },
-        child: BlocBuilder<LocationCategoryBloc, LocationCategoryState>(
-          builder: (context, state) {
-            if (state is LocationCategoryLoading) {
-              return const LoadingIndicator();
-            } else if (state is LocationCategoryLoaded) {
-              return categoryToAvoidWidget(lightDark);
-            } else if (state is LocationCategoryError) {
-              return Container();
-            } else {
-              return Text("aa");
-            }
-          },
-        ),
-      ),
-    );
-  */
   }
 
   Column categoryToAvoidWidget(lightDark) {

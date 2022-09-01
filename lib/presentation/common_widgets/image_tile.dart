@@ -1,10 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
-import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/utils/imager.dart';
 
 class ImageTile extends StatelessWidget {
@@ -13,7 +10,6 @@ class ImageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return Padding(
       padding: const EdgeInsets.all(2.5),
       child: Stack(

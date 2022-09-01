@@ -3,6 +3,7 @@ import 'package:xplore/data/model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/data/repository/auth_repository.dart';
 import 'package:xplore/data/repository/user_repository.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
@@ -43,9 +44,9 @@ class _UserScreenState extends State<UserScreen> {
           } else if (state is UserDataLoaded) {
             return _defaultTabController(state.userData);
           } else if (state is UserError) {
-            return const Text("error 1");
+            return ErrorScreen(state: state, message: state.message);
           } else {
-            return const LoadingIndicator();
+            return ErrorScreen(state: state);
           }
         },
       ),

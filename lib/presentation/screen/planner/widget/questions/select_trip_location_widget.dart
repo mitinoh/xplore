@@ -12,6 +12,7 @@ import 'package:xplore/data/model/move_planner_model.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/data/model/trip_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import '../../bloc_question/bloc.dart';
@@ -55,8 +56,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   DateTime goneDate = DateTime.now();
   DateTime returnDate = DateTime.now();
   final List<List<MovePlannerModel>> _plan = [];
-  _onItemReorder(
-      int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
+  _onItemReorder(int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     setState(() {
       MovePlannerModel movedPlan = _plan[oldListIndex][oldItemIndex];
       movedPlan.date = movedPlan.date?.add(Duration(days: newListIndex));
@@ -103,21 +103,14 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             .geometry
             ?.coordinates?[0] ??
         0;
-    distance = BlocProvider.of<PlannerQuestionBloc>(context)
-            .planTripQuestions
-            .distance ??
-        0;
-    tripName = BlocProvider.of<PlannerQuestionBloc>(context)
-            .planTripQuestions
-            .tripName ??
-        '';
-    goneDate = BlocProvider.of<PlannerQuestionBloc>(context)
-            .planTripQuestions
-            .goneDate ??
+    distance =
+        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.distance ?? 0;
+    tripName =
+        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName ?? '';
+    goneDate = BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.goneDate ??
         DateTime.now();
-    returnDate =
-        context.read<PlannerQuestionBloc>().planTripQuestions.returnDate ??
-            DateTime.now();
+    returnDate = context.read<PlannerQuestionBloc>().planTripQuestions.returnDate ??
+        DateTime.now();
 /*    if (context
             .read<PlannerQuestionBloc>()
             .planTripQuestionsMap["avoidCategory"] !=
@@ -128,19 +121,14 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   */
 
     avoidCategory =
-        context.read<PlannerQuestionBloc>().planTripQuestions.avoidCategory ??
-            [];
+        context.read<PlannerQuestionBloc>().planTripQuestions.avoidCategory ?? [];
 
+    mng.filter?.add(Filter(key: "latitude", operation: "=", value: latitude.toString()));
+    mng.filter
+        ?.add(Filter(key: "longitude", operation: "=", value: longitude.toString()));
+    mng.filter?.add(Filter(key: "distance", operation: "=", value: distance.toString()));
     mng.filter?.add(
-        Filter(key: "latitude", operation: "=", value: latitude.toString()));
-    mng.filter?.add(
-        Filter(key: "longitude", operation: "=", value: longitude.toString()));
-    mng.filter?.add(
-        Filter(key: "distance", operation: "=", value: distance.toString()));
-    mng.filter?.add(Filter(
-        key: "locationCategory",
-        operation: "!=",
-        value: avoidCategory.join(',')));
+        Filter(key: "locationCategory", operation: "!=", value: avoidCategory.join(',')));
 
 /*
     double latDis = getLatDis(distance);
@@ -161,43 +149,36 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     Mongoose query = getQuery();
     context.read<PlannerQuestionBloc>().add(PlannerGetLocation(mng: query));
     super.initState();
-    int tripDay = DateUtils.dateOnly(returnDate)
-            .difference(DateUtils.dateOnly(goneDate))
-            .inDays +
-        1;
+    int tripDay =
+        DateUtils.dateOnly(returnDate).difference(DateUtils.dateOnly(goneDate)).inDays +
+            1;
     tripDay = tripDay > 0 ? tripDay : 1;
 
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
     _contents = List.generate(tripDay + 1, (index) {
       return DragAndDropList(
         contentsWhenEmpty: Padding(
-          padding:
-              const EdgeInsets.only(left: 20.0, right: 0, bottom: 0, top: 10),
+          padding: const EdgeInsets.only(left: 20.0, right: 0, bottom: 0, top: 10),
           child: Text(
               index == 0
                   ? "Non ci sono più posti disponibili"
                   : "Per questo giorno non hai programmato nessuna attività. Trascina un attività qua dentro!",
               style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.green)),
+                  fontSize: 12, fontWeight: FontWeight.w300, color: Colors.green)),
         ),
         decoration: BoxDecoration(
             //color: UIColors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.circular(20)),
         canDrag: false,
         header: Padding(
-          padding:
-              const EdgeInsets.only(left: 0.0, right: 0, bottom: 10, top: 0),
+          padding: const EdgeInsets.only(left: 0.0, right: 0, bottom: 10, top: 0),
           child: RichText(
             text: TextSpan(
               text: index == 0
                   ? 'Ecco la lista di tutti i posti che abbiamo trovato.'
                   : 'Giorno ',
               style: GoogleFonts.poppins(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.green),
+                  fontSize: 13, fontWeight: FontWeight.w300, color: Colors.green),
               children: <TextSpan>[
                 TextSpan(
                     text: index == 0
@@ -206,9 +187,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                             .format(goneDate.add(Duration(days: index)))
                             .toString(),
                     style: GoogleFonts.poppins(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.green)),
+                        fontSize: 13, fontWeight: FontWeight.w700, color: Colors.green)),
               ],
             ),
           ),
@@ -243,14 +222,12 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             } else if (state is PlannerQuestionLocationsLoaded) {
               for (LocationModel loc in state.locations) {
                 if (firstLoad) {
-                  _locations.add(
-                      MovePlannerModel(locationId: loc.id, date: goneDate));
+                  _locations.add(MovePlannerModel(locationId: loc.id, date: goneDate));
                   firstLoad = false;
 
                   _dragLocation.add(DragAndDropItem(
                     child: Container(
-                        margin:
-                            const EdgeInsets.only(top: 5, left: 0, right: 0),
+                        margin: const EdgeInsets.only(top: 5, left: 0, right: 0),
                         padding: const EdgeInsets.only(
                             left: 10, top: 10, right: 10, bottom: 10),
                         decoration: BoxDecoration(
@@ -278,8 +255,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 15.0, left: 15),
+                              padding: const EdgeInsets.only(right: 15.0, left: 15),
                               child: Icon(
                                 Icons.drag_handle,
                                 color: lightDark.primaryColor,
@@ -291,8 +267,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                 }
               }
               return mainWidget();
+            } else if (state is PlannerQuestionError) {
+              return ErrorScreen(state: state, message: state.message);
             } else {
-              return Container();
+              return ErrorScreen(state: state);
             }
           },
         ),
@@ -321,8 +299,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
         InkWell(
           onTap: () => {
             saveTripPlan(),
-            BlocProvider.of<PlannerQuestionBloc>(context)
-                .add(PlannerEndQuestion())
+            BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerEndQuestion())
           },
           child: ConfirmButton(
             text: "Abbiamo finito",
@@ -339,8 +316,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     for (List fl in _plan) {
       for (MovePlannerModel el in fl) {
         // salvo solamente i gg in cui c'è un attivita
-        TripModel tm = TripModel(
-            date: el.date, location: LocationModel(id: el.locationId ?? ''));
+        TripModel tm =
+            TripModel(date: el.date, location: LocationModel(id: el.locationId ?? ''));
         planList.add(tm);
       }
     }
@@ -356,12 +333,10 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     planQuery["avoidCategory"] = avoidCategory;
     */
 
-    BlocProvider.of<PlannerQuestionBloc>(context)
-        .planTripQuestions
-        .plannedLocation = planList;
+    BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.plannedLocation =
+        planList;
     BlocProvider.of<PlannerQuestionBloc>(context).add(SaveTrip(
-        newTrip:
-            BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions));
+        newTrip: BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions));
 /*
     widget.planQuery
         .putIfAbsent("goneDate", () => widget.goneDate.toIso8601String());

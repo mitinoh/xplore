@@ -5,6 +5,7 @@ import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
 import 'package:xplore/presentation/common_widgets/empty_data.dart';
 import 'package:xplore/presentation/common_widgets/image_tile.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,7 @@ class SavedLocationTabBarWidget extends StatefulWidget {
 
 class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return BlocProvider.value(
       value: BlocProvider.of<SavedLocationBloc>(context),
       child: BlocBuilder<SavedLocationBloc, SavedLocationState>(
@@ -36,8 +37,12 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
                   ? _locationListView(state)
                   : _emptyList(),
             );
+          } else if (state is SavedLocationLoadingState) {
+            return LoadingIndicator();
+          } else if (state is SavedLocationError) {
+            return ErrorScreen(state: state, message: state.message);
           } else {
-            return const LoadingIndicator();
+            return ErrorScreen(state: state);
           }
         },
       ),
@@ -103,6 +108,4 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
   UserModel get user {
     return widget.user;
   }
-
-
 }

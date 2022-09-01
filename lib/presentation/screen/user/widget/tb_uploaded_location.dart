@@ -3,6 +3,7 @@ import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
 import 'package:xplore/presentation/common_widgets/empty_data.dart';
 import 'package:xplore/presentation/common_widgets/image_tile.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/bloc.dart';
@@ -35,8 +36,12 @@ class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWid
                   ? _locationListView(state)
                   : _emptyList(),
             );
-          } else {
+          } else if (state is UploadedLocationLoadingState) {
             return const LoadingIndicator();
+          } else if (state is UploadedLocationError) {
+            return ErrorScreen(state: state, message: state.message);
+          } else {
+            return ErrorScreen(state: state);
           }
         },
       ),

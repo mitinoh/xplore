@@ -4,6 +4,7 @@ import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/data/repository/home_repository.dart';
 import 'package:xplore/data/repository/user_repository.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/search/widget/wgt_grid_location.dart';
@@ -48,9 +49,9 @@ class GridWidget extends StatelessWidget {
         } else if (state is SearchUserLoaded) {
           return _userGrid(state.props);
         } else if (state is SearchLocationError) {
-          return const Text("error 1");
+          return ErrorScreen(state: state, message: state.message);
         } else {
-          return const LoadingIndicator();
+          return ErrorScreen(state: state);
         }
       },
     );

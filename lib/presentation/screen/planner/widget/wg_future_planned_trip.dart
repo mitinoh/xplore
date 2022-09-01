@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_text.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
@@ -13,7 +14,7 @@ import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
 class FuturePlannedTripList extends StatelessWidget {
   FuturePlannedTripList({Key? key}) : super(key: key);
 
-  final ThemeData themex  = App.themex;
+  final ThemeData themex = App.themex;
   late BuildContext _blocContext;
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,10 @@ class FuturePlannedTripList extends StatelessWidget {
             return const LoadingIndicator();
           } else if (state is FuturePlannerTripLoaded) {
             return _listView(state.props as List<PlannerModel>);
+          } else if (state is FuturePlannerError) {
+            return ErrorScreen(state: state, message: state.message);
           } else {
-            return Text("error");
+            return ErrorScreen(state: state);
           }
         }));
   }
@@ -75,9 +78,7 @@ class FuturePlannedTripList extends StatelessWidget {
             textAlign: TextAlign.start,
             overflow: TextOverflow.visible,
             style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: themex.primaryColor)),
+                fontSize: 16, fontWeight: FontWeight.w500, color: themex.primaryColor)),
       ),
       Padding(
           padding: const EdgeInsets.only(left: 10),

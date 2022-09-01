@@ -12,6 +12,7 @@ import 'package:xplore/data/repository/planner_repository.dart';
 import 'package:xplore/data/repository/report_repository.dart';
 import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/navbar.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
@@ -147,11 +148,11 @@ class _AppState extends State<App> {
             } else if (state is Authenticated) {
               return Scaffold(body: Navbar());
               //   return HomeScreen();
+            } else {
+              return ErrorScreen(
+                state: state,
+              );
             }
-
-            return Container(
-              child: Center(child: Text('Unhandle State $state')),
-            );
           },
         ));
   }
