@@ -8,7 +8,7 @@ part 'location_model.g.dart';
 @JsonSerializable()
 class LocationModel {
   @JsonKey(name: '_id')
-  String id;
+  String? id;
   String? name;
   GeometryModel? geometry;
   List<LocationCategoryModel>? locationCategory;
@@ -17,18 +17,19 @@ class LocationModel {
   bool? saved;
   UserModel? insertUid;
   String? base64;
+  String? address;
 
-  LocationModel({
-    required this.id,
-    this.name,
-    this.geometry,
-    this.locationCategory,
-    this.desc,
-    this.indication,
-    this.saved,
-    this.insertUid,
-    this.base64
-  });
+  LocationModel(
+      {this.id,
+      this.name,
+      this.geometry,
+      this.locationCategory,
+      this.desc,
+      this.indication,
+      this.saved,
+      this.insertUid,
+      this.base64,
+      this.address});
 
   factory LocationModel.fromJson(Map<String, dynamic> json) =>
       _$LocationModelFromJson(json);

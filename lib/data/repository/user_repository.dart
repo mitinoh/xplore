@@ -74,13 +74,13 @@ class UserRepository {
 
    Mongoose getMongooseSavedLocation({required GetUserSavedLocationList event}) {
     List<String> excludeId =
-        event.savedLocationList.map((location) => location.id).toList();
+        event.savedLocationList.map((location) => location.id ?? '').toList();
     return _getMongoseSULocation(uid: event.uid, excludeId: excludeId);
   }
 
   Mongoose getMongooseUploadedLocation({required GetUserUploadedLocationList event}) {
     List<String> excludeId =
-        event.uploadedLocationList.map((location) => location.id).toList();
+        event.uploadedLocationList.map((location) => location.id ?? '').toList();
     return _getMongoseSULocation(uid: event.uid, excludeId: excludeId);
   }
 

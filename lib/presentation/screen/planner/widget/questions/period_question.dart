@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,12 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/question_state.dart';
 
-import '../../bloc_question/question_bloc.dart';
 class PeriodQuestion extends StatefulWidget {
   PeriodQuestion({Key? key}) : super(key: key);
-
 
   @override
   State<PeriodQuestion> createState() => _PeriodQuestionState();
@@ -32,10 +26,10 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
   @override
   void initState() {
     DateTime? goneContext =
-         BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.goneDate;
+        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.goneDate;
 
     DateTime? returnContext =
-         BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.returnDate;
+        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.returnDate;
     setState(() {
       if (goneContext != null) goneDate = goneContext;
 
@@ -59,8 +53,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                HeaderName(
-                    message: "Quando vorresti partire ", questionMark: true)
+                HeaderName(message: "Quando vorresti partire ", questionMark: true)
               ],
             ),
             const SizedBox(height: 20),
@@ -81,8 +74,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
             InkWell(
               onTap: () => {_pickDateDialog(true)},
               child: Container(
-                padding: const EdgeInsets.only(
-                    left: 15, top: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: lightDark.cardColor,
@@ -111,8 +103,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
             InkWell(
               onTap: () => {_pickDateDialog(false)},
               child: Container(
-                padding: const EdgeInsets.only(
-                    left: 15, top: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: lightDark.cardColor,
@@ -140,9 +131,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               text: TextSpan(
                 text: 'Hai scelto di partire il giorno ',
                 style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey),
+                    fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
                 children: <TextSpan>[
                   TextSpan(
                       text: formatter.format(goneDate).toString(),
@@ -158,9 +147,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               text: TextSpan(
                 text: 'Giorno di ritorno ',
                 style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey),
+                    fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
                 children: <TextSpan>[
                   TextSpan(
                       text: formatter.format(returnDate).toString(),
@@ -176,7 +163,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
         InkWell(
           onTap: () {
             if (returnDate.isBefore(goneDate)) {
-               BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerQuestionErrorEvent(
+              BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerQuestionErrorEvent(
                   message:
                       'la data di ritorno non può essere precedente a quella di partenza'));
             } else {
@@ -196,7 +183,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.returnDate =
                   returnDate;
 
-               BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion( ));
+              BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion());
             }
           },
           child: ConfirmButton(
@@ -236,8 +223,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               context: context,
               initialDate: goneDate,
               firstDate: gone ? DateTime.now() : goneDate,
-              lastDate: DateTime
-                  .now()) //what will be the up to supported date in picker
+              lastDate: DateTime.now()) //what will be the up to supported date in picker
           .then((pickedDate) {
         //then usually do the future job
         if (pickedDate == null) {

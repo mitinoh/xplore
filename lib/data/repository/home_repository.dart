@@ -14,7 +14,7 @@ class HomeRepository {
 
   Future<dynamic> toggleLocationLike(LocationModel location) async {
     final client = RestClient(await dio);
-    return await client.toggleLocationLike(location.id);
+    return await client.toggleLocationLike(location.id ?? '');
   }
 
   Future<dynamic> createNewLocation(LocationModel location) async {

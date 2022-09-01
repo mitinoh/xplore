@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class ImageImported extends StatelessWidget {
@@ -8,14 +6,12 @@ class ImageImported extends StatelessWidget {
   final String path;
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return Stack(
       children: [
         Container(
           margin: const EdgeInsets.only(top: 5),
           decoration: BoxDecoration(
-              color: Colors.lightBlue,
-              borderRadius: BorderRadius.circular(20)),
+              color: Colors.lightBlue, borderRadius: BorderRadius.circular(20)),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: // path != "" ?
@@ -45,8 +41,7 @@ class ImageImported extends StatelessWidget {
           top: 20,
           right: 20,
           child: Container(
-            padding:
-                const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+            padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
             decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(20)),
