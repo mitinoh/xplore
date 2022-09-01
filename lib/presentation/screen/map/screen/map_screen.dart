@@ -12,15 +12,9 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  //final MapBloc _mapBloc = MapBloc();
   late Position position;
 
-  @override
-  void initState() {
-    // _getUserPosition();
-    super.initState();
-    // _mapBloc.add(const GetLocationList());
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +32,6 @@ class _MapScreenState extends State<MapScreen> {
                         Expanded(
                           child: MapContainer(
                               userPosition: state.userPosition
-                              //  mapBloc: _mapBloc,
                               ),
                         ),
                       ],

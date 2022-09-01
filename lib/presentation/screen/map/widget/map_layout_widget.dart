@@ -1,7 +1,4 @@
-import 'dart:developer';
-import 'dart:io';
 
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
@@ -9,19 +6,17 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/data/api/mongoose.dart';
 import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
 import 'package:xplore/presentation/screen/map/bloc_map/bloc.dart';
-import 'package:xplore/presentation/screen/map/bloc_map/map_bloc.dart';
 import 'package:xplore/presentation/screen/map/widget/marker.dart';
 
 class MapLayout extends StatefulWidget {
   MapLayout({
     Key? key,
     required this.userPosition,
-    /* required this.mapLocation*/
   }) : super(key: key);
 
   final Position? userPosition;
-  // final List<LocationModel> mapLocation;
 
   MapPosition currentMapPosition = MapPosition();
 
@@ -48,14 +43,7 @@ class _MapLayoutState extends State<MapLayout> {
     super.initState();
   }
 
-/*
-  RestartableTimer? _timer = RestartableTimer(
-      const Duration(seconds: 2),
-      () {
-        loadMoreLocation();
-      },
-    );
-    */
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -94,9 +82,7 @@ class _MapLayoutState extends State<MapLayout> {
   }
 
   loadMoreLocation() {
-    //context.read<PlantripBloc>().add(PlanTripChangeQuestionEvent(increment: true));
     if (execute) {
-      print("CHIAMATA");
       execute = false;
       if (widget.currentMapPosition.zoom != null && widget.currentMapPosition.zoom! > 7) {
         Mongoose mng = Mongoose(filter: []);
@@ -121,7 +107,7 @@ class _MapLayoutState extends State<MapLayout> {
 
         context
             .read<MapBloc>()
-            .add(MapGetLocationList(mongoose: mng, listLocations: locations)); //FIXME
+            .add(MapGetLocationList(mongoose: mng, listLocations: locations));
 
       }
       resetCounter();
@@ -144,7 +130,7 @@ class _MapLayoutState extends State<MapLayout> {
             loc.geometry?.coordinates?[1] ?? 0.0, loc.geometry?.coordinates?[0] ?? 0.0),
         builder: (ctx) => GestureDetector(
             onTap: () {
-              locationDetailModal(context, loc);
+              locationDetailModal( loc);
             },
             child: const MarkerWidget()),
       ));
@@ -156,7 +142,7 @@ class _MapLayoutState extends State<MapLayout> {
     // return _markers;
   }
 
-  void locationDetailModal(BuildContext context, LocationModel loc) {
-    // DetailLocationModal(loc: loc).show(context);
+  void locationDetailModal( LocationModel loc) {
+     DetailLocationModal(loc: loc).show(context);
   }
 }
