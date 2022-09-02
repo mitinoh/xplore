@@ -1,34 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
-import 'package:xplore/utils/const/COLOR_CONST.dart';
-
+import 'package:xplore/presentation/screen/login/widget/wg_login_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GoogleButton extends StatelessWidget {
+  const GoogleButton({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        BlocProvider.of<AuthenticationBloc>(context)
-            .add(GoogleSignInRequested(context: context));
-      },
-      child: Container(
-        height: 40,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: COLOR_CONST.GOOGLE_BTN,
-            border: Border.all(width: 0.2, color: COLOR_CONST.GOOGLE_BORDER_BTN),
-            shape: BoxShape.rectangle),
-        child: Row(
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: SvgPicture.asset('assets/ic_google.svg', width: 24, height: 24)),
-            Text('Google')
-          ],
-        ),
-      ),
-    );
+        onTap: () {
+          BlocProvider.of<AuthenticationBloc>(context)
+              .add(GoogleSignInRequested(context: context));
+        },
+        child: _buildButton());
   }
+
+  _buildButton() => LoginButton(
+        text: "Google",
+        colors: Colors.black,
+      );
 }

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HeaderName extends StatelessWidget {
-  HeaderName({Key? key, this.message = "", this.questionMark = false}) : super(key: key);
+  HeaderName(
+      {Key? key, this.message = "", this.questionMark = false, this.username = false})
+      : super(key: key);
 
   String message;
   bool questionMark;
+  bool username;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class HeaderName extends StatelessWidget {
                     color: lightDark.primaryColor),
                 children: <TextSpan>[
                   TextSpan(
-                      text: snapshot.data,
+                      text: username ? snapshot.data : '',
                       style: TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w700, color: Colors.blue)),
                   TextSpan(text: questionMark ? '?' : ''),

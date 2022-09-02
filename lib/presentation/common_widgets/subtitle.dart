@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Subtitle extends StatelessWidget {
-  const Subtitle({Key? key, required this.text, required this.colors})
+  const Subtitle({Key? key, required this.text, this.colors = Colors.grey})
       : super(key: key);
   final String text;
   final Color colors;
