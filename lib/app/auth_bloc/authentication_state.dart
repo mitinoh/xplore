@@ -15,3 +15,7 @@ class AuthenticatedNewUser extends AuthenticationState {}
 
 class Unauthenticated extends AuthenticationState {}
 
+class AuthError extends AuthenticationState {
+  final String? message;
+  const AuthError(this.message);
+}

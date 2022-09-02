@@ -35,8 +35,8 @@ class AuthRepository {
     return _firebaseAuth.currentUser!.displayName!;
   }
 
-  Future<String> getUserToken() async {
-    return _firebaseAuth.currentUser!.getIdToken();
+  Future<String?> getUserToken() async {
+    return _firebaseAuth.currentUser?.getIdToken();
   }
 
   Future<String> getUserFid() async {

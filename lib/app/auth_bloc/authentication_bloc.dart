@@ -4,8 +4,7 @@ import 'package:xplore/data/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:xplore/utils/logger.dart';
 
-class AuthenticationBloc
-    extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthRepository authRepository;
 
   AuthenticationBloc({required this.authRepository}) : super(Uninitialized()) {
@@ -15,8 +14,7 @@ class AuthenticationBloc
     on<GoogleSignInRequested>(_googleSignInRequest);
   }
 
-  void _mapAppStartedToState(
-      AppStarted event, Emitter<AuthenticationState> emit) async {
+  void _mapAppStartedToState(AppStarted event, Emitter<AuthenticationState> emit) async {
     try {
       final isSignedIn = await authRepository.isSignedIn();
       //for display splash screen
@@ -27,18 +25,17 @@ class AuthenticationBloc
         emit(Unauthenticated());
       }
     } catch (e, stacktrace) {
+      emit(AuthError(e.toString()));
       Logger.error(stacktrace.toString());
       emit(Unauthenticated());
     }
   }
 
-  void _mapLoggedInToState(
-      LoggedIn event, Emitter<AuthenticationState> emit) async {
+  void _mapLoggedInToState(LoggedIn event, Emitter<AuthenticationState> emit) async {
     emit(Authenticated());
   }
 
-  void _mapLoggedOutToState(
-      LoggedOut event, Emitter<AuthenticationState> emit) async {
+  void _mapLoggedOutToState(LoggedOut event, Emitter<AuthenticationState> emit) async {
     emit(Unauthenticated());
     authRepository.signOut();
   }
