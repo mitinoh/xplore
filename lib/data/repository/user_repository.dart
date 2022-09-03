@@ -35,6 +35,11 @@ class UserRepository {
     return await client.updateUserData(userData);
   }
 
+  Future<dynamic> createNewUser(UserModel userData) async {
+    final client = RestClient(await dio);
+    return await client.createUser(userData);
+  }
+
   Future<Position> getUserPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -72,7 +77,7 @@ class UserRepository {
     return mng;
   }
 
-   Mongoose getMongooseSavedLocation({required GetUserSavedLocationList event}) {
+  Mongoose getMongooseSavedLocation({required GetUserSavedLocationList event}) {
     List<String> excludeId =
         event.savedLocationList.map((location) => location.id ?? '').toList();
     return _getMongoseSULocation(uid: event.uid, excludeId: excludeId);
@@ -84,9 +89,8 @@ class UserRepository {
     return _getMongoseSULocation(uid: event.uid, excludeId: excludeId);
   }
 
-
   _getMongoseSULocation({String? uid = "", List<String> excludeId = const []}) {
-    return  Mongoose(filter: [
+    return Mongoose(filter: [
       Filter(key: 'uid', operation: '=', value: uid),
       Filter(key: '_id', operation: '!=', value: excludeId.join(','))
     ]);

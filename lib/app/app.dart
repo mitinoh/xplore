@@ -25,6 +25,7 @@ import 'package:xplore/presentation/screen/search/bloc/search_location_bloc.dart
 import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';
 
 import '../presentation/screen/home/bloc/bloc.dart';
@@ -105,6 +106,8 @@ class App extends StatefulWidget {
                         NewLocationBloc(locationRepository: homeRepository)),
                 BlocProvider(
                     create: (context) => MapBloc(locationRepository: homeRepository)),
+                BlocProvider(
+                    create: (context) => UserBloc(userRepository: userRepository)),
                 /*  BlocProvider(
                     create: (context) =>
                         PlannerQuestionBloc(plannerRepository: plannerRepository)),
@@ -146,6 +149,7 @@ class _AppState extends State<App> {
             } else if (state is Unauthenticated) {
               return LoginScreen();
             } else if (state is Authenticated) {
+              //BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
               return Scaffold(body: Navbar());
               //   return HomeScreen();
             } else {

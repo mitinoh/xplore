@@ -4,28 +4,33 @@ import 'package:iconsax/iconsax.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/user_model.dart';
+import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  EditProfileScreen({Key? key, required this.userData, required this.blocContext})
+  EditProfileScreen(
+      {Key? key,
+      required this.userData,
+      required this.blocContext,
+      this.newUser = false,
+      this.callback})
       : super(key: key);
 
   final UserModel userData;
   final BuildContext blocContext;
+  final bool newUser;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _userBioController = TextEditingController();
-
+  final VoidCallback? callback;
   void initController() async {
     _usernameController.text = userData.username ?? '';
     _userBioController.text = userData.bio ?? '';
   }
 
-  late BuildContext _context;
   @override
   Widget build(BuildContext context) {
-    _context = context;
     initController();
     return Scaffold(
       body: SafeArea(
@@ -41,7 +46,7 @@ class EditProfileScreen extends StatelessWidget {
                 backgroundColor: App.themex.scaffoldBackgroundColor,
                 iconTheme: const IconThemeData(color: Colors.black),
                 actionsIconTheme: const IconThemeData(color: Colors.black),
-                leading: _backButton(context),
+                leading: newUser ? SizedBox() : _backButton(context),
                 leadingWidth: 23,
                 title: _pageTitle(),
                 actions: [
@@ -184,8 +189,18 @@ class EditProfileScreen extends StatelessWidget {
     }
     */
 
-    blocContext.read<UserBloc>().add(UpdateUserData(newUserData: userData));
-
-    Navigator.pop(_context);
+    if (newUser) {
+      try {
+        UserBloc(userRepository: UserRepository())
+          ..add(CreateNewUser(userData: userData));
+        callback!();
+      } catch (e) {
+        print(e);
+      }
+      // Navigator.of(blocContext, rootNavigator: true).pushNamed(AppRouter.HOME);
+    } else {
+      blocContext.read<UserBloc>().add(UpdateUserData(newUserData: userData));
+    }
+    // Navigator.pop(_context);
   }
 }

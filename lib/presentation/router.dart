@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
 import 'package:xplore/presentation/screen/map/screen/map_screen.dart';
@@ -10,6 +11,7 @@ import 'package:xplore/presentation/screen/user/sc_edit_profile.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
 
 class AppRouter {
+  static const String APP = '/app';
   static const String HOME = '/home';
   static const String SPLASH = '/splash';
   static const String LOGIN = '/login';
@@ -23,6 +25,8 @@ class AppRouter {
     final arguments = (settings.arguments ?? <String, dynamic>{}) as Map;
     // Navigator.pushNamed(context, AppRouter.LOGIN);
     switch (settings.name) {
+      case APP:
+        return MaterialPageRoute(builder: (_) => App());
       case HOME:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case SPLASH:
@@ -38,7 +42,9 @@ class AppRouter {
       case EDITUSER:
         return MaterialPageRoute(
             builder: (_) => EditProfileScreen(
-                userData: arguments["user"], blocContext: arguments["context"]));
+                  userData: arguments["user"],
+                  blocContext: arguments["context"],
+                ));
       case NEWLOCATION:
         return MaterialPageRoute(builder: (_) => NewLocation());
       case MAP:

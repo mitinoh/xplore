@@ -25,3 +25,8 @@ class UpdateUserData extends UserEvent {
   final UserModel newUserData;
   const UpdateUserData({required this.newUserData});
 }
+
+class CreateNewUser extends UserEvent {
+  final UserModel userData;
+  const CreateNewUser({required this.userData});
+}

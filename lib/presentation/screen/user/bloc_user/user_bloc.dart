@@ -10,6 +10,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UpdateUserInfo>(_updateUserInfo);
     on<GetUserData>(_getUserData);
     on<UpdateUserData>(_updateUserData);
+    on<CreateNewUser>(_createNewUser);
   }
 
   void _updateUserInfo(UpdateUserInfo event, Emitter<UserState> emit) async {
@@ -37,17 +38,29 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _updateUserData(UpdateUserData event, Emitter<UserState> emit) async {
     try {
       final state = this.state;
+      UserModel updatedUserData;
       if (state is UserDataLoaded) {
-        UserModel newUserData =
-            event.newUserData.copyWith(id: state.userData.id);
+        UserModel newUserData = event.newUserData.copyWith(id: state.userData.id);
 
-        UserModel updatedUserData = UserModel.fromJson(
-            {...state.userData.toJson(), ...newUserData.toJson()});
-
-        userRepository.updateUserData(updatedUserData);
-
-        emit(UserDataLoaded(userData: updatedUserData));
+        updatedUserData =
+            UserModel.fromJson({...state.userData.toJson(), ...newUserData.toJson()});
+      } else {
+        updatedUserData = event.newUserData;
       }
+
+      userRepository.updateUserData(updatedUserData);
+
+      emit(UserDataLoaded(userData: updatedUserData));
+    } catch (e, stacktrace) {
+      Logger.error(stacktrace.toString());
+      emit(UserError(e.toString()));
+    }
+  }
+
+  void _createNewUser(CreateNewUser event, Emitter<UserState> emit) async {
+    try {
+      await userRepository.createNewUser(event.userData);
+      emit(UserDataLoaded(userData: event.userData));
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());
       emit(UserError(e.toString()));

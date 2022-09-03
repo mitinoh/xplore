@@ -58,6 +58,10 @@ abstract class RestClient {
   @DioResponseType(ResponseType.plain)
   Future<dynamic> updateUserData(@Body() UserModel map);
 
+  @POST("/user")
+  @DioResponseType(ResponseType.plain)
+  Future<dynamic> createUser(@Body() UserModel map);
+
   @POST("/user-report")
   @DioResponseType(ResponseType.plain)
   Future<dynamic> reportUser(@Body() ReportModel map);
