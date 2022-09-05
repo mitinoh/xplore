@@ -15,58 +15,53 @@ class PinnedMenu extends StatefulWidget {
 
 class _PinnedMenuState extends State<PinnedMenu> {
   late MediaQueryData mediaQuery = MediaQuery.of(context);
-  late ThemeData lightDark = Theme.of(context);
+  late ThemeData themex = Theme.of(context);
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-        bottom: mediaQuery.size.height * 0.25,
-        right: 20,
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: lightDark.scaffoldBackgroundColor.withOpacity(0.8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 15),
-              _searchButton(),
-              const SizedBox(height: 25),
-              _likeButton(),
-              const SizedBox(height: 25),
-              _navigateButton(),
-              const SizedBox(height: 15),
-            ],
-          ),
-        ));
+    return _buildPinnedMenu();
   }
 
-  InkWell _navigateButton() {
-    return InkWell(
-        onTap: () => {
-              showModalBottomSheet(
-                  context: context,
-                  //isScrollControlled: true,
-                  useRootNavigator: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) {
-                    return GoNavigationBottomSheet(location: widget.location);
-                  })
-            },
-        child: Icon(Iconsax.discover_1, color: lightDark.primaryColor));
-  }
+  Positioned _buildPinnedMenu() =>
+     Positioned(
+      bottom: mediaQuery.size.height * 0.25,
+      right: 20,
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: themex.scaffoldBackgroundColor.withOpacity(0.8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 15),
+            _buildSearchButton(),
+            const SizedBox(height: 25),
+            _buildLikeButton(),
+            const SizedBox(height: 25),
+            _buildNavigateButton(),
+            const SizedBox(height: 15),
+          ],
+        ),
+      ));
+  
 
-  Widget _likeButton() {
-    return LikeButton(
-      locationList: widget.location,
-    );
-  }
+  InkWell _buildNavigateButton() => InkWell(
+      onTap: () => {_showNavigationBottomSheet()},
+      child: Icon(Iconsax.discover_1, color: themex.primaryColor));
 
-  InkWell _searchButton() {
-    return InkWell(
-        onTap: () =>
-            {Navigator.of(context, rootNavigator: true).pushNamed(AppRouter.SEARCH)},
-        child: Icon(Iconsax.search_normal, color: lightDark.primaryColor));
-  }
+  Widget _buildLikeButton() => LikeButton(locationList: widget.location);
+
+  InkWell _buildSearchButton() => InkWell(
+      onTap: () =>
+          {Navigator.of(context, rootNavigator: true).pushNamed(AppRouter.SEARCH)},
+      child: Icon(Iconsax.search_normal, color: themex.primaryColor));
+
+  Future<dynamic> _showNavigationBottomSheet() => showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return GoNavigationBottomSheet(location: widget.location);
+      });
 }

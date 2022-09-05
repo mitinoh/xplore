@@ -54,6 +54,10 @@ abstract class RestClient {
   @DioResponseType(ResponseType.json)
   Future<UserModel> getFidUserData(@Path("fid") String? fid);
 
+  @GET("/user/uid/{uid}")
+  @DioResponseType(ResponseType.json)
+  Future<UserModel> getUidUserData(@Path("uid") String? uid);
+
   @PATCH("/user")
   @DioResponseType(ResponseType.plain)
   Future<dynamic> updateUserData(@Body() UserModel map);

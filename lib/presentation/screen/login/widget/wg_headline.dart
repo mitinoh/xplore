@@ -17,31 +17,29 @@ class HeadLineWidget extends StatelessWidget {
     );
   }
 
-  Row _buildHeader(ThemeData themex) {
-    return Row(
-      children: [
-        RichText(
-          text: TextSpan(
-              text: 'Welcome on ',
-              style: GoogleFonts.poppins(
-                  color: themex.primaryColor, fontWeight: FontWeight.w400, fontSize: 15),
-              children: <TextSpan>[
-                TextSpan(
-                  text: "xplore",
-                  style: GoogleFonts.poppins(
-                      color: themex.primaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
-                )
-              ]),
-        ),
-      ],
-    );
-  }
+  Row _buildHeader(ThemeData themex) => Row(
+        children: [
+          RichText(
+            text: TextSpan(
+                text: 'Welcome on ',
+                style: GoogleFonts.poppins(
+                    color: themex.primaryColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "xplore",
+                    style: GoogleFonts.poppins(
+                        color: themex.primaryColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20),
+                  )
+                ]),
+          ),
+        ],
+      );
 
-  Subtitle _buildSubtitle() {
-    return Subtitle(
-        text:
-            "Immergiti in un esperienza unica e scopri il mondo intorno a te e i tuoi amici!");
-  }
+  Subtitle _buildSubtitle() => Subtitle(
+      text:
+          "Immergiti in un esperienza unica e scopri il mondo intorno a te e i tuoi amici!");
 }

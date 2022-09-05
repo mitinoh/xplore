@@ -21,6 +21,5 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Stack(children: [BuildListCardHome()]));
-    /*return MultiBlocProvider(providers: [],child: BuildListCardHome());*/
   }
 }

@@ -15,6 +15,11 @@ class UserRepository {
     return await client.getFidUserData(fid);
   }
 
+  Future<UserModel> getUidUserData(String uid) async {
+    final client = RestClient(await dio);
+    return await client.getUidUserData(uid);
+  }
+
   Future<List<UserModel>> getUserList(Mongoose mng) async {
     final client = RestClient(await dio);
     return await client.getUserList(mng.getUrl());

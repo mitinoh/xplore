@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/login/sc_login.dart';
-import 'package:xplore/presentation/screen/map/screen/map_screen.dart';
+import 'package:xplore/presentation/screen/map/screen/sc_map.dart';
 import 'package:xplore/presentation/screen/new_location/new_location_screen.dart';
 import 'package:xplore/presentation/screen/planner/sc_planner.dart';
 import 'package:xplore/presentation/screen/search/sc_search.dart';

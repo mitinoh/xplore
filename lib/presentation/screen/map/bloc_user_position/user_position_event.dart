@@ -8,6 +8,4 @@ abstract class UserPositionEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
-class GetUserPosition extends UserPositionEvent {
-}
+class GetUserPosition extends UserPositionEvent {}

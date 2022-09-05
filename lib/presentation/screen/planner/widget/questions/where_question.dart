@@ -8,7 +8,7 @@ import 'package:xplore/data/model/geometry_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
-import 'package:xplore/presentation/screen/map/widget/maps_bottom_sheet.dart';
+import 'package:xplore/presentation/screen/map/widget/bs_map.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 
 class WhereQuestion extends StatefulWidget {

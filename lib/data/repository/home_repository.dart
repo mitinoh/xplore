@@ -3,6 +3,7 @@ import 'package:xplore/data/api/rest_client.dart';
 import 'package:xplore/data/dio_provider.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_map/flutter_map.dart';
 
 class HomeRepository {
   final dio = DioProvider.instance();
@@ -54,6 +55,29 @@ class HomeRepository {
       ));
     }
 
+    return mng;
+  }
+
+  Mongoose getMapMongoose(
+      MapPosition currentMapPosition, List<LocationModel> listLocations) {
+    Mongoose mng = Mongoose(filter: []);
+    List<String?> idToAVoid = [];
+    listLocations.forEach((m) => idToAVoid.add(m.id));
+
+    if (idToAVoid.isNotEmpty) {
+      mng.filter?.add(Filter(key: "_id", operation: "!=", value: idToAVoid.join(',')));
+    }
+
+    mng.filter?.add(Filter(
+        key: "latitude",
+        operation: "=",
+        value: (currentMapPosition.center?.latitude ?? 0).toString()));
+    mng.filter?.add(Filter(
+        key: "longitude",
+        operation: "=",
+        value: (currentMapPosition.center?.longitude ?? 0).toString()));
+    mng.filter?.add(Filter(
+        key: "zoom", operation: "=", value: (currentMapPosition.zoom ?? 10).toString()));
     return mng;
   }
 }
