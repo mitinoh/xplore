@@ -26,7 +26,7 @@ class DetailMenuWidget extends StatelessWidget {
         height: expanded ? 340 : 82,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: App.themex.scaffoldBackgroundColor.withOpacity(0.8)),
+            color: App.themex.scaffoldBackgroundColor),
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 16, top: 24),
         margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
         duration: const Duration(seconds: 1),
@@ -55,12 +55,12 @@ class DetailMenuWidget extends StatelessWidget {
           style: GoogleFonts.poppins(
             fontSize: 12.5,
             fontWeight: FontWeight.w500,
-            color: App.themex.primaryColor,
+            color: App.themex.indicatorColor,
           ),
           children: [
             _buildDescription(),
             _buildIndications(),
-            _buildCategories(),
+            //  _buildCategories(),
           ]);
 
   TextSpan _buildDescription() => TextSpan(
@@ -68,7 +68,7 @@ class DetailMenuWidget extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 12.5,
         fontWeight: FontWeight.w300,
-        color: App.themex.primaryColor,
+        color: App.themex.indicatorColor,
       ));
 
   TextSpan _buildIndications() => TextSpan(
@@ -77,7 +77,7 @@ class DetailMenuWidget extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 12.5,
         fontWeight: FontWeight.w300,
-        color: App.themex.primaryColor,
+        color: App.themex.indicatorColor,
       ));
 
   TextSpan _buildCategories() => TextSpan(
@@ -85,7 +85,7 @@ class DetailMenuWidget extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 12.5,
         fontWeight: FontWeight.w400,
-        color: App.themex.primaryColor,
+        color: App.themex.indicatorColor,
       ));
 
   Widget _buildMenuIcon() => Padding(
@@ -93,8 +93,8 @@ class DetailMenuWidget extends StatelessWidget {
         child: InkWell(
           onTap: () => toggleDetailMenu(),
           child: expanded
-              ? Icon(Icons.close, color: App.themex.primaryColor)
-              : Icon(Iconsax.maximize_4, color: App.themex.primaryColor),
+              ? Icon(Icons.close, color: App.themex.indicatorColor)
+              : Icon(Iconsax.maximize_4, color: App.themex.indicatorColor),
         ),
       );
 }

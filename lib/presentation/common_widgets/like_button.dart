@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,23 +18,19 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> {
-
+  late ThemeData themex = Theme.of(context);
   @override
   Widget build(BuildContext context) {
-    var lightDark = Theme.of(context);
     return InkWell(
       onTap: () {
         setState(() {
-          context
-              .read<HomeBloc>()
-              .add(ToggleLikeLocation(location: widget.locationList));
-
+          context.read<HomeBloc>().add(ToggleLikeLocation(location: widget.locationList));
         });
       },
       child: Icon(Iconsax.heart,
           color: widget.locationList.saved ?? false
-              ? lightDark.primaryColor
-              : lightDark.backgroundColor),
+              ? themex.primaryColor
+              : themex.disabledColor),
     );
   }
 }

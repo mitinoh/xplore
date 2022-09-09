@@ -27,6 +27,7 @@ import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';
+import 'package:xplore/utils/theme.dart';
 
 import '../presentation/screen/home/bloc/bloc.dart';
 import '../presentation/screen/planner/bloc_current_trip/bloc.dart';
@@ -42,7 +43,7 @@ class App extends StatefulWidget {
 
   static void initSystemDefault() {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: COLOR_CONST.STATUS_BAR));
+        SystemUiOverlayStyle(statusBarColor: COLOR_CONST.DEFAULT100));
   }
 
   static Widget runWidget() {
@@ -133,12 +134,9 @@ class _AppState extends State<App> {
     final config = AppConfig.of(context)!;
     return MaterialApp(
         debugShowCheckedModeBanner: config.debugTag,
-        theme: ThemeData(
-          brightness: Brightness.light,
-          //primaryColor: COLOR_CONST.DEFAULT,
-          //hoverColor: COLOR_CONST.GREEN,
-          fontFamily: 'Poppins',
-        ),
+        theme: ThemeX.lightTheme,
+        darkTheme: ThemeX.darkTheme, // standard dark theme
+        themeMode: ThemeMode.system, // device controls theme
         onGenerateRoute: AppRouter.generateRoute,
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {

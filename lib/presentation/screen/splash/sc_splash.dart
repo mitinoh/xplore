@@ -9,12 +9,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: COLOR_CONST.DEFAULT,
+        color: COLOR_CONST.DEFAULT100,
         child: Center(
           child: SizedBox(
             width: 240,

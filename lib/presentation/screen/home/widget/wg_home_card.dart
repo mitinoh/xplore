@@ -2,19 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:xplore/data/repository/planner_repository.dart';
-import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
-import 'package:xplore/presentation/screen/home/bloc/home_bloc.dart';
 import 'package:xplore/presentation/screen/home/widget/wg_detail_menu.dart';
 import 'package:xplore/presentation/screen/home/widget/wg_pinned_menu.dart';
 import 'package:xplore/presentation/screen/user/sc_user.dart';
 import 'package:xplore/utils/imager.dart';
-import 'package:flutter/material.dart';
-import 'package:xplore/data/repository/planner_repository.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
-import 'package:xplore/presentation/screen/planner/widget/wg_plan_new_trip.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeMainCard extends StatefulWidget {
@@ -71,7 +64,7 @@ class _HomeMainCardState extends State<HomeMainCard> {
                   style: GoogleFonts.poppins(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: App.themex.primaryColor,
+                    color: App.themex.indicatorColor,
                   )),
             ),
           ),

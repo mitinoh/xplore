@@ -7,7 +7,7 @@ class WidgetLogoFindSeat extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       'assets/logo_find_seat.svg',
-      color: COLOR_CONST.WHITE,
+      color: COLOR_CONST.WHITE100,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masonry_grid/masonry_grid.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
 import 'dart:math';
@@ -9,6 +10,7 @@ import 'package:xplore/utils/imager.dart';
 class LocationGridWidget extends StatelessWidget {
   LocationGridWidget({Key? key, required this.locationsList}) : super(key: key);
 
+  final ThemeData themex = App.themex;
   final List<LocationModel> locationsList;
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,8 @@ class LocationGridWidget extends StatelessWidget {
                     padding:
                         const EdgeInsets.only(top: 5, bottom: 5, left: 15, right: 15),
                     decoration: BoxDecoration(
-                        color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                        color: themex.scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(10)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

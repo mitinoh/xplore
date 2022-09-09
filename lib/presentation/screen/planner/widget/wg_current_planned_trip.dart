@@ -29,7 +29,9 @@ class CurrentPlannedTripList extends StatelessWidget {
           if (state is CurrentPlannerInitial || state is CurrentPlannerLoading) {
             return const LoadingIndicator();
           } else if (state is CurrentPlantripLoadedTrip) {
-            return _gridList(state.inProgressTrip);
+            return state.inProgressTrip.length > 0
+                ? _gridList(state.inProgressTrip)
+                : Text("vuoto");
           } else if (state is CurrentPlannerError) {
             return ErrorScreen(state: state, message: state.message);
           } else {

@@ -34,22 +34,21 @@ class SearchBarWidget extends StatelessWidget {
                 _debouncer.run(() => _filterLocation(value));
               },
               textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(color: themex.hoverColor, fontSize: 14),
+              style: GoogleFonts.poppins(color: themex.indicatorColor, fontSize: 14),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(15.0),
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 hintText: "cerca un posto o un @utente",
-                hintStyle: GoogleFonts.poppins(
-                    color: themex.unselectedWidgetColor, fontSize: 14),
+                hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
                 border: const OutlineInputBorder(),
-                suffixIconColor: Colors.blue,
+                suffixIconColor: themex.primaryColor,
                 prefixIcon: IconButton(
                   icon: Icon(
                     Iconsax.search_normal,
-                    color: Colors.blue,
+                    color: themex.primaryColor,
                   ),
-                  color: Colors.white,
+                  color: themex.primaryColor,
                   onPressed: () {
                     //  applyFilterName();
                   },

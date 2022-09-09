@@ -27,7 +27,9 @@ class FuturePlannedTripList extends StatelessWidget {
           if (state is FuturePlannerInitial || state is FuturePlannerLoading) {
             return const LoadingIndicator();
           } else if (state is FuturePlannerTripLoaded) {
-            return _listView(state.futureTrip);
+            return state.futureTrip.length > 0
+                ? _listView(state.futureTrip)
+                : Text("Vuoto");
           } else if (state is FuturePlannerError) {
             return ErrorScreen(state: state, message: state.message);
           } else {

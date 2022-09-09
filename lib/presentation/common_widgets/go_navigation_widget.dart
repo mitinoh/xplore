@@ -22,7 +22,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
-        color: themex.backgroundColor,
+        color: themex.bottomAppBarColor,
       ),
       child: SafeArea(
         child: SingleChildScrollView(
@@ -42,7 +42,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: themex.primaryColor),
+                              color: themex.indicatorColor),
                         ),
                       ),
                     ),
@@ -58,7 +58,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                           style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
-                              color: Colors.grey)),
+                              color: themex.disabledColor)),
                     )
                   ],
                 ),
@@ -72,7 +72,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                           style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
-                              color: Colors.grey)),
+                              color: themex.disabledColor)),
                     )
                   ],
                 ),
@@ -85,8 +85,8 @@ class GoNavigationBottomSheet extends StatelessWidget {
                         },
                     child: ConfirmButton(
                       text: "Raggiungi con google maps",
-                      colors: Colors.white,
-                      colorsText: Colors.green,
+                      colors: themex.primaryColor,
+                      colorsText: themex.bottomAppBarColor,
                     )),
               ]),
         ),

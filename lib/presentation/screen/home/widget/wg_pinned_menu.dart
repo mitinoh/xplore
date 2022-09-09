@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/go_navigation_widget.dart';
 import 'package:xplore/presentation/common_widgets/like_button.dart';
@@ -15,21 +16,20 @@ class PinnedMenu extends StatefulWidget {
 
 class _PinnedMenuState extends State<PinnedMenu> {
   late MediaQueryData mediaQuery = MediaQuery.of(context);
-  late ThemeData themex = Theme.of(context);
+  late ThemeData themex = App.themex;
   @override
   Widget build(BuildContext context) {
     return _buildPinnedMenu();
   }
 
-  Positioned _buildPinnedMenu() =>
-     Positioned(
+  Positioned _buildPinnedMenu() => Positioned(
       bottom: mediaQuery.size.height * 0.25,
       right: 20,
       child: Container(
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: themex.scaffoldBackgroundColor.withOpacity(0.8),
+          color: themex.scaffoldBackgroundColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,18 +44,17 @@ class _PinnedMenuState extends State<PinnedMenu> {
           ],
         ),
       ));
-  
 
   InkWell _buildNavigateButton() => InkWell(
       onTap: () => {_showNavigationBottomSheet()},
-      child: Icon(Iconsax.discover_1, color: themex.primaryColor));
+      child: Icon(Iconsax.discover_1, color: themex.disabledColor));
 
   Widget _buildLikeButton() => LikeButton(locationList: widget.location);
 
   InkWell _buildSearchButton() => InkWell(
       onTap: () =>
           {Navigator.of(context, rootNavigator: true).pushNamed(AppRouter.SEARCH)},
-      child: Icon(Iconsax.search_normal, color: themex.primaryColor));
+      child: Icon(Iconsax.search_normal, color: themex.disabledColor));
 
   Future<dynamic> _showNavigationBottomSheet() => showModalBottomSheet(
       context: context,
