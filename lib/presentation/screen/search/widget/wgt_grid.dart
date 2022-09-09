@@ -45,9 +45,9 @@ class GridWidget extends StatelessWidget {
         if (state is SearchLocationInitial || state is SearchUserLoading) {
           return const LoadingIndicator();
         } else if (state is SearchLocationLoaded) {
-          return _locationGrid(state.props);
+          return _locationGrid(state.searchLocation);
         } else if (state is SearchUserLoaded) {
-          return _userGrid(state.props);
+          return _userGrid(state.searchUser);
         } else if (state is SearchLocationError) {
           return ErrorScreen(state: state, message: state.message);
         } else {

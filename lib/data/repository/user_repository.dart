@@ -83,14 +83,15 @@ class UserRepository {
   }
 
   Mongoose getMongooseSavedLocation({required GetUserSavedLocationList event}) {
-    List<String> excludeId =
-        event.savedLocationList.map((location) => location.id ?? '').toList();
+    List<String> excludeId = [];
+
+    event.savedLocationList.forEach((location) => excludeId.add(location.id ?? ''));
     return _getMongoseSULocation(uid: event.uid, excludeId: excludeId);
   }
 
   Mongoose getMongooseUploadedLocation({required GetUserUploadedLocationList event}) {
-    List<String> excludeId =
-        event.uploadedLocationList.map((location) => location.id ?? '').toList();
+    List<String> excludeId = [];
+    event.uploadedLocationList.forEach((location) => excludeId.add(location.id ?? ''));
     return _getMongoseSULocation(uid: event.uid, excludeId: excludeId);
   }
 

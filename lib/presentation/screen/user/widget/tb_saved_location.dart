@@ -71,7 +71,7 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
                     )
                   : const SizedBox();
             },
-            childCount: state.savedLocationList.map((e) => e.saved).length,
+            childCount: state.savedLocationList.length,
           ),
         )
       ],

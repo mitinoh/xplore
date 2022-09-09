@@ -18,7 +18,7 @@ class UploadedLocationBloc extends Bloc<UploadedLocationEvent, UploadedLocationS
     try {
       List<String> exlcudeId = [];
 
-      event.uploadedLocationList.map((location) => exlcudeId.add(location.id.toString()));
+      event.uploadedLocationList.forEach((location) => exlcudeId.add(location.id.toString()));
 
       Mongoose mng = _userRepository.getMongooseUploadedLocation(event: event);
       final List<LocationModel> newUploadedLocationList =

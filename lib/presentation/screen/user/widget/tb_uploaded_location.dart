@@ -70,7 +70,7 @@ class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWid
                     )
                   : const SizedBox();
             },
-            childCount: state.uploadedLocationList.map((e) => e.saved).length,
+            childCount: state.uploadedLocationList.length,
           ),
         )
       ],

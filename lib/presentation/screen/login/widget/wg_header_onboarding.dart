@@ -22,20 +22,22 @@ class HeaderOnboarding extends StatelessWidget {
         children: _buildCard(mediaQueryX),
       );
 
-  List<Widget> _buildCard(MediaQueryData mediaQueryX) => LOGIN_CONST.locations
-      .map(
-        (obj) => Container(
-          decoration: BoxDecoration(
-              color: Colors.lightBlue, borderRadius: BorderRadius.circular(20)),
-          child: Stack(
-            children: [
-              _buildClip(obj, mediaQueryX),
-              _buildName(obj),
-            ],
-          ),
+  List<Widget> _buildCard(MediaQueryData mediaQueryX) {
+    List<Widget> _cards = [];
+    LOGIN_CONST.locations.forEach(
+      (obj) => _cards.add(Container(
+        decoration: BoxDecoration(
+            color: Colors.lightBlue, borderRadius: BorderRadius.circular(20)),
+        child: Stack(
+          children: [
+            _buildClip(obj, mediaQueryX),
+            _buildName(obj),
+          ],
         ),
-      )
-      .toList();
+      )),
+    );
+    return _cards;
+  }
 
   Positioned _buildName(Map<String, dynamic> obj) => Positioned(
         bottom: 5,

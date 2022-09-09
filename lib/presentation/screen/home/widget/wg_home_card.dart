@@ -91,9 +91,12 @@ class _HomeMainCardState extends State<HomeMainCard> {
         onPageChanged: (i) => {_changeIndexLocation(i)},
       );
 
-  List<Widget> _buildCardsImages() => widget.locationList
-      .map((location) => ImageWidget(imageUrl: Img.getLocationUrl(location)))
-      .toList();
+  List<Widget> _buildCardsImages() {
+    List<Widget> _cardImages = [];
+    widget.locationList.forEach((location) =>
+        _cardImages.add(ImageWidget(imageUrl: Img.getLocationUrl(location))));
+    return _cardImages;
+  }
 
   LocationModel get location {
     return widget.locationList[_currentIdx];

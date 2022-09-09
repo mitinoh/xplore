@@ -84,7 +84,6 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                             LocationCategoryModel category =
                                 state.locationCategoryList[index];
                             setState(() {
-
                               if (widget.selectedCategories.contains(category))
                                 widget.selectedCategories.remove(category);
                               else
@@ -120,7 +119,9 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
 
   bool getValue(LocationCategoryLoaded state, int index) {
     LocationCategoryModel category = state.locationCategoryList[index];
-    List<String?> selectedId = widget.selectedCategories.map((sc) => sc.id).toList();
+    List<String?> selectedId = [];
+   
+    widget.selectedCategories.forEach((sc) => selectedId.add(sc.id));
     return selectedId.contains(category.id ?? '');
   }
 }
