@@ -8,13 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/screen/new_location/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/new_location/widgets/image_imported.dart';
-import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/app.dart';
-import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
-import 'package:xplore/utils/class/debouncer.dart';
 
 class ImageWidget extends StatefulWidget {
   const ImageWidget({Key? key}) : super(key: key);
@@ -26,7 +20,9 @@ class ImageWidget extends StatefulWidget {
 class _ImageWidgetState extends State<ImageWidget> {
   XFile? image;
   final ImagePicker _picker = ImagePicker();
-  final ThemeData themex = App.themex;
+
+  late MediaQueryData mediaQueryX = MediaQuery.of(context);
+  late ThemeData themex = Theme.of(context);
 
   @override
   @override
@@ -60,13 +56,12 @@ class _ImageWidgetState extends State<ImageWidget> {
               padding: const EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
                 Iconsax.gallery_add,
-                color: Colors.blue,
+                color: themex.indicatorColor,
               ),
             ),
             Text(
               "Aggiungi foto",
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 14, color: themex.hoverColor),
+              style: GoogleFonts.poppins(fontSize: 14, color: themex.disabledColor),
             ),
           ],
         ),

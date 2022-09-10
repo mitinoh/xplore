@@ -5,18 +5,7 @@ import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/presentation/screen/new_location/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/new_location/widgets/bs_category.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
-import 'package:xplore/presentation/common_widgets/confirm_button.dart';
-import 'package:xplore/presentation/common_widgets/header_name.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/question_state.dart';
 
 class CategoryWidget extends StatefulWidget {
   const CategoryWidget({Key? key}) : super(key: key);
@@ -28,7 +17,7 @@ class CategoryWidget extends StatefulWidget {
 class _CategoryWidgetState extends State<CategoryWidget> {
   List<LocationCategoryModel> _selectedCategories = [];
 
-  final ThemeData themex = App.themex;
+  late ThemeData themex = Theme.of(context);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,15 +39,12 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   padding: const EdgeInsets.only(right: 15.0, left: 15),
                   child: Icon(
                     Iconsax.hashtag,
-                    color: Colors.blue,
+                    color: themex.indicatorColor,
                   ),
                 ),
                 Text(
                   selectedCategory,
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: themex.hoverColor),
+                  style: GoogleFonts.poppins(fontSize: 14, color: themex.disabledColor),
                 ),
               ],
             ),

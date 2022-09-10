@@ -9,12 +9,16 @@ class COLOR_CONST {
   static final HexColor DEFAULT20 = new HexColor("#335799F3");
   static final HexColor TEXT = new HexColor("#3B4948");
   static final HexColor Accent100 = new HexColor("#EC8C6F");
+
   static final HexColor WHITE100 = new HexColor("#FFFFFF");
   static final HexColor WHITE80 = new HexColor("#CCFFFFFF");
   static final HexColor WHITE50 = new HexColor("#80FFFFFF");
+  static final HexColor WHITE2 = new HexColor("#05FFFFFF");
+
   static final HexColor BLACK100 = new HexColor("#000000");
   static final HexColor BLACK80 = new HexColor("#CC000000");
   static final HexColor BLACK50 = new HexColor("#80000000");
+  static final HexColor BLACK2 = new HexColor("#05000000");
 
   // static final HexColor DEFAULT = new HexColor("#E81667");
   // static final HexColor DEFAULT_5 = new HexColor("#0DE81667");

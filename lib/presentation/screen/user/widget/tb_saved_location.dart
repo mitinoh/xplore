@@ -81,8 +81,8 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
   DetailLocationModal _showDetailLocationModal(
       SavedLocationLoadedState state, int index) {
     return DetailLocationModal(
-      loc: state.savedLocationList[index],
-      fromLikedSection: true,
+      location: state.savedLocationList[index],
+      // fromLikedSection: true,
       callback: () {
         setState(() {
           state.savedLocationList[index].saved =

@@ -8,14 +8,14 @@ import 'package:xplore/utils/class/debouncer.dart';
 
 class SearchBarWidget extends StatelessWidget {
   SearchBarWidget({Key? key}) : super(key: key);
-  late ThemeData themex = App.themex;
+  late ThemeData themex;
   late BuildContext _blocContext;
   final _debouncer = Debouncer(milliseconds: 500);
 
   @override
   Widget build(BuildContext context) {
     _blocContext = context;
-
+themex = Theme.of(context);
     return Row(
       children: [
         Expanded(
@@ -46,9 +46,9 @@ class SearchBarWidget extends StatelessWidget {
                 prefixIcon: IconButton(
                   icon: Icon(
                     Iconsax.search_normal,
-                    color: themex.primaryColor,
+                    color: themex.indicatorColor,
                   ),
-                  color: themex.primaryColor,
+                  color: themex.indicatorColor,
                   onPressed: () {
                     //  applyFilterName();
                   },

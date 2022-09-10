@@ -19,8 +19,9 @@ class CategoriesBottomSheet extends StatefulWidget {
 }
 
 class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
-  MediaQueryData mediaQueryX = App.mediaQueryX;
-  ThemeData themex = App.themex;
+
+  late MediaQueryData mediaQueryX = MediaQuery.of(context);
+  late ThemeData themex = Theme.of(context);
 
   @override
   Widget build(BuildContext context) {

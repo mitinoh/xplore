@@ -100,6 +100,6 @@ class _MapLayoutState extends State<MapLayout> {
   }
 
   void _buildlocationDetailModalBottomSheet(LocationModel location) {
-    DetailLocationModal(loc: location).show(context);
+    DetailLocationModal(location: location).show(context);
   }
 }

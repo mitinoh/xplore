@@ -3,38 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/presentation/common_widgets/bs_navigation.dart';
 import 'package:xplore/presentation/common_widgets/like_button.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/utils/imager.dart';
 
 class DetailLocationModal extends StatelessWidget {
-  DetailLocationModal(
-      {Key? key,
-      required this.loc,
-      this.fromLikedSection = false,
-      this.callback})
+  DetailLocationModal({Key? key, required this.location, this.callback})
       : super(key: key);
-  final LocationModel loc;
-  final bool
-      fromLikedSection; // Passare true se viene richiamata dalla sezione salvati
+  final LocationModel location;
   final VoidCallback? callback;
-
-  //final HomeBloc _locationBloc = HomeBloc();
 
   @override
   Widget build(BuildContext context) {
     return Container();
   }
 
+  late ThemeData themex;
+  late MediaQueryData mediaQueryX;
+  late BuildContext _context;
+
   show(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    var lightDark = Theme.of(context);
+    mediaQueryX = MediaQuery.of(context);
+    themex = Theme.of(context);
+    _context = context;
 
     showModalBottomSheet<void>(
         //useRootNavigator: true,
         isScrollControlled: true,
         useRootNavigator: true,
-        backgroundColor: lightDark.backgroundColor,
+        backgroundColor: themex.backgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -46,7 +44,7 @@ class DetailLocationModal extends StatelessWidget {
           return SafeArea(
             child: Container(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
-              height: mediaQuery.size.height * 0.84,
+              height: mediaQueryX.size.height * 0.84,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -57,24 +55,20 @@ class DetailLocationModal extends StatelessWidget {
                           children: [
                             CircleAvatar(
                                 radius: 25,
-                                backgroundColor: Colors.lightBlue,
+                                backgroundColor: themex.primaryColor,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(25),
                                   child: CachedNetworkImage(
-                                    imageUrl:
-                                        Img.getLocationUrl(loc),
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
+                                    imageUrl: Img.getLocationUrl(location),
+                                    imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover),
+                                            image: imageProvider, fit: BoxFit.cover),
                                       ),
                                     ),
                                     placeholder: (context, url) =>
                                         const LoadingIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        Center(
+                                    errorWidget: (context, url, error) => Center(
                                       child: Icon(Iconsax.gallery_slash,
                                           size: 30, color: Colors.red),
                                     ),
@@ -87,17 +81,17 @@ class DetailLocationModal extends StatelessWidget {
                                 text: TextSpan(
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text: loc.insertUid?.username,
+                                        text: location.insertUid?.username,
                                         style: GoogleFonts.poppins(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
-                                            color: lightDark.primaryColor)),
+                                            color: themex.indicatorColor)),
                                     TextSpan(
                                         text: ' LV. 4',
                                         style: GoogleFonts.poppins(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
-                                            color: Colors.lightBlue))
+                                            color: themex.indicatorColor))
                                   ],
                                 ),
                               ),
@@ -109,22 +103,14 @@ class DetailLocationModal extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: InkWell(
-                                  onTap: () => {
-                                    /*
-                                        _mapRepository.openMap(
-                                            loc.geometry?.coordinates?[0] ??
-                                                0.0,
-                                            loc.geometry?.coordinates?[1] ??
-                                                0.0)
-                                                */
-                                      },
+                                  onTap: () => {_showNavigationBottomSheet()},
                                   child: Icon(
                                     Iconsax.discover_1,
-                                    color: lightDark.primaryColor,
+                                    color: themex.indicatorColor,
                                   )),
                             ),
                             LikeButton(
-                              locationList: loc,
+                              locationList: location,
                               callback: callback,
                             ),
                           ],
@@ -142,7 +128,7 @@ class DetailLocationModal extends StatelessWidget {
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: lightDark.primaryColor),
+                                    color: themex.indicatorColor),
                                 children: [
                                   TextSpan(
                                       text:
@@ -150,7 +136,7 @@ class DetailLocationModal extends StatelessWidget {
                                       style: GoogleFonts.poppins(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w300,
-                                          color: lightDark.primaryColor)),
+                                          color: themex.indicatorColor)),
                                 ]),
                           ),
                         ),
@@ -158,30 +144,28 @@ class DetailLocationModal extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(loc.name ?? '',
+                        Text(location.name ?? '',
                             overflow: TextOverflow.visible,
                             style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w300,
-                                color: lightDark.primaryColor)),
+                                color: themex.indicatorColor)),
                       ],
                     ),
                     const SizedBox(height: 30),
                     ClipRRect(
                         child: CachedNetworkImage(
-                      height: mediaQuery.size.height * 0.45,
-                      width: mediaQuery.size.height * 1,
-                      imageUrl: Img.getLocationUrl(loc),
+                      height: mediaQueryX.size.height * 0.45,
+                      width: mediaQueryX.size.height * 1,
+                      imageUrl: Img.getLocationUrl(location),
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: imageProvider, fit: BoxFit.cover),
+                          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
                         ),
                       ),
                       placeholder: (context, url) => const LoadingIndicator(),
                       errorWidget: (context, url, error) => Center(
-                        child: Icon(Iconsax.gallery_slash,
-                            size: 30, color: Colors.red),
+                        child: Icon(Iconsax.gallery_slash, size: 30, color: Colors.red),
                       ),
                     )),
                     const SizedBox(height: 20),
@@ -194,7 +178,7 @@ class DetailLocationModal extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w300,
-                                  color: lightDark.primaryColor)),
+                                  color: themex.indicatorColor)),
                         )
                       ],
                     ),
@@ -203,20 +187,14 @@ class DetailLocationModal extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         InkWell(
-                          onTap: () => {
-                            /*
-                            _mapRepository.openMap(
-                                loc.geometry?.coordinates?[0] ?? 0.0,
-                                loc.geometry?.coordinates?[1] ?? 0.0)
-                                */
-                          },
+                          onTap: () => {_showNavigationBottomSheet()},
                           child: Text(
                             "raggiungi con google maps",
                             style: GoogleFonts.poppins(
                                 decoration: TextDecoration.underline,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: lightDark.primaryColor),
+                                color: themex.indicatorColor),
                           ),
                         )
                       ],
@@ -233,7 +211,7 @@ class DetailLocationModal extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w300,
-                                  color: lightDark.primaryColor),
+                                  color: themex.indicatorColor),
                             ),
                           ),
                         ),
@@ -246,4 +224,7 @@ class DetailLocationModal extends StatelessWidget {
           );
         });
   }
+
+  void _showNavigationBottomSheet() =>
+      GoNavigationBottomSheet(location: location).show(_context);
 }

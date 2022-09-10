@@ -27,6 +27,8 @@ class _HomeMainCardState extends State<HomeMainCard> {
   bool _pinnedMenuVisible = true;
   int _lastIdxLocation = 0;
   int _currentIdx = 0;
+  late MediaQueryData mediaQueryX = MediaQuery.of(context);
+  late ThemeData themex = Theme.of(context);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _HomeMainCardState extends State<HomeMainCard> {
       expanded: !_pinnedMenuVisible, location: location, toggleDetailMenu: _toggleDetail);
 
   Widget _buildHeader() => Positioned(
-      top: App.mediaQueryX.size.height * 0.1,
+      top: mediaQueryX.size.height * 0.1,
       left: 20,
       right: 20,
       child: Row(
@@ -57,14 +59,14 @@ class _HomeMainCardState extends State<HomeMainCard> {
             child: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: App.themex.scaffoldBackgroundColor.withOpacity(0.8),
+                color: themex.scaffoldBackgroundColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(locationName,
                   style: GoogleFonts.poppins(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: App.themex.indicatorColor,
+                    color: themex.indicatorColor,
                   )),
             ),
           ),

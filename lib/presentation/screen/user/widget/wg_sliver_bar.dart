@@ -12,11 +12,12 @@ class SliverBarWidget extends StatelessWidget {
       : super(key: key);
   final UserModel user;
   final bool visualOnly;
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
   late BuildContext _buildContext;
 
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
     _buildContext = context;
     return SliverAppBar(
         floating: true,

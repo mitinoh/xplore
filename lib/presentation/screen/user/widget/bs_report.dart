@@ -26,13 +26,14 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
 
   final _desc = TextEditingController();
 
-  MediaQueryData mediaQuery = App.mediaQueryX;
-  ThemeData themex = App.themex;
+
+  late MediaQueryData mediaQueryX = MediaQuery.of(context);
+  late ThemeData themex = Theme.of(context);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: mediaQuery.size.height * 0.605,
+      height: mediaQueryX.size.height * 0.605,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(

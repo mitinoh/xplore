@@ -1,10 +1,5 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'dart:io';
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/screen/new_location/bloc/bloc.dart';
@@ -14,9 +9,11 @@ class CreateButtonWidget extends StatelessWidget {
   CreateButtonWidget({Key? key}) : super(key: key);
 
   late BuildContext _buildContext;
+  late ThemeData themex;
   @override
   Widget build(BuildContext context) {
     _buildContext = context;
+    themex = Theme.of(context);
     return Column(
       children: [
         const SizedBox(height: 20),
@@ -26,8 +23,8 @@ class CreateButtonWidget extends StatelessWidget {
             },
             child: ConfirmButton(
                 text: "Raccomanda destinazione",
-                colors: Colors.blue,
-                colorsText: Colors.black)),
+                colors: themex.primaryColor,
+                colorsText: themex.bottomAppBarColor)),
         const SizedBox(height: 30),
       ],
     );

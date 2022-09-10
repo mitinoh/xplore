@@ -38,9 +38,6 @@ class App extends StatefulWidget {
   @override
   State<App> createState() => _AppState();
 
-  static late ThemeData themex;
-  static late MediaQueryData mediaQueryX;
-
   static void initSystemDefault() {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: COLOR_CONST.DEFAULT100));
@@ -140,8 +137,6 @@ class _AppState extends State<App> {
         onGenerateRoute: AppRouter.generateRoute,
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
-            App.themex = Theme.of(context);
-            App.mediaQueryX = MediaQuery.of(context);
             if (state is Uninitialized) {
               return SplashScreen();
             } else if (state is Unauthenticated) {

@@ -14,11 +14,12 @@ import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
 class FuturePlannedTripList extends StatelessWidget {
   FuturePlannedTripList({Key? key}) : super(key: key);
 
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
   late BuildContext _blocContext;
   @override
   Widget build(BuildContext context) {
     _blocContext = context;
+    themex = Theme.of(context);
     return BlocProvider(
         create: (_) =>
             BlocProvider.of<FuturePlannerBloc>(context)..add(GetFuturePlannedTrip()),

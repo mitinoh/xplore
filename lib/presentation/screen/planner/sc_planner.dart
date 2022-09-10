@@ -18,8 +18,9 @@ class PlannerScreen extends StatefulWidget {
 }
 
 class _PlannerScreenState extends State<PlannerScreen> {
-  final ThemeData themex = App.themex;
 
+  late MediaQueryData mediaQueryX = MediaQuery.of(context);
+  late ThemeData themex = Theme.of(context);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

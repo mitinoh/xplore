@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
-import 'package:xplore/presentation/common_widgets/go_navigation_widget.dart';
+import 'package:xplore/presentation/common_widgets/bs_navigation.dart';
 import 'package:xplore/presentation/common_widgets/like_button.dart';
 import 'package:xplore/presentation/router.dart';
 
 class PinnedMenu extends StatefulWidget {
-  const PinnedMenu({Key? key, required this.location}) : super(key: key);
+  PinnedMenu({Key? key, required this.location}) : super(key: key);
   final LocationModel location;
 
   @override
@@ -15,15 +15,16 @@ class PinnedMenu extends StatefulWidget {
 }
 
 class _PinnedMenuState extends State<PinnedMenu> {
-  late MediaQueryData mediaQuery = MediaQuery.of(context);
-  late ThemeData themex = App.themex;
+  late MediaQueryData mediaQueryX = MediaQuery.of(context);
+  late ThemeData themex = Theme.of(context);
+
   @override
   Widget build(BuildContext context) {
     return _buildPinnedMenu();
   }
 
   Positioned _buildPinnedMenu() => Positioned(
-      bottom: mediaQuery.size.height * 0.25,
+      bottom: mediaQueryX.size.height * 0.25,
       right: 20,
       child: Container(
         padding: const EdgeInsets.all(15),
@@ -56,11 +57,6 @@ class _PinnedMenuState extends State<PinnedMenu> {
           {Navigator.of(context, rootNavigator: true).pushNamed(AppRouter.SEARCH)},
       child: Icon(Iconsax.search_normal, color: themex.disabledColor));
 
-  Future<dynamic> _showNavigationBottomSheet() => showModalBottomSheet(
-      context: context,
-      useRootNavigator: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return GoNavigationBottomSheet(location: widget.location);
-      });
+  void _showNavigationBottomSheet() =>
+      GoNavigationBottomSheet(location: widget.location).show(context);
 }

@@ -4,13 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/presentation/screen/new_location/bloc/new_location_bloc.dart';
 import 'package:xplore/utils/class/debouncer.dart';
-import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/app.dart';
-import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
-import 'package:xplore/utils/class/debouncer.dart';
 
 class BaseInfoWidget extends StatelessWidget {
   BaseInfoWidget({Key? key}) : super(key: key);
@@ -19,13 +13,14 @@ class BaseInfoWidget extends StatelessWidget {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
   final TextEditingController _indicationController = TextEditingController();
-  final ThemeData themex = App.themex;
   final _debouncer = Debouncer(milliseconds: 500);
+  late ThemeData themex;
   late BuildContext _buildContext;
 
   @override
   Widget build(BuildContext context) {
     _buildContext = context;
+    themex = Theme.of(context);
     return Column(
       children: [
         const SizedBox(height: 5),
@@ -53,24 +48,23 @@ class BaseInfoWidget extends StatelessWidget {
             controller: _nameController,
             maxLength: 90,
             textAlign: TextAlign.start,
-            style: TextStyle(color: themex.hoverColor, fontSize: 14),
+            style: TextStyle(color: themex.indicatorColor, fontSize: 14),
             onChanged: (String value) {
               _debouncer.run(() => BlocProvider.of<NewLocationBloc>(_buildContext)
                   .newLocation
                   .name = value);
             },
             decoration: InputDecoration(
-              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
+              counterStyle: TextStyle(color: themex.disabledColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Nome del luogo",
-              hintStyle:
-                  GoogleFonts.poppins(color: themex.unselectedWidgetColor, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.flag,
-                color: Colors.blue,
+                color: themex.indicatorColor,
               ),
             ),
             autofocus: false,
@@ -91,7 +85,7 @@ class BaseInfoWidget extends StatelessWidget {
           child: TextField(
             controller: _addressController,
             textAlign: TextAlign.start,
-            style: TextStyle(color: themex.hoverColor, fontSize: 14),
+            style: TextStyle(color: themex.disabledColor, fontSize: 14),
             onChanged: (String value) {
               _debouncer.run(() => BlocProvider.of<NewLocationBloc>(_buildContext)
                   .newLocation
@@ -102,12 +96,11 @@ class BaseInfoWidget extends StatelessWidget {
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Indirizzo luogo",
-              hintStyle:
-                  GoogleFonts.poppins(color: themex.unselectedWidgetColor, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.location,
-                color: Colors.blue,
+                color: themex.indicatorColor,
               ),
             ),
             autofocus: false,
@@ -131,24 +124,23 @@ class BaseInfoWidget extends StatelessWidget {
             minLines: 6,
             maxLines: 10,
             maxLength: 288,
-            style: TextStyle(color: themex.hoverColor, fontSize: 14),
+            style: TextStyle(color: themex.disabledColor, fontSize: 14),
             onChanged: (String value) {
               _debouncer.run(() => BlocProvider.of<NewLocationBloc>(_buildContext)
                   .newLocation
                   .desc = value);
             },
             decoration: InputDecoration(
-              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
+              counterStyle: TextStyle(color: themex.disabledColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Breve descrizione del luogo che vuoi raccomandare...",
-              hintStyle:
-                  GoogleFonts.poppins(color: themex.unselectedWidgetColor, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.note,
-                color: Colors.blue,
+                color: themex.indicatorColor,
               ),
             ),
             autofocus: false,
@@ -172,25 +164,24 @@ class BaseInfoWidget extends StatelessWidget {
             minLines: 6,
             maxLines: 10,
             maxLength: 144,
-            style: TextStyle(color: themex.hoverColor, fontSize: 14),
+            style: TextStyle(color: themex.disabledColor, fontSize: 14),
             onChanged: (String value) {
               _debouncer.run(() => BlocProvider.of<NewLocationBloc>(_buildContext)
                   .newLocation
                   .indication = value);
             },
             decoration: InputDecoration(
-              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
+              counterStyle: TextStyle(color: themex.disabledColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText:
                   "Breve tips su come raggiungiere il luogo o in quale stagione lo consogli...",
-              hintStyle:
-                  GoogleFonts.poppins(color: themex.unselectedWidgetColor, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.lamp_on,
-                color: Colors.blue,
+                color: themex.indicatorColor,
               ),
             ),
             autofocus: false,

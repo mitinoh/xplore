@@ -6,9 +6,10 @@ import 'package:xplore/presentation/screen/search/widget/mdl_category.dart';
 
 class SearchTopBarWidget extends StatelessWidget {
   SearchTopBarWidget({Key? key}) : super(key: key);
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
     return SliverAppBar(
       floating: true,
       pinned: true,
@@ -27,9 +28,7 @@ class SearchTopBarWidget extends StatelessWidget {
       title: Text(
         "Cerca",
         style: GoogleFonts.poppins(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: themex.primaryColor),
+            fontSize: 16, fontWeight: FontWeight.w600, color: themex.primaryColor),
       ),
       actions: [
         InkWell(

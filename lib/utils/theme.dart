@@ -8,13 +8,12 @@ class ThemeX {
     disabledColor: COLOR_CONST.WHITE50,
     indicatorColor: COLOR_CONST.WHITE80, // usato come testo
     scaffoldBackgroundColor: COLOR_CONST.BLACK80,
-
+    cardColor: COLOR_CONST.WHITE2,
 //    scaffoldBackgroundColor: COLOR_CONST.BLACK, //Colore di background generale
     splashColor: Colors.white,
     highlightColor: Colors.transparent,
     primaryColorDark: Colors.black,
     backgroundColor: const Color(0xff161616),
-    cardColor: const Color(0xff161616), //Colore generale di tutti i bottoni
     unselectedWidgetColor: Colors.white.withOpacity(0.3),
     //hoverColor: Colors.white, //const Color(0xff303134),
     // dividerColor: COLOR_CONST.BLUE,
@@ -27,6 +26,8 @@ class ThemeX {
     disabledColor: COLOR_CONST.BLACK50,
     indicatorColor: COLOR_CONST.BLACK80,
     scaffoldBackgroundColor: COLOR_CONST.WHITE80,
+    cardColor: COLOR_CONST.BLACK2,
+
     //splashColor: COLOR_CONST.GREEN,
     highlightColor: Colors.transparent,
     backgroundColor: const Color(0xffF3F7FA),

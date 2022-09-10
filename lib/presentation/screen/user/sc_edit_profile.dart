@@ -24,6 +24,11 @@ class EditProfileScreen extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _userBioController = TextEditingController();
   final VoidCallback? callback;
+
+
+  late MediaQueryData mediaQueryX ;
+  late ThemeData themex ;
+
   void initController() async {
     _usernameController.text = userData.username ?? '';
     _userBioController.text = userData.bio ?? '';
@@ -31,6 +36,9 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+  mediaQueryX = MediaQuery.of(context);
+   themex = Theme.of(context);
     initController();
     return Scaffold(
       body: SafeArea(
@@ -43,7 +51,7 @@ class EditProfileScreen extends StatelessWidget {
                 pinned: true,
                 snap: true,
                 elevation: 0,
-                backgroundColor: App.themex.scaffoldBackgroundColor,
+                backgroundColor: themex.scaffoldBackgroundColor,
                 iconTheme: const IconThemeData(color: Colors.black),
                 actionsIconTheme: const IconThemeData(color: Colors.black),
                 leading: newUser ? SizedBox() : _backButton(context),
@@ -86,7 +94,7 @@ class EditProfileScreen extends StatelessWidget {
     return Text(
       "Modifica profilo",
       style: GoogleFonts.poppins(
-          fontSize: 16, fontWeight: FontWeight.w600, color: App.themex.primaryColor),
+          fontSize: 16, fontWeight: FontWeight.w600, color: themex.primaryColor),
     );
   }
 
@@ -95,7 +103,7 @@ class EditProfileScreen extends StatelessWidget {
         onTap: () => {Navigator.pop(context)},
         child: Icon(
           Iconsax.arrow_left,
-          color: App.themex.primaryColor,
+          color: themex.primaryColor,
         ));
   }
 
@@ -113,20 +121,20 @@ class EditProfileScreen extends StatelessWidget {
             child: Container(
           padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
           decoration: BoxDecoration(
-              color: App.themex.cardColor, borderRadius: BorderRadius.circular(20)),
+              color: themex.cardColor, borderRadius: BorderRadius.circular(20)),
           child: TextField(
             controller: _usernameController,
             maxLength: 16,
             textAlign: TextAlign.start,
             style: TextStyle(color: Colors.black, fontSize: 14),
             decoration: InputDecoration(
-              counterStyle: TextStyle(color: App.themex.unselectedWidgetColor),
+              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Username",
               hintStyle: GoogleFonts.poppins(
-                  color: App.themex.unselectedWidgetColor, fontSize: 14),
+                  color: themex.unselectedWidgetColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.user,
@@ -147,7 +155,7 @@ class EditProfileScreen extends StatelessWidget {
             child: Container(
           padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
           decoration: BoxDecoration(
-              color: App.themex.cardColor, borderRadius: BorderRadius.circular(20)),
+              color: themex.cardColor, borderRadius: BorderRadius.circular(20)),
           child: TextField(
             controller: _userBioController,
             textAlign: TextAlign.start,
@@ -156,13 +164,13 @@ class EditProfileScreen extends StatelessWidget {
             maxLength: 144,
             style: TextStyle(color: Colors.black, fontSize: 14),
             decoration: InputDecoration(
-              counterStyle: TextStyle(color: App.themex.unselectedWidgetColor),
+              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Inserisci la tua bio...",
               hintStyle: GoogleFonts.poppins(
-                  color: App.themex.unselectedWidgetColor, fontSize: 14),
+                  color: themex.unselectedWidgetColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.brush_4,

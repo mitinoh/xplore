@@ -13,9 +13,11 @@ class Navbar extends StatelessWidget {
 
   final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
   @override
   Widget build(BuildContext context) {
+
+    themex = Theme.of(context);
     return PersistentTabView(
       context,
       controller: _controller,

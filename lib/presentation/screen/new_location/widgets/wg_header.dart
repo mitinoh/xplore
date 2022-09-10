@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,13 +13,14 @@ class HeaderWidget extends StatelessWidget {
         const SizedBox(height: 40),
         _headerTitle(),
         const SizedBox(height: 20),
-        _headerDesc(),
+        _headerDesc(context),
         const SizedBox(height: 20),
       ],
     );
   }
 
-  Row _headerDesc() {
+  Row _headerDesc(BuildContext context) {
+    ThemeData themex = Theme.of(context);
     return Row(
       children: [
         Expanded(
@@ -26,7 +28,9 @@ class HeaderWidget extends StatelessWidget {
               "Contribuisci a rendere xplore un posto vibrante. Raccomanda un nuovo posto e ricevi 200 punti.",
               overflow: TextOverflow.visible,
               style: GoogleFonts.poppins(
-                  fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                  color: themex.disabledColor)),
         )
       ],
     );
@@ -36,7 +40,7 @@ class HeaderWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [HeaderName(message: "Vuoi suggerirci un posto ", questionMark: true)],
+      children: [HeaderName(message: "Vuoi suggerirci un posto", questionMark: true)],
     );
   }
 }

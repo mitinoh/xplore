@@ -13,8 +13,13 @@ class SliverBoxAdapterWidget extends StatelessWidget {
   final UserModel user;
   final bool visualOnly;
 
+  late MediaQueryData mediaQueryX;
+  late ThemeData themex;
+
   @override
   Widget build(BuildContext context) {
+    mediaQueryX = MediaQuery.of(context);
+    themex = Theme.of(context);
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.only(left: 20.0, right: 20),
@@ -45,7 +50,7 @@ class SliverBoxAdapterWidget extends StatelessWidget {
           BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.pink),
       indicatorWeight: 0,
       labelColor: Colors.black,
-      unselectedLabelColor: App.themex.primaryColor.withOpacity(0.3),
+      unselectedLabelColor: themex.primaryColor.withOpacity(0.3),
       tabs: tabs
           .map((dynamic obj) => Tab(
                 iconMargin: const EdgeInsets.all(0),

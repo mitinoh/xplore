@@ -14,11 +14,12 @@ class TripDetailScreen extends StatelessWidget {
   TripDetailScreen({Key? key, required this.planTrip}) : super(key: key);
 
   final PlannerModel planTrip;
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
   late BuildContext _blocContext;
 
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
     _blocContext = context;
     return Scaffold(
         body: SafeArea(
@@ -84,7 +85,7 @@ class TripDetailScreen extends StatelessWidget {
   Widget _tripWidget(TripModel? pTrip) {
     return InkWell(
       onTap: () {
-        DetailLocationModal(loc: pTrip?.location ?? LocationModel(id: "_"))
+        DetailLocationModal(location: pTrip?.location ?? LocationModel(id: "_"))
             .show(_blocContext);
       },
       child: Container(

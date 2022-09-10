@@ -17,10 +17,11 @@ class CurrentPlannedTripList extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
 
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
     return BlocProvider(
       create: (_) =>
           BlocProvider.of<CurrentPlannerBloc>(context)..add(GetCurrentPlannedTrip()),

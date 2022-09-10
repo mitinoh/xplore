@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
@@ -9,11 +8,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class GoNavigationBottomSheet extends StatelessWidget {
   GoNavigationBottomSheet({Key? key, required this.location}) : super(key: key);
   final LocationModel location;
-  final MediaQueryData mediaQueryX = App.mediaQueryX;
-  final ThemeData themex = App.themex;
+  late MediaQueryData mediaQueryX;
+  late ThemeData themex;
 
   @override
   Widget build(BuildContext context) {
+    return Container();
+  }
+
+  show(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return _build(context);
+        });
+  }
+
+  Widget _build(BuildContext context) {
+    themex = Theme.of(context);
+    mediaQueryX = MediaQuery.of(context);
     return Container(
       height: mediaQueryX.size.height * 0.45,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20),

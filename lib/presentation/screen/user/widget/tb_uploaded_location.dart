@@ -80,8 +80,8 @@ class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWid
   DetailLocationModal _showDetailLocationModal(
       UploadedLocationLoadedState state, int index) {
     return DetailLocationModal(
-      loc: state.uploadedLocationList[index],
-      fromLikedSection: true,
+      location: state.uploadedLocationList[index],
+      // fromLikedSection: true,
       callback: () {
         setState(() {
           state.uploadedLocationList[index].saved =

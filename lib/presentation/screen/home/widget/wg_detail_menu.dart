@@ -16,8 +16,14 @@ class DetailMenuWidget extends StatelessWidget {
   final LocationModel location;
   final VoidCallback toggleDetailMenu;
 
+  late MediaQueryData mediaQueryX;
+  late ThemeData themex;
+
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
+    mediaQueryX = MediaQuery.of(context);
+
     return _buildAnimationMenu();
   }
 
@@ -26,7 +32,7 @@ class DetailMenuWidget extends StatelessWidget {
         height: expanded ? 340 : 82,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: App.themex.scaffoldBackgroundColor),
+            color: themex.scaffoldBackgroundColor),
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 16, top: 24),
         margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
         duration: const Duration(seconds: 1),
@@ -55,7 +61,7 @@ class DetailMenuWidget extends StatelessWidget {
           style: GoogleFonts.poppins(
             fontSize: 12.5,
             fontWeight: FontWeight.w500,
-            color: App.themex.indicatorColor,
+            color: themex.indicatorColor,
           ),
           children: [
             _buildDescription(),
@@ -68,7 +74,7 @@ class DetailMenuWidget extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 12.5,
         fontWeight: FontWeight.w300,
-        color: App.themex.indicatorColor,
+        color: themex.indicatorColor,
       ));
 
   TextSpan _buildIndications() => TextSpan(
@@ -77,7 +83,7 @@ class DetailMenuWidget extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 12.5,
         fontWeight: FontWeight.w300,
-        color: App.themex.indicatorColor,
+        color: themex.indicatorColor,
       ));
 
   TextSpan _buildCategories() => TextSpan(
@@ -85,7 +91,7 @@ class DetailMenuWidget extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 12.5,
         fontWeight: FontWeight.w400,
-        color: App.themex.indicatorColor,
+        color: themex.indicatorColor,
       ));
 
   Widget _buildMenuIcon() => Padding(
@@ -93,8 +99,8 @@ class DetailMenuWidget extends StatelessWidget {
         child: InkWell(
           onTap: () => toggleDetailMenu(),
           child: expanded
-              ? Icon(Icons.close, color: App.themex.indicatorColor)
-              : Icon(Iconsax.maximize_4, color: App.themex.indicatorColor),
+              ? Icon(Icons.close, color: themex.indicatorColor)
+              : Icon(Iconsax.maximize_4, color: themex.indicatorColor),
         ),
       );
 }

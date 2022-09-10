@@ -10,11 +10,11 @@ import 'package:xplore/utils/imager.dart';
 class UserGridWidget extends StatelessWidget {
   UserGridWidget({Key? key, required this.userList}) : super(key: key);
   final List<UserModel> userList;
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
 
   @override
   Widget build(BuildContext context) {
-    
+    themex = Theme.of(context);
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,

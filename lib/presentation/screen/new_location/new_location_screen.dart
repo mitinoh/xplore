@@ -13,7 +13,9 @@ class NewLocation extends StatefulWidget {
 }
 
 class _NewLocationState extends State<NewLocation> {
-  final ThemeData themex = App.themex;
+
+  late MediaQueryData mediaQueryX = MediaQuery.of(context);
+  late ThemeData themex = Theme.of(context);
 
   @override
   Widget build(BuildContext context) {

@@ -10,10 +10,11 @@ class PlannerHeaderCommandWidget extends StatelessWidget {
   }) : super(key: key);
 
   final VoidCallback onQuestionChange;
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
 
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
     return Column(
       children: [
         Row(

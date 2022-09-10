@@ -10,10 +10,11 @@ import 'package:xplore/utils/imager.dart';
 class LocationGridWidget extends StatelessWidget {
   LocationGridWidget({Key? key, required this.locationsList}) : super(key: key);
 
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
   final List<LocationModel> locationsList;
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
     return SizedBox(
       child: MasonryGrid(
           mainAxisSpacing: 5,

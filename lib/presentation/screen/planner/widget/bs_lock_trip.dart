@@ -8,10 +8,14 @@ class LockTripBottomSheet extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final ThemeData themex = App.themex;
-  final MediaQueryData mediaQueryX = App.mediaQueryX;
+
+  late MediaQueryData mediaQueryX ;
+  late ThemeData themex;
   @override
   Widget build(BuildContext context) {
+
+  mediaQueryX = MediaQuery.of(context);
+  themex = Theme.of(context);
     return Container(
       height: mediaQueryX.size.height * 0.65,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 30),

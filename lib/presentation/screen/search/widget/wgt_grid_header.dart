@@ -4,9 +4,10 @@ import 'package:xplore/app/app.dart';
 
 class GridHeaderWidget extends StatelessWidget {
   GridHeaderWidget({Key? key}) : super(key: key);
-  final ThemeData themex = App.themex;
+  late ThemeData themex;
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
     return Visibility(
       visible: true,
       child: Row(
