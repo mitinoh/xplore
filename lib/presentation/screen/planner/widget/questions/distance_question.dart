@@ -15,7 +15,7 @@ class DistanceQuestion extends StatefulWidget {
 }
 
 class _DistanceQuestionState extends State<DistanceQuestion> {
-  double _currentSliderValue = 20;
+  double _currentSliderValue = 2;
 
   @override
   void initState() {
@@ -30,9 +30,9 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
     super.initState();
   }
 
+  late ThemeData themex = Theme.of(context);
   @override
   Widget build(BuildContext context) {
-    var lightDark = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,8 +43,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                HeaderName(
-                    message: "Quanto puoi spostarti ", questionMark: true)
+                HeaderName(message: "Quanto puoi spostarti ", questionMark: true)
               ],
             ),
             const SizedBox(height: 20),
@@ -57,7 +56,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
-                          color: lightDark.primaryColor)),
+                          color: themex.disabledColor)),
                 )
               ],
             ),
@@ -72,14 +71,14 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 40,
                           fontWeight: FontWeight.w300,
-                          color: lightDark.primaryColor),
+                          color: themex.primaryColor),
                       children: <TextSpan>[
                         TextSpan(
                             text: " km",
                             style: GoogleFonts.poppins(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.grey)),
+                                color: themex.disabledColor)),
                       ],
                     ),
                   ),
@@ -89,16 +88,16 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
             const SizedBox(height: 30),
             SliderTheme(
               data: SliderThemeData(
-                inactiveTickMarkColor: lightDark.primaryColor.withOpacity(0.3),
-                activeTickMarkColor: lightDark.primaryColor,
-                inactiveTrackColor: lightDark.primaryColor.withOpacity(0.3),
-                activeTrackColor: lightDark.primaryColor,
-                thumbColor: lightDark.primaryColor,
+                inactiveTickMarkColor: themex.primaryColor.withOpacity(0.3),
+                activeTickMarkColor: themex.primaryColor,
+                inactiveTrackColor: themex.primaryColor.withOpacity(0.3),
+                activeTrackColor: themex.primaryColor,
+                thumbColor: themex.primaryColor,
               ),
               child: Slider(
                 value: _currentSliderValue,
                 min: 0,
-                max: 100,
+                max: 10,
                 divisions: 10,
                 onChanged: (double value) {
                   setState(() {
@@ -114,10 +113,9 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
             setDistanceLocation();
           },
           child: ConfirmButton(
-            text: "prossima domanda",
-            colors: Colors.blue,
-            colorsText: Colors.black,
-          ),
+              text: "prossima domanda",
+              colors: themex.primaryColor,
+              colorsText: themex.bottomAppBarColor),
         ),
       ],
     );
@@ -140,10 +138,9 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
 */
     // planQuery["distance"] = _currentSliderValue;
 
-   BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.distance=
+    BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.distance =
         _currentSliderValue * 1000;
-    BlocProvider.of<PlannerQuestionBloc>(context)
-        .add(PlannerChangeQuestion());
+    BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion());
   }
 
   double getLatDis(double dis) {

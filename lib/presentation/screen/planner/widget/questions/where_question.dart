@@ -41,20 +41,19 @@ class _WhereQuestionState extends State<WhereQuestion> {
     super.initState();
   }
 
+  late ThemeData themex = Theme.of(context);
   @override
   Widget build(BuildContext ctx) {
-    var lightDark = Theme.of(context);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           children: [
-            const Subtitle(
+            Subtitle(
               text:
                   "Parti per una breve vacanza o invece per una lunga oppure semplicemente in giornata.",
-              colors: Colors.grey,
+              colors: themex.disabledColor,
             ),
             const SizedBox(height: 20),
             Row(
@@ -68,7 +67,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
             Subtitle(
               text:
                   "Scegli una città come destinazione e ti aiuteremo a scoprire le attrazioni più belle.",
-              colors: lightDark.primaryColor,
+              colors: themex.disabledColor,
             ),
             const SizedBox(height: 20),
             Row(
@@ -76,9 +75,9 @@ class _WhereQuestionState extends State<WhereQuestion> {
                 Expanded(
                     child: Column(
                   children: [
-                    const Subtitle(
+                    Subtitle(
                       text: "es. Roma, Milano, Venezia, Firenze, Napoli Torino...",
-                      colors: Colors.grey,
+                      colors: themex.disabledColor,
                     ),
                     const SizedBox(height: 20),
                     Row(
@@ -88,7 +87,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                           padding: const EdgeInsets.only(
                               left: 15, right: 15, bottom: 5, top: 5),
                           decoration: BoxDecoration(
-                              color: lightDark.cardColor,
+                              color: themex.cardColor,
                               borderRadius: BorderRadius.circular(20)),
                           child: TextField(
                             onEditingComplete: () {
@@ -96,18 +95,18 @@ class _WhereQuestionState extends State<WhereQuestion> {
                             },
                             controller: _locationController,
                             textAlign: TextAlign.start,
-                            style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
+                            style: TextStyle(color: themex.indicatorColor, fontSize: 14),
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(15.0),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               hintText: "Desitanazione",
                               hintStyle: GoogleFonts.poppins(
-                                  color: lightDark.unselectedWidgetColor, fontSize: 14),
+                                  color: themex.disabledColor, fontSize: 14),
                               border: const OutlineInputBorder(),
                               prefixIcon: Icon(
                                 Iconsax.location,
-                                color: Colors.blue,
+                                color: themex.indicatorColor,
                               ),
                             ),
                             autofocus: false,
@@ -122,7 +121,6 @@ class _WhereQuestionState extends State<WhereQuestion> {
                             context: context,
                             isScrollControlled: true,
                             useRootNavigator: true,
-                            backgroundColor: lightDark.backgroundColor,
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(30),
@@ -140,7 +138,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                             left: 15, top: 20, right: 20, bottom: 20),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: lightDark.cardColor),
+                            color: themex.cardColor),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -148,15 +146,13 @@ class _WhereQuestionState extends State<WhereQuestion> {
                               padding: const EdgeInsets.only(right: 15.0, left: 15),
                               child: Icon(
                                 Iconsax.map,
-                                color: Colors.blue,
+                                color: themex.indicatorColor,
                               ),
                             ),
                             Text(
-                              "Cerca dalla mappa",
+                              "Cerca nalla mappa",
                               style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: lightDark.hoverColor),
+                                  fontSize: 14, color: themex.disabledColor),
                             ),
                           ],
                         ),
@@ -200,15 +196,13 @@ class _WhereQuestionState extends State<WhereQuestion> {
           ],
         ),
         InkWell(
-          onTap: () => {
-            getCoordinate(_locationController.text.toString()),
-          },
-          child: ConfirmButton(
-            text: "prossimllla domanda",
-            colors: Colors.blue,
-            colorsText: Colors.black,
-          ),
-        ),
+            onTap: () => {
+                  getCoordinate(_locationController.text.toString()),
+                },
+            child: ConfirmButton(
+                text: "Prossima domanda",
+                colors: themex.primaryColor,
+                colorsText: themex.bottomAppBarColor))
       ],
     );
   }

@@ -38,10 +38,11 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
     super.initState();
   }
 
-  @override
+  late ThemeData themex;
+
   @override
   Widget build(context) {
-    var lightDark = Theme.of(context);
+    themex = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +67,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
-                          color: lightDark.primaryColor)),
+                          color: themex.disabledColor)),
                 )
               ],
             ),
@@ -77,7 +78,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                 padding: const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: lightDark.cardColor,
+                  color: themex.cardColor,
                 ),
                 child: Row(
                   children: [
@@ -85,7 +86,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       padding: const EdgeInsets.only(right: 15.0, left: 15),
                       child: Icon(
                         Iconsax.calendar_add,
-                        color: Colors.blue,
+                        color: themex.indicatorColor,
                       ),
                     ),
                     Text(
@@ -93,7 +94,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
-                          color: lightDark.primaryColor),
+                          color: themex.indicatorColor),
                     ),
                   ],
                 ),
@@ -106,7 +107,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                 padding: const EdgeInsets.only(left: 15, top: 20, right: 20, bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: lightDark.cardColor,
+                  color: themex.cardColor,
                 ),
                 child: Row(
                   children: [
@@ -114,14 +115,14 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       padding: const EdgeInsets.only(right: 15.0, left: 15),
                       child: Icon(
                         Iconsax.calendar_add,
-                        color: Colors.blue,
+                        color: themex.indicatorColor,
                       ),
                     ),
                     Text("Data di ritorno ",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
-                            color: lightDark.primaryColor)),
+                            color: themex.indicatorColor)),
                   ],
                 ),
               ),
@@ -131,14 +132,16 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               text: TextSpan(
                 text: 'Hai scelto di partire il giorno ',
                 style: GoogleFonts.poppins(
-                    fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                    color: themex.disabledColor),
                 children: <TextSpan>[
                   TextSpan(
                       text: formatter.format(goneDate).toString(),
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: lightDark.primaryColor)),
+                          color: themex.primaryColor)),
                 ],
               ),
             ),
@@ -154,7 +157,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: lightDark.primaryColor)),
+                          color: themex.primaryColor)),
                 ],
               ),
             ),
@@ -187,10 +190,9 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
             }
           },
           child: ConfirmButton(
-            text: "prossima domanda",
-            colors: Colors.blue,
-            colorsText: Colors.black,
-          ),
+              text: "prossima domanda",
+              colors: themex.primaryColor,
+              colorsText: themex.bottomAppBarColor),
         ),
       ],
     );

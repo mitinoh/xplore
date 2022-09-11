@@ -13,15 +13,17 @@ class AvoidCategoryQuestion extends StatelessWidget {
   }) : super(key: key);
 
   late BuildContext _context;
+  late ThemeData themex;
   List<LocationCategoryModel> selectedCategories = [];
+
   @override
   Widget build(context) {
-    var lightDark = Theme.of(context);
+    themex = Theme.of(context);
     _context = context;
-    return categoryToAvoidWidget(lightDark);
+    return categoryToAvoidWidget();
   }
 
-  Column categoryToAvoidWidget(lightDark) {
+  Column categoryToAvoidWidget() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +41,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
             Subtitle(
               text:
                   "Seleziona le categorie che vorresti evitare in vacanza oppure prosegui.",
-              colors: lightDark.primaryColor,
+              colors: themex.disabledColor,
             ),
             const SizedBox(height: 20),
             /*ListView(
@@ -56,28 +58,23 @@ class AvoidCategoryQuestion extends StatelessWidget {
         InkWell(
             onTap: () {
               setCategoryToAvoid();
-              print("1");
               print(selectedCategories);
             },
             child: ConfirmButton(
-              text: "prossimaaaaa domanda",
-              colors: Colors.blue,
-              colorsText: Colors.black,
-            )),
+                text: "prossima domanda",
+                colors: themex.primaryColor,
+                colorsText: themex.bottomAppBarColor)),
       ],
     );
   }
 
   void _setSelectedCategories(List<LocationCategoryModel> asd) {
-    BlocProvider.of<PlannerQuestionBloc>(_context)
-        .planTripQuestions
-        .avoidCategory = asd;
+    BlocProvider.of<PlannerQuestionBloc>(_context).planTripQuestions.avoidCategory = asd;
   }
 
   void setCategoryToAvoid() {
-    BlocProvider.of<PlannerQuestionBloc>(_context)
-        .planTripQuestions
-        .avoidCategory = selectedCategories;
+    BlocProvider.of<PlannerQuestionBloc>(_context).planTripQuestions.avoidCategory =
+        selectedCategories;
     // CategoryPreference.catSelected.join(',').toString();
     // mng.filter?.putIfAbsent("locationcategory",  () => 'nin:' + CategoryPreference.catSelected.join(','));
 

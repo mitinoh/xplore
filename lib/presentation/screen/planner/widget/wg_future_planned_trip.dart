@@ -60,7 +60,7 @@ class FuturePlannedTripList extends StatelessWidget {
                             children: _tripInfo(index, snapshot.data ?? '')),
                         Divider(
                           height: 30,
-                          color: themex.primaryColor.withOpacity(0.1),
+                          color: themex.primaryColor,
                         ),
                       ],
                     ),
@@ -81,13 +81,13 @@ class FuturePlannedTripList extends StatelessWidget {
             textAlign: TextAlign.start,
             overflow: TextOverflow.visible,
             style: GoogleFonts.poppins(
-                fontSize: 16, fontWeight: FontWeight.w500, color: themex.primaryColor)),
+                fontSize: 16, fontWeight: FontWeight.w500, color: themex.indicatorColor)),
       ),
       Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Icon(
             Iconsax.arrow_right_1,
-            color: themex.primaryColor,
+            color: themex.indicatorColor,
           ))
     ];
   }
@@ -102,7 +102,6 @@ class FuturePlannedTripList extends StatelessWidget {
         context: _blocContext,
         isScrollControlled: true,
         useRootNavigator: true,
-        backgroundColor: Colors.transparent,
         builder: (context) {
           return TripDetailScreen(planTrip: pTrip);
         });

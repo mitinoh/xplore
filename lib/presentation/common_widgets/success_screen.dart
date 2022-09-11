@@ -3,14 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({Key? key, required this.title, required this.subtitle})
+  SuccessScreen({Key? key, required this.title, required this.subtitle})
       : super(key: key);
   final String title;
   final String subtitle;
 
+  late ThemeData themex;
   @override
   Widget build(BuildContext context) {
-    var lightDark = Theme.of(context);
+    themex = Theme.of(context);
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -20,7 +21,7 @@ class SuccessScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 70,
-                backgroundColor: Colors.green,
+                backgroundColor: themex.primaryColor,
                 child: const Icon(
                   Iconsax.tick_square,
                   color: Colors.white,
@@ -34,7 +35,7 @@ class SuccessScreen extends StatelessWidget {
                 style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: lightDark.primaryColor),
+                    color: themex.indicatorColor),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20, top: 5),
@@ -44,7 +45,7 @@ class SuccessScreen extends StatelessWidget {
                   style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w300,
-                      color: lightDark.primaryColor),
+                      color: themex.indicatorColor),
                 ),
               ),
             ],
@@ -54,7 +55,7 @@ class SuccessScreen extends StatelessWidget {
               style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
-                  color: lightDark.primaryColor)),
+                  color: themex.disabledColor)),
         ],
       ),
     );

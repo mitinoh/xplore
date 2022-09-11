@@ -80,11 +80,9 @@ class CurrentPlannedTripList extends StatelessWidget {
           child: Align(
             alignment: Alignment.center,
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [
-                    Color(0xff9fccfa), //f0ebc0
-                    Color(0xff0974f1), //9dddf4
-                    //e93a28
+                    themex.primaryColor
                   ]),
                   shape: BoxShape.circle),
               child: Padding(padding: const EdgeInsets.all(2), child: _tripImage(pTrip)),
@@ -115,7 +113,7 @@ class CurrentPlannedTripList extends StatelessWidget {
             Text(
               "in corso...",
               style: GoogleFonts.poppins(
-                  fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
+                  fontSize: 12, fontWeight: FontWeight.w300, color: themex.disabledColor),
             ),
           ],
         )

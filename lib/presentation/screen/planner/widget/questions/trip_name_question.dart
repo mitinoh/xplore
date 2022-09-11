@@ -11,18 +11,19 @@ import 'package:xplore/presentation/screen/planner/bloc_question/question_bloc.d
 class TripNameQuestion extends StatelessWidget {
   TripNameQuestion({Key? key}) : super(key: key);
 
-
   final TextEditingController _nameController = TextEditingController();
 
   initState(BuildContext context) {
     String? contextName =
-       BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName;
+        BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName;
     if (contextName != null) _nameController.text = contextName;
+
+    themex = Theme.of(context);
   }
 
+  late ThemeData themex;
   @override
   Widget build(context) {
-    var lightDark = Theme.of(context);
     initState(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,11 +33,7 @@ class TripNameQuestion extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                HeaderName(
-                    message: "Dai un nome alla tua vacanza ",
-                    questionMark: false)
-              ],
+              children: [HeaderName(message: "Dai un nome alla tua vacanza ")],
             ),
             const SizedBox(height: 20),
             Row(
@@ -48,7 +45,7 @@ class TripNameQuestion extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
-                          color: lightDark.primaryColor)),
+                          color: themex.disabledColor)),
                 )
               ],
             ),
@@ -57,26 +54,24 @@ class TripNameQuestion extends StatelessWidget {
               children: [
                 Expanded(
                     child: Container(
-                  padding: const EdgeInsets.only(
-                      left: 15, right: 15, bottom: 5, top: 5),
+                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
                   decoration: BoxDecoration(
-                      color: lightDark.cardColor,
-                      borderRadius: BorderRadius.circular(20)),
+                      color: themex.cardColor, borderRadius: BorderRadius.circular(20)),
                   child: TextField(
                     controller: _nameController,
                     textAlign: TextAlign.start,
-                    style: TextStyle(color: lightDark.hoverColor, fontSize: 14),
+                    style: TextStyle(color: themex.indicatorColor, fontSize: 14),
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(15.0),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       hintText: "Nome vacanza",
-                      hintStyle: GoogleFonts.poppins(
-                          color: lightDark.unselectedWidgetColor, fontSize: 14),
+                      hintStyle:
+                          GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
                       border: const OutlineInputBorder(),
                       prefixIcon: Icon(
                         Iconsax.note,
-                        color: Colors.blue,
+                        color: themex.indicatorColor,
                       ),
                     ),
                     autofocus: false,
@@ -88,13 +83,11 @@ class TripNameQuestion extends StatelessWidget {
         ),
         InkWell(
           onTap: () => {
-            if (_nameController.text != null &&
-                _nameController.text.trim() != "")
+            if (_nameController.text != null && _nameController.text.trim() != "")
               {
-               BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName =
+                BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName =
                     _nameController.text,
-                BlocProvider.of<PlannerQuestionBloc>(context)
-                    .add(PlannerChangeQuestion())
+                BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion())
 
                 //planQuery.putIfAbsent("tripName", () => _nameController.text),
                 //if (_planTripBloc.isClosed) {_planTripBloc = PlantripBloc()},
@@ -104,15 +97,14 @@ class TripNameQuestion extends StatelessWidget {
               }
             else
               {
-               BlocProvider.of<PlannerQuestionBloc>(context).add(
-                    PlannerQuestionErrorEvent(message: 'trip name cannot be empty'))
+                BlocProvider.of<PlannerQuestionBloc>(context)
+                    .add(PlannerQuestionErrorEvent(message: 'trip name cannot be empty'))
               }
           },
           child: ConfirmButton(
-            text: "prossima domanda",
-            colors: Colors.blue,
-            colorsText: Colors.black,
-          ),
+              text: "prossima domanda",
+              colors: themex.primaryColor,
+              colorsText: themex.bottomAppBarColor),
         ),
       ],
     );

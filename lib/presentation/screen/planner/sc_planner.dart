@@ -18,7 +18,6 @@ class PlannerScreen extends StatefulWidget {
 }
 
 class _PlannerScreenState extends State<PlannerScreen> {
-
   late MediaQueryData mediaQueryX = MediaQuery.of(context);
   late ThemeData themex = Theme.of(context);
   @override
@@ -66,7 +65,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
               "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
               overflow: TextOverflow.visible,
               style: GoogleFonts.poppins(
-                  fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                  color: themex.disabledColor)),
         )
       ],
     );
@@ -90,15 +91,13 @@ class _PlannerScreenState extends State<PlannerScreen> {
               padding: const EdgeInsets.only(right: 15.0, left: 15),
               child: Icon(
                 Iconsax.add,
-                color: Colors.blue,
+                color: themex.primaryColor,
               ),
             ),
             Text(
               "Crea una nuova vacanza",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: themex.primaryColor),
+                  fontWeight: FontWeight.bold, fontSize: 14, color: themex.primaryColor),
             ),
           ],
         ),

@@ -3,10 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ConfirmButton extends StatelessWidget {
   const ConfirmButton(
-      {Key? key,
-      required this.text,
-      required this.colors,
-      required this.colorsText})
+      {Key? key, required this.text, required this.colors, required this.colorsText})
       : super(key: key);
   final String text;
   final Color colors;
@@ -18,7 +15,7 @@ class ConfirmButton extends StatelessWidget {
       margin: const EdgeInsets.only(left: 20, right: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40),
+        borderRadius: BorderRadius.circular(20),
         color: colors,
       ),
       child: Row(
@@ -26,8 +23,7 @@ class ConfirmButton extends StatelessWidget {
         children: [
           Text(
             text.toString().toUpperCase(),
-            style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500, color: colorsText),
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: colorsText),
           ),
         ],
       ),

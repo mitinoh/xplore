@@ -80,7 +80,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           widget.callback!();
           Navigator.pop(context);
         },
-        child: const SuccessScreen(
+        child: SuccessScreen(
           title: "Viaggio pianificato",
           subtitle:
               "Abbiamo pianificato la tua vacanza, buona fortuna e altre stronzate da radical chic.",

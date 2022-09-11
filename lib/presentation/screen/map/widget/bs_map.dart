@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -11,11 +12,12 @@ class MapsBottomSheet extends StatelessWidget {
   MapsBottomSheet({Key? key, required this.context}) : super(key: key);
 
   final BuildContext context;
+  late ThemeData themex;
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     MapPosition currentMapPosition = MapPosition();
-
+    themex = Theme.of(context);
     return _buildBottomSheet(mediaQuery, currentMapPosition);
   }
 
@@ -32,8 +34,9 @@ class MapsBottomSheet extends StatelessWidget {
                   Container(
                     height: mediaQuery.size.height * 0.78,
                     child: BlocProvider(
-                      create: (ct) => BlocProvider.of<UserPositionBloc>(context)
-                        ..add(GetUserPosition()),
+                      create: (ct) => UserPositionBloc(
+                        userRepository: RepositoryProvider.of<UserRepository>(context),
+                      )..add(GetUserPosition()),
                       child: _builder(currentMapPosition),
                     ),
                   )
@@ -65,31 +68,34 @@ class MapsBottomSheet extends StatelessWidget {
         },
       );
 
-  InkWell _buildConfirmButton(MapPosition currentMapPosition, UserPositionLoaded state) =>
-      InkWell(
-          onTap: () {
-            context
-                    .read<PlannerQuestionBloc>()
-                    .planTripQuestions
-                    .geometry
-                    ?.coordinates?[1] =
-                currentMapPosition.center?.latitude ?? state.userPosition.latitude;
-            context
-                    .read<PlannerQuestionBloc>()
-                    .planTripQuestions
-                    .geometry
-                    ?.coordinates?[0] =
-                currentMapPosition.center?.longitude ?? state.userPosition.longitude;
+  Widget _buildConfirmButton(MapPosition currentMapPosition, UserPositionLoaded state) =>
+      Positioned(
+        bottom: 30,
+        child: InkWell(
+            onTap: () {
+              context
+                      .read<PlannerQuestionBloc>()
+                      .planTripQuestions
+                      .geometry
+                      ?.coordinates?[1] =
+                  currentMapPosition.center?.latitude ?? state.userPosition.latitude;
+              context
+                      .read<PlannerQuestionBloc>()
+                      .planTripQuestions
+                      .geometry
+                      ?.coordinates?[0] =
+                  currentMapPosition.center?.longitude ?? state.userPosition.longitude;
 
-            context
-                .read<PlannerQuestionBloc>()
-                .add(PlannerChangeQuestion(increment: true));
-          },
-          child: ConfirmButton(
-            text: "Conferma",
-            colors: Colors.blue,
-            colorsText: Colors.black,
-          ));
+              context
+                  .read<PlannerQuestionBloc>()
+                  .add(PlannerChangeQuestion(increment: true));
+            },
+            child: ConfirmButton(
+              text: "Conferma",
+              colors: themex.primaryColor,
+              colorsText: themex.bottomAppBarColor,
+            )),
+      );
 
   FlutterMap _buildMap(UserPositionLoaded state) => FlutterMap(
           options: MapOptions(

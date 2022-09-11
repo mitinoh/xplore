@@ -20,25 +20,7 @@ import '../../bloc_question/bloc.dart';
 class SelectTripLocation extends StatefulWidget {
   SelectTripLocation({
     Key? key,
-    //required this.mng,
-    //required this.planQuery,
-    // required this.planTripModel,
-    // required this.goneDate,
-    // required this.returnDate,
-    // required this.locLatitude,
-    //required this.locLongitude,
-    //  required this.backQuest,
   }) : super(key: key);
-  // // Mongoose mng = Mongoose();
-  // Map<String, dynamic> planQuery = {};
-  // List<LocationModel> planTripModel = [];
-  // DateTime goneDate = DateTime.now();
-  // DateTime returnDate = DateTime.now();
-  // double locLatitude = 0;
-  // double locLongitude = 0;
-
-  // final VoidCallback backQuest;
-
   @override
   State<SelectTripLocation> createState() => _SelectTripLocationState();
 }
@@ -144,11 +126,17 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
   List<DragAndDropItem> _dragLocation = [];
   List<MovePlannerModel> _locations = [];
 
+  late ThemeData themex;
+
   @override
   void initState() {
     Mongoose query = getQuery();
     context.read<PlannerQuestionBloc>().add(PlannerGetLocation(mng: query));
+    _buildCard();
     super.initState();
+  }
+
+  _buildCard() {
     int tripDay =
         DateUtils.dateOnly(returnDate).difference(DateUtils.dateOnly(goneDate)).inDays +
             1;
@@ -164,7 +152,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                   ? "Non ci sono più posti disponibili"
                   : "Per questo giorno non hai programmato nessuna attività. Trascina un attività qua dentro!",
               style: GoogleFonts.poppins(
-                  fontSize: 12, fontWeight: FontWeight.w300, color: Colors.green)),
+                  fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
         ),
         decoration: BoxDecoration(
             //color: UIColors.grey.withOpacity(0.1),
@@ -178,7 +166,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                   ? 'Ecco la lista di tutti i posti che abbiamo trovato.'
                   : 'Giorno ',
               style: GoogleFonts.poppins(
-                  fontSize: 13, fontWeight: FontWeight.w300, color: Colors.green),
+                  fontSize: 13, fontWeight: FontWeight.w300, color: Colors.grey),
               children: <TextSpan>[
                 TextSpan(
                     text: index == 0
@@ -187,7 +175,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                             .format(goneDate.add(Duration(days: index)))
                             .toString(),
                     style: GoogleFonts.poppins(
-                        fontSize: 13, fontWeight: FontWeight.w700, color: Colors.green)),
+                        fontSize: 13, fontWeight: FontWeight.w700, color: Colors.grey)),
               ],
             ),
           ),
@@ -203,10 +191,9 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
     }
   }
 
-  late ThemeData lightDark;
   @override
   Widget build(BuildContext context) {
-    lightDark = Theme.of(context);
+    themex = Theme.of(context);
     return BlocProvider.value(
       value: BlocProvider.of<PlannerQuestionBloc>(context),
       child: BlocListener<PlannerQuestionBloc, PlannerQuestionState>(
@@ -232,13 +219,13 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                             left: 10, top: 10, right: 10, bottom: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: lightDark.cardColor,
+                          color: themex.cardColor,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.blue,
+                              backgroundColor: themex.primaryColor,
                               backgroundImage: const NetworkImage(
                                   'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
                             ),
@@ -250,7 +237,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 14,
-                                  color: lightDark.primaryColor,
+                                  color: themex.indicatorColor,
                                 ),
                               ),
                             ),
@@ -258,7 +245,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                               padding: const EdgeInsets.only(right: 15.0, left: 15),
                               child: Icon(
                                 Icons.drag_handle,
-                                color: lightDark.primaryColor,
+                                color: themex.indicatorColor,
                               ),
                             ),
                           ],
@@ -302,10 +289,9 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerEndQuestion())
           },
           child: ConfirmButton(
-            text: "Abbiamo finito",
-            colors: Colors.lightGreen,
-            colorsText: Colors.black,
-          ),
+              text: "Abbiamo finito",
+              colors: themex.primaryColor,
+              colorsText: themex.bottomAppBarColor),
         ),
       ],
     );

@@ -22,6 +22,7 @@ class TripDetailScreen extends StatelessWidget {
     themex = Theme.of(context);
     _blocContext = context;
     return Scaffold(
+        backgroundColor: themex.bottomAppBarColor,
         body: SafeArea(
             child: Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20),
@@ -48,9 +49,7 @@ class TripDetailScreen extends StatelessWidget {
         pinned: true,
         snap: true,
         elevation: 0,
-        backgroundColor: themex.scaffoldBackgroundColor,
-        iconTheme: const IconThemeData(color: Colors.black),
-        actionsIconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: themex.bottomAppBarColor,
         leading: GestureDetector(
             onTap: () => {Navigator.pop(_blocContext)},
             child: Icon(Iconsax.arrow_left, color: themex.primaryColor)),
@@ -73,7 +72,9 @@ class TripDetailScreen extends StatelessWidget {
                     "lorem ipsum is simply dummy text of the printing and typesetting industry.",
                     overflow: TextOverflow.visible,
                     style: GoogleFonts.poppins(
-                        fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: themex.disabledColor)),
               ),
             ],
           )
@@ -98,12 +99,9 @@ class TripDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    Color(0xff9fccfa), //f0ebc0
-                    Color(0xff0974f1), //9dddf4
-                    //e93a28
-                  ]),
+              decoration: BoxDecoration(
+                  gradient:
+                      LinearGradient(colors: [themex.primaryColor, themex.primaryColor]),
                   shape: BoxShape.circle),
               child: Padding(
                 padding: const EdgeInsets.all(2),
@@ -155,28 +153,31 @@ class TripDetailScreen extends StatelessWidget {
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(
-                fontSize: 12, fontWeight: FontWeight.w300, color: themex.primaryColor)),
+                fontSize: 12, fontWeight: FontWeight.w300, color: themex.indicatorColor)),
         Padding(
           padding: const EdgeInsets.only(left: 7.0),
           child: Text((_getTripVisitDay(pTrip)).toString() + "° giorno".toLowerCase(),
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.poppins(
-                  fontSize: 12, fontWeight: FontWeight.w300, color: themex.primaryColor)),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                  color: themex.indicatorColor)),
         ),
-        Padding(
+        /*Padding(
           padding: const EdgeInsets.only(left: 7.0),
           child: Icon(
             Iconsax.sun_1,
             size: 20,
-            color: themex.primaryColor,
+            color: themex.indicatorColor,
           ),
         ),
         Text("23°C",
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(
-                fontSize: 12, fontWeight: FontWeight.w300, color: themex.primaryColor)),
+                fontSize: 12, fontWeight: FontWeight.w300, color: themex.indicatorColor)),
+                */
       ],
     );
   }

@@ -26,7 +26,7 @@ class PlannerHeaderCommandWidget extends StatelessWidget {
                 },
                 child: Icon(
                   Iconsax.arrow_left,
-                  color: themex.primaryColor,
+                  color: themex.indicatorColor,
                 )),
             RichText(
               text: TextSpan(
@@ -34,7 +34,7 @@ class PlannerHeaderCommandWidget extends StatelessWidget {
                 style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: themex.primaryColor),
+                    color: themex.indicatorColor),
               ),
             ),
             InkWell(
@@ -43,7 +43,7 @@ class PlannerHeaderCommandWidget extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.close,
-                  color: themex.primaryColor,
+                  color: themex.indicatorColor,
                 )),
           ],
         ),

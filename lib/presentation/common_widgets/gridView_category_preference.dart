@@ -26,10 +26,11 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
     super.initState();
   }
 
+  late ThemeData themex = Theme.of(context);
+  late MediaQueryData mediaQueryX = MediaQuery.of(context);
+
   @override
   Widget build(BuildContext context) {
-    var lightDark = Theme.of(context);
-    var mediaQuery = MediaQuery.of(context);
     return BlocProvider(
       create: (_) => LocationCategoryBloc(
           locationCategroyRepository:
@@ -51,7 +52,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
               return const LoadingIndicator();
             } else if (state is LocationCategoryLoaded) {
               return SizedBox(
-                height: mediaQuery.size.height * 0.38,
+                height: mediaQueryX.size.height * 0.38,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisSpacing: 5,
@@ -66,16 +67,16 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                       //padding: const EdgeInsets.all(2.5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: lightDark.cardColor,
+                        color: themex.cardColor,
                       ),
                       child: Theme(
                         data: ThemeData(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            unselectedWidgetColor: lightDark.unselectedWidgetColor),
+                            unselectedWidgetColor: themex.unselectedWidgetColor),
                         child: CheckboxListTile(
-                          checkColor: Colors.lightGreen,
-                          activeColor: Colors.lightGreen,
+                          checkColor: themex.primaryColor,
+                          activeColor: themex.primaryColor,
                           //value: true,
                           value: widget.selectedCategories
                               .contains(state.locationCategoryList[index]),
@@ -97,7 +98,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 13,
-                                  color: lightDark.primaryColor)),
+                                  color: themex.indicatorColor)),
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                         ),
@@ -120,7 +121,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
   bool getValue(LocationCategoryLoaded state, int index) {
     LocationCategoryModel category = state.locationCategoryList[index];
     List<String?> selectedId = [];
-   
+
     widget.selectedCategories.forEach((sc) => selectedId.add(sc.id));
     return selectedId.contains(category.id ?? '');
   }
