@@ -46,10 +46,10 @@ class SliverBoxAdapterWidget extends StatelessWidget {
       enableFeedback: true,
       automaticIndicatorColorAdjustment: true,
       // These are the widgets to put in each tab in the tab bar.
-      indicator:
-          BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.pink),
+      indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(20), color: themex.focusColor),
       indicatorWeight: 0,
-      labelColor: Colors.black,
+      labelColor: themex.canvasColor,
       unselectedLabelColor: themex.primaryColor.withOpacity(0.3),
       tabs: tabs
           .map((dynamic obj) => Tab(

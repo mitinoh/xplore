@@ -192,7 +192,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
           child: ConfirmButton(
               text: "prossima domanda",
               colors: themex.primaryColor,
-              colorsText: themex.bottomAppBarColor),
+              colorsText: themex.canvasColor),
         ),
       ],
     );

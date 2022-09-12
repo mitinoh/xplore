@@ -85,7 +85,7 @@ class BaseInfoWidget extends StatelessWidget {
           child: TextField(
             controller: _addressController,
             textAlign: TextAlign.start,
-            style: TextStyle(color: themex.disabledColor, fontSize: 14),
+            style: TextStyle(color: themex.indicatorColor, fontSize: 14),
             onChanged: (String value) {
               _debouncer.run(() => BlocProvider.of<NewLocationBloc>(_buildContext)
                   .newLocation
@@ -124,7 +124,7 @@ class BaseInfoWidget extends StatelessWidget {
             minLines: 6,
             maxLines: 10,
             maxLength: 288,
-            style: TextStyle(color: themex.disabledColor, fontSize: 14),
+            style: TextStyle(color: themex.indicatorColor, fontSize: 14),
             onChanged: (String value) {
               _debouncer.run(() => BlocProvider.of<NewLocationBloc>(_buildContext)
                   .newLocation
@@ -164,7 +164,7 @@ class BaseInfoWidget extends StatelessWidget {
             minLines: 6,
             maxLines: 10,
             maxLength: 144,
-            style: TextStyle(color: themex.disabledColor, fontSize: 14),
+            style: TextStyle(color: themex.indicatorColor, fontSize: 14),
             onChanged: (String value) {
               _debouncer.run(() => BlocProvider.of<NewLocationBloc>(_buildContext)
                   .newLocation

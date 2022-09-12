@@ -37,7 +37,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
-        color: themex.bottomAppBarColor,
+        color: themex.canvasColor,
       ),
       child: SafeArea(
         child: SingleChildScrollView(
@@ -101,7 +101,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                     child: ConfirmButton(
                       text: "Raggiungi con google maps",
                       colors: themex.primaryColor,
-                      colorsText: themex.bottomAppBarColor,
+                      colorsText: themex.canvasColor,
                     )),
               ]),
         ),

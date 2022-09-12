@@ -17,6 +17,8 @@ class UploadedLocationTabBarWidget extends StatefulWidget {
 }
 
 class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWidget> {
+  late ThemeData themex = Theme.of(context);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -25,8 +27,8 @@ class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWid
         builder: (context, state) {
           if (state is UploadedLocationLoadedState) {
             return RefreshIndicator(
-              color: Colors.white,
-              backgroundColor: Colors.blue,
+              color: themex.indicatorColor,
+              backgroundColor: themex.primaryColor,
               edgeOffset: 0,
               onRefresh: () {
                 _onRefresh(state);

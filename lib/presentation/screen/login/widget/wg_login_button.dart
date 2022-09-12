@@ -26,14 +26,14 @@ class LoginButton extends StatelessWidget {
                   text: TextSpan(
                       text: 'continua con ',
                       style: GoogleFonts.poppins(
-                          color: themex.canvasColor,
+                          color: themex.indicatorColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 16),
                       children: <TextSpan>[
                         TextSpan(
                           text: text,
                           style: GoogleFonts.poppins(
-                              color: themex.canvasColor,
+                              color: themex.indicatorColor,
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         )

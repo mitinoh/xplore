@@ -36,7 +36,7 @@ class UserGridWidget extends StatelessWidget {
               data: ThemeData(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  unselectedWidgetColor: Colors.grey.withOpacity(0.3)),
+                  unselectedWidgetColor: themex.disabledColor),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +45,7 @@ class UserGridWidget extends StatelessWidget {
                     children: [
                       CircleAvatar(
                           radius: 25,
-                          backgroundColor: Colors.lightBlue,
+                          backgroundColor: themex.primaryColor,
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: ImageWidget(
@@ -63,14 +63,15 @@ class UserGridWidget extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: themex.primaryColor),
+                                  color: themex.indicatorColor),
                             ),
                             Text(
-                              "LV. 1",
+                              userList[index].bio ?? '',
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.poppins(
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.lightBlue),
+                                  color: themex.disabledColor),
                             ),
                           ],
                         ),

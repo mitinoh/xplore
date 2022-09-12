@@ -115,7 +115,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
           child: ConfirmButton(
               text: "prossima domanda",
               colors: themex.primaryColor,
-              colorsText: themex.bottomAppBarColor),
+              colorsText: themex.canvasColor),
         ),
       ],
     );

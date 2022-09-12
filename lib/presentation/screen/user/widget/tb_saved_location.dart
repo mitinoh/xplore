@@ -18,6 +18,7 @@ class SavedLocationTabBarWidget extends StatefulWidget {
 }
 
 class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
+  late ThemeData themex = Theme.of(context);
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -26,8 +27,8 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
         builder: (context, state) {
           if (state is SavedLocationLoadedState) {
             return RefreshIndicator(
-              color: Colors.white,
-              backgroundColor: Colors.blue,
+              color: themex.indicatorColor,
+              backgroundColor: themex.primaryColor,
               edgeOffset: 0,
               onRefresh: () {
                 _onRefresh(state);

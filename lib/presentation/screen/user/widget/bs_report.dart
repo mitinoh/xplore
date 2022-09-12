@@ -26,7 +26,6 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
 
   final _desc = TextEditingController();
 
-
   late MediaQueryData mediaQueryX = MediaQuery.of(context);
   late ThemeData themex = Theme.of(context);
 
@@ -76,7 +75,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
         Container(
           padding: const EdgeInsets.only(top: 20, bottom: 20),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: Colors.orange),
+              borderRadius: BorderRadius.circular(20), color: themex.cardColor),
           child: Column(
             children: [
               _reportType(),
@@ -94,7 +93,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
       separatorBuilder: (_, __) => Divider(
         height: 30,
         thickness: 2,
-        color: themex.scaffoldBackgroundColor,
+        color: themex.cardColor,
       ),
       itemCount: _reportTypeList.length,
       itemBuilder: (BuildContext context, int index) {
@@ -118,7 +117,9 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
             _reportTypeList[index].toString(),
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
-                fontSize: 14.5, fontWeight: FontWeight.w600, color: Colors.black),
+                fontSize: 14.5,
+                fontWeight: FontWeight.w600,
+                color: themex.indicatorColor),
           ),
         ],
       ),
@@ -136,7 +137,9 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                 overflow: TextOverflow.visible,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                    fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                    color: themex.disabledColor)),
           )
         ],
       ),
@@ -173,7 +176,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: Colors.lightBlue)),
+                      color: themex.primaryColor)),
             )
           ],
         ),
@@ -185,7 +188,9 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
               "Segnalazione effettuata",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w600, color: themex.primaryColor),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: themex.indicatorColor),
             ),
           ],
         ),
@@ -200,7 +205,9 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                     overflow: TextOverflow.visible,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
-                        fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: themex.indicatorColor)),
               )
             ],
           ),
@@ -222,7 +229,10 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                     _pageReportIndex = 0;
                   });
                 },
-                child: const Icon(Iconsax.arrow_left)),
+                child: Icon(
+                  Iconsax.arrow_left,
+                  color: themex.primaryColor,
+                )),
             InkWell(
               onTap: () {
                 setState(() {
@@ -234,7 +244,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: Colors.lightBlue)),
+                      color: themex.primaryColor)),
             )
           ],
         ),
@@ -251,7 +261,9 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                     overflow: TextOverflow.visible,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
-                        fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: themex.indicatorColor)),
               )
             ],
           ),
@@ -283,19 +295,18 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
             minLines: 6,
             maxLines: 10,
             textAlign: TextAlign.start,
-            style: TextStyle(color: themex.hoverColor, fontSize: 14),
+            style: TextStyle(color: themex.indicatorColor, fontSize: 14),
             decoration: InputDecoration(
-              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
+              counterStyle: TextStyle(color: themex.disabledColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Motiva la segnalazione",
-              hintStyle:
-                  GoogleFonts.poppins(color: themex.unselectedWidgetColor, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.flag,
-                color: Colors.blue,
+                color: themex.indicatorColor,
               ),
             ),
             autofocus: false,

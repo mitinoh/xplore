@@ -25,9 +25,8 @@ class EditProfileScreen extends StatelessWidget {
   final TextEditingController _userBioController = TextEditingController();
   final VoidCallback? callback;
 
-
-  late MediaQueryData mediaQueryX ;
-  late ThemeData themex ;
+  late MediaQueryData mediaQueryX;
+  late ThemeData themex;
 
   void initController() async {
     _usernameController.text = userData.username ?? '';
@@ -36,9 +35,8 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-  mediaQueryX = MediaQuery.of(context);
-   themex = Theme.of(context);
+    mediaQueryX = MediaQuery.of(context);
+    themex = Theme.of(context);
     initController();
     return Scaffold(
       body: SafeArea(
@@ -52,8 +50,8 @@ class EditProfileScreen extends StatelessWidget {
                 snap: true,
                 elevation: 0,
                 backgroundColor: themex.scaffoldBackgroundColor,
-                iconTheme: const IconThemeData(color: Colors.black),
-                actionsIconTheme: const IconThemeData(color: Colors.black),
+                iconTheme: IconThemeData(color: themex.canvasColor),
+                actionsIconTheme: IconThemeData(color: themex.canvasColor),
                 leading: newUser ? SizedBox() : _backButton(context),
                 leadingWidth: 23,
                 title: _pageTitle(),
@@ -86,7 +84,7 @@ class EditProfileScreen extends StatelessWidget {
       },
       child: Text("Salva".toLowerCase(),
           style: GoogleFonts.poppins(
-              fontSize: 16, fontWeight: FontWeight.w700, color: Colors.blue)),
+              fontSize: 16, fontWeight: FontWeight.w700, color: themex.primaryColor)),
     ));
   }
 
@@ -94,7 +92,7 @@ class EditProfileScreen extends StatelessWidget {
     return Text(
       "Modifica profilo",
       style: GoogleFonts.poppins(
-          fontSize: 16, fontWeight: FontWeight.w600, color: themex.primaryColor),
+          fontSize: 16, fontWeight: FontWeight.w600, color: themex.indicatorColor),
     );
   }
 
@@ -108,10 +106,10 @@ class EditProfileScreen extends StatelessWidget {
   }
 
   Subtitle _subTitle() {
-    return const Subtitle(
+    return Subtitle(
         text:
             "Qui puoi cambiare il tuo username e personalizzare in base al tuo stile o alla tua personalità la tua biografia.",
-        colors: Colors.grey);
+        colors: themex.disabledColor);
   }
 
   Row _username() {
@@ -126,19 +124,18 @@ class EditProfileScreen extends StatelessWidget {
             controller: _usernameController,
             maxLength: 16,
             textAlign: TextAlign.start,
-            style: TextStyle(color: Colors.black, fontSize: 14),
+            style: TextStyle(color: themex.indicatorColor, fontSize: 14),
             decoration: InputDecoration(
-              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
+              counterStyle: TextStyle(color: themex.disabledColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Username",
-              hintStyle: GoogleFonts.poppins(
-                  color: themex.unselectedWidgetColor, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.user,
-                color: Colors.blue,
+                color: themex.indicatorColor,
               ),
             ),
             autofocus: false,
@@ -162,19 +159,18 @@ class EditProfileScreen extends StatelessWidget {
             minLines: 6,
             maxLines: 10,
             maxLength: 144,
-            style: TextStyle(color: Colors.black, fontSize: 14),
+            style: TextStyle(color: themex.indicatorColor, fontSize: 14),
             decoration: InputDecoration(
-              counterStyle: TextStyle(color: themex.unselectedWidgetColor),
+              counterStyle: TextStyle(color: themex.disabledColor),
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: "Inserisci la tua bio...",
-              hintStyle: GoogleFonts.poppins(
-                  color: themex.unselectedWidgetColor, fontSize: 14),
+              hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
                 Iconsax.brush_4,
-                color: Colors.blue,
+                color: themex.indicatorColor,
               ),
             ),
             autofocus: false,

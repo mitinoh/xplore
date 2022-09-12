@@ -291,7 +291,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           child: ConfirmButton(
               text: "Abbiamo finito",
               colors: themex.primaryColor,
-              colorsText: themex.bottomAppBarColor),
+              colorsText: themex.canvasColor),
         ),
       ],
     );

@@ -16,7 +16,6 @@ class Navbar extends StatelessWidget {
   late ThemeData themex;
   @override
   Widget build(BuildContext context) {
-
     themex = Theme.of(context);
     return PersistentTabView(
       context,
@@ -24,7 +23,7 @@ class Navbar extends StatelessWidget {
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: themex.bottomAppBarColor, // Default is Colors.white.
+      backgroundColor: themex.canvasColor, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset:
           false, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.

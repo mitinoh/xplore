@@ -18,6 +18,7 @@ class UserInformationWidget extends StatefulWidget {
 }
 
 class _UserInformationWidgetState extends State<UserInformationWidget> {
+  late ThemeData themex = Theme.of(context);
   XFile? image;
   final ImagePicker _picker = ImagePicker();
 
@@ -73,10 +74,10 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
                 _getFromGallery();
               },
               child: CircleAvatar(
-                  backgroundColor: Colors.amber,
+                  backgroundColor: themex.focusColor,
                   child: Icon(
                     Iconsax.picture_frame,
-                    color: Colors.blue,
+                    color: themex.primaryColor,
                   )),
             ))
         : const SizedBox();
@@ -127,7 +128,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
           TextSpan(
             text: "La tua biografia:\n".toUpperCase() + user.bio.toString(),
             style: GoogleFonts.poppins(
-                fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
+                fontSize: 12, fontWeight: FontWeight.w300, color: themex.disabledColor),
           ),
         ]));
   }

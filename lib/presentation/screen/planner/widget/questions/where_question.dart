@@ -202,7 +202,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
             child: ConfirmButton(
                 text: "Prossima domanda",
                 colors: themex.primaryColor,
-                colorsText: themex.bottomAppBarColor))
+                colorsText: themex.canvasColor))
       ],
     );
   }

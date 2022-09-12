@@ -3,6 +3,7 @@ import 'package:masonry_grid/masonry_grid.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
+import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
 import 'dart:math';
 import 'package:xplore/utils/imager.dart';
@@ -30,11 +31,11 @@ class LocationGridWidget extends StatelessWidget {
       {
         locCnt.add(InkWell(
           onTap: () {
-            // DetailLocationModal(loc: el).show(context);
+                        _showDetailLocationModal(location).show(context);
           },
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.lightBlue, borderRadius: BorderRadius.circular(20)),
+                color: themex.primaryColor, borderRadius: BorderRadius.circular(20)),
             child: Stack(
               children: [
                 ClipRRect(
@@ -62,7 +63,9 @@ class LocationGridWidget extends StatelessWidget {
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w700, fontSize: 12),
+                                color: themex.indicatorColor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12),
                           ),
                         ),
                       ],
@@ -83,5 +86,12 @@ class LocationGridWidget extends StatelessWidget {
     double size = Random().nextInt(250).toDouble();
     if (size < 150) size = 150;
     return size;
+  }
+
+    DetailLocationModal _showDetailLocationModal(
+      LocationModel location) {
+    return DetailLocationModal(
+      location: location,
+    );
   }
 }

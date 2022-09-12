@@ -8,15 +8,18 @@ class ImageTile extends StatelessWidget {
   ImageTile({Key? key, required this.location}) : super(key: key);
   LocationModel location;
 
+  late ThemeData themex;
+
   @override
   Widget build(BuildContext context) {
+    themex = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(2.5),
       child: Stack(
         children: [
           Container(
               decoration: BoxDecoration(
-                  color: Colors.lightBlue, borderRadius: BorderRadius.circular(20)),
+                  color: themex.indicatorColor, borderRadius: BorderRadius.circular(20)),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: ImageWidget(imageUrl: Img.getLocationUrl(location)))),
@@ -27,7 +30,7 @@ class ImageTile extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.only(top: 5, bottom: 5, left: 15, right: 15),
               decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.6),
+                  color: themex.scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(10)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -37,8 +40,10 @@ class ImageTile extends StatelessWidget {
                       location.name!.toLowerCase(),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
-                      style:
-                          GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 12),
+                      style: GoogleFonts.poppins(
+                          color: themex.indicatorColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12),
                     ),
                   ),
                 ],

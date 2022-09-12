@@ -93,7 +93,7 @@ class MapsBottomSheet extends StatelessWidget {
             child: ConfirmButton(
               text: "Conferma",
               colors: themex.primaryColor,
-              colorsText: themex.bottomAppBarColor,
+              colorsText: themex.canvasColor,
             )),
       );
 

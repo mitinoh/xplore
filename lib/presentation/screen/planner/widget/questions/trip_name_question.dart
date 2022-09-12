@@ -104,7 +104,7 @@ class TripNameQuestion extends StatelessWidget {
           child: ConfirmButton(
               text: "prossima domanda",
               colors: themex.primaryColor,
-              colorsText: themex.bottomAppBarColor),
+              colorsText: themex.canvasColor),
         ),
       ],
     );

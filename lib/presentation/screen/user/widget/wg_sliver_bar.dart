@@ -52,7 +52,7 @@ class SliverBarWidget extends StatelessWidget {
   Text _usernameTitle() {
     return Text(user.username ?? ' ... ',
         style: GoogleFonts.poppins(
-            fontSize: 16, fontWeight: FontWeight.w600, color: themex.primaryColor));
+            fontSize: 16, fontWeight: FontWeight.w600, color: themex.indicatorColor));
   }
 
   InkWell _topRightButton() {
@@ -62,7 +62,12 @@ class SliverBarWidget extends StatelessWidget {
       },
       child: Padding(
           padding: EdgeInsets.only(right: 20.0),
-          child: visualOnly ? Icon(Iconsax.flag) : Icon(Iconsax.setting)),
+          child: visualOnly
+              ? Icon(
+                  Iconsax.flag,
+                  color: themex.focusColor,
+                )
+              : Icon(Iconsax.setting)),
     );
   }
 

@@ -11,11 +11,11 @@ class SettingsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    var lightDark = Theme.of(context);
+    MediaQueryData mediaQueryX = MediaQuery.of(context);
+    ThemeData themex = Theme.of(context);
     return SafeArea(
       child: Container(
-        height: mediaQuery.size.height * 0.84,
+        height: mediaQueryX.size.height * 0.84,
         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         child: SingleChildScrollView(
           child: Column(
@@ -34,7 +34,7 @@ class SettingsBottomSheet extends StatelessWidget {
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: lightDark.primaryColor),
+                              color: themex.indicatorColor),
                         ),
                       ),
                     ),
@@ -50,7 +50,7 @@ class SettingsBottomSheet extends StatelessWidget {
                           style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
-                              color: Colors.grey)),
+                              color: themex.disabledColor)),
                     )
                   ],
                 ),
@@ -61,10 +61,10 @@ class SettingsBottomSheet extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: lightDark.dividerColor,
+                          backgroundColor: themex.backgroundColor,
                           child: Icon(
                             Iconsax.star,
-                            color: Colors.black,
+                            color: themex.indicatorColor,
                           ),
                         ),
                         Padding(
@@ -74,23 +74,23 @@ class SettingsBottomSheet extends StatelessWidget {
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: lightDark.primaryColor),
+                                color: themex.indicatorColor),
                           ),
                         ),
                       ],
                     ),
                     Divider(
                       height: 30,
-                      color: lightDark.primaryColor.withOpacity(0.1),
+                      color: themex.indicatorColor.withOpacity(0.1),
                     ),
                     Row(
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: lightDark.dividerColor,
+                          backgroundColor: themex.backgroundColor,
                           child: Icon(
                             Iconsax.happyemoji,
-                            color: Colors.black,
+                            color: themex.indicatorColor,
                           ),
                         ),
                         Padding(
@@ -100,23 +100,23 @@ class SettingsBottomSheet extends StatelessWidget {
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: lightDark.primaryColor),
+                                color: themex.indicatorColor),
                           ),
                         ),
                       ],
                     ),
                     Divider(
                       height: 30,
-                      color: lightDark.primaryColor.withOpacity(0.1),
+                      color: themex.indicatorColor.withOpacity(0.1),
                     ),
                     Row(
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: lightDark.dividerColor,
+                          backgroundColor: themex.backgroundColor,
                           child: Icon(
                             Iconsax.shield,
-                            color: Colors.black,
+                            color: themex.indicatorColor,
                           ),
                         ),
                         Padding(
@@ -126,23 +126,23 @@ class SettingsBottomSheet extends StatelessWidget {
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: lightDark.primaryColor),
+                                color: themex.indicatorColor),
                           ),
                         ),
                       ],
                     ),
                     Divider(
                       height: 30,
-                      color: lightDark.primaryColor.withOpacity(0.1),
+                      color: themex.indicatorColor.withOpacity(0.1),
                     ),
                     Row(
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: lightDark.dividerColor,
+                          backgroundColor: themex.backgroundColor,
                           child: Icon(
                             Iconsax.note_2,
-                            color: Colors.black,
+                            color: themex.indicatorColor,
                           ),
                         ),
                         Padding(
@@ -152,23 +152,23 @@ class SettingsBottomSheet extends StatelessWidget {
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: lightDark.primaryColor),
+                                color: themex.indicatorColor),
                           ),
                         ),
                       ],
                     ),
                     Divider(
                       height: 30,
-                      color: lightDark.primaryColor.withOpacity(0.1),
+                      color: themex.indicatorColor.withOpacity(0.1),
                     ),
                     Row(
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: lightDark.dividerColor,
+                          backgroundColor: themex.backgroundColor,
                           child: Icon(
                             Iconsax.logout,
-                            color: Colors.black,
+                            color: themex.indicatorColor,
                           ),
                         ),
                         Padding(
@@ -184,7 +184,7 @@ class SettingsBottomSheet extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
-                                  color: lightDark.primaryColor),
+                                  color: themex.indicatorColor),
                             ),
                           ),
                         ),
@@ -192,7 +192,7 @@ class SettingsBottomSheet extends StatelessWidget {
                     ),
                     Divider(
                       height: 30,
-                      color: lightDark.primaryColor.withOpacity(0.1),
+                      color: themex.indicatorColor.withOpacity(0.1),
                     ),
                     InkWell(
                       onTap: () {
@@ -204,15 +204,13 @@ class SettingsBottomSheet extends StatelessWidget {
                                 "Per cancellare l'account devi prima effettuare di nuovo il login e poi potrai effettuare la cancellazione"),
                             actions: <Widget>[
                               TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
+                                onPressed: () => Navigator.pop(context, 'Cancel'),
                                 child: const Text('NO'),
                               ),
                               TextButton(
-                                onPressed: () => context
-                                    .read<AuthenticationBloc>()
-                                    //.add(DeleteAccount())
-                                    ,
+                                onPressed: () => context.read<AuthenticationBloc>()
+                                //.add(DeleteAccount())
+                                ,
                                 child: Text('Cancella'.toUpperCase()),
                               ),
                             ],
@@ -224,10 +222,10 @@ class SettingsBottomSheet extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 22,
-                            backgroundColor: lightDark.dividerColor,
+                            backgroundColor: themex.backgroundColor,
                             child: Icon(
                               Iconsax.profile_delete,
-                              color: Colors.black,
+                              color: themex.indicatorColor,
                             ),
                           ),
                           Padding(
@@ -237,7 +235,7 @@ class SettingsBottomSheet extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
-                                  color: lightDark.primaryColor),
+                                  color: themex.indicatorColor),
                             ),
                           ),
                         ],

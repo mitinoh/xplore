@@ -22,7 +22,7 @@ class TripDetailScreen extends StatelessWidget {
     themex = Theme.of(context);
     _blocContext = context;
     return Scaffold(
-        backgroundColor: themex.bottomAppBarColor,
+        backgroundColor: themex.canvasColor,
         body: SafeArea(
             child: Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20),
@@ -49,7 +49,7 @@ class TripDetailScreen extends StatelessWidget {
         pinned: true,
         snap: true,
         elevation: 0,
-        backgroundColor: themex.bottomAppBarColor,
+        backgroundColor: themex.canvasColor,
         leading: GestureDetector(
             onTap: () => {Navigator.pop(_blocContext)},
             child: Icon(Iconsax.arrow_left, color: themex.primaryColor)),
