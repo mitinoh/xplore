@@ -150,7 +150,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                               ),
                             ),
                             Text(
-                              "Cerca nalla mappa",
+                              "Cerca nella mappa",
                               style: GoogleFonts.poppins(
                                   fontSize: 14, color: themex.disabledColor),
                             ),

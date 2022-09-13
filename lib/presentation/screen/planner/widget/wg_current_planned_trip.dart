@@ -81,9 +81,7 @@ class CurrentPlannedTripList extends StatelessWidget {
             alignment: Alignment.center,
             child: Container(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    themex.primaryColor
-                  ]),
+                  gradient: LinearGradient(colors: [themex.primaryColor]),
                   shape: BoxShape.circle),
               child: Padding(padding: const EdgeInsets.all(2), child: _tripImage(pTrip)),
             ),
@@ -122,7 +120,11 @@ class CurrentPlannedTripList extends StatelessWidget {
   }
 
   Widget _tripImage(PlannerModel pTrip) {
-    return CircleImageWidget(imageUrl: Img.getplannedTripUrl(pTrip));
+    return Text(
+      pTrip.tripName ?? '-',
+      style: TextStyle(color: themex.primaryColor ),
+    );
+    //return CircleImageWidget(imageUrl: Img.getplannedTripUrl(pTrip));
   }
 
   Future<String> _getUserLocation(PlannerModel pt) async {
