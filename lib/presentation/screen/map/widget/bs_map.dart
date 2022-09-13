@@ -7,6 +7,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/screen/map/bloc_user_position/bloc.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
+import 'package:iconsax/iconsax.dart';
 
 class MapsBottomSheet extends StatelessWidget {
   MapsBottomSheet({Key? key, required this.context}) : super(key: key);
@@ -56,6 +57,7 @@ class MapsBottomSheet extends StatelessWidget {
                   child: Stack(children: [
                     _buildMap(state),
                     _buildConfirmButton(currentMapPosition, state),
+                    _buildCrosshair(),
                   ]),
                 ),
               ],
@@ -67,6 +69,16 @@ class MapsBottomSheet extends StatelessWidget {
           }
         },
       );
+
+  Center _buildCrosshair() {
+    return Center(
+                    child: Icon(
+                      Iconsax.add,
+                      color: themex.backgroundColor,
+                      size: 50,
+                    ),
+                  );
+  }
 
   Widget _buildConfirmButton(MapPosition currentMapPosition, UserPositionLoaded state) =>
       Positioned(
