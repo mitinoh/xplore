@@ -137,6 +137,10 @@ class _AppState extends State<App> {
         onGenerateRoute: AppRouter.generateRoute,
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
+            ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+              return ErrorScreen(errorDetails: errorDetails);
+            };
+
             if (state is Uninitialized) {
               return SplashScreen();
             } else if (state is Unauthenticated) {

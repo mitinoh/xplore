@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ErrorScreen extends StatelessWidget {
-  ErrorScreen({Key? key, this.state = null, this.message = ""}) : super(key: key);
+  ErrorScreen({Key? key, this.state = null, this.message = "", this.errorDetails})
+      : super(key: key);
   final state;
-  final message;
+  final String? message;
+  final FlutterErrorDetails? errorDetails;
 
+  late ThemeData themex;
   @override
   Widget build(BuildContext context) {
-    return Text("Che vergogna");
+    themex = Theme.of(context);
+    return Text(
+      "Che vergogna",
+      style: TextStyle(color: themex.indicatorColor),
+    );
   }
 }
