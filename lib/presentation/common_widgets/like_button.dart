@@ -6,10 +6,9 @@ import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LikeButton extends StatefulWidget {
-  const LikeButton(
-      {Key? key, required this.locationList, this.liked = false, this.callback})
+  const LikeButton({Key? key, required this.location, this.liked = false, this.callback})
       : super(key: key);
-  final LocationModel locationList;
+  final LocationModel location;
   final bool liked;
   final VoidCallback? callback;
 
@@ -24,11 +23,12 @@ class _LikeButtonState extends State<LikeButton> {
     return InkWell(
       onTap: () {
         setState(() {
-          context.read<HomeBloc>().add(ToggleLikeLocation(location: widget.locationList));
+          context.read<HomeBloc>().add(ToggleLikeLocation(location: widget.location));
+
         });
       },
       child: Icon(Iconsax.heart,
-          color: widget.locationList.saved ?? false
+          color: widget.location.saved ?? false
               ? themex.primaryColor
               : themex.disabledColor),
     );

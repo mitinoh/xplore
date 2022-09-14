@@ -15,8 +15,8 @@ class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
-  final List<LocationModel> homeList;
-  const HomeLoaded({required this.homeList});
+   List<LocationModel> homeList;
+   HomeLoaded({required this.homeList});
 
   @override
   List<Object> get props => homeList;

@@ -50,7 +50,7 @@ class _PinnedMenuState extends State<PinnedMenu> {
       onTap: () => {_showNavigationBottomSheet()},
       child: Icon(Iconsax.discover_1, color: themex.disabledColor));
 
-  Widget _buildLikeButton() => LikeButton(locationList: widget.location);
+  Widget _buildLikeButton() => LikeButton(location: widget.location);
 
   InkWell _buildSearchButton() => InkWell(
       onTap: () =>

@@ -110,7 +110,7 @@ class DetailLocationModal extends StatelessWidget {
                                   )),
                             ),
                             LikeButton(
-                              locationList: location,
+                              location: location,
                               callback: callback,
                             ),
                           ],

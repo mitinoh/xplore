@@ -23,7 +23,7 @@ class _BuildListCardHomeState extends State<BuildListCardHome> {
             if (state is HomeInitial || state is HomeLoading) {
               return const LoadingIndicator();
             } else if (state is HomeLoaded) {
-              return _buildCards(state.homeList);
+              return _buildCards(state.props as List<LocationModel>);
             } else if (state is HomeError) {
               return ErrorScreen(state: state, message: state.message);
             } else {
