@@ -10,6 +10,7 @@ import 'package:xplore/presentation/screen/user/bloc_uploaded_location/uploaded_
 
 class UserRepository {
   final dio = DioProvider.instance();
+
   Future<UserModel> getUserData(String fid) async {
     final client = RestClient(await dio);
     return await client.getFidUserData(fid);
@@ -41,8 +42,15 @@ class UserRepository {
   }
 
   Future<dynamic> createNewUser(UserModel userData) async {
-    final client = RestClient(await dio);
+    final client = RestClient(await DioProvider.instance());
     return await client.createUser(userData);
+  }
+
+  Future<bool> isUserNameAvaiable(String username) async {
+    Mongoose mng =
+        Mongoose(filter: [Filter(key: 'username', operation: '=', value: username)]);
+    final client = RestClient(await dio);
+    return (await client.getUserList(mng.getUrl())).length == 0;
   }
 
   Future<Position> getUserPosition() async {

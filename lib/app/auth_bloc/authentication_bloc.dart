@@ -12,6 +12,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<LoggedIn>(_mapLoggedInToState);
     on<LoggedOut>(_mapLoggedOutToState);
     on<GoogleSignInRequested>(_googleSignInRequest);
+    on<DeleteAccountRequested>(_deleteRequest);
   }
 
   void _mapAppStartedToState(AppStarted event, Emitter<AuthenticationState> emit) async {
@@ -53,5 +54,11 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         emit(Authenticated());
     } else
       emit(Unauthenticated());
+  }
+
+  void _deleteRequest(
+      DeleteAccountRequested event, Emitter<AuthenticationState> emit) async {
+    authRepository.deleteUserAccount();
+    emit(Unauthenticated());
   }
 }

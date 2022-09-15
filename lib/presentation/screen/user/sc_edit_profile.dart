@@ -6,8 +6,12 @@ import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
+
+import '../../../app/auth_bloc/authentication_bloc.dart';
+import '../../../app/auth_bloc/bloc.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen(
@@ -23,7 +27,7 @@ class EditProfileScreen extends StatelessWidget {
   final bool newUser;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _userBioController = TextEditingController();
-  final VoidCallback? callback;
+   final Function(UserModel)? callback;
 
   late MediaQueryData mediaQueryX;
   late ThemeData themex;
@@ -195,9 +199,7 @@ class EditProfileScreen extends StatelessWidget {
 
     if (newUser) {
       try {
-        UserBloc(userRepository: UserRepository())
-          ..add(CreateNewUser(userData: userData));
-        callback!();
+        callback!(userData);
       } catch (e) {
         print(e);
       }

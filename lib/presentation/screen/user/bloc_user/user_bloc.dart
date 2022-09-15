@@ -59,8 +59,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   void _createNewUser(CreateNewUser event, Emitter<UserState> emit) async {
     try {
-      await userRepository.createNewUser(event.userData);
-      emit(UserDataLoaded(userData: event.userData));
+      if (await userRepository.isUserNameAvaiable(event.userData.username ?? '')) {
+        await userRepository.createNewUser(event.userData);
+        emit(UserDataLoaded(userData: event.userData));
+      } else {
+        print("username taken");
+      }
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());
       emit(UserError(e.toString()));

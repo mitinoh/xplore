@@ -4,7 +4,11 @@ import 'package:xplore/app/app.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
 import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/screen/login/widget/wg_login_form.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
+import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
 import 'package:xplore/presentation/screen/user/sc_edit_profile.dart';
+
+import '../user/bloc_user/user_state.dart';
 
 class LoginScreen extends StatelessWidget {
   late BuildContext _blocContext;
@@ -27,9 +31,6 @@ class LoginScreen extends StatelessWidget {
     if (state is Authenticated) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => App()));
     }
-    if (state is AuthenticatedNewUser) {
-      _newUser(context);
-    }
     if (state is AuthError) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(state.message.toString())));
@@ -39,26 +40,4 @@ class LoginScreen extends StatelessWidget {
   _blocBuilder(BuildContext context, AuthenticationState state) => _buildLoginForm();
 
   _buildLoginForm() => WidgetLoginForm();
-
-  _newUser(BuildContext context) async {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        isDismissible: false,
-        enableDrag: false,
-        elevation: 300,
-        context: context,
-        useRootNavigator: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) {
-          return EditProfileScreen(
-            userData: UserModel(),
-            blocContext: _blocContext,
-            newUser: true,
-            callback: () {
-              Navigator.pop(context);
-              context.read<AuthenticationBloc>().add(LoggedIn());
-            },
-          );
-        });
-  }
 }

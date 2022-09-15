@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ErrorScreen extends StatelessWidget {
-  ErrorScreen({Key? key, this.state = null, this.message = "", this.errorDetails})
+  ErrorScreen({Key? key, this.state = null, this.message = "Ops..", this.errorDetails})
       : super(key: key);
   final state;
   final String? message;
@@ -12,7 +12,7 @@ class ErrorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     themex = Theme.of(context);
     return Text(
-      "Che vergogna",
+      message.toString(),
       style: TextStyle(color: themex.indicatorColor),
     );
   }

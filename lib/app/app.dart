@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
 import 'package:xplore/app_config.dart';
+import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/data/repository/follower_repository.dart';
 import 'package:xplore/data/repository/home_repository.dart';
 import 'package:xplore/data/repository/auth_repository.dart';
@@ -26,11 +27,13 @@ import 'package:xplore/presentation/screen/splash/sc_splash.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
+import 'package:xplore/presentation/screen/user/sc_edit_profile.dart';
 import 'package:xplore/utils/const/COLOR_CONST.dart';
 import 'package:xplore/utils/theme.dart';
 
 import '../presentation/screen/home/bloc/bloc.dart';
 import '../presentation/screen/planner/bloc_current_trip/bloc.dart';
+import '../presentation/screen/user/bloc_user/bloc.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -135,26 +138,42 @@ class _AppState extends State<App> {
         darkTheme: ThemeX.darkTheme, // standard dark theme
         themeMode: ThemeMode.system, // device controls theme
         onGenerateRoute: AppRouter.generateRoute,
-        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
-            ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-              return ErrorScreen(errorDetails: errorDetails);
-            };
-
-            if (state is Uninitialized) {
-              return SplashScreen();
-            } else if (state is Unauthenticated) {
-              return LoginScreen();
-            } else if (state is Authenticated) {
-              //BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-              return Scaffold(body: Navbar());
-              //   return HomeScreen();
-            } else {
-              return ErrorScreen(
-                state: state,
-              );
+        home: BlocListener<UserBloc, UserState>(
+          listener: (context, state) {
+            if (state is UserDataLoaded) {
+              //  Navigator.pop(context);
+              context.read<AuthenticationBloc>().add(LoggedIn());
             }
           },
+          child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (ct, state) {
+              ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+                return ErrorScreen(errorDetails: errorDetails);
+              };
+
+              if (state is Uninitialized) {
+                return SplashScreen();
+              } else if (state is Unauthenticated) {
+                return LoginScreen();
+              } else if (state is Authenticated) {
+                return Scaffold(body: Navbar());
+                //   return HomeScreen();
+              } else if (state is AuthenticatedNewUser) {
+                return EditProfileScreen(
+                  userData: UserModel(),
+                  blocContext: context,
+                  newUser: true,
+                  callback: (UserModel userData) {
+                    context.read<UserBloc>()..add(CreateNewUser(userData: userData));
+                  },
+                );
+              } else {
+                return ErrorScreen(
+                  state: state,
+                );
+              }
+            },
+          ),
         ));
   }
 }

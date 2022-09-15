@@ -11,8 +11,7 @@ class AuthRepository {
 
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 
@@ -36,10 +35,16 @@ class AuthRepository {
   }
 
   Future<String?> getUserToken() async {
-    return _firebaseAuth.currentUser?.getIdToken();
+    return await _firebaseAuth.currentUser?.getIdToken();
   }
 
   Future<String> getUserFid() async {
     return await _firebaseAuth.currentUser!.uid;
+  }
+
+  Future<void> deleteUserAccount() async {
+    _googleSignIn
+        .signIn()
+        .then((value) => _firebaseAuth.currentUser?.delete().then((value) => signOut()));
   }
 }

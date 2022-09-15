@@ -209,7 +209,7 @@ class SettingsBottomSheet extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () => context.read<AuthenticationBloc>()
-                                //.add(DeleteAccount())
+                                .add(DeleteAccountRequested())
                                 ,
                                 child: Text('Cancella'.toUpperCase()),
                               ),
