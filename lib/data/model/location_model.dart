@@ -15,7 +15,7 @@ class LocationModel {
   String? desc;
   String? indication;
   bool? saved;
-  UserModel? insertUid;
+  UserModel? uid;
   String? base64;
   String? address;
 
@@ -27,7 +27,7 @@ class LocationModel {
       this.desc,
       this.indication,
       this.saved,
-      this.insertUid,
+      this.uid,
       this.base64,
       this.address});
 

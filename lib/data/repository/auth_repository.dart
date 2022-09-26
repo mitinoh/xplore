@@ -43,8 +43,10 @@ class AuthRepository {
   }
 
   Future<void> deleteUserAccount() async {
-    _googleSignIn
-        .signIn()
-        .then((value) => _firebaseAuth.currentUser?.delete().then((value) => signOut()));
+    String provider = _firebaseAuth.currentUser?.providerData[0].providerId ?? '';
+
+    if (provider == "google.com")
+      _googleSignIn.signIn().then(
+          (value) => _firebaseAuth.currentUser?.delete().then((value) => signOut()));
   }
 }

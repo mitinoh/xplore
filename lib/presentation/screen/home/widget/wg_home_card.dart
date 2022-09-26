@@ -98,7 +98,7 @@ class _HomeMainCardState extends State<HomeMainCard> {
   }
 
   String get locationName {
-    return widget.locationList[_currentIdx].insertUid?.username ?? '@xplore';
+    return widget.locationList[_currentIdx].uid?.username ?? '@xplore';
   }
 
   void _toggleDetail() {
@@ -123,12 +123,12 @@ class _HomeMainCardState extends State<HomeMainCard> {
   }
 
   void _onNameTab() {
-    if (location.insertUid != null) {
+    if (location.uid != null) {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  UserScreen(userRef: location.insertUid, visualOnly: true)));
+                  UserScreen(userRef: location.uid, visualOnly: true)));
     }
   }
 }

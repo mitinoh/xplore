@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/screen/new_location/bloc/bloc.dart';

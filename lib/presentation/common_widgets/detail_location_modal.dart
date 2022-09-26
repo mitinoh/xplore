@@ -81,7 +81,7 @@ class DetailLocationModal extends StatelessWidget {
                                 text: TextSpan(
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text: location.insertUid?.username,
+                                        text: location.uid?.username,
                                         style: GoogleFonts.poppins(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
