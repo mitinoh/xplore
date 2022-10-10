@@ -10,11 +10,11 @@ PODS:
     - FirebaseAuth (~> 8.0.0)
   - Firebase/CoreOnly (8.0.0):
     - FirebaseCore (= 8.0.0)
-  - firebase_auth (3.6.2):
+  - firebase_auth (3.11.2):
     - Firebase/Auth (= 8.0.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.20.0):
+  - firebase_core (1.24.0):
     - Firebase/CoreOnly (= 8.0.0)
     - Flutter
   - FirebaseAuth (8.0.0):
@@ -143,8 +143,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   Firebase: 73c3e3b216ec1ecbc54d2ffdd4670c65c749edb1
-  firebase_auth: f434c837d73a0080ad157cd156ded6bf757eadd7
-  firebase_core: bcaeea430726b8ea7e4d14add17217a1c5171ab7
+  firebase_auth: e93e59a7de68fd6727217c206cc483247b7d7673
+  firebase_core: 773886047e4ae77aafd53ca1aa8ef93b4dfbbb6e
   FirebaseAuth: b8cd992fca5b53dc6eec09e873a3f375f000c5a1
   FirebaseCore: 3f09591d51292843e2a46f18358d60bf4e996255
   FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
