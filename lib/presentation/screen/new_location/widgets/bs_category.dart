@@ -19,7 +19,6 @@ class CategoriesBottomSheet extends StatefulWidget {
 }
 
 class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
-
   late MediaQueryData mediaQueryX = MediaQuery.of(context);
   late ThemeData themex = Theme.of(context);
 
@@ -49,7 +48,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                          text: 'Applica categorie',
+                          text: 'Apply categories',
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -64,7 +63,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                   children: [
                     Expanded(
                       child: Text(
-                          "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                          "Select the categories that best suit what you are adding, don't be afraid to make a mistake 😁",
                           overflow: TextOverflow.visible,
                           style: GoogleFonts.poppins(
                               fontSize: 12,

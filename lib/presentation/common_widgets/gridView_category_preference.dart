@@ -57,7 +57,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisSpacing: 5,
                       mainAxisSpacing: 5,
-                      crossAxisCount: 2,
+                      crossAxisCount: 1,
                       mainAxisExtent: 57),
                   shrinkWrap: true,
                   itemCount: state.locationCategoryList.length,

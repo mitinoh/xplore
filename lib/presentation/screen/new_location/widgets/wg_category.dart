@@ -83,7 +83,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 
   String get selectedCategory {
     return _selectedCategories.isEmpty
-        ? "Aggiungi categoria"
+        ? "Add categories"
         : _getSelectedCategoriesName();
   }
 }

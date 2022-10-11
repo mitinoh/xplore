@@ -25,7 +25,7 @@ class HeaderWidget extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-              "Contribuisci a rendere xplore un posto vibrante. Raccomanda un nuovo posto e ricevi 200 punti.",
+              "Help make xplore a vibrant place. Help the community discover something new every day.",
               overflow: TextOverflow.visible,
               style: GoogleFonts.poppins(
                   fontSize: 12,
@@ -40,7 +40,7 @@ class HeaderWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [HeaderName(message: "Vuoi suggerirci un posto", questionMark: true)],
+      children: [HeaderName(message: "Do you have a place to suggest us?", questionMark: true)],
     );
   }
 }

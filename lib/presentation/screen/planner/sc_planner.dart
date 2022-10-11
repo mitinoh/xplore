@@ -53,7 +53,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [HeaderName(message: "Il tuo planner ", questionMark: false)],
+      children: [HeaderName(message: "Your planner ", questionMark: false)],
     );
   }
 
@@ -62,7 +62,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
       children: [
         Expanded(
           child: Text(
-              "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+              "Are you about to leave but you don't have a clear idea of ​​what to visit? Do you want to know what to see in a dream weekend? We can help you organize your next trip.🛫",
               overflow: TextOverflow.visible,
               style: GoogleFonts.poppins(
                   fontSize: 12,
@@ -95,7 +95,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
               ),
             ),
             Text(
-              "Crea una nuova vacanza",
+              "Let's embark on a new adventure",
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold, fontSize: 14, color: themex.primaryColor),
             ),

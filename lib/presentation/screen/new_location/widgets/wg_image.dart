@@ -59,7 +59,7 @@ class _ImageWidgetState extends State<ImageWidget> {
               ),
             ),
             Text(
-              "Aggiungi foto",
+              "Add photo",
               style: GoogleFonts.poppins(fontSize: 14, color: themex.disabledColor),
             ),
           ],

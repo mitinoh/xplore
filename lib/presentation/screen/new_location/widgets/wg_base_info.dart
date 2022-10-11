@@ -59,7 +59,7 @@ class BaseInfoWidget extends StatelessWidget {
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: "Nome del luogo",
+              hintText: "Location/Experience name",
               hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
@@ -95,7 +95,7 @@ class BaseInfoWidget extends StatelessWidget {
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: "Indirizzo luogo",
+              hintText: "Place address",
               hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
@@ -135,7 +135,7 @@ class BaseInfoWidget extends StatelessWidget {
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: "Breve descrizione del luogo che vuoi raccomandare...",
+              hintText: "Short description of the place or experience you want to enter...",
               hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
@@ -176,7 +176,7 @@ class BaseInfoWidget extends StatelessWidget {
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText:
-                  "Breve tips su come raggiungiere il luogo o in quale stagione lo consogli...",
+                  "A few tricks other users should know, such as which season is best to venture here...",
               hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(

@@ -21,7 +21,7 @@ class CreateButtonWidget extends StatelessWidget {
               _createNewLocation();
             },
             child: ConfirmButton(
-                text: "Raccomanda destinazione",
+                text: "Proceede",
                 colors: themex.primaryColor,
                 colorsText: themex.canvasColor)),
         const SizedBox(height: 30),
