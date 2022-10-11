@@ -7,6 +7,7 @@ import 'package:xplore/presentation/common_widgets/bs_navigation.dart';
 import 'package:xplore/presentation/common_widgets/like_button.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/utils/imager.dart';
+import 'package:geocoding/geocoding.dart';
 
 class DetailLocationModal extends StatelessWidget {
   DetailLocationModal({Key? key, required this.location, this.callback})
@@ -51,53 +52,7 @@ class DetailLocationModal extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                                radius: 25,
-                                backgroundColor: themex.primaryColor,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: CachedNetworkImage(
-                                    imageUrl: Img.getLocationUrl(location),
-                                    imageBuilder: (context, imageProvider) => Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: imageProvider, fit: BoxFit.cover),
-                                      ),
-                                    ),
-                                    placeholder: (context, url) =>
-                                        const LoadingIndicator(),
-                                    errorWidget: (context, url, error) => Center(
-                                      child: Icon(Iconsax.gallery_slash,
-                                          size: 30, color: Colors.red),
-                                    ),
-                                  ),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: location.uid?.username,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            color: themex.indicatorColor)),
-                                    TextSpan(
-                                        text: ' LV. 4',
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            color: themex.indicatorColor))
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        _buildUserInfo(),
                         Row(
                           children: [
                             Padding(
@@ -117,22 +72,21 @@ class DetailLocationModal extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Expanded(
                           child: RichText(
                             textScaleFactor: 1,
                             text: TextSpan(
-                                text: "Il colosseo di roma",
+                                text: location.name,
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: themex.indicatorColor),
                                 children: [
                                   TextSpan(
-                                      text:
-                                          " - lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                                      text: location.indication,
                                       style: GoogleFonts.poppins(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w300,
@@ -142,38 +96,30 @@ class DetailLocationModal extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Text(location.name ?? '',
-                            overflow: TextOverflow.visible,
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300,
-                                color: themex.indicatorColor)),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 10),
                     ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
                         child: CachedNetworkImage(
-                      height: mediaQueryX.size.height * 0.45,
-                      width: mediaQueryX.size.height * 1,
-                      imageUrl: Img.getLocationUrl(location),
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                        ),
-                      ),
-                      placeholder: (context, url) => const LoadingIndicator(),
-                      errorWidget: (context, url, error) => Center(
-                        child: Icon(Iconsax.gallery_slash, size: 30, color: Colors.red),
-                      ),
-                    )),
+                          height: mediaQueryX.size.height * 0.45,
+                          width: mediaQueryX.size.height * 1,
+                          imageUrl: Img.getLocationUrl(location),
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover),
+                            ),
+                          ),
+                          placeholder: (context, url) => const LoadingIndicator(),
+                          errorWidget: (context, url, error) => Center(
+                            child:
+                                Icon(Iconsax.gallery_slash, size: 30, color: Colors.red),
+                          ),
+                        )),
                     const SizedBox(height: 20),
                     Row(
                       children: [
                         Expanded(
-                          child: Text(
-                              "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                          child: Text(location.desc ?? '',
                               overflow: TextOverflow.visible,
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
@@ -189,7 +135,7 @@ class DetailLocationModal extends StatelessWidget {
                         InkWell(
                           onTap: () => {_showNavigationBottomSheet()},
                           child: Text(
-                            "raggiungi con google maps",
+                            "Let's go!",
                             style: GoogleFonts.poppins(
                                 decoration: TextDecoration.underline,
                                 fontSize: 14,
@@ -202,19 +148,23 @@ class DetailLocationModal extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            textScaleFactor: 1,
-                            text: TextSpan(
-                              text: "via del successo, piacenza 29120",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  color: themex.indicatorColor),
-                            ),
-                          ),
-                        ),
+                        FutureBuilder<String>(
+                            future: _getLocationStreet,
+                            builder: (context, snapshot) {
+                              return Expanded(
+                                child: RichText(
+                                  textAlign: TextAlign.center,
+                                  textScaleFactor: 1,
+                                  text: TextSpan(
+                                    text: snapshot.data,
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w300,
+                                        color: themex.indicatorColor),
+                                  ),
+                                ),
+                              );
+                            })
                       ],
                     ),
                   ],
@@ -223,6 +173,65 @@ class DetailLocationModal extends StatelessWidget {
             ),
           );
         });
+  }
+
+  Widget _buildUserInfo() {
+    return location.uid != null
+        ? Row(
+            children: [
+              CircleAvatar(
+                  radius: 25,
+                  backgroundColor: themex.primaryColor,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: CachedNetworkImage(
+                      imageUrl: Img.getUserUrl(location.uid),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                        ),
+                      ),
+                      placeholder: (context, url) => const LoadingIndicator(),
+                      errorWidget: (context, url, error) => Center(
+                        child: Icon(Iconsax.gallery_slash, size: 30, color: Colors.red),
+                      ),
+                    ),
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: location.uid?.username,
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: themex.indicatorColor)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )
+        : RichText(
+            text: TextSpan(
+              text: "@xplore",
+              style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: themex.indicatorColor),
+            ),
+          );
+  }
+
+  Future<String> get _getLocationStreet async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        location.geometry?.coordinates?[1] ?? 0, location.geometry?.coordinates?[0] ?? 0);
+    Placemark place = placemarks[0];
+
+    return place != null ? place.street ?? place.name ?? '' : '-';
   }
 
   void _showNavigationBottomSheet() =>

@@ -53,7 +53,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                          text: 'Raggiungi luogo',
+                          text: "Let's go on a new adventure",
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -68,21 +68,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                          "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
-                          overflow: TextOverflow.visible,
-                          style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: themex.disabledColor)),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                          "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
+                          "Reach unforgettable places and experiences with a simple click. We will open your favorite car navigator and we will always be here to assist you, have a nice trip.",
                           overflow: TextOverflow.visible,
                           style: GoogleFonts.poppins(
                               fontSize: 12,
@@ -99,7 +85,7 @@ class GoNavigationBottomSheet extends StatelessWidget {
                               longitude: location.geometry?.coordinates?[0] ?? 0.0))
                         },
                     child: ConfirmButton(
-                      text: "Raggiungi con google maps",
+                      text: "google maps",
                       colors: themex.primaryColor,
                       colorsText: themex.canvasColor,
                     )),

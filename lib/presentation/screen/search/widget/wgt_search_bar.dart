@@ -15,7 +15,7 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _blocContext = context;
-themex = Theme.of(context);
+    themex = Theme.of(context);
     return Row(
       children: [
         Expanded(
@@ -39,7 +39,7 @@ themex = Theme.of(context);
                 contentPadding: const EdgeInsets.all(15.0),
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
-                hintText: "cerca un posto o un @utente",
+                hintText: "Look for a location or a @user",
                 hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
                 border: const OutlineInputBorder(),
                 suffixIconColor: themex.primaryColor,

@@ -66,7 +66,7 @@ class DetailMenuWidget extends StatelessWidget {
           children: [
             _buildDescription(),
             _buildIndications(),
-            //  _buildCategories(),
+            _buildCategories(),
           ]);
 
   TextSpan _buildDescription() => TextSpan(
@@ -78,8 +78,7 @@ class DetailMenuWidget extends StatelessWidget {
       ));
 
   TextSpan _buildIndications() => TextSpan(
-      text:
-          "\n\nQui ci sarà la parte dei consigli su come raggiungere il luogo e altri piccoli consigli.",
+      text: location.indication,
       style: GoogleFonts.poppins(
         fontSize: 12.5,
         fontWeight: FontWeight.w300,
@@ -87,7 +86,12 @@ class DetailMenuWidget extends StatelessWidget {
       ));
 
   TextSpan _buildCategories() => TextSpan(
-      text: "\n\n#mare #italy #ladolcevita #estate",
+      text: '\n#' +
+          (location.locationCategory
+                  ?.map((category) => category.name)
+                  .toList()
+                  .join(', #') ??
+              ''),
       style: GoogleFonts.poppins(
         fontSize: 12.5,
         fontWeight: FontWeight.w400,

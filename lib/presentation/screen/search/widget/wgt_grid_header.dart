@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:xplore/app/app.dart';
 
 class GridHeaderWidget extends StatelessWidget {
   GridHeaderWidget({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class GridHeaderWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 10.0, top: 15, bottom: 15),
             child: Text(
-              "Suggerimenti",
+              "Some inspirations...",
               style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
