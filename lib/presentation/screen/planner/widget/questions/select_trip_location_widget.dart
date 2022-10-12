@@ -12,9 +12,13 @@ import 'package:xplore/data/model/move_planner_model.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/data/model/trip_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
+import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
+import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
+import 'package:xplore/presentation/screen/new_location/widgets/wg_image.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
+import 'package:xplore/utils/imager.dart';
 import '../../bloc_question/bloc.dart';
 
 class SelectTripLocation extends StatefulWidget {
@@ -152,8 +156,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           padding: const EdgeInsets.only(left: 20.0, right: 0, bottom: 0, top: 10),
           child: Text(
               index == 0
-                  ? "Non ci sono più posti disponibili"
-                  : "Per questo giorno non hai programmato nessuna attività. Trascina un attività qua dentro!",
+                  ? "There are no places or events"
+                  : "You have not scheduled any activities for this day. Drag an activity in here!",
               style: GoogleFonts.poppins(
                   fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey)),
         ),
@@ -166,8 +170,8 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
           child: RichText(
             text: TextSpan(
               text: index == 0
-                  ? 'Ecco la lista di tutti i posti che abbiamo trovato.'
-                  : 'Giorno ',
+                  ? 'Here is what we found that might interest you, drag the place/event you are interested in to the day you would like to visit it..'
+                  : 'Day ',
               style: GoogleFonts.poppins(
                   fontSize: 13, fontWeight: FontWeight.w300, color: Colors.grey),
               children: <TextSpan>[
@@ -202,7 +206,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       child: BlocListener<PlannerQuestionBloc, PlannerQuestionState>(
         listener: (context, state) {
           if (state is PlannerError) {
-            print("error");
+            print("Ops..");
           }
         },
         child: BlocBuilder<PlannerQuestionBloc, PlannerQuestionState>(
@@ -227,23 +231,31 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CircleAvatar(
-                              backgroundColor: themex.primaryColor,
-                              backgroundImage: const NetworkImage(
-                                  'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'),
-                            ),
-                            Expanded(
-                              child: Text(
-                                loc.name ?? '',
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: themex.indicatorColor,
-                                ),
+                            InkWell(
+                              onTap: (() {
+                                _buildlocationDetailModalBottomSheet(loc);
+                              }),
+                              child: CircleImageWidget(
+                                imageUrl: Img.getLocationUrl(loc),
+                                radius: 20,
                               ),
                             ),
+                            InkWell(
+                                onTap: (() {
+                                  _buildlocationDetailModalBottomSheet(loc);
+                                }),
+                                child: Expanded(
+                                  child: Text(
+                                    loc.name ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                      color: themex.indicatorColor,
+                                    ),
+                                  ),
+                                )),
                             Padding(
                               padding: const EdgeInsets.only(right: 15.0, left: 15),
                               child: Icon(
@@ -292,7 +304,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
             BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerEndQuestion())
           },
           child: ConfirmButton(
-              text: "Abbiamo finito",
+              text: "We finished",
               colors: themex.primaryColor,
               colorsText: themex.canvasColor),
         ),
@@ -311,43 +323,13 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       }
     }
 
-/*
-    Map<String, dynamic> planQuery = {};
-    planQuery["goneDate"] = DateUtils.dateOnly(goneDate).toIso8601String();
-    planQuery["returnDate"] = DateUtils.dateOnly(returnDate).toIso8601String();
-    planQuery["plannedLocation"] = planList;
-    planQuery["tripName"] = tripName;
-    planQuery["distance"] = distance;
-    planQuery["coordinate"] = {"lat": latitude, "lng": longitude, "alt": 0};
-    planQuery["avoidCategory"] = avoidCategory;
-    */
-
     BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.plannedLocation =
         planList;
     BlocProvider.of<PlannerQuestionBloc>(context).add(SaveTrip(
         newTrip: BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions));
-/*
-    widget.planQuery
-        .putIfAbsent("goneDate", () => widget.goneDate.toIso8601String());
-    widget.planQuery
-        .putIfAbsent("returnDate", () => widget.returnDate.toIso8601String());
-    widget.planQuery.putIfAbsent("plannedLocation", () => planList);
-    widget.planQuery.putIfAbsent(
-        "coordinate",
-        () =>
-            {"lat": widget.locLatitude, "lng": widget.locLongitude, "alt": 0});
-            */
-/*
-    widget.planQuery.putIfAbsent(
-        "avoidCategory",
-        () => widget.mng.filter?["locationcategory"]
-            .toString()
-            .substring(4)
-            .split(','));
-*/
-    //widget.planQuery["trip"] = [planList.join(",")];
-    /*
-    BlocProvider.of<PlantripBloc>(widget.context)
-        .add(SaveTrip(body: widget.planQuery));*/
+  }
+
+  void _buildlocationDetailModalBottomSheet(LocationModel location) {
+    DetailLocationModal(location: location).show(context);
   }
 }

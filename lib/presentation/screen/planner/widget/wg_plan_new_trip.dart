@@ -81,9 +81,9 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
           Navigator.pop(context);
         },
         child: SuccessScreen(
-          title: "Viaggio pianificato",
+          title: "Holiday created",
           subtitle:
-              "Abbiamo pianificato la tua vacanza, buona fortuna e altre stronzate da radical chic.",
+              "We've got your vacation planned, good luck and other radical chic bullshit.",
         ),
       );
     } else if (state is PlannerQuestionError) {

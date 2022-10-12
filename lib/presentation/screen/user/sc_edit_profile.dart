@@ -2,16 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/user_model.dart';
-import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
-import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
-import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
-
-import '../../../app/auth_bloc/authentication_bloc.dart';
-import '../../../app/auth_bloc/bloc.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen(
@@ -27,11 +20,11 @@ class EditProfileScreen extends StatelessWidget {
   final bool newUser;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _userBioController = TextEditingController();
-   final Function(UserModel)? callback;
+  final Function(UserModel)? callback;
 
   late MediaQueryData mediaQueryX;
   late ThemeData themex;
-
+  late BuildContext buildContext;
   void initController() async {
     _usernameController.text = userData.username ?? '';
     _userBioController.text = userData.bio ?? '';
@@ -39,6 +32,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    buildContext = context;
     mediaQueryX = MediaQuery.of(context);
     themex = Theme.of(context);
     initController();
@@ -206,7 +200,8 @@ class EditProfileScreen extends StatelessWidget {
       // Navigator.of(blocContext, rootNavigator: true).pushNamed(AppRouter.HOME);
     } else {
       blocContext.read<UserBloc>().add(UpdateUserData(newUserData: userData));
+      print(1);
+      Navigator.pop(buildContext);
     }
-    // Navigator.pop(_context);
   }
 }

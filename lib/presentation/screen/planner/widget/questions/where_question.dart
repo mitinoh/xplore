@@ -52,21 +52,19 @@ class _WhereQuestionState extends State<WhereQuestion> {
           children: [
             Subtitle(
               text:
-                  "Parti per una breve vacanza o invece per una lunga oppure semplicemente in giornata.",
+                  "Answer a few simple questions and we'll help you find inspiration for your next vacation.",
               colors: themex.disabledColor,
             ),
             const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                HeaderName(message: "Dove vorresti andare ", questionMark: true)
-              ],
+              children: [HeaderName(message: "Where would you go", questionMark: true)],
             ),
             const SizedBox(height: 20),
             Subtitle(
               text:
-                  "Scegli una città come destinazione e ti aiuteremo a scoprire le attrazioni più belle.",
+                  "Choose a city as your destination and we will help you discover the most beautiful attractions.",
               colors: themex.disabledColor,
             ),
             const SizedBox(height: 20),
@@ -76,7 +74,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                     child: Column(
                   children: [
                     Subtitle(
-                      text: "es. Roma, Milano, Venezia, Firenze, Napoli Torino...",
+                      text: "es. Rome, Barcelona, Paris, Las Vegas...",
                       colors: themex.disabledColor,
                     ),
                     const SizedBox(height: 20),
@@ -100,7 +98,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                               contentPadding: const EdgeInsets.all(15.0),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
-                              hintText: "Desitanazione",
+                              hintText: "Destination",
                               hintStyle: GoogleFonts.poppins(
                                   color: themex.disabledColor, fontSize: 14),
                               border: const OutlineInputBorder(),
@@ -150,7 +148,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                               ),
                             ),
                             Text(
-                              "Cerca nella mappa",
+                              "Choose on map",
                               style: GoogleFonts.poppins(
                                   fontSize: 14, color: themex.disabledColor),
                             ),
@@ -167,8 +165,8 @@ class _WhereQuestionState extends State<WhereQuestion> {
                                   overflow: TextOverflow.ellipsis,
                                   text: TextSpan(
                                       text: _hasFoundLocation
-                                          ? 'Luoghi trovati\n'
-                                          : 'nessun luogo trovato',
+                                          ? 'Locations found\n'
+                                          : 'No location found',
                                       style: GoogleFonts.poppins(
                                           color: _hasFoundLocation
                                               ? Colors.black
@@ -200,7 +198,7 @@ class _WhereQuestionState extends State<WhereQuestion> {
                   getCoordinate(_locationController.text.toString()),
                 },
             child: ConfirmButton(
-                text: "Prossima domanda",
+                text: "Next question",
                 colors: themex.primaryColor,
                 colorsText: themex.canvasColor))
       ],

@@ -54,7 +54,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                HeaderName(message: "Quando vorresti partire ", questionMark: true)
+                HeaderName(message: "When would you like to leave", questionMark: true)
               ],
             ),
             const SizedBox(height: 20),
@@ -62,7 +62,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
               children: [
                 Expanded(
                   child: Text(
-                      "Ora seleziona la durata della tua vacanza, inserendo la data di partenza e quella di ritorno.",
+                      "Now select the duration of your vacation, entering the departure and return dates.",
                       overflow: TextOverflow.visible,
                       style: GoogleFonts.poppins(
                           fontSize: 12,
@@ -90,7 +90,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                       ),
                     ),
                     Text(
-                      "Data di partenza ",
+                      "Departure date",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
@@ -118,7 +118,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                         color: themex.indicatorColor,
                       ),
                     ),
-                    Text("Data di ritorno ",
+                    Text("Return date",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
@@ -130,7 +130,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
             const SizedBox(height: 20),
             RichText(
               text: TextSpan(
-                text: 'Hai scelto di partire il giorno ',
+                text: 'Leave day: ',
                 style: GoogleFonts.poppins(
                     fontSize: 12,
                     fontWeight: FontWeight.w300,
@@ -148,7 +148,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
             const SizedBox(height: 5),
             RichText(
               text: TextSpan(
-                text: 'Giorno di ritorno ',
+                text: 'Return day',
                 style: GoogleFonts.poppins(
                     fontSize: 12, fontWeight: FontWeight.w300, color: Colors.grey),
                 children: <TextSpan>[
@@ -167,8 +167,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
           onTap: () {
             if (returnDate.isBefore(goneDate)) {
               BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerQuestionErrorEvent(
-                  message:
-                      'la data di ritorno non può essere precedente a quella di partenza'));
+                  message: 'Are you a time traveler by chance?'));
             } else {
               List<int> dayAvaiable = [];
               for (int i = goneDate.weekday; i < returnDate.weekday; i++) {
@@ -190,7 +189,7 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
             }
           },
           child: ConfirmButton(
-              text: "prossima domanda",
+              text: "Next question",
               colors: themex.primaryColor,
               colorsText: themex.canvasColor),
         ),

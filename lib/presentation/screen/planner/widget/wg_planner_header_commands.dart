@@ -30,7 +30,7 @@ class PlannerHeaderCommandWidget extends StatelessWidget {
                 )),
             RichText(
               text: TextSpan(
-                text: 'Creazione vacanza',
+                text: 'Plan your vacation',
                 style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

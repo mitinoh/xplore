@@ -33,14 +33,12 @@ class AvoidCategoryQuestion extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                HeaderName(message: "Categorie da evitare ", questionMark: true)
-              ],
+              children: [HeaderName(message: "Categories to avoid", questionMark: true)],
             ),
             const SizedBox(height: 20),
             Subtitle(
               text:
-                  "Seleziona le categorie che vorresti evitare in vacanza oppure prosegui.",
+                  "Tell us what you are not interested in and we will not propose places about it.",
               colors: themex.disabledColor,
             ),
             const SizedBox(height: 20),
@@ -61,7 +59,7 @@ class AvoidCategoryQuestion extends StatelessWidget {
               print(selectedCategories);
             },
             child: ConfirmButton(
-                text: "prossima domanda",
+                text: "Next question",
                 colors: themex.primaryColor,
                 colorsText: themex.canvasColor)),
       ],

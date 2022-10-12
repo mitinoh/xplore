@@ -33,14 +33,14 @@ class TripNameQuestion extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [HeaderName(message: "Dai un nome alla tua vacanza ")],
+              children: [HeaderName(message: "Name your holiday")],
             ),
             const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
                   child: Text(
-                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      "Go wild and find an interesting name for your next trip. 😜",
                       overflow: TextOverflow.visible,
                       style: GoogleFonts.poppins(
                           fontSize: 12,
@@ -65,7 +65,7 @@ class TripNameQuestion extends StatelessWidget {
                       contentPadding: const EdgeInsets.all(15.0),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
-                      hintText: "Nome vacanza",
+                      hintText: "Vacation name",
                       hintStyle:
                           GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
                       border: const OutlineInputBorder(),
@@ -102,7 +102,7 @@ class TripNameQuestion extends StatelessWidget {
               }
           },
           child: ConfirmButton(
-              text: "prossima domanda",
+              text: "Let's go",
               colors: themex.primaryColor,
               colorsText: themex.canvasColor),
         ),

@@ -15,7 +15,7 @@ class DistanceQuestion extends StatefulWidget {
 }
 
 class _DistanceQuestionState extends State<DistanceQuestion> {
-  double _currentSliderValue = 2;
+  double _currentSliderValue = 1;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                HeaderName(message: "Quanto puoi spostarti ", questionMark: true)
+                HeaderName(message: "How far can you move?", questionMark: true)
               ],
             ),
             const SizedBox(height: 20),
@@ -51,7 +51,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
               children: [
                 Expanded(
                   child: Text(
-                      "lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum is simply dummy.",
+                      "Distance is always very critical, depending on the means of transport you will have at your disposal, choose a more or less large distance.",
                       overflow: TextOverflow.visible,
                       style: GoogleFonts.poppins(
                           fontSize: 12,
@@ -96,12 +96,12 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
               ),
               child: Slider(
                 value: _currentSliderValue,
-                min: 0,
-                max: 10,
-                divisions: 10,
+                min: 1,
+                max: 50,
+                divisions: 50,
                 onChanged: (double value) {
                   setState(() {
-                    _currentSliderValue = value;
+                    _currentSliderValue = double.parse(value.toStringAsFixed(0));
                   });
                 },
               ),
@@ -113,7 +113,7 @@ class _DistanceQuestionState extends State<DistanceQuestion> {
             setDistanceLocation();
           },
           child: ConfirmButton(
-              text: "prossima domanda",
+              text: "Almost done",
               colors: themex.primaryColor,
               colorsText: themex.canvasColor),
         ),

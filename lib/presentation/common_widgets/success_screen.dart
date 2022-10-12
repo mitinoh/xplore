@@ -51,7 +51,7 @@ class SuccessScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Text("Tap ovunque per continuare".toUpperCase(),
+          Text("Tap anywhere to continue".toUpperCase(),
               style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
