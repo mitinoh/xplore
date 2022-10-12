@@ -80,7 +80,7 @@ class EditProfileScreen extends StatelessWidget {
       onTap: () {
         _updateUserInfo();
       },
-      child: Text("Salva".toLowerCase(),
+      child: Text("Save".toLowerCase(),
           style: GoogleFonts.poppins(
               fontSize: 16, fontWeight: FontWeight.w700, color: themex.primaryColor)),
     ));
@@ -88,7 +88,7 @@ class EditProfileScreen extends StatelessWidget {
 
   Text _pageTitle() {
     return Text(
-      "Modifica profilo",
+      "Update profile",
       style: GoogleFonts.poppins(
           fontSize: 16, fontWeight: FontWeight.w600, color: themex.indicatorColor),
     );
@@ -106,7 +106,7 @@ class EditProfileScreen extends StatelessWidget {
   Subtitle _subTitle() {
     return Subtitle(
         text:
-            "Qui puoi cambiare il tuo username e personalizzare in base al tuo stile o alla tua personalità la tua biografia.",
+            "Here you can change your username and customize your bio according to your style or personality.",
         colors: themex.disabledColor);
   }
 
@@ -163,7 +163,7 @@ class EditProfileScreen extends StatelessWidget {
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: "Inserisci la tua bio...",
+              hintText: "Insert your bio here...",
               hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(

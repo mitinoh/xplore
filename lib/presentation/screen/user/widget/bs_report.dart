@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/enum/report_type.dart';
 import 'package:xplore/data/model/report_model.dart';
 import 'package:xplore/data/model/user_model.dart';

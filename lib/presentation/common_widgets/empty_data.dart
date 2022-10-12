@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+
 class EmptyData extends StatelessWidget {
   const EmptyData({Key? key}) : super(key: key);
 
@@ -23,22 +24,18 @@ class EmptyData extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Text(
-          "no data found",
+          "No data found",
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: lightDark.primaryColor),
+              fontSize: 16, fontWeight: FontWeight.w500, color: lightDark.primaryColor),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20, top: 5),
           child: Text(
-            "Non hai ancora consigliato nessun luogo.",
+            "Still no activity here.",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
-                fontSize: 13,
-                fontWeight: FontWeight.w300,
-                color: lightDark.primaryColor),
+                fontSize: 13, fontWeight: FontWeight.w300, color: lightDark.primaryColor),
           ),
         ),
       ],

@@ -126,7 +126,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           TextSpan(
-            text: "La tua biografia:\n".toUpperCase() + user.bio.toString(),
+            text: "Your bio:\n".toUpperCase() + user.bio.toString(),
             style: GoogleFonts.poppins(
                 fontSize: 12, fontWeight: FontWeight.w300, color: themex.disabledColor),
           ),

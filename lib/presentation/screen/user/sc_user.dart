@@ -26,8 +26,8 @@ class _UserScreenState extends State<UserScreen> {
   late BuildContext _blocContext;
 
   final List<dynamic> tabs = <dynamic>[
-    {"name": '❤️ Posti piaciuti', "event": () => {}},
-    {"name": '📤 Caricati', "event": () => {}}
+    {"name": '❤️ Liked', "event": () => {}},
+    {"name": '📤 Uploaded', "event": () => {}}
   ];
 
   @override

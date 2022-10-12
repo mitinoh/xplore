@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class SettingsBottomSheet extends StatelessWidget {
   const SettingsBottomSheet({
     Key? key,
@@ -30,7 +32,7 @@ class SettingsBottomSheet extends StatelessWidget {
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                          text: 'Impostazioni',
+                          text: 'Settings',
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -41,20 +43,6 @@ class SettingsBottomSheet extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                          "lorem ipsum is simply dummy text of the printing and typesetting industry. Versione app 1.0.1",
-                          overflow: TextOverflow.visible,
-                          style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: themex.disabledColor)),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 30),
                 Column(
                   children: [
                     Row(
@@ -70,7 +58,7 @@ class SettingsBottomSheet extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Supportaci con 5 stelle",
+                            "Support us with 5 start",
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -96,7 +84,7 @@ class SettingsBottomSheet extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Aiuto ed assistenza",
+                            "Help and assistance",
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -148,7 +136,7 @@ class SettingsBottomSheet extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Termini e condizioni",
+                            "Terms and conditions",
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -180,7 +168,7 @@ class SettingsBottomSheet extends StatelessWidget {
                               );
                             },
                             child: Text(
-                              "Disconnetti account",
+                              "Disconnect account",
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -199,19 +187,32 @@ class SettingsBottomSheet extends StatelessWidget {
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Cancella account'),
-                            content: const Text(
-                                "Per cancellare l'account devi prima effettuare di nuovo il login e poi potrai effettuare la cancellazione"),
+                            backgroundColor: themex.backgroundColor,
+                            title: Text('Delete account',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16.5,
+                                    fontWeight: FontWeight.w600,
+                                    color: themex.indicatorColor)),
+                            content: Text(
+                                "We are sorry to see you go 🙁 \nAre you sure you want to continue?",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14.5, color: themex.indicatorColor)),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () => Navigator.pop(context, 'Cancel'),
-                                child: const Text('NO'),
+                                child: Text('NO',
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        color: themex.primaryColor)),
                               ),
                               TextButton(
-                                onPressed: () => context.read<AuthenticationBloc>()
-                                .add(DeleteAccountRequested())
-                                ,
-                                child: Text('Cancella'.toUpperCase()),
+                                onPressed: () => context
+                                    .read<AuthenticationBloc>()
+                                    .add(DeleteAccountRequested()),
+                                child: Text('yes'.toUpperCase(),
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        color: themex.primaryColor)),
                               ),
                             ],
                           ),
@@ -231,7 +232,7 @@ class SettingsBottomSheet extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Cancella account",
+                              "Delete account",
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
