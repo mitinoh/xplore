@@ -9,8 +9,10 @@ class Img {
     return (user != null) ? "${basePath}/user/${user.id}.jpg" : 'defaultImage';
   }
 
-  static String getLocationUrl(LocationModel location) {
-    return "${basePath}/location/${location.id}.jpg";
+  static String getLocationUrl(LocationModel? location) {
+    return (location != null)
+        ? "${basePath}/location/${location.id}.jpg"
+        : 'defaultImage';
   }
 
   static String getplannedTripUrl(PlannerModel planner) {

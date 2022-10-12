@@ -21,16 +21,19 @@ class TripDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     themex = Theme.of(context);
     _blocContext = context;
-    return Scaffold(
-        backgroundColor: themex.canvasColor,
-        body: SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20),
-                child: CustomScrollView(slivers: <Widget>[
-                  _tripName(),
-                  _subHeader(),
-                  _locationInfo(),
-                ]))));
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.75,
+      child: Scaffold(
+          backgroundColor: themex.canvasColor,
+          body: SafeArea(
+              child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  child: CustomScrollView(slivers: <Widget>[
+                    _tripName(),
+                    _subHeader(),
+                    _locationInfo(),
+                  ])))),
+    );
   }
 
   Widget _locationInfo() {
@@ -50,9 +53,7 @@ class TripDetailScreen extends StatelessWidget {
         snap: true,
         elevation: 0,
         backgroundColor: themex.canvasColor,
-        leading: GestureDetector(
-            onTap: () => {Navigator.pop(_blocContext)},
-            child: Icon(Iconsax.arrow_left, color: themex.primaryColor)),
+        leading: SizedBox(),
         leadingWidth: 23,
         title: Text(planTrip.tripName ?? '',
             style: GoogleFonts.poppins(

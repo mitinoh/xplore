@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/planner_model.dart';
-import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
-import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
-import 'package:xplore/utils/imager.dart';
 
 class CurrentPlannedTripList extends StatelessWidget {
   CurrentPlannedTripList({
@@ -32,7 +28,7 @@ class CurrentPlannedTripList extends StatelessWidget {
           } else if (state is CurrentPlantripLoadedTrip) {
             return state.inProgressTrip.length > 0
                 ? _gridList(state.inProgressTrip)
-                : Text("vuoto");
+                : Text("Empty");
           } else if (state is CurrentPlannerError) {
             return ErrorScreen(state: state, message: state.message);
           } else {
@@ -69,13 +65,14 @@ class CurrentPlannedTripList extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => TripDetailScreen(
-                        planTrip: pTrip,
-                      )),
-            );
+            showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return TripDetailScreen(
+                    planTrip: pTrip,
+                  );
+                });
           },
           child: Align(
             alignment: Alignment.center,
@@ -109,7 +106,7 @@ class CurrentPlannedTripList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "in corso...",
+              "in progress...",
               style: GoogleFonts.poppins(
                   fontSize: 12, fontWeight: FontWeight.w300, color: themex.disabledColor),
             ),
@@ -122,7 +119,7 @@ class CurrentPlannedTripList extends StatelessWidget {
   Widget _tripImage(PlannerModel pTrip) {
     return Text(
       pTrip.tripName ?? '-',
-      style: TextStyle(color: themex.primaryColor ),
+      style: TextStyle(color: themex.primaryColor),
     );
     //return CircleImageWidget(imageUrl: Img.getplannedTripUrl(pTrip));
   }

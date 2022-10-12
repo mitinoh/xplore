@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/planner_model.dart';
+import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_text.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
+import 'package:xplore/utils/imager.dart';
 
 class FuturePlannedTripList extends StatelessWidget {
   FuturePlannedTripList({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class FuturePlannedTripList extends StatelessWidget {
           } else if (state is FuturePlannerTripLoaded) {
             return state.futureTrip.length > 0
                 ? _listView(state.futureTrip)
-                : Text("Vuoto");
+                : Text("Empty");
           } else if (state is FuturePlannerError) {
             return ErrorScreen(state: state, message: state.message);
           } else {
@@ -57,7 +58,7 @@ class FuturePlannedTripList extends StatelessWidget {
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: _tripInfo(index, snapshot.data ?? '')),
+                            children: _tripInfo(pTrip, index, snapshot.data ?? '')),
                         Divider(
                           height: 30,
                           color: themex.primaryColor,
@@ -71,11 +72,14 @@ class FuturePlannedTripList extends StatelessWidget {
         });
   }
 
-  List<Widget> _tripInfo(int index, String text) {
+  List<Widget> _tripInfo(List<PlannerModel> pTrip, int index, String text) {
     return [
       Padding(
           padding: const EdgeInsets.only(right: 8.0),
-          child: CircleTextWidget(text: index + 1)),
+          child: CircleImageWidget(
+            imageUrl: Img.getLocationUrl(pTrip[index].plannedLocation?[0].location),
+            radius: 20,
+          )),
       Expanded(
         child: Text(text,
             textAlign: TextAlign.start,
@@ -101,7 +105,6 @@ class FuturePlannedTripList extends StatelessWidget {
     showModalBottomSheet(
         context: _blocContext,
         isScrollControlled: true,
-        useRootNavigator: true,
         builder: (context) {
           return TripDetailScreen(planTrip: pTrip);
         });
