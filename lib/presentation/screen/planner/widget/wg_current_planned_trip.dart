@@ -7,6 +7,10 @@ import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart
 import 'package:geocoding/geocoding.dart';
 import 'package:xplore/presentation/screen/planner/bloc_current_trip/bloc.dart';
 import 'package:xplore/presentation/screen/planner/sc_trip_detail.dart';
+import 'package:xplore/utils/const/COLOR_CONST.dart';
+import 'package:xplore/utils/imager.dart';
+
+import '../../../common_widgets/wg_circle_image.dart';
 
 class CurrentPlannedTripList extends StatelessWidget {
   CurrentPlannedTripList({
@@ -28,7 +32,11 @@ class CurrentPlannedTripList extends StatelessWidget {
           } else if (state is CurrentPlantripLoadedTrip) {
             return state.inProgressTrip.length > 0
                 ? _gridList(state.inProgressTrip)
-                : Text("Empty");
+                : Text("Empty",
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: themex.indicatorColor));
           } else if (state is CurrentPlannerError) {
             return ErrorScreen(state: state, message: state.message);
           } else {
@@ -78,9 +86,10 @@ class CurrentPlannedTripList extends StatelessWidget {
             alignment: Alignment.center,
             child: Container(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [themex.primaryColor]),
+                  gradient: LinearGradient(
+                      colors: [themex.primaryColor, COLOR_CONST.DEFAULT40]),
                   shape: BoxShape.circle),
-              child: Padding(padding: const EdgeInsets.all(2), child: _tripImage(pTrip)),
+              child: _tripImage(pTrip),
             ),
           ),
         ),
@@ -117,11 +126,8 @@ class CurrentPlannedTripList extends StatelessWidget {
   }
 
   Widget _tripImage(PlannerModel pTrip) {
-    return Text(
-      pTrip.tripName ?? '-',
-      style: TextStyle(color: themex.primaryColor),
-    );
-    //return CircleImageWidget(imageUrl: Img.getplannedTripUrl(pTrip));
+    return CircleImageWidget(
+        radius: 35, imageUrl: Img.getLocationUrl(pTrip.plannedLocation?[0].location));
   }
 
   Future<String> _getUserLocation(PlannerModel pt) async {
