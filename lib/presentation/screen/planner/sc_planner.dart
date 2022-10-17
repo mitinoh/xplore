@@ -27,21 +27,30 @@ class _PlannerScreenState extends State<PlannerScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                _headerTitle(),
-                const SizedBox(height: 20),
-                _headerDesc(),
-                const SizedBox(height: 20),
-                _locationImage(),
-                //topMenuPlanner(),
-                //headerPlanner(),
-                const SizedBox(height: 20),
-                _currentPlannedTrip(),
-                const SizedBox(height: 20),
-                _futurePlannedTrip(),
-              ],
+            child: RefreshIndicator(
+              color: themex.indicatorColor,
+              backgroundColor: themex.primaryColor,
+              edgeOffset: 0,
+              onRefresh: () {
+                return Future<void>.delayed(const Duration(seconds: 1));
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  _headerTitle(),
+                  const SizedBox(height: 20),
+                  _headerDesc(),
+                  const SizedBox(height: 20),
+                  _locationImage(),
+                  //topMenuPlanner(),
+                  //headerPlanner(),
+
+                  const SizedBox(height: 20),
+                  _currentPlannedTrip(),
+                  const SizedBox(height: 20),
+                  _futurePlannedTrip(),
+                ],
+              ),
             ),
           ),
         ),
@@ -106,11 +115,29 @@ class _PlannerScreenState extends State<PlannerScreen> {
   }
 
   Widget _currentPlannedTrip() {
-    return CurrentPlannedTripList();
+    return Column(
+      children: [
+        Text("On going trips",
+            textAlign: TextAlign.start,
+            style: GoogleFonts.poppins(
+                fontSize: 16, fontWeight: FontWeight.w300, color: themex.indicatorColor)),
+        Divider(),
+        CurrentPlannedTripList(),
+      ],
+    );
   }
 
   Widget _futurePlannedTrip() {
-    return FuturePlannedTripList();
+    return Column(
+      children: [
+        Text("Future trips",
+            textAlign: TextAlign.start,
+            style: GoogleFonts.poppins(
+                fontSize: 16, fontWeight: FontWeight.w300, color: themex.indicatorColor)),
+        Divider(),
+        FuturePlannedTripList(),
+      ],
+    );
   }
 
   void _planNewTrip() {
@@ -125,5 +152,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
                 },
               )),
     );
+  }
+
+  void _onRefresh() async {
+    BlocProvider.of<CurrentPlannerBloc>(context)..add(GetCurrentPlannedTrip());
   }
 }
