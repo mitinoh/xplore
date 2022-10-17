@@ -215,25 +215,11 @@ class _WhereQuestionState extends State<WhereQuestion> {
       BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.geometry = geo;
       BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.destinationName =
           location;
-/*
-      BlocProvider.of<PlannerQuestionBloc>(context)
-          .planTripQuestionsMap["latitude"] = locations[0].latitude;
-      BlocProvider.of<PlannerQuestionBloc>(context)
-          .planTripQuestionsMap["longitude"] = locations[0].longitude;
-      BlocProvider.of<PlannerQuestionBloc>(context)
-          .planTripQuestionsMap["locationNam"] = location;
-
-*/
       BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion());
-      //locLatitude = locations[0].latitude;
-      //locLongitude = locations[0].longitude;
 
-      //incrementQuest();
     } catch (e) {
       BlocProvider.of<PlannerQuestionBloc>(context)
-          .add(PlannerQuestionErrorEvent(message: "nessun posto trovato"));
-      // context.read<PlannerQuestionBloc>().add(PlanTripErrorEvent(message: 'mess111'));
-      // _planTripBloc.add(PlanTripErrorEvent(message: 'mess111'));
+          .add(PlannerQuestionErrorEvent(message: "No location found"));
     }
   }
 

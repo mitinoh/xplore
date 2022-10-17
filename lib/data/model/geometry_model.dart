@@ -7,7 +7,7 @@ part 'geometry_model.g.dart';
 class GeometryModel {
 
 
-  GeoJSONType? type; // TODO: creare un enum
+  GeoJSONType? type; 
   List<double>? coordinates;
 
   GeometryModel({required this.type, this.coordinates});

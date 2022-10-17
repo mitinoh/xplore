@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/data/enum/report_type.dart';
 import 'package:xplore/data/model/report_model.dart';
 import 'package:xplore/data/model/user_model.dart';
+import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/screen/user/bloc_report/bloc.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,7 +60,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
       case 2:
         return thirdStep();
       default:
-        return Text("error");
+        return ErrorScreen();
     }
   }
 

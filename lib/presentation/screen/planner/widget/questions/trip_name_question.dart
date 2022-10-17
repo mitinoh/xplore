@@ -88,17 +88,11 @@ class TripNameQuestion extends StatelessWidget {
                 BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName =
                     _nameController.text,
                 BlocProvider.of<PlannerQuestionBloc>(context).add(PlannerChangeQuestion())
-
-                //planQuery.putIfAbsent("tripName", () => _nameController.text),
-                //if (_planTripBloc.isClosed) {_planTripBloc = PlantripBloc()},
-                //_planTripBloc.add(
-                //    GetLocation(/*body: planQuery.toString(),*/ mng: mng)),
-                //incrementQuest()
               }
             else
               {
                 BlocProvider.of<PlannerQuestionBloc>(context)
-                    .add(PlannerQuestionErrorEvent(message: 'trip name cannot be empty'))
+                    .add(PlannerQuestionErrorEvent(message: 'Trip name cannot be empty'))
               }
           },
           child: ConfirmButton(
