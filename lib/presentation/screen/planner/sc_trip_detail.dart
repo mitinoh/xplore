@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/data/model/trip_model.dart';
 import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
 import 'package:xplore/utils/imager.dart';
+import 'package:geocoding/geocoding.dart';
 
 class TripDetailScreen extends StatelessWidget {
   TripDetailScreen({Key? key, required this.planTrip}) : super(key: key);
@@ -69,8 +68,30 @@ class TripDetailScreen extends StatelessWidget {
           Row(
             children: [
               Expanded(
+                  child: FutureBuilder<String>(
+                      future: _getUserLocation(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(snapshot.data ?? '',
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.visible,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: themex.disabledColor));
+                        }
+                        return const Text("");
+                      }))
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
                 child: Text(
-                    "lorem ipsum is simply dummy text of the printing and typesetting industry.",
+                    _getFormattedDate(planTrip.goneDate) +
+                        ' - ' +
+                        _getFormattedDate(planTrip.returnDate),
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.visible,
                     style: GoogleFonts.poppins(
                         fontSize: 12,
@@ -150,7 +171,7 @@ class TripDetailScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(_getFormattedDate(pTrip),
+        Text(_getFormattedDate(pTrip?.date),
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(
@@ -189,8 +210,17 @@ class TripDetailScreen extends StatelessWidget {
     return (differenceDays ?? 0) + 1;
   }
 
-  String _getFormattedDate(TripModel? pTrip) {
+  String _getFormattedDate(DateTime? date) {
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
-    return formatter.format(pTrip?.date ?? DateTime.now());
+    return formatter.format(date ?? DateTime.now());
+  }
+
+  Future<String> _getUserLocation() async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        planTrip.geometry?.coordinates?[1] ?? 0.0,
+        planTrip.geometry?.coordinates?[0] ?? 0.0);
+    Placemark place = placemarks[0];
+
+    return '${place.locality}, ${place.country}';
   }
 }
