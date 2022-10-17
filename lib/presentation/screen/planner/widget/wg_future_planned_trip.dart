@@ -5,7 +5,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
-import 'package:xplore/presentation/common_widgets/wg_circle_text.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/planner/bloc_future_trip/bloc.dart';
@@ -31,7 +30,11 @@ class FuturePlannedTripList extends StatelessWidget {
           } else if (state is FuturePlannerTripLoaded) {
             return state.futureTrip.length > 0
                 ? _listView(state.futureTrip)
-                : Text("Empty");
+                : Text("Empty",
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: themex.indicatorColor));
           } else if (state is FuturePlannerError) {
             return ErrorScreen(state: state, message: state.message);
           } else {
