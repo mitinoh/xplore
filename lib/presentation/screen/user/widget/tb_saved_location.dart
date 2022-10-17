@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
 import 'package:xplore/presentation/common_widgets/empty_data.dart';
