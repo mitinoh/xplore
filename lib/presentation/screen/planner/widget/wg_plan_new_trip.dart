@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/presentation/common_widgets/progressbar.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/success_screen.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
@@ -86,9 +87,7 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
               "We've got your vacation planned, good luck and other radical chic bullshit.",
         ),
       );
-    } else if (state is PlannerQuestionError) {
-      return ErrorScreen(state: state, message: state.message);
-    } else {
+    }  else {
       Widget questionWidget = _getQuestionWidget();
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,6 +121,8 @@ class _NetTripQuestionState extends State<NetTripQuestion> {
       } else {
         Navigator.pop(context);
       }
+    } else if (state is PlannerQuestionError) {
+      SbError().show(context, state.message);
     }
   }
 

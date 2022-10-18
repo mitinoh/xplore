@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/screen/map/bloc_user_position/bloc.dart';
 import 'package:xplore/presentation/screen/map/widget/wg_map_container.dart';
@@ -25,10 +26,17 @@ class _MapScreenState extends State<MapScreen> {
       body: SafeArea(
           top: false,
           bottom: false,
-          child: BlocProvider(
-            create: (_) =>
-                BlocProvider.of<UserPositionBloc>(context)..add(GetUserPosition()),
-            child: _blocBuilder(),
+          child: BlocListener<UserPositionBloc, UserPositionState>(
+            listener: (context, state) {
+              if (state is UserPositionError) {
+                SbError().show(context);
+              }
+            },
+            child: BlocProvider(
+              create: (_) =>
+                  BlocProvider.of<UserPositionBloc>(context)..add(GetUserPosition()),
+              child: _blocBuilder(),
+            ),
           )),
     );
   }
@@ -44,8 +52,6 @@ class _MapScreenState extends State<MapScreen> {
                 ),
               ],
             );
-          } else if (state is UserPositionError) {
-            return ErrorScreen(state: state, message: state.message);
           } else {
             return ErrorScreen(state: state);
           }

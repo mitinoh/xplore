@@ -40,8 +40,6 @@ class _UploadedLocationTabBarWidgetState extends State<UploadedLocationTabBarWid
             );
           } else if (state is UploadedLocationLoadingState) {
             return const LoadingIndicator();
-          } else if (state is UploadedLocationError) {
-            return ErrorScreen(state: state, message: state.message);
           } else {
             return ErrorScreen(state: state);
           }

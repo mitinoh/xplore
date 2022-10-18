@@ -35,8 +35,6 @@ class FuturePlannedTripList extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: themex.indicatorColor));
-          } else if (state is FuturePlannerError) {
-            return ErrorScreen(state: state, message: state.message);
           } else {
             return ErrorScreen(state: state);
           }

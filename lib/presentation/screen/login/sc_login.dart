@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/app/app.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
 import 'package:xplore/data/model/user_model.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/screen/login/widget/wg_login_form.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_bloc.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/user_event.dart';
@@ -32,8 +33,7 @@ class LoginScreen extends StatelessWidget {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => App()));
     }
     if (state is AuthError) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(state.message.toString())));
+      SbError().show(context);
     }
   }
 

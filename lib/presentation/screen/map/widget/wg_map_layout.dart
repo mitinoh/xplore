@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/screen/map/bloc_map/bloc.dart';
 import 'package:xplore/presentation/screen/map/widget/wg_marker.dart';
 
@@ -35,6 +36,8 @@ class _MapLayoutState extends State<MapLayout> {
               _getMapMarker(state.locationList);
               execute = true;
             });
+          } else if (state is MapError) {
+            SbError().show(context);
           }
         }, child: BlocBuilder<MapBloc, MapState>(builder: (context, state) {
           return _buildFlutterMap();

@@ -2,24 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SbError extends StatelessWidget {
-  const SbError({Key? key, this.message = 'Ops something went wrong...'})
-      : super(key: key);
-  final String message;
+  const SbError({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container();
   }
 
-  show(BuildContext context) {
+  show(BuildContext context, [String? message]) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      content: _build(context),
+      content: _build(context, message ?? 'Ops something went wrong...'),
     ));
   }
 
-  Widget _build(BuildContext context) {
+  Widget _build(BuildContext context, String message) {
     ThemeData themex = Theme.of(context);
     MediaQueryData mediaQueryX = MediaQuery.of(context);
 

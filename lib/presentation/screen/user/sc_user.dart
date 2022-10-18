@@ -43,8 +43,6 @@ class _UserScreenState extends State<UserScreen> {
             return LoadingIndicator();
           } else if (state is UserDataLoaded) {
             return _defaultTabController(state.userData);
-          } else if (state is UserError) {
-            return ErrorScreen(state: state, message: state.message);
           } else {
             return ErrorScreen(state: state);
           }

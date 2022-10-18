@@ -13,6 +13,7 @@ import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/data/model/trip_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
@@ -206,7 +207,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
       child: BlocListener<PlannerQuestionBloc, PlannerQuestionState>(
         listener: (context, state) {
           if (state is PlannerError) {
-            print("Ops..");
+            SbError().show(context);
           }
         },
         child: BlocBuilder<PlannerQuestionBloc, PlannerQuestionState>(
@@ -269,8 +270,6 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
                 }
               }
               return mainWidget();
-            } else if (state is PlannerQuestionError) {
-              return ErrorScreen(state: state, message: state.message);
             } else {
               return ErrorScreen(state: state);
             }

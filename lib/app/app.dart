@@ -13,6 +13,7 @@ import 'package:xplore/data/repository/planner_repository.dart';
 import 'package:xplore/data/repository/report_repository.dart';
 import 'package:xplore/data/repository/user_repository.dart';
 import 'package:xplore/presentation/common_widgets/navbar.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
@@ -142,6 +143,8 @@ class _AppState extends State<App> {
             if (state is UserDataLoaded) {
               //  Navigator.pop(context);
               context.read<AuthenticationBloc>().add(LoggedIn());
+            } else if (state is UserError) {
+              SbError().show(context);
             }
           },
           child: BlocBuilder<AuthenticationBloc, AuthenticationState>(

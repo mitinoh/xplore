@@ -62,8 +62,6 @@ class MapsBottomSheet extends StatelessWidget {
                 ),
               ],
             );
-          } else if (state is UserPositionError) {
-            return ErrorScreen(state: state, message: state.message);
           } else {
             return ErrorScreen(state: state);
           }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/data/model/planner_model.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -25,24 +26,29 @@ class CurrentPlannedTripList extends StatelessWidget {
     return BlocProvider(
       create: (_) =>
           BlocProvider.of<CurrentPlannerBloc>(context)..add(GetCurrentPlannedTrip()),
-      child: BlocBuilder<CurrentPlannerBloc, CurrentPlannerState>(
-        builder: (context, state) {
-          if (state is CurrentPlannerInitial || state is CurrentPlannerLoading) {
-            return const LoadingIndicator();
-          } else if (state is CurrentPlantripLoadedTrip) {
-            return state.inProgressTrip.length > 0
-                ? _gridList(state.inProgressTrip)
-                : Text("Empty",
-                    style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: themex.indicatorColor));
-          } else if (state is CurrentPlannerError) {
-            return ErrorScreen(state: state, message: state.message);
-          } else {
-            return ErrorScreen(state: state);
+      child: BlocListener<CurrentPlannerBloc, CurrentPlannerState>(
+        listener: (context, state) {
+          if (state is CurrentPlannerError) {
+            SbError().show(context);
           }
         },
+        child: BlocBuilder<CurrentPlannerBloc, CurrentPlannerState>(
+          builder: (context, state) {
+            if (state is CurrentPlannerInitial || state is CurrentPlannerLoading) {
+              return const LoadingIndicator();
+            } else if (state is CurrentPlantripLoadedTrip) {
+              return state.inProgressTrip.length > 0
+                  ? _gridList(state.inProgressTrip)
+                  : Text("Empty",
+                      style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: themex.indicatorColor));
+            } else {
+              return ErrorScreen(state: state);
+            }
+          },
+        ),
       ),
     );
   }

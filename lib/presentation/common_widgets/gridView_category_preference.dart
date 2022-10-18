@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/data/repository/location_category_repository.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/home/bloc_location_category/bloc.dart';
@@ -39,11 +40,7 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
       child: BlocListener<LocationCategoryBloc, LocationCategoryState>(
         listener: (context, state) {
           if (state is LocationCategoryError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("error"),
-              ),
-            );
+            SbError().show(context);
           }
         },
         child: BlocBuilder<LocationCategoryBloc, LocationCategoryState>(
@@ -107,8 +104,6 @@ class _GridViewCategoryPreference extends State<GridViewCategoryPreference> {
                   },
                 ),
               );
-            } else if (state is LocationCategoryError) {
-              return ErrorScreen(state: state, message: state.message);
             } else {
               return ErrorScreen(state: state);
             }

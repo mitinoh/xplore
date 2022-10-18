@@ -174,12 +174,6 @@ class _PeriodQuestionState extends State<PeriodQuestion> {
                 dayAvaiable.add(i);
               }
 
-              /*
-            planQuery["totDay"] = returnDate.difference(goneDate).inDays;
-            planQuery["periodAvaiable"] = getSeason(goneDate.month);
-            planQuery["dayAvaiable"] = dayAvaiable;
-            */
-
               BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.goneDate =
                   goneDate;
               BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.returnDate =

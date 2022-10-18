@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 
 class ErrorScreen extends StatelessWidget {
   ErrorScreen({Key? key, this.state = null, this.message = "Ops..", this.errorDetails})
@@ -27,13 +28,13 @@ class ErrorScreen extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "Oh no, something went 😟",
+                  "Oh no, something went wrong... 😟",
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w400, color: Colors.black, fontSize: 16),
                 ),
                 TextButton(
                   onPressed: () {
-                    _openEmail();
+                    _openEmail(context);
                   },
                   child: Text(
                     "CONTACT US",
@@ -49,7 +50,7 @@ class ErrorScreen extends StatelessWidget {
     );
   }
 
-  _openEmail() async {
+  _openEmail(BuildContext context) async {
     final Uri _url = Uri.parse(
         'mailto:beyondx.team@gmail.com?subject=xplore error&body=I got this error :( \n\n' +
             (message ?? ''));
@@ -57,7 +58,7 @@ class ErrorScreen extends StatelessWidget {
     if (await canLaunchUrl(_url)) {
       await launchUrl(_url);
     } else {
-      throw 'Could not open the mail. ${_url}';
+      SbError().show(context);
     }
   }
 }

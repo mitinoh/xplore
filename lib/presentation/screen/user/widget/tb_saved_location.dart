@@ -38,8 +38,6 @@ class _SavedLocationTabBarWidgetState extends State<SavedLocationTabBarWidget> {
             );
           } else if (state is SavedLocationLoadingState) {
             return LoadingIndicator();
-          } else if (state is SavedLocationError) {
-            return ErrorScreen(state: state, message: state.message);
           } else {
             return ErrorScreen(state: state);
           }

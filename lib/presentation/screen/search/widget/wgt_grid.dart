@@ -4,6 +4,7 @@ import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/data/repository/home_repository.dart';
 import 'package:xplore/data/repository/user_repository.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
 import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
@@ -33,10 +34,20 @@ class GridWidget extends StatelessWidget {
               }
             },
             child: Column(
-              children: [_searchBar(), _searchBuilder()],
+              children: [_searchBar(), _searchListener()],
             ),
           ),
         ));
+  }
+
+  BlocListener<SearchLocationBloc, SearchLocationState> _searchListener() {
+    return BlocListener<SearchLocationBloc, SearchLocationState>(
+        listener: (context, state) {
+          if (state is SearchLocationError) {
+            SbError().show(context);
+          }
+        },
+        child: _searchBuilder());
   }
 
   BlocBuilder<SearchLocationBloc, SearchLocationState> _searchBuilder() {
@@ -48,8 +59,6 @@ class GridWidget extends StatelessWidget {
           return _locationGrid(state.searchLocation);
         } else if (state is SearchUserLoaded) {
           return _userGrid(state.searchUser);
-        } else if (state is SearchLocationError) {
-          return ErrorScreen(state: state, message: state.message);
         } else {
           return ErrorScreen(state: state);
         }
