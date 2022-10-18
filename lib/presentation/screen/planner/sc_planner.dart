@@ -24,17 +24,17 @@ class _PlannerScreenState extends State<PlannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: RefreshIndicator(
-              color: themex.indicatorColor,
-              backgroundColor: themex.primaryColor,
-              edgeOffset: 0,
-              onRefresh: () {
-                return Future<void>.delayed(const Duration(seconds: 1));
-              },
-              child: Column(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: RefreshIndicator(
+            color: themex.indicatorColor,
+            backgroundColor: themex.primaryColor,
+            edgeOffset: 0,
+            onRefresh: () {
+              return Future<void>.delayed(const Duration(seconds: 1));
+            },
+            child: ListView(children: [
+              Column(
                 children: [
                   const SizedBox(height: 20),
                   _headerTitle(),
@@ -44,14 +44,13 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   _locationImage(),
                   //topMenuPlanner(),
                   //headerPlanner(),
-
                   const SizedBox(height: 20),
                   _currentPlannedTrip(),
                   const SizedBox(height: 20),
                   _futurePlannedTrip(),
                 ],
               ),
-            ),
+            ]),
           ),
         ),
       ),
