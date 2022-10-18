@@ -23,14 +23,14 @@ class HeadLineWidget extends StatelessWidget {
             text: TextSpan(
                 text: 'Welcome on ',
                 style: GoogleFonts.poppins(
-                    color: themex.primaryColor,
+                    color: themex.indicatorColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 15),
                 children: <TextSpan>[
                   TextSpan(
                     text: "xplore",
                     style: GoogleFonts.poppins(
-                        color: themex.primaryColor,
+                        color: themex.indicatorColor,
                         fontWeight: FontWeight.w600,
                         fontSize: 20),
                   )
@@ -41,5 +41,5 @@ class HeadLineWidget extends StatelessWidget {
 
   Subtitle _buildSubtitle() => Subtitle(
       text:
-          "Immergiti in un esperienza unica e scopri il mondo intorno a te e i tuoi amici!");
+          "Immerse yourself in a unique experience and discover the world around you and your friends!");
 }

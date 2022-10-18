@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({Key? key, required this.text, required this.colors})
-      : super(key: key);
+  const LoginButton({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
   final String text;
-  final Color colors;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData themex = Theme.of(context);
-    
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: colors,
-        borderRadius: BorderRadius.circular(40),
+        color: themex.cardColor,
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         children: [
@@ -24,7 +25,7 @@ class LoginButton extends StatelessWidget {
                 alignment: Alignment.center,
                 child: RichText(
                   text: TextSpan(
-                      text: 'continua con ',
+                      text: 'continue with ',
                       style: GoogleFonts.poppins(
                           color: themex.indicatorColor,
                           fontWeight: FontWeight.w400,

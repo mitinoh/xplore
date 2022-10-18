@@ -12,21 +12,23 @@ class TermsWidget extends StatelessWidget {
         Expanded(
           child: RichText(
             text: TextSpan(
-                text: "Cliccando il bottone continua con gooole o apple accetti",
+                text: "By clicking the continue button with google or apple you accept",
                 style: GoogleFonts.poppins(
-                    color: themex.primaryColor, fontWeight: FontWeight.w300, fontSize: 9),
+                    color: Colors.grey, fontWeight: FontWeight.w300, fontSize: 10),
                 children: <TextSpan>[
                   TextSpan(
-                      text: " i termi delle condizioni",
-                      style: TextStyle(color: Colors.green, fontWeight: FontWeight.w300)),
+                      text: " terms & conditions",
+                      style: TextStyle(
+                          color: themex.primaryColor, fontWeight: FontWeight.w300)),
                   TextSpan(
-                      text: " e",
+                      text: " and",
                       style: TextStyle(
                         color: themex.primaryColor,
                       )),
                   TextSpan(
-                      text: " la privacy.",
-                      style: TextStyle(color: Colors.green, fontWeight: FontWeight.w300))
+                      text: " privacy.",
+                      style: TextStyle(
+                          color: themex.primaryColor, fontWeight: FontWeight.w300))
                 ]),
           ),
         ),

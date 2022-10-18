@@ -35,7 +35,7 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
         _buildGoogleButton(),
         const SizedBox(height: 5),
         _buildAppleButton(),
-        const SizedBox(height: 10),
+        const SizedBox(height: 15),
         _buildTerms()
       ];
   _buildImageGrid() => const HeaderOnboarding();

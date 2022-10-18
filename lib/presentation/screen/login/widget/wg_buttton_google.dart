@@ -17,7 +17,6 @@ class GoogleButton extends StatelessWidget {
   }
 
   _buildButton() => LoginButton(
-        text: "Google",
-        colors: Colors.black,
+        text: "Google"
       );
 }
