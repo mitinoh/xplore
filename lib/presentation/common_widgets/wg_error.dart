@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ErrorScreen extends StatelessWidget {
   ErrorScreen({Key? key, this.state = null, this.message = "Ops..", this.errorDetails})
@@ -11,9 +13,51 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     themex = Theme.of(context);
-    return Text(
-      message.toString(),
-      style: TextStyle(color: themex.indicatorColor),
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            "assets/error.jpg",
+            fit: BoxFit.cover,
+          ),
+          Positioned(
+            width: MediaQuery.of(context).size.width,
+            bottom: MediaQuery.of(context).size.height * 0.15,
+            child: Column(
+              children: [
+                Text(
+                  "Oh no, something went 😟",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, color: Colors.black, fontSize: 16),
+                ),
+                TextButton(
+                  onPressed: () {
+                    _openEmail();
+                  },
+                  child: Text(
+                    "CONTACT US",
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600, color: Colors.black, fontSize: 18),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
+  }
+
+  _openEmail() async {
+    final Uri _url = Uri.parse(
+        'mailto:beyondx.team@gmail.com?subject=xplore error&body=I got this error :( \n\n' +
+            (message ?? ''));
+
+    if (await canLaunchUrl(_url)) {
+      await launchUrl(_url);
+    } else {
+      throw 'Could not open the mail. ${_url}';
+    }
   }
 }
