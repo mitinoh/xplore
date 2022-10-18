@@ -11,9 +11,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+    ThemeData themex = Theme.of(context);
     return Scaffold(
       body: Container(
-        color: COLOR_CONST.DEFAULT100,
+        color: themex.backgroundColor,
         child: Center(
           child: SizedBox(
             width: 240,

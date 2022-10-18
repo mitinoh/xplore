@@ -5,9 +5,10 @@ import 'package:xplore/utils/const/COLOR_CONST.dart';
 class WidgetLogoFindSeat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ThemeData themex = Theme.of(context);
     return SvgPicture.asset(
-      'assets/logo_find_seat.svg',
-      color: COLOR_CONST.WHITE100,
+      'assets/logo.svg',
+      color: themex.indicatorColor,
     );
   }
 }
