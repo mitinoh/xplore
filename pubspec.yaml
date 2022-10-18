@@ -59,9 +59,3 @@ flutter:
   
   assets:
     - assets/
-    - images/
-    - images/movie/
-    - images/events/
-    - images/plays/
-    - images/casts/
-    - images/cines/
