@@ -20,6 +20,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       final isSignedIn = await authRepository.isSignedIn();
       //for display splash screen
       await Future.delayed(Duration(seconds: 2));
+      authRepository.createUserIfNotExist();
       if (isSignedIn) {
         emit(Authenticated());
       } else {

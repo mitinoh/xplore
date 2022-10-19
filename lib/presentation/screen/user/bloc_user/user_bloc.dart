@@ -24,14 +24,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       late UserModel userData;
       if (event.fid != null) {
-        userData = await userRepository.getUserData(event.fid!);
+        userData = await userRepository.getFidUserData(event.fid!);
       } else {
         userData = event.user!;
       }
       emit(UserDataLoaded(userData: userData));
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());
-      emit(UserError(e.toString()));
+
+      emit(UserDataLoaded(userData: UserModel()));
+      //emit(UserError(e.toString()));
     }
   }
 
@@ -40,10 +42,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       final state = this.state;
       UserModel updatedUserData;
       if (state is UserDataLoaded) {
-        UserModel newUserData = event.newUserData.copyWith(id: state.userData.id);
+        if (state.userData.id == null) {
+          await userRepository.createNewUser(event.newUserData);
+          updatedUserData = event.newUserData;
+        } else {
+          UserModel newUserData = event.newUserData.copyWith(id: state.userData.id);
 
-        updatedUserData =
-            UserModel.fromJson({...state.userData.toJson(), ...newUserData.toJson()});
+          updatedUserData =
+              UserModel.fromJson({...state.userData.toJson(), ...newUserData.toJson()});
+        }
       } else {
         updatedUserData = event.newUserData;
       }
@@ -63,7 +70,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         await userRepository.createNewUser(event.userData);
         emit(UserDataLoaded(userData: event.userData));
       } else {
-        print("username taken");
+        emit(UserError("Username already taken"));
       }
     } catch (e, stacktrace) {
       Logger.error(stacktrace.toString());

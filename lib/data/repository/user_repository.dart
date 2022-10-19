@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:xplore/data/api/mongoose.dart';
 import 'package:xplore/data/api/rest_client.dart';
 import 'package:xplore/data/dio_provider.dart';
@@ -11,7 +10,12 @@ import 'package:xplore/presentation/screen/user/bloc_uploaded_location/uploaded_
 class UserRepository {
   final dio = DioProvider.instance();
 
-  Future<UserModel> getUserData(String fid) async {
+  Future<dynamic> getUserData(String fid) async {
+    final client = RestClient(await dio);
+    return await client.getFidUserData(fid);
+  }
+
+  Future<UserModel> getFidUserData(String fid) async {
     final client = RestClient(await dio);
     return await client.getFidUserData(fid);
   }

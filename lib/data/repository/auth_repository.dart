@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:xplore/data/model/user_model.dart';
+import 'package:xplore/data/repository/user_repository.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
@@ -48,5 +50,22 @@ class AuthRepository {
     if (provider == "google.com")
       _googleSignIn.signIn().then(
           (value) => _firebaseAuth.currentUser?.delete().then((value) => signOut()));
+  }
+
+  createUserIfNotExist() async {
+    final UserRepository userRepository = new UserRepository();
+    String fid = await getUserFid();
+    userRepository.getUserData(fid).catchError((e) {
+      return UserModel();
+    }).then((userModel) {
+      if (userModel == "" || userModel.id == null || userModel.id == "") {
+        userRepository.createNewUser(UserModel(username: idGenerator(), bio: ""));
+      }
+    });
+  }
+
+  String idGenerator() {
+    final now = DateTime.now();
+    return now.microsecondsSinceEpoch.toString();
   }
 }

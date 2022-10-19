@@ -8,13 +8,13 @@ part 'user_model.g.dart';
 class UserModel {
   @JsonKey(name: '_id')
   String? id;
+  String? fid;
   String? username;
   String? bio;
 
-  UserModel({this.id, this.username, this.bio});
+  UserModel({this.id, this.fid, this.username, this.bio});
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }
