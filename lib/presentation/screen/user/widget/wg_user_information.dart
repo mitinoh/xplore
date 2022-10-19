@@ -52,7 +52,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   Widget _userDataPreview() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [_userLevelIndicator(), _followBuilder()],
+      children: [/*_userLevelIndicator(),*/ _followBuilder()],
     );
   }
 
@@ -126,7 +126,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           TextSpan(
-            text: "Your bio:\n".toUpperCase() + user.bio.toString(),
+            text: "Your bio:\n".toUpperCase() + (user.bio ?? '...'),
             style: GoogleFonts.poppins(
                 fontSize: 12, fontWeight: FontWeight.w300, color: themex.disabledColor),
           ),

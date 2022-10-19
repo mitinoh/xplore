@@ -4,7 +4,7 @@ import 'package:xplore/presentation/custom_ui/hex_color.dart';
 class COLOR_CONST {
   //https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
 
-  static final HexColor DEFAULT100 = new HexColor("#5799F3");
+  static final HexColor DEFAULT100 = new HexColor("#5799F3"); // 2b2b2b
   static final HexColor DEFAULT40 = new HexColor("#665799F3");
   static final HexColor DEFAULT20 = new HexColor("#335799F3"); //3243BA
   static final HexColor TEXT = new HexColor("#3B4948");

@@ -56,7 +56,6 @@ class AvoidCategoryQuestion extends StatelessWidget {
         InkWell(
             onTap: () {
               setCategoryToAvoid();
-              print(selectedCategories);
             },
             child: ConfirmButton(
                 text: "Next question",

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/data/model/user_model.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/subtitle.dart';
 import 'package:xplore/presentation/screen/user/bloc_user/bloc.dart';
 
@@ -37,6 +38,7 @@ class EditProfileScreen extends StatelessWidget {
     themex = Theme.of(context);
     initController();
     return Scaffold(
+      backgroundColor: themex.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20),
@@ -47,7 +49,7 @@ class EditProfileScreen extends StatelessWidget {
                 pinned: true,
                 snap: true,
                 elevation: 0,
-                backgroundColor: themex.scaffoldBackgroundColor,
+                backgroundColor: Colors.transparent,
                 iconTheme: IconThemeData(color: themex.canvasColor),
                 actionsIconTheme: IconThemeData(color: themex.canvasColor),
                 leading: newUser ? SizedBox() : _backButton(context),
@@ -195,12 +197,11 @@ class EditProfileScreen extends StatelessWidget {
       try {
         callback!(userData);
       } catch (e) {
-        print(e);
+        SbError().show(buildContext);
       }
       // Navigator.of(blocContext, rootNavigator: true).pushNamed(AppRouter.HOME);
     } else {
       blocContext.read<UserBloc>().add(UpdateUserData(newUserData: userData));
-      print(1);
       Navigator.pop(buildContext);
     }
   }

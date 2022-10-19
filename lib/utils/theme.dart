@@ -9,17 +9,10 @@ class ThemeX {
     scaffoldBackgroundColor: COLOR_CONST.BLACK80,
     cardColor: COLOR_CONST.WHITE2,
     backgroundColor: COLOR_CONST.GREY,
-    canvasColor: COLOR_CONST.BLACK100, //apple button color
+    canvasColor: COLOR_CONST.BLACK100, 
     focusColor: COLOR_CONST.ACCENT100,
     primaryColorLight: COLOR_CONST.WHITE10,
 
-//    scaffoldBackgroundColor: COLOR_CONST.BLACK, //Colore di background generale
-    splashColor: Colors.white,
-    highlightColor: Colors.transparent,
-    primaryColorDark: Colors.black,
-    unselectedWidgetColor: Colors.white.withOpacity(0.3),
-    //hoverColor: Colors.white, //const Color(0xff303134),
-    // dividerColor: COLOR_CONST.BLUE,
   );
 
   static final lightTheme = ThemeData(
@@ -31,14 +24,7 @@ class ThemeX {
     backgroundColor: COLOR_CONST.DIRTYWHITE,
     canvasColor: COLOR_CONST.WHITE100,
     focusColor: COLOR_CONST.ACCENT100,
-        primaryColorLight: COLOR_CONST.BLACK10,
+    primaryColorLight: COLOR_CONST.BLACK10,
 
-    //splashColor: COLOR_CONST.GREEN,
-    highlightColor: Colors.transparent,
-    primaryColorDark: Colors.black,
-    //  cardColor: COLOR_CONST.FACEBOOK_BTN, //Colore generale di tutti i bottoni
-    unselectedWidgetColor: COLOR_CONST.DEFAULT100,
-    hoverColor: Colors.black,
-    //dividerColor: COLOR_CONST.FACEBOOK_BORDER_BTN,
   );
 }
