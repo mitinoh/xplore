@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/screen/home/sc_home.dart';
 import 'package:xplore/presentation/screen/map/screen/sc_map.dart';
 import 'package:xplore/presentation/screen/new_location/new_location_screen.dart';

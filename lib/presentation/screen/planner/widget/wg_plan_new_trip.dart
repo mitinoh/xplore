@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xplore/presentation/common_widgets/progressbar.dart';
 import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/success_screen.dart';
-import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
 import 'package:xplore/presentation/screen/planner/widget/wg_planner_header_commands.dart';
 import 'package:xplore/presentation/screen/planner/widget/questions/avoid_category_question.dart';

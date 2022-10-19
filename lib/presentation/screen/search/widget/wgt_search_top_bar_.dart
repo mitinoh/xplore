@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/screen/search/widget/mdl_category.dart';
 
 class SearchTopBarWidget extends StatelessWidget {

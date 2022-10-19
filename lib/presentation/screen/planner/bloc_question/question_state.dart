@@ -5,7 +5,6 @@ import 'package:xplore/data/model/location_model.dart';
 abstract class PlannerQuestionState {
   const PlannerQuestionState();
 
-  @override
   List<Object> get props => [];
 }
 

@@ -1,5 +1,4 @@
 
-// TODO trovare nome migliore
 enum ReportUserType { SPAM, NUDE, SCAM, HATE, BULLYING, OTHER }
 
 extension ReportUserExtension on ReportUserType {

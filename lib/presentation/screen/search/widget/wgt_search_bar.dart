@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/screen/search/bloc/bloc.dart';
 import 'package:xplore/utils/class/debouncer.dart';
 

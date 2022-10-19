@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/presentation/common_widgets/widget_logo_findseat.dart';
 import 'package:xplore/presentation/router.dart';
-import 'package:xplore/utils/const/COLOR_CONST.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

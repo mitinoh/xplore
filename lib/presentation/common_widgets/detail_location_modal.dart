@@ -229,8 +229,9 @@ class DetailLocationModal extends StatelessWidget {
   Future<String> get _getLocationStreet async {
     List<Placemark> placemarks = await placemarkFromCoordinates(
         location.geometry?.coordinates?[1] ?? 0, location.geometry?.coordinates?[0] ?? 0);
-    Placemark place = placemarks[0];
+    Placemark? place = placemarks[0];
 
+    // ignore: unnecessary_null_comparison
     return place != null ? place.street ?? place.name ?? '' : '-';
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:xplore/data/model/location_model.dart';
 
 @immutable

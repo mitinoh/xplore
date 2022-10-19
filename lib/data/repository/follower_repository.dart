@@ -6,7 +6,7 @@ import 'package:xplore/data/model/user_model.dart';
 
 class FollowerRepository {
   final dio = DioProvider.instance();
-  Future<UserModel> getUserData(String fid) async {
+  Future<UserModel?> getUserData(String fid) async {
     final client = RestClient(await dio);
     return await client.getFidUserData(fid);
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/user_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/presentation/screen/user/widget/wg_user_information.dart';
@@ -30,7 +29,7 @@ class SliverBoxAdapterWidget extends StatelessWidget {
               user: user,
             ),
             const SizedBox(height: 20),
-            //TODO: const CounterFollowerAndTrips(),
+            //const CounterFollowerAndTrips(),
             const SizedBox(height: 10),
             _tabBar(),
             const SizedBox(height: 10),

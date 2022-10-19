@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:google_fonts/google_fonts.dart';
 

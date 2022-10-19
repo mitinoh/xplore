@@ -5,7 +5,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/header_name.dart';
 import 'package:xplore/presentation/screen/planner/bloc_question/bloc.dart';
-import 'package:xplore/presentation/screen/planner/bloc_question/question_bloc.dart';
 
 // ignore: must_be_immutable
 class TripNameQuestion extends StatelessWidget {
@@ -83,7 +82,7 @@ class TripNameQuestion extends StatelessWidget {
         ),
         InkWell(
           onTap: () => {
-            if (_nameController.text != null && _nameController.text.trim() != "")
+            if (_nameController.text.trim() != "")
               {
                 BlocProvider.of<PlannerQuestionBloc>(context).planTripQuestions.tripName =
                     _nameController.text,

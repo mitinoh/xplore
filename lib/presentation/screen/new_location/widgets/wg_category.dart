@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/presentation/screen/new_location/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/new_location/widgets/bs_category.dart';

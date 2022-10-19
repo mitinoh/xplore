@@ -1,8 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xplore/data/model/geometry_model.dart';
-import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/data/model/location_model.dart';
-import 'package:xplore/data/model/user_model.dart';
 
 part 'trip_model.g.dart';
 

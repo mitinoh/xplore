@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/presentation/common_widgets/wg_image.dart';
@@ -113,7 +112,6 @@ class _HomeMainCardState extends State<HomeMainCard> {
     });
 
     if (_currentIdx > _lastIdxLocation && i % 15 == 0) {
-      // HomeRepository.skip += 15; // TODO: cambiare 15 in modo dyn
       BlocProvider.of<HomeBloc>(context)..add(const GetLocationList());
     }
 

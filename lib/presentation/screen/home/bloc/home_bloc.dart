@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:xplore/data/api/mongoose.dart';
-import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/repository/home_repository.dart';
 import 'package:xplore/presentation/screen/home/bloc/bloc.dart';
 import 'package:xplore/utils/logger.dart';

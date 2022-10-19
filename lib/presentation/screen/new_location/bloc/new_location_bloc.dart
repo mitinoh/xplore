@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/repository/home_repository.dart';
 import 'package:xplore/presentation/screen/new_location/bloc/bloc.dart';

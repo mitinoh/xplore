@@ -5,9 +5,6 @@ import 'package:xplore/data/model/planner_model.dart';
 @immutable
 abstract class PlannerQuestionEvent {
   const PlannerQuestionEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 

@@ -24,7 +24,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
 
   _getFromGallery() async {
     image = await _picker.pickImage(source: ImageSource.gallery);
-    String base64Image = "";
+    // String base64Image = "";
     /*
     if (image != null) {
       final bytes = File(image!.path).readAsBytesSync();
@@ -133,9 +133,9 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
         ]));
   }
 
-  Widget _userLevelIndicator() {
-    return Text(user.username.toString());
-  }
+  // Widget _userLevelIndicator() {
+  //   return Text(user.username.toString());
+  // }
 
   bool _isFollowing(FollowerState state) {
     return state.props.isNotEmpty ? state.props[0] as bool : false;

@@ -19,7 +19,6 @@ class SbError extends StatelessWidget {
 
   Widget _build(BuildContext context, String message) {
     ThemeData themex = Theme.of(context);
-    MediaQueryData mediaQueryX = MediaQuery.of(context);
 
     return Stack(
       clipBehavior: Clip.none,

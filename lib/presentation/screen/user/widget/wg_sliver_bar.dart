@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:xplore/app/app.dart';
 import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/router.dart';
 import 'package:xplore/presentation/screen/user/widget/bs_report.dart';

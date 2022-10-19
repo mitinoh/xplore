@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
-
 import 'package:url_launcher/url_launcher.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:xplore/presentation/common_widgets/sb_error.dart';
 
 class SettingsBottomSheet extends StatelessWidget {

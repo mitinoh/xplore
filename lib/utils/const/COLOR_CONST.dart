@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:xplore/presentation/custom_ui/hex_color.dart';
 
 class COLOR_CONST {

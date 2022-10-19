@@ -9,7 +9,6 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:xplore/data/model/location_category_model.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:xplore/data/model/move_planner_model.dart';
-import 'package:xplore/data/model/planner_model.dart';
 import 'package:xplore/data/model/trip_model.dart';
 import 'package:xplore/presentation/common_widgets/confirm_button.dart';
 import 'package:xplore/presentation/common_widgets/detail_location_modal.dart';
@@ -17,7 +16,6 @@ import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
 import 'package:xplore/presentation/common_widgets/wg_error.dart';
 import 'package:xplore/presentation/common_widgets/widget_loading_indicator.dart';
-import 'package:xplore/presentation/screen/new_location/widgets/wg_image.dart';
 import 'package:xplore/presentation/screen/planner/bloc/bloc.dart';
 import 'package:xplore/utils/imager.dart';
 import '../../bloc_question/bloc.dart';
@@ -98,14 +96,7 @@ class _SelectTripLocationState extends State<SelectTripLocation> {
         DateTime.now();
     returnDate = context.read<PlannerQuestionBloc>().planTripQuestions.returnDate ??
         DateTime.now();
-/*    if (context
-            .read<PlannerQuestionBloc>()
-            .planTripQuestionsMap["avoidCategory"] !=
-        null) {
-      print(context
-          .read<PlannerQuestionBloc>()
-          .planTripQuestionsMap["avoidCategory"]);
-  */
+
 
     avoidCategory =
         context.read<PlannerQuestionBloc>().planTripQuestions.avoidCategory ?? [];

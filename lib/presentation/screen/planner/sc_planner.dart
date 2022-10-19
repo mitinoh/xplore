@@ -152,7 +152,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
     );
   }
 
-  void _onRefresh() async {
-    BlocProvider.of<CurrentPlannerBloc>(context)..add(GetCurrentPlannedTrip());
-  }
+  // void _onRefresh() async {
+  //   BlocProvider.of<CurrentPlannerBloc>(context)..add(GetCurrentPlannedTrip());
+  // }
 }
