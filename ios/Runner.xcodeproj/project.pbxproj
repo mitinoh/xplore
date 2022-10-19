@@ -300,6 +300,7 @@
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
+			wrapsLines = 0;
 		};
 /* End PBXVariantGroup section */
 
