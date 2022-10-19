@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xplore/presentation/common_widgets/sb_error.dart';
 import 'package:xplore/presentation/screen/new_location/widgets/wg_base_info.dart';
 import 'package:xplore/presentation/screen/new_location/widgets/wg_category.dart';
 import 'package:xplore/presentation/screen/new_location/widgets/wg_create_button.dart';
@@ -24,7 +25,7 @@ class _NewLocationState extends State<NewLocation> {
         child: BlocListener<NewLocationBloc, NewLocationState>(
           listener: (context, state) {
             if (state is NewLocationCreated) {
-              print("Location added");
+              SbError().show(context, "Location added, thank you");
             }
           },
           child: SingleChildScrollView(

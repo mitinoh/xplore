@@ -144,7 +144,7 @@ class _AppState extends State<App> {
               //  Navigator.pop(context);
               context.read<AuthenticationBloc>().add(LoggedIn());
             } else if (state is UserError) {
-              SbError().show(context);
+              SbError().show(context, state.message);
             }
           },
           child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
