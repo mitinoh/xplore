@@ -85,6 +85,7 @@ class _UserScreenState extends State<UserScreen> {
     return DefaultTabController(
         length: tabs.length,
         child: Scaffold(
+          backgroundColor: Theme.of(context).canvasColor,
           body: SafeArea(
             child: NestedScrollView(
               headerSliverBuilder: (context, bool innerBoxIsScrolled) {

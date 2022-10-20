@@ -34,7 +34,13 @@ class GridWidget extends StatelessWidget {
               }
             },
             child: Column(
-              children: [_searchBar(), _searchListener()],
+              children: [
+                _searchBar(),
+                SizedBox(
+                  height: 15,
+                ),
+                _searchListener(),
+              ],
             ),
           ),
         ));

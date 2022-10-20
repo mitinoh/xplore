@@ -29,7 +29,7 @@ class SliverBarWidget extends StatelessWidget {
         backgroundColor: themex.scaffoldBackgroundColor,
         iconTheme: IconThemeData(color: themex.primaryColor),
         actionsIconTheme: IconThemeData(color: themex.primaryColor),
-        leading: _editUser(),
+        leading: visualOnly == true ? SizedBox() : _editUser(),
         leadingWidth: 44,
         title: _usernameTitle(),
         actions: [_topRightButton()]);

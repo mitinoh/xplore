@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext ct) {
     themex = Theme.of(ct);
     return Scaffold(
-      backgroundColor: themex.backgroundColor,
+      backgroundColor: themex.canvasColor,
       body: SafeArea(
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {
