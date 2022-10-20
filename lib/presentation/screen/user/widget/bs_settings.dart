@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:xplore/app/auth_bloc/bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xplore/presentation/common_widgets/sb_error.dart';
+import 'package:xplore/utils/link.dart';
 
 class SettingsBottomSheet extends StatelessWidget {
   const SettingsBottomSheet({
@@ -73,7 +74,7 @@ class SettingsBottomSheet extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: (() {
-                        _openEmail(context);
+                        Link.assistance();
                       }),
                       child: Row(
                         children: [
@@ -102,53 +103,63 @@ class SettingsBottomSheet extends StatelessWidget {
                       height: 30,
                       color: themex.indicatorColor.withOpacity(0.1),
                     ),
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 22,
-                          backgroundColor: themex.backgroundColor,
-                          child: Icon(
-                            Iconsax.shield,
-                            color: themex.indicatorColor,
+                    InkWell(
+                      onTap: () {
+                        Link.privacy();
+                      },
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 22,
+                            backgroundColor: themex.backgroundColor,
+                            child: Icon(
+                              Iconsax.shield,
+                              color: themex.indicatorColor,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Privacy policy",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: themex.indicatorColor),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Privacy policy",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: themex.indicatorColor),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Divider(
                       height: 30,
                       color: themex.indicatorColor.withOpacity(0.1),
                     ),
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 22,
-                          backgroundColor: themex.backgroundColor,
-                          child: Icon(
-                            Iconsax.note_2,
-                            color: themex.indicatorColor,
+                    InkWell(
+                      onTap: () {
+                        Link.terms();
+                      },
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 22,
+                            backgroundColor: themex.backgroundColor,
+                            child: Icon(
+                              Iconsax.note_2,
+                              color: themex.indicatorColor,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Terms and conditions",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: themex.indicatorColor),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Terms and conditions",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: themex.indicatorColor),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Divider(
                       height: 30,
@@ -254,15 +265,5 @@ class SettingsBottomSheet extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  _openEmail(BuildContext context) async {
-    final Uri _url = Uri.parse('mailto:beyondx.team@gmail.com?subject=xplore help&body=');
-
-    if (await canLaunchUrl(_url)) {
-      await launchUrl(_url);
-    } else {
-      SbError().show(context);
-    }
   }
 }
