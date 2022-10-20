@@ -8,22 +8,22 @@ extension ReportUserExtension on ReportUserType {
         return "Spam";
 
       case ReportUserType.NUDE:
-        return "Nudo o atti sessuali";
+        return "Nude or sexual acts";
 
       case ReportUserType.SCAM:
-        return "Truffa o frode";
+        return "Scam or fraud";
 
       case ReportUserType.HATE:
-        return "Discorsi o simboli che incitano all'odio";
+        return "Speeches or symbols that incite hatred";
 
       case ReportUserType.BULLYING:
-        return "Bullismo o intimidazioni";
+        return "Bullying or intimidation";
 
       case ReportUserType.OTHER:
-        return "Altro";
+        return "Other";
 
       default:
-        return "Altro";
+        return "Other";
     }
   }
 }

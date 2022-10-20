@@ -132,7 +132,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
         children: [
           Expanded(
             child: Text(
-                "Segnala questa account allo staff di xplore, nel caso in qui questo utente non rispetta le norme della community.",
+                "Report this account to the xplore staff, in case this user does not respect the community rules.",
                 overflow: TextOverflow.visible,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
@@ -150,7 +150,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Invia segnalazione",
+          "Send report",
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
               fontSize: 16, fontWeight: FontWeight.w600, color: themex.primaryColor),
@@ -171,7 +171,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Text("chiudi",
+              child: Text("Close",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
@@ -184,7 +184,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Segnalazione effettuata",
+              "Report done",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                   fontSize: 16,
@@ -200,7 +200,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
             children: [
               Expanded(
                 child: Text(
-                    "Ti ringraziamo per aver contribuito a rendere xplore un posto migliore. :)",
+                    "We thank you for helping to make xplore a better place. 😊 ",
                     overflow: TextOverflow.visible,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
@@ -239,7 +239,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
                   _pageReportIndex = 2;
                 });
               },
-              child: Text("invia",
+              child: Text("Send",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
@@ -256,7 +256,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
             children: [
               Expanded(
                 child: Text(
-                    "Secondo passo. Stai segnalato questo utente per la seguente voce:",
+                    "Why is the user violating our policies?",
                     overflow: TextOverflow.visible,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
@@ -300,7 +300,7 @@ class _ReportBottomSheetState extends State<ReportBottomSheet> {
               contentPadding: const EdgeInsets.all(15.0),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintText: "Motiva la segnalazione",
+              hintText: "Reason for reporting",
               hintStyle: GoogleFonts.poppins(color: themex.disabledColor, fontSize: 14),
               border: const OutlineInputBorder(),
               prefixIcon: Icon(
