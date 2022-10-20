@@ -39,7 +39,7 @@ class CurrentPlannedTripList extends StatelessWidget {
             } else if (state is CurrentPlantripLoadedTrip) {
               return state.inProgressTrip.length > 0
                   ? _gridList(state.inProgressTrip)
-                  : Text("Empty",
+                  : Text(". . .",
                       style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

@@ -30,7 +30,7 @@ class FuturePlannedTripList extends StatelessWidget {
           } else if (state is FuturePlannerTripLoaded) {
             return state.futureTrip.length > 0
                 ? _listView(state.futureTrip)
-                : Text("Empty",
+                : Text(". . .",
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
