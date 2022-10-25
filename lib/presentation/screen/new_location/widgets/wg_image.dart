@@ -1,19 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:xplore/data/repository/auth_repository.dart';
 import 'package:xplore/presentation/screen/new_location/bloc/bloc.dart';
 import 'package:xplore/presentation/screen/new_location/widgets/image_imported.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'dart:convert';
-
 class ImageWidget extends StatefulWidget {
   const ImageWidget({Key? key}) : super(key: key);
 

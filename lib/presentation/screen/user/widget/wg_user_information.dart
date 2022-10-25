@@ -7,6 +7,7 @@ import 'package:xplore/data/model/user_model.dart';
 import 'package:xplore/presentation/common_widgets/wg_circle_image.dart';
 import 'package:xplore/presentation/screen/user/bloc_follower/bloc.dart';
 import 'package:xplore/utils/imager.dart';
+import 'package:dio/dio.dart';
 
 class UserInformationWidget extends StatefulWidget {
   UserInformationWidget({Key? key, required this.user, required this.visualOnly})
@@ -22,16 +23,23 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
   XFile? image;
   final ImagePicker _picker = ImagePicker();
 
-  _getFromGallery() async {
-    image = await _picker.pickImage(source: ImageSource.gallery);
-    
-    // String base64Image = "";
-    /*
-    if (image != null) {
-      final bytes = File(image!.path).readAsBytesSync();
-      base64Image = "data:image/png;base64," + base64Encode(bytes);
-    }*/
+_getFromGallery() async {
+    XFile? img = await _picker.pickImage(source: ImageSource.gallery);
+    if (img != null)
+      setState(() {
+        image = img;
+      });
+
+    if(img?.path != null) {
+         FormData.fromMap({
+          "file": await MultipartFile.fromFile(
+            img!.path,
+            filename: img.name,
+          ),
+        });
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {

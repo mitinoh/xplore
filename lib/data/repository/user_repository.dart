@@ -6,6 +6,7 @@ import 'package:xplore/data/model/user_model.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:xplore/presentation/screen/user/bloc_saved_location/saved_location_event.dart';
 import 'package:xplore/presentation/screen/user/bloc_uploaded_location/uploaded_location_event.dart';
+import 'package:dio/dio.dart';
 
 class UserRepository {
   final dio = DioProvider.instance();
@@ -49,6 +50,12 @@ class UserRepository {
     final client = RestClient(await DioProvider.instance());
     return await client.createUser(userData);
   }
+
+  Future<dynamic> uploadUserImage(String name, FormData formData) async {
+    final client = RestClient(await dio);
+    return await client.uploadImage("user", name, formData);
+  }
+
 
   Future<bool> isUserNameAvaiable(String username) async {
     Mongoose mng =

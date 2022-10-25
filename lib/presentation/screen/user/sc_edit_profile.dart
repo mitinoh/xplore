@@ -184,15 +184,6 @@ class EditProfileScreen extends StatelessWidget {
     UserModel userData =
         UserModel(username: _usernameController.text, bio: _userBioController.text);
 
-    /*
-    String? base64Image;
-    if (image != null) {
-      final bytes = File(image!.path).readAsBytesSync();
-      base64Image = "data:image/png;base64," + base64Encode(bytes);
-      userData["base64"] = base64Image;
-    }
-    */
-
     if (newUser) {
       try {
         callback!(userData);

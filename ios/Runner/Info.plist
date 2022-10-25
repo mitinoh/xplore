@@ -56,7 +56,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Post videos to profile</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Upload images for screen background</string>
+	<string>Allow access to photo library</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

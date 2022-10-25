@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:xplore/data/model/user_model.dart';
+import 'package:dio/dio.dart';
 
 @immutable
 abstract class UserEvent extends Equatable {
@@ -29,4 +30,10 @@ class UpdateUserData extends UserEvent {
 class CreateNewUser extends UserEvent {
   final UserModel userData;
   const CreateNewUser({required this.userData});
+}
+
+
+class UploadNewImage extends UserEvent {
+  final FormData formData;
+  const UploadNewImage({required this.formData});
 }
