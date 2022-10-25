@@ -24,6 +24,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
 
   _getFromGallery() async {
     image = await _picker.pickImage(source: ImageSource.gallery);
+    
     // String base64Image = "";
     /*
     if (image != null) {

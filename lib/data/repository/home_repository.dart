@@ -4,6 +4,7 @@ import 'package:xplore/data/dio_provider.dart';
 import 'package:xplore/data/model/location_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:dio/dio.dart';
 
 class HomeRepository {
   final dio = DioProvider.instance();
@@ -21,6 +22,11 @@ class HomeRepository {
   Future<dynamic> createNewLocation(LocationModel location) async {
     final client = RestClient(await dio);
     return await client.createNewUserLocation(location);
+  }
+
+  Future<dynamic> uploadLocationImage(String name, FormData formData) async {
+    final client = RestClient(await dio);
+    return await client.uploadImage("newLocation", name, formData);
   }
 
   void navigateToLocation(double latitude, double longitude) async {
@@ -80,4 +86,6 @@ class HomeRepository {
         key: "zoom", operation: "=", value: (currentMapPosition.zoom ?? 10).toString()));
     return mng;
   }
+
+ 
 }

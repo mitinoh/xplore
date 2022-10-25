@@ -38,6 +38,9 @@ abstract class RestClient {
   @DioResponseType(ResponseType.plain)
   Future<dynamic> createNewUserLocation(@Body() LocationModel map);
 
+  @POST("/image/upload/{entity}/{id}")
+  Future<dynamic> uploadImage(@Path("entity") String? entity, @Path("id") String? id, @Body() dynamic map);
+
   @GET("/plan-trip?_={query}")
   @DioResponseType(ResponseType.json)
   Future<List<PlannerModel>> getPlannedTrip(@Path("query") String? query);
