@@ -48,7 +48,7 @@ dev_dependencies:
   image_picker: ^0.8.5+3
   geocoding: ^2.0.4
   geolocator: ^9.0.1
-  flutter_map: ^0.14.0
+  flutter_map: ^0.7.0 #0.14.0
 
 
 
