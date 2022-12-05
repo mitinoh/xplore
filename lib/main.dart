@@ -10,7 +10,7 @@ void main() {
   BlocOverrides.runZoned(
     () => runApp(AppConfig(
       appName: "xplore",
-      debugTag: true,
+      debugTag: false,
       flavorName: "dev",
       initialRoute: AppRouter.SPLASH,
       child: App.runWidget(),
