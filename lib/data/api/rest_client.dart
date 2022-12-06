@@ -8,9 +8,10 @@ import 'package:xplore/data/model/user_model.dart';
 
 part 'rest_client.g.dart';
 
-//@RestApi(baseUrl: "http://localhost:3000/api") //107.174.186.223.nip.io
-// flutter pub run build_runner build
+//when change baseUri, execute:  flutter pub run build_runner build
+//@RestApi(baseUrl: "http://localhost:3000/api")
 @RestApi(baseUrl: "https://107.174.186.223.nip.io/api")
+
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 

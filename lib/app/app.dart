@@ -152,14 +152,13 @@ class _AppState extends State<App> {
               ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
                 return ErrorScreen(errorDetails: errorDetails);
               };
-
+              // return Scaffold(body: Navbar());
               if (state is Uninitialized) {
                 return SplashScreen();
               } else if (state is Unauthenticated) {
                 return LoginScreen();
               } else if (state is Authenticated) {
                 return Scaffold(body: Navbar());
-                //   return HomeScreen();
               } else if (state is AuthenticatedNewUser) {
                 return EditProfileScreen(
                   userData: UserModel(),
