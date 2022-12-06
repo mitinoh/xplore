@@ -64,3 +64,7 @@ Plugin | Usage
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/mitinoh) 
 
 Thank you so much ❤️.
+
+## License
+
+This project is under MIT License. See [LICENSE](https://github.com/mitinoh/xplore/blob/main/LICENSE) for more details.
