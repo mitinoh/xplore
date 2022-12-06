@@ -32,8 +32,7 @@ This application aims to give a new experience to all those people who love trav
 Note:
 
 - You already need flutter installed on your device
-- This application uses a custom backend, if not avaiable download from this [repo](https://github.com/mitinoh/xplore-nj.git)
-, run and change in `lib/data/api/rest_client.dart` the `baseUrl`.
+- This application uses a custom backend, if not avaiable download from this [repo](https://github.com/mitinoh/xplore-nj.git), run and change in `lib/data/api/rest_client.dart` the `baseUrl`.
 - This application also use Firebase auth for user authentication, if not avaiable just remove comment on `lib/app/app.dart` `r.155`.
 
 Before run project, execute this commands:
